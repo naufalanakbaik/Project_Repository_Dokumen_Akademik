@@ -1,94 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Title -->
-    <title>Admin - {{ config('app.name', 'Academic Repository') }}</title>
+    <title>Admin - @yield('title')</title>
 
     <!-- Icon web browser -->
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
-    
+
     <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&display=swap"
+        rel="stylesheet">
+
+    {{-- Material icon --}}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
+
+    {{-- alpine.js dropdown sidebar --}}
+    <script src="https://unpkg.com/alpinejs" defer></script>
+
+    {{-- Style CSS Sidebar --}}
+    <style>
+        /* dropdown sidebar */
+        [x-cloak] {
+            display: none !important;
+        }
+
+        #sidebar {
+            transition: width 0.25s ease;
+        }
+
+        #sidebar.minimized {
+            overflow: visible;
+        }
+
+        /* sembunyikan text menu */
+        #sidebar.minimized .menu-text {
+            opacity: 0;
+            visibility: hidden;
+            width: 0;
+        }
+
+        /* sembunyikan submenu */
+        #sidebar.minimized .submenu {
+            display: none !important;
+        }
+
+        /* pusatkan icon saat minimize */
+        #sidebar.minimized a,
+        #sidebar.minimized .menu-item {
+            justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        /* icon tetap stabil */
+        #sidebar img,
+        #sidebar .material-icons {
+            flex-shrink: 0;
+        }
+
+        #sidebar a {
+            transition:
+                background-color .15s ease,
+                color .15s ease,
+                transform .12s ease;
+        }
+
+        /* hover effect lebih smooth */
+        #sidebar a:hover {
+            transform: translateX(2px);
+        }
+
+        /* saat minimized jangan geser */
+        #sidebar.minimized a:hover {
+            transform: none;
+        }
+
+        .submenu {
+            transition:
+                opacity .15s ease,
+                transform .15s ease;
+        }
+
+        .submenu.popover {
+            position: absolute !important;
+            left: 100% !important;
+            top: 0 !important;
+            margin-left: 10px !important;
+            width: 220px;
+            background: white;
+            border-radius: 10px;
+            padding: 8px;
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.06),
+                0 2px 6px rgba(0, 0, 0, 0.05);
+            z-index: 9999;
+            animation: sidebarPopover .15s ease;
+        }
+
+        @keyframes sidebarPopover {
+            from {
+                opacity: 0;
+                transform: translateX(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+
     @stack('styles')
 </head>
 
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-gray-200">
 
-    <div class="min-h-screen flex">
+    <!-- Container bar -->
+    <div class="flex h-screen">
+
         <!-- Sidebar -->
-        <aside class="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col">
-            <div class="p-6">
-                <h1 class="text-xl font-bold text-indigo-600">RepoDokumen <span class="text-xs font-normal text-slate-400">Admin</span></h1>
+        <aside id="sidebar"
+            class="fixed top-0 left-0 h-screen w-64 bg-white 
+            flex flex-col border-r border-gray-200 transition-all duration-300 overflow-hidden">
+
+            {{-- Side head admin -> Tombol minimize --}}
+            <div class="p-4 flex justify-center items-center bg-white border-b border-gray-200">
+                <span id="sidebar-title" class="text-base text-gray-800 font-sans font-medium">
+                    Halaman Admin
+                </span>
+                <button id="toggleSidebar" class="flex items-center justify-center w-10 h-10">
+                    <span id="toggleIcon"
+                        class="material-icons pt-1 text-gray-900 !text-[17px] hover:text-blue-700 transition">
+                        keyboard_arrow_left
+                    </span>
+                </button>
             </div>
-            
-            <nav class="flex-1 px-4 space-y-1">
-                <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('admin.dashboard') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
-                    Dashboard
-                </a>
 
-                <a href="{{ route('admin.documents.index') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('admin.documents.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
-                    Manajemen Dokumen
-                </a>
+            <nav class="flex-1 overflow-y-auto">
+                <ul class="space-y-2 p-5 font-[400] font-sans text-sm">
+                    <h4 class="text-xs font-semibold text-gray-800 uppercase mb-2">
+                        Fitur Admin
+                    </h4>
+                    <li>
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.dashboard') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            <img src="{{ asset('img/icon-sidebar/dashboardd.png') }}"
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.dashboard') ? 'brightness-0 invert' : '' }}">
+                            <span class="ml-2.5 menu-text">Dashboard</span>
+                        </a>
+                    </li>
 
-                <a href="{{ route('admin.monitoring') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('admin.monitoring') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
-                    Monitoring Aktivitas
-                </a>
+                    <li>
+                        <a href="{{ route('admin.users.index') }}"
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.users.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}"
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.users.*') ? 'brightness-0 invert' : '' }}">
+                            <span class="ml-2.5 menu-text">Validasi Dokumen</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.users.index') }}"
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.users.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            <img src="{{ asset('img/icon-sidebar/buku.png') }}"
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.users.*') ? 'brightness-0 invert' : '' }}">
+                            <span class="ml-2.5 menu-text">Monitoring Dokumen</span>
+                        </a>
+                    </li>
 
-                <a href="{{ route('admin.users.index') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('admin.users.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} 
-                rounded-lg transition-colors">
-                Manajemen User
-                </a>
+                    <h4 class="text-xs font-semibold text-gray-800 uppercase mb-2">
+                        Kelola Admin
+                    </h4>
+                    <li>
+                        <a href="{{ route('admin.documents.index') }}"
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.documents.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            <img src="{{ asset('img/icon-sidebar/journals.png') }}"
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.documents.*') ? 'brightness-0 invert' : '' }}">
+                            <span class="ml-2.5 menu-text">Kelola Dokumen</span>
+                        </a>
+                    </li>
 
-                <a href="{{ route('admin.categories.index') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('admin.categories.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} 
-                rounded-lg transition-colors">
-                Manajemen Kategori
-                </a>
+                    <li>
+                        <a href="{{ route('admin.categories.index') }}"
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.categories.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            <img src="{{ asset('img/icon-sidebar/kategori.png') }}"
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.categories.*') ? 'brightness-0 invert' : '' }}">
+                            <span class="ml-2.5 menu-text">Kelola Kategori</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.users.index') }}"
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.users.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            <img src="{{ asset('img/icon-sidebar/anggota.png') }}"
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.users.*') ? 'brightness-0 invert' : '' }}">
+                            <span class="ml-2.5 menu-text">Kelola Pengguna</span>
+                        </a>
+                    </li>
+
+
+                </ul>
             </nav>
 
-            <div class="p-4 border-t border-slate-100">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="w-full text-left px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                        Logout
-                    </button>
-                </form>
+            <!-- Footer Sidebar -->
+            <div class="bg-gray-50 border-t border-blue-200 p-4">
+                <p class="text-xs text-gray-700 justify-center text-center">
+                    <span class="font-medium text-gray-800">© {{ date('Y') }}</span> Repositori Dokumen Akademik.
+                </p>
+                {{-- <div class="flex justify-center gap-2">
+                    <div
+                        class="w-9 h-9 rounded-full bg-gray-200 border border-gray-400 flex items-center justify-center">
+                        <span class="material-icons text-gray-700 !text-[21px]">
+                            person
+                        </span>
+                    </div>
+
+                    <div class="menu-text">
+                        <p class="text-sm font-medium text-gray-800">
+                            {{ Auth::user()->name ?? 'Admin' }}
+                        </p>
+                        <p class="text-xs text-gray-500">
+                            Administrator
+                        </p>
+                    </div>
+                </div> --}}
             </div>
         </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 flex flex-col">
-            <header class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between">
-                <div class="md:hidden">
-                    <button class="p-2 text-slate-600">Menu</button>
-                </div>
-                <div class="hidden md:block">
-                    <h2 class="text-lg font-semibold text-slate-800">@yield('title', 'Admin Dashboard')</h2>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="text-right">
-                        <p class="text-sm font-medium text-slate-900">{{ auth()->user()->name }}</p>
-                        <p class="text-xs text-slate-500 capitalize">{{ auth()->user()->role }}</p>
+        <!-- Header & Dropdown menu -->
+        <div id="mainContent" class="flex-1 flex flex-col ml-64 transition-all duration-300">
+
+            <!-- Header logo kanan -->
+            <header class=" bg-white border-gray-500 shadow flex items-center justify-between p-4">
+
+                <!-- Header logo kiri -->
+                <div class="flex items-center gap-3">
+                    <img src="{{ asset('img/logo-img/logo-unsri.png') }}" alt="Logo Unsri"
+                        class="h-10 w-auto object-contain">
+
+                    <div class="flex flex-col text-gray-800 leading-tight">
+                        <h3 class="text-sm sm:text-base font-semibold">
+                            Fakultas Ilmu Komputer
+                        </h3>
+                        <h4 class="text-[11px] sm:text-xs text-gray-500">
+                            Program Studi Manajemen Informatika
+                        </h4>
                     </div>
                 </div>
+
+                {{-- Head Left --}}
+                <div class="flex items-center space-x-4 mr-2">
+
+                    {{-- Dropdown Menu --}}
+                    <div class="relative">
+                        <button id="profileBtn" class="flex items-center focus:outline-none">
+                            <img src="{{ asset('img/icon/profile-blue-icon.png') }}" alt="Profil"
+                                class="w-8 h-8 rounded-full border border-gray-300">
+                            <span class="ml-3 text-gray-800 font-normal text-sm">{{ Auth::user()->name }}</span>
+                            <span id="profileIcon"
+                                class="material-icons mt-0.5 ml-2 transform transition-transform duration-200 text-gray-700  menu-text !text-[19px]">arrow_drop_down</span>
+                        </button>
+
+                        {{-- Dropdown profil --}}
+                        <div id="profileDropdown"
+                            class="absolute right-0 mt-2 w-56 bg-white 
+                                border border-gray-200 rounded-lg shadow-sm hidden overflow-hidden z-50">
+                            <div class="px-4 py-3 border-b border-gray-200">
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-semibold text-gray-800">
+                                        Menu
+                                    </span>
+                                    {{-- Tanggal Hari Ini --}}
+                                    <span class="text-xs text-gray-500 mt-0.5">
+                                        {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {{-- Menu --}}
+                            <div class="py-1">
+                                {{-- Dokumen Masuk --}}
+                                {{-- @if (auth()->check() && auth()->user()->role === 'admin')
+                                    <a href="{{ route('admin.journals.index') }}"
+                                        class="flex items-center gap-3 px-5 py-2 text-sm text-gray-700 dark:text-gray-300 
+                                            hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                                        <img src="{{ asset('img/icon-dropdown/journals.png') }}"
+                                            class="w-5 h-5 object-contain dark:invert dark:brightness-200">
+                                        <span>Jurnal Masuk</span>
+                                    </a>
+                                @endif --}}
+
+                                {{-- Edit Profil --}}
+                                @if (Auth::check())
+                                    <a href="{{ route('admin.users.edit', Auth::id()) }}"
+                                        class="flex items-center gap-3 px-5 py-2 text-sm text-gray-700 hover:bg-gray-100
+                                            transition">
+                                        <img src="{{ asset('img/icon-dropdown/akun.png') }}"
+                                            class="w-5 h-5 object-contain">
+                                        <span>Edit Profil Saya</span>
+                                    </a>
+                                @endif
+
+                                {{-- Divider --}}
+                                <div class="border-t border-gray-200 my-1"></div>
+
+                                {{-- Fullscreen --}}
+                                <button id="fullscreenBtn"
+                                    class="w-full flex items-center gap-3 px-5 py-1.5 text-sm text-gray-700 
+                                        hover:bg-gray-100 transition text-left">
+                                    <span id="fullscreenIcon" class="material-icons !text-[20px] text-gray-800">
+                                        crop_free
+                                    </span>
+                                    <span id="fullscreenText">Fullscreen</span>
+                                </button>
+
+                                {{-- Dark Mode --}}
+                                {{-- <button id="darkModeBtn"
+                                    class="w-full flex items-center gap-3  py-1.5 px-5 text-sm text-gray-700 dark:text-gray-300 
+                                        hover:bg-gray-100 dark:hover:bg-gray-800 transition text-left">
+                                    <span id="darkModeIcon"
+                                        class="material-icons !text-[20px] text-gray-800 dark:text-gray-300">
+                                        dark_mode
+                                    </span>
+                                    <span id="darkModeText">Dark Mode</span>
+                                </button> --}}
+
+                                {{-- Divider --}}
+                                <div class="border-t border-gray-200 my-1"></div>
+
+                                {{-- Logout --}}
+                                @if (Auth::check())
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full flex items-center px-4 py-2.5 text-xs text-gray-700 hover:bg-red-50  transition justify-center">
+                                            <span class="material-icons mr-1 !text-[18px] text-red-600">logout</span>
+                                            <span
+                                                class="font-medium tracking-wide text-red-600 uppercase">Logout</span>
+                                        </button>
+                                    </form>
+                                @endif
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </header>
 
-            <!-- Page Content -->
-            <div class="p-8">
-                @if(session('success'))
+            <!-- Main Content -->
+            <main class="flex-1 p-4">
+                @if (session('success'))
                     <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg">
                         {{ session('success') }}
                     </div>
                 @endif
+                
+                <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-6 h-full">
+                    @yield('content')
+                </div>
+            </main>
 
-                @yield('content')
-            </div>
-        </main>
+        </div>
+
     </div>
+
+    {{-- Js dropdown dan fullscreen  --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            /* =========================
+                DROPDOWN PROFILE
+            ========================== */
+            const profileBtn = document.getElementById("profileBtn");
+            const profileDropdown = document.getElementById("profileDropdown");
+            const profileIcon = document.getElementById("profileIcon");
+
+            if (profileBtn && profileDropdown) {
+
+                const openDropdown = () => {
+                    profileDropdown.classList.remove("hidden");
+                    profileIcon?.classList.add("rotate-180");
+                };
+
+                const closeDropdown = () => {
+                    profileDropdown.classList.add("hidden");
+                    profileIcon?.classList.remove("rotate-180");
+                };
+
+                const toggleDropdown = () => {
+                    const isOpen = !profileDropdown.classList.contains("hidden");
+                    isOpen ? closeDropdown() : openDropdown();
+                };
+
+                // klik tombol
+                profileBtn.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    toggleDropdown();
+                });
+
+                // klik di luar
+                document.addEventListener("click", function(e) {
+                    if (!profileDropdown.contains(e.target) && !profileBtn.contains(e.target)) {
+                        closeDropdown();
+                    }
+                });
+
+                // tekan ESC
+                document.addEventListener("keydown", function(e) {
+                    if (e.key === "Escape") {
+                        closeDropdown();
+                    }
+                });
+            }
+
+            /* =========================
+                FULLSCREEN
+            ========================== */
+            const fullscreenBtn = document.getElementById("fullscreenBtn");
+            const fullscreenIcon = document.getElementById("fullscreenIcon");
+            const fullscreenText = document.getElementById("fullscreenText");
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener("click", function() {
+                    if (!document.fullscreenElement) {
+                        document.documentElement.requestFullscreen?.();
+                    } else {
+                        document.exitFullscreen?.();
+                    }
+                });
+            }
+
+            document.addEventListener("fullscreenchange", function() {
+                if (!fullscreenIcon || !fullscreenText) return;
+
+                if (document.fullscreenElement) {
+                    fullscreenIcon.textContent = "fullscreen_exit";
+                    fullscreenText.textContent = "Exit Fullscreen";
+                } else {
+                    fullscreenIcon.textContent = "crop_free";
+                    fullscreenText.textContent = "Fullscreen";
+                }
+            });
+
+        });
+    </script>
+
+    <!-- Script toogle minimize side bar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const toggleBtn = document.getElementById("toggleSidebar");
+            const sidebar = document.getElementById("sidebar");
+            const sidebarTitle = document.getElementById("sidebar-title");
+            const menuTexts = document.querySelectorAll(".menu-text");
+            const mainContent = document.getElementById("mainContent");
+            const toggleIcon = document.getElementById("toggleIcon");
+
+            if (!toggleBtn || !sidebar) return;
+
+            function setSidebar(minimized) {
+
+                if (minimized) {
+
+                    sidebar.classList.remove("w-64");
+                    sidebar.classList.add("w-20", "minimized");
+
+                    mainContent?.classList.remove("ml-64");
+                    mainContent?.classList.add("ml-20");
+
+                    sidebarTitle?.classList.add("hidden");
+
+                    menuTexts.forEach(text => {
+                        text.classList.add("hidden");
+                    });
+
+                    if (toggleIcon) {
+                        toggleIcon.innerText = "keyboard_arrow_right";
+                    }
+
+                    localStorage.setItem("sidebarMinimized", "1");
+
+                } else {
+
+                    sidebar.classList.remove("w-20", "minimized");
+                    sidebar.classList.add("w-64");
+
+                    mainContent?.classList.remove("ml-20");
+                    mainContent?.classList.add("ml-64");
+
+                    sidebarTitle?.classList.remove("hidden");
+
+                    menuTexts.forEach(text => {
+                        text.classList.remove("hidden");
+                    });
+
+                    if (toggleIcon) {
+                        toggleIcon.innerText = "keyboard_arrow_left";
+                    }
+
+                    localStorage.setItem("sidebarMinimized", "0");
+                }
+            }
+
+            const savedState = localStorage.getItem("sidebarMinimized") === "1";
+            setSidebar(savedState);
+
+            toggleBtn.addEventListener("click", () => {
+
+                const isMinimized = sidebar.classList.contains("minimized");
+                setSidebar(!isMinimized);
+            });
+        });
+    </script>
 
     @stack('scripts')
 
