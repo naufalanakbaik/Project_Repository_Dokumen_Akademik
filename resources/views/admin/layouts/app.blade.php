@@ -12,9 +12,14 @@
     <!-- Icon web browser -->
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
 
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&display=swap"
-        rel="stylesheet">
+    <!-- Google Fonts: Inter & Montserrat -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    {{-- /* Global Font Application */ --}}
+    <style>
+        
+    </style>
 
     {{-- Material icon --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
@@ -24,6 +29,11 @@
 
     {{-- Style CSS Sidebar --}}
     <style>
+        body,
+        * {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+
         /* dropdown sidebar */
         [x-cloak] {
             display: none !important;
@@ -118,7 +128,7 @@
     @stack('styles')
 </head>
 
-<body class="bg-gray-200">
+<body class="bg-gray-50">
 
     <!-- Container bar -->
     <div class="flex h-screen">
@@ -158,22 +168,14 @@
                     </li>
 
                     <li>
-                        <a href="{{ route('admin.users.index') }}"
-                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.users.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
-                            <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}"
-                                class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.users.*') ? 'brightness-0 invert' : '' }}">
+                        <a href="#" class="flex items-center py-[0.470rem] px-3 rounded-lg transition">
+                            <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}" class="w-5 h-5 object-contain">
                             <span class="ml-2.5 menu-text">Validasi Dokumen</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.users.index') }}"
-                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.users.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
-                            <img src="{{ asset('img/icon-sidebar/buku.png') }}"
-                                class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.users.*') ? 'brightness-0 invert' : '' }}">
+                        <a href="#" class="flex items-center py-[0.470rem] px-3 rounded-lg transition">
+                            <img src="{{ asset('img/icon-sidebar/buku.png') }}" class="w-5 h-5 object-contain">
                             <span class="ml-2.5 menu-text">Monitoring Dokumen</span>
                         </a>
                     </li>
@@ -213,8 +215,6 @@
                             <span class="ml-2.5 menu-text">Kelola Pengguna</span>
                         </a>
                     </li>
-
-
                 </ul>
             </nav>
 
@@ -223,23 +223,6 @@
                 <p class="text-xs text-gray-700 justify-center text-center">
                     <span class="font-medium text-gray-800">© {{ date('Y') }}</span> Repositori Dokumen Akademik.
                 </p>
-                {{-- <div class="flex justify-center gap-2">
-                    <div
-                        class="w-9 h-9 rounded-full bg-gray-200 border border-gray-400 flex items-center justify-center">
-                        <span class="material-icons text-gray-700 !text-[21px]">
-                            person
-                        </span>
-                    </div>
-
-                    <div class="menu-text">
-                        <p class="text-sm font-medium text-gray-800">
-                            {{ Auth::user()->name ?? 'Admin' }}
-                        </p>
-                        <p class="text-xs text-gray-500">
-                            Administrator
-                        </p>
-                    </div>
-                </div> --}}
             </div>
         </aside>
 
@@ -286,7 +269,7 @@
                                     <span class="text-sm font-semibold text-gray-800">
                                         Menu
                                     </span>
-                                    {{-- Tanggal Hari Ini --}}
+                                    {{-- Tanggal hari ini --}}
                                     <span class="text-xs text-gray-500 mt-0.5">
                                         {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
                                     </span>
@@ -374,8 +357,8 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                
-                <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-6 h-full">
+
+                <div class=" py-2.5 px-4 h-full">
                     @yield('content')
                 </div>
             </main>
