@@ -32,6 +32,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/documents/create', [DocumentController::class, 'create'])->name('documents.create');
             Route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
             Route::get('/documents/{id}/download', [DocumentController::class, 'download'])->name('documents.download');
+            Route::get('/documents/{id}/preview', [DocumentController::class, 'preview'])
+                ->name('documents.preview');
         });
 
     /*|------------------------------------------------------------------------|
@@ -47,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
             Route::get('/documents/{id}/download', [DocumentController::class, 'download'])->name('documents.download');
             Route::get('/monitoring', [DashboardController::class, 'index'])->name('monitoring');
+            Route::get('/documents/{id}/preview', [DocumentController::class, 'preview'])
+                ->name('documents.preview');
         });
 
     /*|------------------------------------------------------------------------|
@@ -60,6 +64,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
             Route::get('/documents/{id}/download', [DocumentController::class, 'download'])->name('documents.download');
             Route::get('/monitoring', [DashboardController::class, 'index'])->name('monitoring');
+            Route::get('/documents/{id}/preview', [DocumentController::class, 'preview'])
+                ->name('documents.preview');
         });
 
     /*|------------------------------------------------------------------------|
@@ -73,7 +79,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
             Route::get('/documents/{id}/download', [DocumentController::class, 'download'])->name('documents.download');
             Route::patch('/documents/{id}/status', [DocumentController::class, 'updateStatus'])->name('documents.updateStatus');
-            
+            Route::get('/documents/{id}/preview', [DocumentController::class, 'preview'])
+                ->name('documents.preview');
+
             // Users Management (Assuming it exists based on previous work)
             Route::resource('categories', CategoryController::class);
             Route::resource('users', UserController::class);

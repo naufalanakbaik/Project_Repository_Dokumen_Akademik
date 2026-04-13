@@ -120,6 +120,40 @@ class DocumentController extends Controller
     }
 
     /**
+     * Preview file dokumen.
+     */
+    public function preview($id)
+    {
+        $document = Document::findOrFail($id);
+
+        // (Opsional tapi penting) Validasi akses berdasarkan role
+        if (auth()->user()->role === 'mahasiswa') {
+            if ($document->status !== 'approved' && $document->user_id !== auth()->id()) {
+                abort(403);
+            }
+        }
+
+        if (auth()->user()->role === 'dosen') {
+            if ($document->status !== 'approved') {
+                abort(403);
+            }
+        }
+
+        // Catat aktivitas preview
+        DocumentLog::create([
+            'user_id' => auth()->id(),
+            'document_id' => $document->id,
+            'action' => 'preview',
+        ]);
+
+        // Ambil path file
+        $path = storage_path('app/public/' . $document->file);
+
+        // Return file (preview di browser)
+        return response()->file($path);
+    }
+
+    /**
      * Mengunduh file dokumen.
      */
     public function download($id)

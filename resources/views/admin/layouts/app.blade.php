@@ -14,11 +14,12 @@
 
     <!-- Google Fonts: Inter & Montserrat -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600&display=swap"
+        rel="stylesheet">
 
     {{-- /* Global Font Application */ --}}
     <style>
-        
+
     </style>
 
     {{-- Material icon --}}
@@ -90,6 +91,18 @@
             transform: none;
         }
 
+        #sidebar.minimized .sidebar-heading .full-text {
+            display: none;
+        }
+
+        #sidebar.minimized .sidebar-heading .short-text {
+            display: inline;
+        }
+
+        .sidebar-heading span {
+            transition: all 0.2s ease;
+        }
+
         .submenu {
             transition:
                 opacity .15s ease,
@@ -153,14 +166,16 @@
 
             <nav class="flex-1 overflow-y-auto">
                 <ul class="space-y-2 p-5 font-[400] font-sans text-sm">
-                    <h4 class="text-xs font-semibold text-gray-800 uppercase mb-2">
-                        Fitur Admin
+                    <h4 class="sidebar-heading text-xs font-semibold text-gray-800 uppercase mb-2">
+                        <span class="full-text">Fitur Admin</span>
+                        <span class="short-text hidden">Fitur</span>
                     </h4>
+
                     <li>
                         <a href="{{ route('admin.dashboard') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
                             {{ request()->routeIs('admin.dashboard') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
-                            <img src="{{ asset('img/icon-sidebar/dashboardd.png') }}"
+                            <img src="{{ asset('img/icon-sidebar/dashboard.png') }}"
                                 class="w-5 h-5 object-contain
                             {{ request()->routeIs('admin.dashboard') ? 'brightness-0 invert' : '' }}">
                             <span class="ml-2.5 menu-text">Dashboard</span>
@@ -180,9 +195,11 @@
                         </a>
                     </li>
 
-                    <h4 class="text-xs font-semibold text-gray-800 uppercase mb-2">
-                        Kelola Admin
+                    <h4 class="sidebar-heading text-xs font-semibold text-gray-800 uppercase mb-2">
+                        <span class="full-text">Kelola Admin</span>
+                        <span class="short-text hidden">Kelola</span>
                     </h4>
+
                     <li>
                         <a href="{{ route('admin.documents.index') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
@@ -220,8 +237,9 @@
 
             <!-- Footer Sidebar -->
             <div class="bg-gray-50 border-t border-blue-200 p-4">
-                <p class="text-xs text-gray-700 justify-center text-center">
-                    <span class="font-medium text-gray-800">© {{ date('Y') }}</span> Repositori Dokumen Akademik.
+                <p class="sidebar-heading text-xs text-gray-700 justify-center text-center">
+                    <span class="full-text font-medium text-gray-700">© {{ date('Y') }} Repositori Dokumen Akademik.</span> 
+                    <span class="short-text hidden font-medium text-gray-800">© {{ date('Y') }}</span>
                 </p>
             </div>
         </aside>
