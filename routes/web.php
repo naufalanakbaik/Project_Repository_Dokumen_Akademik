@@ -76,11 +76,11 @@ Route::middleware(['auth'])->group(function () {
         ->name('admin.')
         ->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+            Route::get('/monitoring-pengguna', [DashboardController::class, 'monitoringPengguna'])->name('dashboard.monitoring-pengguna');
             Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
             Route::get('/documents/{id}/download', [DocumentController::class, 'download'])->name('documents.download');
             Route::patch('/documents/{id}/status', [DocumentController::class, 'updateStatus'])->name('documents.updateStatus');
-            Route::get('/documents/{id}/preview', [DocumentController::class, 'preview'])
-                ->name('documents.preview');
+            Route::get('/documents/{id}/preview', [DocumentController::class, 'preview'])->name('documents.preview');
 
             // Users Management (Assuming it exists based on previous work)
             Route::resource('categories', CategoryController::class);

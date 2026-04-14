@@ -17,7 +17,7 @@
 
         <div class="flex items-center gap-3 w-full md:w-auto">
 
-            {{-- Search role -> All --}}
+            {{-- Search : role -> All --}}
             <form action="{{ route(auth()->user()->role . '.documents.index') }}" method="GET" class="flex w-full md:w-80">
                 <div class="relative flex-1">
                     <input type="text" name="search" placeholder="Cari nama dokumen..." value="{{ request('search') }}"
@@ -32,13 +32,13 @@
                 <button type="submit"
                     class="px-3 py-2 bg-blue-700 text-white text-sm rounded-r-lg 
                     hover:bg-blue-800 transition flex items-center gap-1">
-                    <span class="material-icons !text-[19px]">search</span>
+                    <span class="material-icons pt-0.5 !text-[19px]">search</span>
                 </button>
             </form>
         </div>
     </div>
 
-    {{-- Unggah document role -> Mahasiswa / Admin --}}
+    {{-- Unggah document : role -> Mahasiswa / Admin --}}
     @if (in_array(auth()->user()->role, ['mahasiswa', 'dosen']))
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <div>
@@ -61,7 +61,7 @@
         </div>
     @endif
 
-    {{-- Tabel dokumen -> role -> All --}}
+    {{-- Tabel dokumen : role -> All --}}
     <div class="bg-white border border-[#b6c1c9] rounded-md shadow-md overflow-hidden">
         <table class="w-full">
             <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9]">
@@ -116,7 +116,7 @@
                         {{-- Status --}}
                         <td class="px-6 py-3">
                             <span
-                                class="px-3 py-1.5 text-xs font-medium rounded-xl 
+                                class="px-3 py-1.5 text-xs font-medium rounded-2xl 
                                 {{ $doc->status == 'approved' ? 'bg-green-50 border border-green-300 text-green-700' : '' }}
                                 {{ $doc->status == 'pending' ? 'bg-yellow-50 border border-yellow-300  text-yellow-700' : '' }}
                                 {{ $doc->status == 'rejected' ? 'bg-red-50 border border-red-300 text-red-700' : '' }}">
@@ -143,7 +143,7 @@
                                     Unduh
                                 </a>
 
-                                {{-- Action button role -> Admin --}}
+                                {{-- Action button : role -> Admin --}}
                                 @if (auth()->user()->role === 'admin' && $doc->status === 'pending')
                                     {{-- Approved --}}
                                     <form action="{{ route('admin.documents.updateStatus', $doc->id) }}" method="POST">

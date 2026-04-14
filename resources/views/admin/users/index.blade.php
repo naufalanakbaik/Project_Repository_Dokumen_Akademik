@@ -85,9 +85,9 @@
                         {{-- Role --}}
                         @php
                             $roleStyles = [
-                                'admin' => 'bg-green-50 text-green-700 border border-green-300',
-                                'mahasiswa' => 'bg-red-50 text-red-700 border border-red-300',
-                                'dosen' => 'bg-blue-50 text-blue-700 border border-blue-300',
+                                'admin' => 'bg-red-50 text-red-700 border border-red-300',
+                                'dosen' => 'bg-green-50 text-green-700 border border-green-300',
+                                'mahasiswa' => 'bg-blue-50 text-blue-700 border border-blue-300',
                                 // 'kaprodi' => 'bg-yellow-100 text-yellow-700',
                             ];
                             $style =

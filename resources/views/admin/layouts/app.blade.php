@@ -13,9 +13,7 @@
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
 
     <!-- Google Fonts: Inter & Montserrat -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     {{-- /* Global Font Application */ --}}
     <style>
@@ -192,6 +190,17 @@
                         <a href="#" class="flex items-center py-[0.470rem] px-3 rounded-lg transition">
                             <img src="{{ asset('img/icon-sidebar/buku.png') }}" class="w-5 h-5 object-contain">
                             <span class="ml-2.5 menu-text">Monitoring Dokumen</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.dashboard.monitoring-pengguna') }}"
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.dashboard.monitoring-pengguna') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            <img src="{{ asset('img/icon-sidebar/penerbit.png') }}"
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.dashboard.monitoring-pengguna') ? 'brightness-0 invert' : '' }}">
+                            <span class="ml-2.5 menu-text">Monitoring Pengguna</span>
                         </a>
                     </li>
 

@@ -64,7 +64,7 @@
 
                         {{-- Aksi --}}
                         <td class="px-6 py-3">
-                            <div class="flex text-[12.5px] gap-4 h-full">
+                            <div class="flex text-[12.5px] gap-6 h-full">
                                 {{-- Detail --}}
                                 <a href="{{ route('admin.categories.show', $category->id) }}"
                                     class="text-[#292929] hover:-translate-y-0.5 hover:text-gray-800 font-medium transition">
