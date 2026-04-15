@@ -110,12 +110,12 @@
                             <div class="flex text-[12.5px] gap-4 h-full">
                                 {{-- Detail --}}
                                 <a href="{{ route('admin.users.show', $user->id) }}"
-                                    class="text-[#292929] hover:-translate-y-0.5 hover:text-gray-800 font-medium transition">
+                                    class="text-[#3f3f3f] hover:-translate-y-0.5 hover:text-gray-800 font-medium transition">
                                     Lihat
                                 </a>
                                 {{-- Edit --}}
                                 <a href="{{ route('admin.users.edit', $user->id) }}"
-                                    class="text-[#292929] hover:-translate-y-0.5 hover:text-gray-800 font-medium transition">
+                                    class="text-[#3f3f3f] hover:-translate-y-0.5 hover:text-gray-800 font-medium transition">
                                     Edit
                                 </a>
                                 {{-- Hapus --}}
@@ -123,7 +123,7 @@
                                     onsubmit="return confirm('Yakin ingin hapus pengguna ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-[#292929] hover:-translate-y-0.5 hover:text-gray-800 font-medium transition">
+                                    <button type="submit" class="text-[#3f3f3f] hover:-translate-y-0.5 hover:text-gray-800 font-medium transition">
                                         Hapus
                                     </button>
                                 </form>

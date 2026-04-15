@@ -9,11 +9,16 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+// use App\Models\Category;
+// use App\Models\Document;
+// use App\Models\DocumentLog;
+// use App\Models\User;
+// use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 class DashboardController extends Controller
 {
-    /**
-     * Menampilkan dashboard statistik.
-     */
+
     // public function index()
     // {
     //     // Statistik Dasar
@@ -46,6 +51,9 @@ class DashboardController extends Controller
     //     return view($view, compact('stats', 'categoryDistribution', 'recentActivities'));
     // }
 
+    /**
+     * Menampilkan dashboard statistik.
+     */
     public function index()
     {
         $user = auth()->user();
@@ -65,13 +73,13 @@ class DashboardController extends Controller
         // ======================
         if ($user->role === 'mahasiswa') {
             $stats['my_documents'] = Document::where('user_id', $user->id)->count();
-            $stats['approved']     = Document::where('user_id', $user->id)
+            $stats['approved'] = Document::where('user_id', $user->id)
                 ->where('status', 'approved')
                 ->count();
         }
 
         // ======================
-        // Distribusi Kategori
+        // Distribusi Kategori Umum
         // ======================
         $categoryDistribution = Category::withCount('documents')
             ->orderByDesc('documents_count')
@@ -85,6 +93,90 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
+        // =====================================================
+        // DATA KHUSUS ADMIN UNTUK CHART.JS
+        // =====================================================
+        // Tahun sekarang dan tahun sebelumnya
+        $currentYear = Carbon::now()->year;
+        $lastYear = $currentYear - 1;
+
+        // -----------------------------------------------------
+        // 1. Upload Dokumen per Bulan (Tahun Ini vs Tahun Lalu)
+        // -----------------------------------------------------
+        $uploadsThisYear = Document::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('COUNT(*) as total')
+        )
+            ->whereYear('created_at', $currentYear)
+            ->groupBy('month')
+            ->pluck('total', 'month');
+
+        $uploadsLastYear = Document::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('COUNT(*) as total')
+        )
+            ->whereYear('created_at', $lastYear)
+            ->groupBy('month')
+            ->pluck('total', 'month');
+
+        // Pastikan selalu ada 12 bulan agar chart tidak rusak
+        $monthlyUploads = [
+            'this_year' => [],
+            'last_year' => [],
+        ];
+
+        for ($i = 1; $i <= 12; $i++) {
+            $monthlyUploads['this_year'][] = $uploadsThisYear[$i] ?? 0;
+            $monthlyUploads['last_year'][] = $uploadsLastYear[$i] ?? 0;
+        }
+
+        // -----------------------------------------------------
+        // 2. Status Dokumen (Approved, Pending, Rejected, Archived)
+        // -----------------------------------------------------
+
+        // Gunakan array default agar urutan selalu konsisten
+        $documentStatus = [
+            'approved' => 0,
+            'pending' => 0,
+            'rejected' => 0,
+            // 'archived' => 0,
+        ];
+
+        $statusResult = Document::select('status', DB::raw('COUNT(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status');
+
+        foreach ($statusResult as $status => $total) {
+            if (array_key_exists($status, $documentStatus)) {
+                $documentStatus[$status] = $total;
+            }
+        }
+
+        // -----------------------------------------------------
+        // 3. Distribusi Dokumen per Kategori
+        // -----------------------------------------------------
+        $categoryChart = Category::withCount('documents')
+            ->orderByDesc('documents_count')
+            ->pluck('documents_count', 'name');
+
+        // -----------------------------------------------------
+        // 4. Tren Download per Bulan
+        // -----------------------------------------------------
+        $downloadResult = DocumentLog::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('COUNT(*) as total')
+        )
+            ->where('action', 'download')
+            ->whereYear('created_at', $currentYear)
+            ->groupBy('month')
+            ->pluck('total', 'month');
+
+        $monthlyDownloads = [];
+
+        for ($i = 1; $i <= 12; $i++) {
+            $monthlyDownloads[] = $downloadResult[$i] ?? 0;
+        }
+
         // ======================
         // View berdasarkan role
         // ======================
@@ -92,7 +184,11 @@ class DashboardController extends Controller
             return view('admin.dashboard.index', compact(
                 'stats',
                 'categoryDistribution',
-                'recentActivities'
+                'recentActivities',
+                'monthlyUploads',
+                'documentStatus',
+                'categoryChart',
+                'monthlyDownloads'
             ));
         }
 
@@ -112,7 +208,15 @@ class DashboardController extends Controller
             ));
         }
 
-        abort(403); // fallback keamanan
+        if ($user->role === 'kaprodi') {
+            return view('kaprodi.dashboard.index', compact(
+                'stats',
+                'categoryDistribution',
+                'recentActivities'
+            ));
+        }
+
+        abort(403);
     }
 
     public function monitoringPengguna()
