@@ -151,12 +151,12 @@
 
             {{-- Side head admin -> Tombol minimize --}}
             <div class="p-4 flex justify-center items-center bg-white border-b border-gray-200">
-                <span id="sidebar-title" class="text-base text-gray-800 font-sans font-medium">
+                <span id="sidebar-title" class="text-sm text-gray-800 font-sans font-medium uppercase tracking-wide">
                     Halaman Admin
                 </span>
                 <button id="toggleSidebar" class="flex items-center justify-center w-10 h-10">
                     <span id="toggleIcon"
-                        class="material-icons pt-1 text-gray-900 !text-[17px] hover:text-blue-700 transition">
+                        class="material-icons pt-0.5 text-gray-900 !text-[17px] hover:text-blue-700 transition">
                         keyboard_arrow_left
                     </span>
                 </button>
@@ -247,7 +247,8 @@
             <!-- Footer Sidebar -->
             <div class="bg-gray-50 border-t border-blue-200 p-4">
                 <p class="sidebar-heading text-xs text-gray-700 justify-center text-center">
-                    <span class="full-text font-medium text-gray-700">© {{ date('Y') }} Repositori Dokumen Akademik.</span> 
+                    <span class="full-text font-medium text-gray-700">© {{ date('Y') }} Repositori Dokumen
+                        Akademik.</span>
                     <span class="short-text hidden font-medium text-gray-800">© {{ date('Y') }}</span>
                 </p>
             </div>
@@ -287,7 +288,73 @@
                                 class="material-icons mt-0.5 ml-2 transform transition-transform duration-200 text-gray-700  menu-text !text-[19px]">arrow_drop_down</span>
                         </button>
 
-                        {{-- Dropdown profil --}}
+                        {{-- Isi dropdown menu --}}
+                        <div id="profileDropdown"
+                            class="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg 
+                            shadow-sm hidden overflow-hidden z-50">
+
+                            <!-- Header -->
+                            <div class="px-4 py-3 border-b border-gray-200">
+                                <p class="text-[11px] text-gray-500 mb-0.5">Signed in as</p>
+
+
+                                <p class="text-sm font-semibold text-gray-900 truncate">
+                                    {{ Auth::user()->name }}
+                                </p>
+
+                                <p class="text-xs text-gray-500 truncate">
+                                    {{ Auth::user()->email }}
+                                </p>
+
+                                <p class="text-[11px] text-gray-500 mt-2">
+                                    {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
+                                </p>
+                            </div>
+
+                            <!-- Body -->
+                            <div class="py-1 text-sm text-gray-700">
+
+                                {{-- Edit Profile --}}
+                                <a href="{{ route('admin.users.edit', Auth::id()) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 transition">
+                                    Edit profile
+                                </a>
+
+                                <a href="{{ route('admin.users.edit', Auth::id()) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 transition">
+                                    Dokumen masuk
+                                </a>
+
+                                <a href="{{ route('admin.users.edit', Auth::id()) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 transition">
+                                    Pesan masuk
+                                </a>
+
+                                <!-- Divider -->
+                                <div class="border-t border-gray-200 my-1"></div>
+
+                                {{-- Fullscreen --}}
+                                <button id="fullscreenBtn"
+                                    class="w-full text-left px-4 py-2 hover:bg-gray-100 transition">
+                                    <span id="fullscreenText">Fullscreen</span>
+                                </button>
+
+                                <!-- Divider -->
+                                <div class="border-t border-gray-200 my-1"></div>
+
+                                <!-- LOGOUT -->
+                                <form action="{{ route('logout') }}" method="post">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition">
+                                        Logout / Keluar
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+
+                        {{-- Isi dropdown menu --}}
                         <div id="profileDropdown"
                             class="absolute right-0 mt-2 w-56 bg-white 
                                 border border-gray-200 rounded-lg shadow-sm hidden overflow-hidden z-50">

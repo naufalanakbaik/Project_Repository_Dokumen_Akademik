@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Document;
 use App\Models\User;
 use App\Models\DocumentLog;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-// use App\Models\Category;
-// use App\Models\Document;
-// use App\Models\DocumentLog;
-// use App\Models\User;
-// use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -58,9 +52,9 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        // ======================
+        // -----------------------------------------------------
         // Statistik Global
-        // ======================
+        // -----------------------------------------------------
         $stats = [
             'total_documents'   => Document::count(),
             'total_users'       => User::count(),
@@ -68,9 +62,9 @@ class DashboardController extends Controller
             'total_downloads'   => DocumentLog::where('action', 'download')->count(),
         ];
 
-        // ======================
+        // -----------------------------------------------------
         // Khusus Mahasiswa
-        // ======================
+        // -----------------------------------------------------
         if ($user->role === 'mahasiswa') {
             $stats['my_documents'] = Document::where('user_id', $user->id)->count();
             $stats['approved'] = Document::where('user_id', $user->id)
@@ -78,24 +72,30 @@ class DashboardController extends Controller
                 ->count();
         }
 
-        // ======================
+        // -----------------------------------------------------
         // Distribusi Kategori Umum
-        // ======================
+        // -----------------------------------------------------
         $categoryDistribution = Category::withCount('documents')
             ->orderByDesc('documents_count')
             ->get();
 
-        // ======================
-        // Aktivitas Terbaru
-        // ======================
+        // -----------------------------------------------------
+        // Table total download dokumen
+        // -----------------------------------------------------
+        $latestDocuments = \App\Models\Document::latest()->take(7)->get();
+
+
+        // -----------------------------------------------------
+        // Table Aktivitas Terbaru
+        // -----------------------------------------------------
         $recentActivities = DocumentLog::with(['user', 'document'])
             ->latest()
-            ->limit(10)
+            ->limit(5)
             ->get();
 
-        // =====================================================
+        // -----------------------------------------------------
         // DATA KHUSUS ADMIN UNTUK CHART.JS
-        // =====================================================
+        // -----------------------------------------------------
         // Tahun sekarang dan tahun sebelumnya
         $currentYear = Carbon::now()->year;
         $lastYear = $currentYear - 1;
@@ -130,10 +130,9 @@ class DashboardController extends Controller
             $monthlyUploads['last_year'][] = $uploadsLastYear[$i] ?? 0;
         }
 
-        // -----------------------------------------------------
+        // ---------------------------------------------------------
         // 2. Status Dokumen (Approved, Pending, Rejected, Archived)
-        // -----------------------------------------------------
-
+        // ---------------------------------------------------------
         // Gunakan array default agar urutan selalu konsisten
         $documentStatus = [
             'approved' => 0,
@@ -177,21 +176,65 @@ class DashboardController extends Controller
             $monthlyDownloads[] = $downloadResult[$i] ?? 0;
         }
 
-        // ======================
+        // -----------------------------------------------------
+        // Total Upload dokumen
+        // -----------------------------------------------------
+        $totalUploads = DocumentLog::where('action', 'upload')->count();
+
+        // Uplaod bulan ini
+        $monthUploads = DocumentLog::where('action', 'upload')
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+
+        // Rata rata upload per bulan (12 bulan terakhir)
+        $avgUploads = round(
+            DocumentLog::where('action', 'upload')
+                ->whereYear('created_at', now()->year)
+                ->count() / 12
+        );
+
+        // -----------------------------------------------------
+        // Total download dokumen
+        // -----------------------------------------------------
+        $totalDownloads = DocumentLog::where('action', 'download')->count();
+
+        // Dwonload bulan ini
+        $monthDownloads = DocumentLog::where('action', 'download')
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+
+        // Rata rata (average)
+        $yearDownloads = DocumentLog::where('action', 'download')
+            ->whereYear('created_at', now()->year)
+            ->count();
+        $avgDownloads = $yearDownloads > 0 ? round($yearDownloads / 12) : 0;
+
+        // -----------------------------------------------------
         // View berdasarkan role
-        // ======================
+        // -----------------------------------------------------
+        // Return halaman role -> Admin
         if ($user->role === 'admin') {
             return view('admin.dashboard.index', compact(
                 'stats',
                 'categoryDistribution',
                 'recentActivities',
+                'latestDocuments',
                 'monthlyUploads',
                 'documentStatus',
                 'categoryChart',
-                'monthlyDownloads'
+                'monthlyDownloads',
+                'totalUploads',
+                'monthUploads',
+                'avgUploads',
+                'totalDownloads',
+                'monthDownloads',
+                'avgDownloads',
             ));
         }
 
+        // Return halaman role -> Dosen
         if ($user->role === 'dosen') {
             return view('dosen.dashboard.index', compact(
                 'stats',
@@ -200,6 +243,7 @@ class DashboardController extends Controller
             ));
         }
 
+        // Return halaman role -> Mahasiswa
         if ($user->role === 'mahasiswa') {
             return view('mahasiswa.dashboard.index', compact(
                 'stats',
@@ -208,6 +252,7 @@ class DashboardController extends Controller
             ));
         }
 
+        // Return halaman role -> Kaprodi
         if ($user->role === 'kaprodi') {
             return view('kaprodi.dashboard.index', compact(
                 'stats',

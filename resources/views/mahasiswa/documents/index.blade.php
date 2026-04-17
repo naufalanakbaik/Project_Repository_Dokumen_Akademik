@@ -62,109 +62,111 @@
     @endif
 
     {{-- Tabel dokumen : role -> All --}}
-    <div class="bg-white border border-[#b6c1c9] rounded-md shadow-md overflow-hidden">
-        <table class="w-full">
-            <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9]">
+    <div class="bg-white border border-[#b6c1c9] rounded-md shadow-sm overflow-hidden">
+
+        <table class="w-full table-fixed">
+            <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-700 border-b border-[#b6c1c9]">
                 <tr>
-                    <th class="px-4 py-3 font-medium text-center">No</th>
-                    <th class="px-6 py-3 font-medium text-left">Dokumen</th>
-                    <th class="px-6 py-3 font-medium text-left">Kategori</th>
-                    <th class="px-6 py-3 font-medium text-left">Pengunggah</th>
-                    <th class="px-6 py-3 font-medium text-left">Status</th>
-                    <th class="px-6 py-3 font-medium text-left">Aksi</th>
+                    <th class="w-12 px-3 py-3 font-medium text-center">No</th>
+                    <th class="w-[30%] px-4 py-3 font-medium text-left">Dokumen</th>
+                    <th class="w-[20%] px-4 py-3 font-medium text-left">Kategori</th>
+                    <th class="w-[20%] px-4 py-3 font-medium text-left">Pengunggah</th>
+                    <th class="w-[15%] px-4 py-3 font-medium text-left">Status</th>
+                    <th class="w-[15%] px-4 py-3 font-medium text-left">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="divide-y text-[13px] divide-gray-200">
+
+            <tbody class="divide-y divide-gray-200 text-[13px]">
                 @forelse($documents as $doc)
                     <tr class="hover:bg-gray-50 transition">
-                        {{-- Nomor --}}
-                        <td class="px-4 py-2 text-center text-gray-500">
+
+                        {{-- No --}}
+                        <td class="px-3 py-3 text-center text-gray-500">
                             {{ $loop->iteration }}
                         </td>
 
                         {{-- Dokumen --}}
-                        <td class="px-6 py-3">
-                            <div class="flex items-center gap-3">
-                                <span class="material-icons text-red-600 !text-[25px]">
+                        <td class="px-4 py-3">
+                            <div class="flex items-start gap-3">
+
+                                <span class="material-icons text-red-500 !text-[22px] mt-[2px]">
                                     description
                                 </span>
+
                                 <div class="min-w-0">
-                                    <p class="font-medium text-[13px] text-gray-800 truncate">
+                                    <p class="font-medium text-gray-800 truncate">
                                         {{ $doc->title }}
                                     </p>
-                                    <p class="text-[11px] text-gray-500">
+                                    <p class="text-[11px] text-gray-400 mt-0.5">
                                         {{ $doc->created_at->format('d M Y') }}
                                     </p>
                                 </div>
+
                             </div>
                         </td>
 
                         {{-- Kategori --}}
-                        <td class="px-6 py-3">
-                            <p class="font-normal text-gray-900 truncate max-w-[420px]">
-                                {{ $doc->category->name }}
+                        <td class="px-4 py-3">
+                            <p class="truncate text-gray-700">
+                                {{ $doc->category->name ?? '-' }}
                             </p>
                         </td>
 
-                        {{-- Penggungah --}}
-                        <td class="px-6 py-3">
-                            <p class="font-normal text-gray-900 truncate max-w-[420px]">
-                                {{ $doc->user->name }}
+                        {{-- Pengunggah --}}
+                        <td class="px-4 py-3">
+                            <p class="truncate text-gray-700">
+                                {{ $doc->user->name ?? '-' }}
                             </p>
                         </td>
 
                         {{-- Status --}}
-                        <td class="px-6 py-3">
+                        <td class="px-4 py-3">
                             <span
-                                class="px-3 py-1.5 text-xs font-medium rounded-2xl 
-                                {{ $doc->status == 'approved' ? 'bg-green-50 border border-green-300 text-green-700' : '' }}
-                                {{ $doc->status == 'pending' ? 'bg-yellow-50 border border-yellow-300  text-yellow-700' : '' }}
-                                {{ $doc->status == 'rejected' ? 'bg-red-50 border border-red-300 text-red-700' : '' }}">
+                                class="inline-block px-2.5 py-1 text-xs font-medium rounded-xl
+                            {{ $doc->status == 'approved' ? 'bg-green-50 border border-green-200 text-green-700' : '' }}
+                            {{ $doc->status == 'pending' ? 'bg-yellow-50 border border-yellow-200 text-yellow-700' : '' }}
+                            {{ $doc->status == 'rejected' ? 'bg-red-50 border border-red-200 text-red-700' : '' }}">
                                 {{ ucfirst($doc->status) }}
                             </span>
                         </td>
 
-                        {{-- Action button --}}
-                        <td class="px-6 py-3">
-                            <div class="flex gap-2 flex-wrap">
+                        {{-- Action --}}
+                        <td class="px-4 py-3">
+                            <div class="flex flex-wrap gap-1.5">
 
-                                {{-- Lihat pdf --}}
+                                {{-- Lihat --}}
                                 <a href="{{ route(auth()->user()->role . '.documents.preview', $doc->id) }}"
                                     target="_blank"
-                                    class="px-3 py-1.5 text-xs font-medium text-gray-700 border border-gray-300 rounded-md 
-                                    hover:bg-gray-100 transition">
+                                    class="px-2.5 py-1 text-xs text-gray-700 border border-gray-300 rounded 
+                                hover:bg-gray-100 transition">
                                     Lihat
                                 </a>
 
                                 {{-- Download --}}
                                 <a href="{{ route(auth()->user()->role . '.documents.download', $doc->id) }}"
-                                    class="px-3 py-1.5 text-xs font-medium text-indigo-700 border border-indigo-200 rounded-md 
-                                    hover:bg-indigo-50 transition">
+                                    class="px-2.5 py-1 text-xs text-indigo-700 border border-indigo-200 rounded 
+                                hover:bg-indigo-50 transition">
                                     Unduh
                                 </a>
 
                                 {{-- Action button : role -> Admin --}}
                                 @if (auth()->user()->role === 'admin' && $doc->status === 'pending')
-                                    {{-- Approved --}}
                                     <form action="{{ route('admin.documents.updateStatus', $doc->id) }}" method="POST">
                                         @csrf @method('PATCH')
                                         <input type="hidden" name="status" value="approved">
-
                                         <button type="submit"
-                                            class="px-3 py-1.5 text-xs font-medium text-green-700 border border-green-200 rounded-md 
-                                            hover:bg-green-50 transition">
+                                            class="px-2.5 py-1 text-xs text-green-700 border border-green-200 rounded 
+                                        hover:bg-green-50 transition">
                                             Setujui
                                         </button>
                                     </form>
 
-                                    {{-- Rejected --}}
                                     <form action="{{ route('admin.documents.updateStatus', $doc->id) }}" method="POST">
                                         @csrf @method('PATCH')
                                         <input type="hidden" name="status" value="rejected">
-
                                         <button type="submit"
-                                            class="px-3 py-1.5 text-xs font-medium text-red-700 border border-red-200 rounded-md 
-                                            hover:bg-red-50 transition">
+                                            class="px-2.5 py-1 text-xs text-red-700 border border-red-200 rounded 
+                                        hover:bg-red-50 transition">
                                             Tolak
                                         </button>
                                     </form>
@@ -172,21 +174,22 @@
 
                             </div>
                         </td>
-
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-12 text-[12px] text-center text-gray-500">Tidak ada dokumen
-                            ditemukan.</td>
+                        <td colspan="6" class="px-6 py-12 text-center text-gray-400 text-sm">
+                            Tidak ada dokumen ditemukan
+                        </td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
 
-        {{-- Paginate --}}
-        <div class="px-6 py-4 bg-gray-50 border-t border-gray-300">
+        {{-- Pagination --}}
+        <div class="px-6 py-3 bg-gray-50 border-t border-gray-200">
             {{ $documents->links() }}
         </div>
     </div>
+
 
 @endsection

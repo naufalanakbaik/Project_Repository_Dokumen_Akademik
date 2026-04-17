@@ -77,6 +77,124 @@
         </div>
     </div>
 
+    {{-- Summary aktiviats bulanan dan status distribusi --}}
+    <div class="mb-6 bg-white border border-gray-300 rounded-lg shadow-sm p-5">
+
+        {{-- Header --}}
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h2 class="text-sm font-semibold text-gray-800">
+                    Ringkasan Dokumen
+                </h2>
+                <p class="text-[12px] text-gray-400 mt-0.5">
+                    Statistik singkat aktivitas dokumen dalam sistem
+                </p>
+            </div>
+
+            <span class="text-xs px-2.5 py-1 bg-gray-50 border border-gray-300 rounded-md text-gray-500">
+                Updated just now
+            </span>
+        </div>
+
+        {{-- Information content --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {{-- Left: Aktivitas bulanan --}}
+            <div class="space-y-3">
+
+                <div class="flex items-center justify-between">
+                    <p class="text-xs text-gray-500">Aktivitas Bulan Ini</p>
+                    <span class="text-xs text-blue-600 font-medium">Realtime</span>
+                </div>
+
+                <div class="flex items-end gap-6">
+                    <div>
+                        <p class="text-[11px] text-gray-400">Upload</p>
+                        <p class="text-lg font-semibold text-gray-800">
+                            {{ $monthUploads ?? 0 }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-[11px] text-gray-400">Total</p>
+                        <p class="text-lg font-semibold text-gray-800">
+                            {{ $totalUploads ?? 0 }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-[11px] text-gray-400">Rata-rata</p>
+                        <p class="text-lg font-semibold text-gray-800">
+                            {{ $avgUploads ?? 0 }}
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Mini progress --}}
+                <div class="w-full bg-gray-100 rounded-full h-1.5">
+                    <div class="bg-blue-600 h-1.5 rounded-full"
+                        style="width: {{ $totalUploads > 0 ? ($monthUploads / $totalUploads) * 100 : 0 }}%">
+                    </div>
+                </div>
+            </div>
+
+            {{-- Right: Status distribution --}}
+            <div class="space-y-3">
+
+                <p class="text-xs text-gray-500">
+                    Distribusi Status Dokumen
+                </p>
+
+                {{-- Approved --}}
+                <div>
+                    <div class="flex justify-between text-[12px] mb-1">
+                        <span class="text-gray-600">Approved</span>
+                        <span class="text-gray-800 font-medium">
+                            {{ $documentStatus['approved'] }}
+                        </span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5">
+                        <div class="bg-green-500 h-1.5 rounded-full"
+                            style="width: {{ $stats['total_documents'] > 0 ? ($documentStatus['approved'] / $stats['total_documents']) * 100 : 0 }}%">
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Pending --}}
+                <div>
+                    <div class="flex justify-between text-[12px] mb-1">
+                        <span class="text-gray-600">Pending</span>
+                        <span class="text-gray-800 font-medium">
+                            {{ $documentStatus['pending'] }}
+                        </span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5">
+                        <div class="bg-yellow-400 h-1.5 rounded-full"
+                            style="width: {{ $stats['total_documents'] > 0 ? ($documentStatus['pending'] / $stats['total_documents']) * 100 : 0 }}%">
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Rejected --}}
+                <div>
+                    <div class="flex justify-between text-[12px] mb-1">
+                        <span class="text-gray-600">Rejected</span>
+                        <span class="text-gray-800 font-medium">
+                            {{ $documentStatus['rejected'] }}
+                        </span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5">
+                        <div class="bg-red-400 h-1.5 rounded-full"
+                            style="width: {{ $stats['total_documents'] > 0 ? ($documentStatus['rejected'] / $stats['total_documents']) * 100 : 0 }}%">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
     <!-- Analytics-->
     <div class="mb-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -170,6 +288,93 @@
         </div>
     </div>
 
+    {{-- Total Downlaod dan distribusi jenis dokumen --}}
+    <div class="mb-6 bg-white border border-gray-300 rounded-lg shadow-sm p-5">
+
+        {{-- Header --}}
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h2 class="text-sm font-semibold text-gray-800">
+                    Aktivitas Download Dokumen
+                </h2>
+                <p class="text-[12px] text-gray-400 mt-0.5">
+                    Ringkasan download dan distribusi jenis dokumen
+                </p>
+            </div>
+
+            <span class="text-xs px-2.5 py-1 bg-gray-50 border border-gray-300 rounded-md text-gray-500">
+                12 bulan terakhir
+            </span>
+        </div>
+
+        {{-- Information content --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {{-- Left: Total Download --}}
+            <div class="space-y-3">
+
+                <p class="text-xs text-gray-500">Aktivitas Download</p>
+
+                <div class="flex items-end gap-6">
+                    <div>
+                        <p class="text-[11px] text-gray-400">Total</p>
+                        <p class="text-lg font-semibold text-gray-800">
+                            {{ $totalDownloads ?? 0 }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-[11px] text-gray-400">Bulan Ini</p>
+                        <p class="text-lg font-semibold text-gray-800">
+                            {{ $monthDownloads ?? 0 }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-[11px] text-gray-400">Rata-rata</p>
+                        <p class="text-lg font-semibold text-gray-800">
+                            {{ $avgDownloads ?? 0 }}
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Mini progres --}}
+                <div class="w-full bg-gray-100 rounded-full h-1.5">
+                    <div class="bg-indigo-600 h-1.5 rounded-full"
+                        style="width: {{ $totalDownloads > 0 ? ($monthDownloads / $totalDownloads) * 100 : 0 }}%">
+                    </div>
+                </div>
+            </div>
+
+            {{-- Right: Distribudsi kategori --}}
+            <div class="space-y-3">
+
+                <p class="text-xs text-gray-500">
+                    Distribusi Jenis Dokumen
+                </p>
+
+                @foreach ($categoryDistribution as $cat)
+                    <div>
+                        <div class="flex justify-between text-[12px] mb-1">
+                            <span class="text-gray-600">{{ $cat->name }}</span>
+                            <span class="text-gray-800 font-medium">
+                                {{ $cat->documents_count }}
+                            </span>
+                        </div>
+
+                        <div class="w-full bg-gray-100 rounded-full h-1.5">
+                            <div class="bg-gray-700 h-1.5 rounded-full"
+                                style="width: {{ $stats['total_documents'] > 0 ? ($cat->documents_count / $stats['total_documents']) * 100 : 0 }}%">
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+
+        </div>
+    </div>
+
     <!-- Analytics-->
     <div class="mb-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Distribusi Kategori -->
@@ -216,56 +421,85 @@
         </div>
     </div>
 
+    {{-- Insight table dowload dok terbaru & aktivitas terbaru user --}}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
+        {{-- Table downlaod dokumen terbaru --}}
+        <div class="bg-white border border-gray-300 rounded-lg shadow-sm">
+            <div class="px-5 py-3 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-sm font-semibold text-gray-800">
+                    Dokumen Terbaru
+                </h3>
+                <span class="text-xs text-gray-400">
+                    7 data terakhir
+                </span>
+            </div>
 
-
-
-
-
-
-
-
-
-
-
-    {{-- Insight table --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-        {{-- Dokumen Terbaru --}}
-        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-            <h3 class="text-sm font-semibold mb-4 text-gray-800">Dokumen Terbaru</h3>
-
-            <ul class="space-y-3 text-sm">
-                @foreach (\App\Models\Document::latest()->limit(5)->get() as $doc)
-                    <li class="flex justify-between items-center">
-                        <span class="text-gray-700 truncate max-w-[70%]">
-                            {{ $doc->title }}
-                        </span>
-                        <span class="text-xs text-gray-400">
+            <div class="divide-y divide-gray-100">
+                @forelse ($latestDocuments as $doc)
+                    <div class="px-5 py-3 flex items-center justify-between hover:bg-gray-50 transition">
+                        {{-- Left --}}
+                        <div class="flex flex-col max-w-[75%]">
+                            <span class="text-sm text-gray-800 truncate font-medium capitalize">
+                                {{ $doc->title }}
+                            </span>
+                            <span class="text-[11px] text-gray-400 mt-0.5">
+                                {{ $doc->category->name ?? 'Tanpa Kategori' }}
+                            </span>
+                        </div>
+                        {{-- Right --}}
+                        <span class="text-[11px] text-gray-400 whitespace-nowrap">
                             {{ $doc->created_at->diffForHumans() }}
                         </span>
-                    </li>
-                @endforeach
-            </ul>
+                    </div>
+                @empty
+                    <div class="px-5 py-6 text-center text-sm text-gray-400">
+                        Belum ada dokumen
+                    </div>
+                @endforelse
+            </div>
         </div>
 
-        {{-- Aktivitas Terbaru --}}
-        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-            <h3 class="text-sm font-semibold mb-4 text-gray-800">Aktivitas Terbaru</h3>
+        {{-- Table aktivitas terbaru --}}
+        <div class="bg-white border border-gray-300 rounded-lg shadow-sm">
+            <div class="px-5 py-3 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-sm font-semibold text-gray-800">
+                    Aktivitas Terbaru
+                </h3>
+                <span class="text-xs text-gray-400">
+                    5 aktivitas terakhir
+                </span>
+            </div>
 
-            <ul class="space-y-3 text-sm">
-                @foreach ($recentActivities as $act)
-                    <li class="flex items-center justify-between">
-                        <span class="text-gray-700">
-                            <span class="font-medium">{{ $act->user->name ?? '-' }}</span>
-                            {{ $act->action }}
-                        </span>
-                        <span class="text-xs text-gray-400">
+            <div class="divide-y divide-gray-100">
+                @forelse ($recentActivities as $act)
+                    <div class="px-5 py-3 flex items-center justify-between hover:bg-gray-50 transition">
+                        {{-- Left --}}
+                        <div class="flex flex-col max-w-[75%]">
+                            <span class="text-sm text-gray-800">
+                                <span class="font-medium">
+                                    {{ $act->user->name ?? 'System' }}
+                                </span>
+                                <span class="pl-1 text-[13px] text-gray-600 capitalize">
+                                    &RightArrowBar; {{ $act->action }}
+                                </span>
+                            </span>
+                            <span class="text-[11px] text-gray-400 mt-0.5 uppercase">
+                                {{ $act->document->title ?? 'Dokumen' }}
+                            </span>
+                        </div>
+
+                        {{-- Right --}}
+                        <span class="text-[11px] text-gray-400 whitespace-nowrap">
                             {{ $act->created_at->diffForHumans() }}
                         </span>
-                    </li>
-                @endforeach
-            </ul>
+                    </div>
+                @empty
+                    <div class="px-5 py-6 text-center text-sm text-gray-400">
+                        Belum ada aktivitas
+                    </div>
+                @endforelse
+            </div>
         </div>
     </div>
 
