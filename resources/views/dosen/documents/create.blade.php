@@ -1,6 +1,5 @@
 @extends('dosen.layouts.app')
-
-@section('title', 'Unggah Dokumen Baru (Dosen)')
+@section('title', 'Unggah Dokumen Baru')
 
 @section('content')
 <div class="max-w-2xl mx-auto">

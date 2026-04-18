@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kaprodi - {{ config('app.name', 'Academic Repository') }}</title>
+
     <!-- Tailwind CSS via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
+
     @stack('styles')
 </head>
+
 <body class="bg-slate-50 text-slate-900">
     <div class="min-h-screen flex">
+
         <!-- Sidebar -->
         <aside class="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col">
             <div class="p-6">

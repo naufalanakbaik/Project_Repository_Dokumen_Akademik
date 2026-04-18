@@ -68,25 +68,25 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. VALIDASI
+        // 1. Validasi
         $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'file' => 'required|mimes:pdf,doc,docx|max:10240',
         ]);
 
-        // 2. UPLOAD FILE
+        // 2. Upolad file
         $filePath = $request->file('file')->store('documents', 'public');
 
-        // 3. SIMPAN DATA (FIXED)
+        // 3. Simpan data
         $document = auth()->user()->documents()->create([
             'title' => $request->title,
             'category_id' => $request->category_id,
-            'file' => $filePath, // ✅ SESUAI DATABASE
+            'file' => $filePath,
             'status' => 'pending',
         ]);
 
-        // 4. LOG
+        // 4. Log aktivitas
         DocumentLog::create([
             'user_id' => auth()->id(),
             'document_id' => $document->id,
@@ -120,7 +120,7 @@ class DocumentController extends Controller
     }
 
     /**
-     * Preview file dokumen.
+     * Preview file (pdf) dokumen.
      */
     public function preview($id)
     {

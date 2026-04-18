@@ -27,8 +27,11 @@
                 <a href="{{ route('mahasiswa.dashboard') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('mahasiswa.dashboard') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
                     Dashboard
                 </a>
-                <a href="{{ route('mahasiswa.documents.index') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('mahasiswa.documents.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
+                <a href="{{ route('mahasiswa.documents.index') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('mahasiswa.documents.index') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
                     Dokumen Saya
+                </a>
+                <a href="{{ route('mahasiswa.documents.global') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('mahasiswa.documents.global') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
+                    Dokumen User
                 </a>
             </nav>
 
