@@ -1,4 +1,4 @@
-@extends('mahasiswa.layouts.app')
+@extends('dosen.layouts.app')
 
 @section('content')
 
@@ -8,11 +8,13 @@
 
     @foreach($documents as $doc)
         <div class="border-b py-3">
-            <p class="font-medium">{{ $doc->title }}</p>
+            <a href="{{ route('dosen.katalog.showGlobal', $doc->id) }}">
+                <p class="font-medium">{{ $doc->title }}</p>
+            </a>
+        
             <p class="text-sm text-gray-500">
                 {{ $doc->user->name }} • {{ $doc->category->name }}
             </p>
-            <a href="{{ route('mahasiswa.documents.showGlobal', $doc->id) }}">
         </div>
     @endforeach
 

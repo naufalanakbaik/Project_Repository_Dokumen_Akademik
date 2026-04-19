@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dosen - {{ config('app.name', 'Academic Repository') }}</title>
+
     <!-- Tailwind CSS via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-     {{-- Material icon --}}
+
+    {{-- Material icon --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
     </style>
     @stack('styles')
 </head>
+
 <body class="bg-slate-50 text-slate-900">
     <div class="min-h-screen flex">
         <!-- Sidebar -->
         <aside class="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col">
             <div class="p-6">
-                <h1 class="text-xl font-bold text-indigo-600">RepoDokumen <span class="text-xs font-normal text-slate-400">Dosen</span></h1>
+                <h1 class="text-xl font-bold text-indigo-600">RepoDokumen <span
+                        class="text-xs font-normal text-slate-400">Dosen</span></h1>
             </div>
-            
+
             <nav class="flex-1 px-4 space-y-1">
-                <a href="{{ route('dosen.dashboard') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.dashboard') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
+                <a href="{{ route('dosen.dashboard') }}"
+                    class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.dashboard') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
                     Dashboard
                 </a>
-                <a href="{{ route('dosen.documents.index') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.documents.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
+                <a href="{{ route('dosen.documents.index') }}"
+                    class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.documents.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
                     Dokumen Saya
                 </a>
-                <a href="{{ route('dosen.monitoring') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.monitoring') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
+                <a href="{{ route('dosen.katalog.global') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.katalog.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
+                    Dokumen User
+                </a>
+                <a href="{{ route('dosen.monitoring') }}"
+                    class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.monitoring') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
                     Monitoring
                 </a>
             </nav>
@@ -38,7 +53,8 @@
             <div class="p-4 border-t border-slate-100">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="w-full text-left px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                    <button type="submit"
+                        class="w-full text-left px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
                         Logout
                     </button>
                 </form>
@@ -64,7 +80,7 @@
 
             <!-- Page Content -->
             <div class="p-8">
-                @if(session('success'))
+                @if (session('success'))
                     <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg">
                         {{ session('success') }}
                     </div>
@@ -77,4 +93,5 @@
 
     @stack('scripts')
 </body>
+
 </html>

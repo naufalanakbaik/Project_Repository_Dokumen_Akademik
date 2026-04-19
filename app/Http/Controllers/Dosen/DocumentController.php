@@ -12,10 +12,7 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    /**
-     * List dokumen
-     * - Hanya lihat approved
-     */
+    // --- List daftar dokumen saya (pribadi)
     public function index(Request $request)
     {
         $query = Document::with('category')
@@ -30,6 +27,43 @@ class DocumentController extends Controller
             ->withQueryString();
 
         return view('dosen.documents.index', compact('documents'));
+    }
+
+    // --- Daftar dokumen (seluruh pengguna)
+    public function global(Request $request)
+    {
+        $query = Document::with(['user', 'category']);
+
+        // Search
+        if ($request->search) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        // RULE WAJIB (SECURITY)
+        $query->where(function ($q) {
+            $q->where('status', 'approved')
+                ->orWhere('user_id', auth()->id());
+        });
+
+        $documents = $query->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('dosen.katalog.global', compact('documents'));
+    }
+
+
+    // --- Detail dokumen khusus (seluruh pengguna)
+    public function showGlobal($id)
+    {
+        $document = Document::with(['user', 'category'])->findOrFail($id);
+
+        // RULE GLOBAL
+        if ($document->status !== 'approved' && $document->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        return view('dosen.katalog.show-global', compact('document'));
     }
 
     /**
@@ -128,5 +162,4 @@ class DocumentController extends Controller
 
         return Storage::disk('public')->download($document->file);
     }
-
 }

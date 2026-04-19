@@ -21,7 +21,7 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Route yang membutuhkan Login
+// -- Route middleware autentikasi -> Default login akses
 Route::middleware(['auth'])->group(function () {
     /*|------------------------------------------------------------------------|
     |                                 MAHASISWA                                |
@@ -34,15 +34,16 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('dashboard');
 
-            // -- Dokumen akses -> mahasiswa
+            // -- Global dokumen akses (seluruh dokumen -> user)
+            Route::get('/documents/global', [MahasiswaDocumentController::class, 'global'])
+                ->name('katalog.global');
+
+            Route::get('/documents/global/{id}', [MahasiswaDocumentController::class, 'showGlobal'])
+                ->name('katalog.showGlobal');
+
+            // -- Dokumen akses saya (dokumen pribadi) -> mahasiswa
             Route::get('/documents', [MahasiswaDocumentController::class, 'index'])
                 ->name('documents.index');
-
-            Route::get('/documents/global', [MahasiswaDocumentController::class, 'global'])
-                ->name('documents.global');
-            
-            Route::get('/documents/global/{id}', [MahasiswaDocumentController::class, 'showGlobal'])
-                ->name('documents.showGlobal');
 
             Route::get('/documents/create', [MahasiswaDocumentController::class, 'create'])
                 ->name('documents.create');
@@ -68,19 +69,39 @@ Route::middleware(['auth'])->group(function () {
         ->prefix('dosen')
         ->name('dosen.')
         ->group(function () {
+            // -- Dashboard statistik -> dosen
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('dashboard');
+
+            // -- Dashboard monitoring mahasiswa -> dosen
             Route::get('/monitoring', [DashboardController::class, 'index'])
                 ->name('monitoring');
 
-            Route::get('/documents', [DosenDocumentController::class, 'index'])->name('documents.index');
-            Route::get('/documents/create', [DosenDocumentController::class, 'create'])->name('documents.create');
-            Route::post('/documents', [DosenDocumentController::class, 'store'])->name('documents.store');
-            Route::get('/documents/{id}', [DosenDocumentController::class, 'show'])->name('documents.show');
+            // -- Global dokumen akses (seluruh dokumen -> user)
+            Route::get('/documents/global', [DosenDocumentController::class, 'global'])
+                ->name('katalog.global');
 
+            Route::get('/documents/global/{id}', [DosenDocumentController::class, 'showGlobal'])
+                ->name('katalog.showGlobal');
 
-            Route::get('/documents/{id}/preview', [DosenDocumentController::class, 'preview'])->name('documents.preview');
-            Route::get('/documents/{id}/download', [DosenDocumentController::class, 'download'])->name('documents.download');
+            // -- Dokumen akses saya (dokumen pribadi) -> dosen
+            Route::get('/documents', [DosenDocumentController::class, 'index'])
+                ->name('documents.index');
+
+            Route::get('/documents/create', [DosenDocumentController::class, 'create'])
+                ->name('documents.create');
+
+            Route::post('/documents', [DosenDocumentController::class, 'store'])
+                ->name('documents.store');
+
+            Route::get('/documents/{id}', [DosenDocumentController::class, 'show'])
+                ->name('documents.show');
+
+            Route::get('/documents/{id}/preview', [DosenDocumentController::class, 'preview'])
+                ->name('documents.preview');
+
+            Route::get('/documents/{id}/download', [DosenDocumentController::class, 'download'])
+                ->name('documents.download');
         });
 
 
@@ -91,13 +112,15 @@ Route::middleware(['auth'])->group(function () {
         ->prefix('kaprodi')
         ->name('kaprodi.')
         ->group(function () {
+            // -- Dashboard statistik -> kaprodi
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('dashboard');
+
+            // -- Dashboard monitoring mahasiswa -> kaprodi
             Route::get('/monitoring', [DashboardController::class, 'index'])
                 ->name('monitoring');
 
             Route::get('/documents', [KaprodiDocumentController::class, 'index'])->name('documents.index');
-
             Route::get('/documents/{id}/preview', [KaprodiDocumentController::class, 'preview'])->name('documents.preview');
             Route::get('/documents/{id}/download', [KaprodiDocumentController::class, 'download'])->name('documents.download');
         });

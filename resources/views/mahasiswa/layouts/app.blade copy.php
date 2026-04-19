@@ -1,60 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" class="transition-colors duration-300">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    {{-- Title --}}
+    <title>@yield('title', 'Publisher')</title>
     {{-- Js darkmode Agar tidak relad 2x --}}
     <script>
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
     </script>
-
-    <!-- Tailwind CSS via Vite -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <!-- Title -->
-    <title>Mahasiswa - @yield('title')</title>
-
-    <!-- Icon web browser -->
+    @vite('resources/css/app.css')
+    {{-- web icon --}}
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
-
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Matarial Icons -->
+    {{-- material icon --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
 
-    <!-- Global style -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
-
-    @stack('styles')
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900">
 
     {{-- Top Head Information --}}
-    <div class="text-xs bg-gray-100 border-b border-gray-200 dark:bg-gray-200">
+    <div class="bg-gray-800 dark:bg-gray-200 text-gray-300 dark:text-gray-700 text-xs">
         <div class="max-w-7xl mx-auto px-8 py-2 flex justify-between items-center">
 
             <div class="flex items-center gap-6">
-                <span class="flex items-center gap-2 text-gray-600 dark:text-gray-500">
+                <span class="flex items-center gap-2">
                     Repository System
-                    <span class="text-gray-700 dark:text-gray-500">v1.0</span>
+                    <span class="text-gray-500 dark:text-gray-500">v1.0</span>
                 </span>
-                <span class="hidden md:block text-gray-800 dark:text-gray-500">
+                <span class="hidden md:block text-gray-500 dark:text-gray-500">
                     Sistem pengelolaan jurnal ilmiah dan karya akademik
                 </span>
             </div>
 
             <div class="flex items-center gap-5">
-                {{-- <a href="{{ route('publisher.documentation') }}"
+                <a href="{{ route('publisher.documentation') }}"
                     class="transition duration-200 font-normal {{ request()->routeIs('publisher.documentation')
                         ? 'text-red-500 dark:text-red-500'
                         : 'hover:text-blue-500 dark:hover:text-blue-400' }}">
@@ -66,7 +49,9 @@
                         ? 'text-red-500 dark:text-red-500'
                         : 'hover:text-blue-500 dark:hover:text-blue-400' }}">
                     Bantuan
-                </a> --}}
+                </a>
+
+
             </div>
         </div>
     </div>
@@ -80,16 +65,12 @@
                 <div class="flex items-center gap-10">
 
                     {{-- Logo + Brand --}}
-                    <a href="{{ route('mahasiswa.dashboard') }}" class="flex items-center gap-3 group">
-                        <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-9 w-9 object-contain">
-                        <div class="flex flex-col leading-tight">
-                            <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">
-                                Fakultas Ilmu Komputer
-                            </span>
-                            <span class="text-[11px] text-gray-500 dark:text-gray-400">
-                                Manajemen Informatika
-                            </span>
-                        </div>
+                    <a href="{{ route('publisher.dashboard') }}"
+                        class="flex items-center gap-2 tracking-wide text-gray-800 dark:text-gray-200">
+                        <img src="{{ asset('img/logo-katalog_pustaka.png') }}" class="h-8 w-8 object-contain">
+                        <span class="text-base font-medium text-blue-800 dark:text-blue-400">
+                            Publisher Panel
+                        </span>
                     </a>
 
                     {{-- Menu --}}
@@ -103,9 +84,9 @@
                         </a> --}}
 
                         @php
-                            $isDashboardActive = request()->routeIs('mahasiswa.dashboard');
+                            $isDashboardActive = request()->routeIs('publisher.dashboard');
                         @endphp
-                        <a href="{{ route('mahasiswa.dashboard') }}"
+                        <a href="{{ route('publisher.dashboard') }}"
                             class="relative transition
                             {{ $isDashboardActive
                                 ? 'text-blue-600 dark:text-blue-400'
@@ -122,22 +103,21 @@
                             Dashboard
                         </a>
 
-                        <a href="{{ route('mahasiswa.katalog.global') }}"
+                        <a href="{{ route('publisher.journals.global') }}"
                             class="transition duration-200 font-normal
-                            {{ request()->routeIs('mahasiswa.katalog.*')
+                            {{ request()->routeIs('publisher.journals.global') || request()->routeIs('publisher.journals.show')
                                 ? 'text-blue-600 dark:text-blue-400'
                                 : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
                             Katalog
                         </a>
 
-                        <a href="{{ route('mahasiswa.documents.index') }}"
+                        <a href="{{ route('publisher.journals.index') }}"
                             class="transition duration-200 font-normal 
-                            {{ request()->routeIs('mahasiswa.documents.*')
+                            {{ request()->routeIs('publisher.journals.index') || request()->routeIs('publisher.journals.edit')
                                 ? 'text-blue-600 dark:text-blue-400'
                                 : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
                             Jurnal
                         </a>
-
                     </div>
                 </div>
 
@@ -146,6 +126,7 @@
 
                     {{-- <div class="relative">
                         <a href="{{ route('publisher.notifications.index') }}">
+
                             <span class="material-icons text-gray-700 dark:text-gray-200">
                                 notifications
                             </span>
@@ -158,12 +139,13 @@
 
                                 </span>
                             @endif
+
                         </a>
                     </div> --}}
 
                     <button id="userMenuButton"
-                        class="flex items-center gap-1 text-sm transition text-gray-700 dark:text-gray-200
-                        hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none">
+                        class="flex items-center gap-1 text-sm transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none">
+
 
                         {{-- Avatar --}}
                         {{-- <div class="h-8 w-8 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-white flex items-center justify-center font-semibold text-xs shadow-sm ring-2 ring-white dark:ring-gray-900">
@@ -176,7 +158,7 @@
 
                         {{-- Dropdown Icon --}}
                         <span id="dropdownIcon"
-                            class="material-icons !text-base text-gray-400 dark:text-gray-500 transition-transform duration-200">
+                            class="material-icons text-base mt-0.5 text-gray-400 dark:text-gray-500 transition-transform duration-200">
                             arrow_drop_down
                         </span>
                     </button>
@@ -218,6 +200,7 @@
                                         {{ auth()->user()->email }}
                                     </p>
                                 </div>
+
                             </div>
                         </div>
 
@@ -235,10 +218,10 @@
                             </button>
 
                             {{-- Profile --}}
-                            {{-- <a href="{{ route('publisher.profile.show') }}"
+                            <a href="{{ route('publisher.profile.show') }}"
                                 class="block px-5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 Profil Saya
-                            </a> --}}
+                            </a>
 
                             {{-- Logout --}}
                             <form action="{{ route('logout') }}" method="POST">
@@ -257,12 +240,6 @@
 
     {{-- Content --}}
     <main class="max-w-7xl mx-auto px-8 py-5">
-        @if (session('success'))
-            <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg">
-                {{ session('success') }}
-            </div>
-        @endif
-
         @yield('content')
     </main>
 
@@ -306,8 +283,6 @@
             });
         });
     </script>
-
-    @stack('scripts')
 </body>
 
 </html>

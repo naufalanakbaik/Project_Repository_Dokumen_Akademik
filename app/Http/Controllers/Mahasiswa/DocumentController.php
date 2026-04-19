@@ -50,7 +50,7 @@ class DocumentController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('mahasiswa.documents.global', compact('documents'));
+        return view('mahasiswa.katalog.global', compact('documents'));
     }
 
 
@@ -64,7 +64,7 @@ class DocumentController extends Controller
             abort(403);
         }
 
-        return view('mahasiswa.documents.show-global', compact('document'));
+        return view('mahasiswa.katalog.show-global', compact('document'));
     }
 
 
@@ -159,5 +159,4 @@ class DocumentController extends Controller
 
         return Storage::disk('public')->download($document->file);
     }
-
 }
