@@ -261,17 +261,15 @@
             <header class=" bg-white border-gray-500 shadow flex items-center justify-between p-4">
 
                 <!-- Header logo kiri -->
-                <div class="flex items-center gap-3">
-                    <img src="{{ asset('img/logo-img/logo-unsri.png') }}" alt="Logo Unsri"
-                        class="h-10 w-auto object-contain">
-
-                    <div class="flex flex-col text-gray-800 leading-tight">
-                        <h3 class="text-sm sm:text-base font-semibold">
+                <div class="flex items-center gap-3 group">
+                    <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-10 w-10 object-contain">
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-100">
                             Fakultas Ilmu Komputer
-                        </h3>
-                        <h4 class="text-[11px] sm:text-xs text-gray-500">
-                            Program Studi Manajemen Informatika
-                        </h4>
+                        </span>
+                        <span class="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400">
+                            Manajemen Informatika
+                        </span>
                     </div>
                 </div>
 

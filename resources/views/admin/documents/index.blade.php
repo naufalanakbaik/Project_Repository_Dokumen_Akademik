@@ -133,7 +133,7 @@
 
         <!-- Pagination -->
         <div class="p-4 border-t bg-gray-50">
-            {{ $documents->links() }}
+            {{ $documents->links('vendor.pagination.tailwind-darkmode') }}
         </div>
 
     </div>

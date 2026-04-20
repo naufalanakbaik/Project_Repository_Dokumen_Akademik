@@ -45,11 +45,11 @@
 
             <div class="flex items-center gap-6">
                 <span class="flex items-center gap-2 text-gray-600 dark:text-gray-500">
-                    Repository System
+                    Repository Akademik System
                     <span class="text-gray-700 dark:text-gray-500">v1.0</span>
                 </span>
-                <span class="hidden md:block text-gray-800 dark:text-gray-500">
-                    Sistem pengelolaan jurnal ilmiah dan karya akademik
+                <span class="hidden md:block text-gray-700 dark:text-gray-500">
+                    Sistem pengelolaan dokumen akademik dan repositori digital
                 </span>
             </div>
 
@@ -93,7 +93,7 @@
                     </a>
 
                     {{-- Menu --}}
-                    <div class="hidden md:flex items-center gap-8 text-sm font-normal tracking-wide">
+                    <div class="hidden md:flex items-center gap-8 text-[14px] font-medium">
 
                         {{-- <a href="{{ route('publisher.dashboard') }}"
                             class="transition duration-200 font-normal {{ request()->routeIs('publisher.dashboard')
@@ -108,12 +108,12 @@
                         <a href="{{ route('mahasiswa.dashboard') }}"
                             class="relative transition
                             {{ $isDashboardActive
-                                ? 'text-blue-600 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' }}
+                                ? 'text-blue-700 dark:text-blue-400'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}
 
                             after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
-                            after:-bottom-2 after:h-[3px] 
-                            after:bg-blue-600 after:rounded-full
+                            after:-bottom-2 after:h-[2.5px] 
+                            after:bg-blue-700 after:rounded-full
                             after:transition-all after:duration-300
 
                             {{ $isDashboardActive
@@ -123,19 +123,19 @@
                         </a>
 
                         <a href="{{ route('mahasiswa.katalog.global') }}"
-                            class="transition duration-200 font-normal
+                            class="transition duration-200
                             {{ request()->routeIs('mahasiswa.katalog.*')
-                                ? 'text-blue-600 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
+                                ? 'text-blue-700 dark:text-blue-400'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}">
                             Katalog
                         </a>
 
                         <a href="{{ route('mahasiswa.documents.index') }}"
-                            class="transition duration-200 font-normal 
+                            class="transition duration-200 
                             {{ request()->routeIs('mahasiswa.documents.*')
-                                ? 'text-blue-600 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
-                            Jurnal
+                                ? 'text-blue-700 dark:text-blue-400'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}">
+                            Dokumen Saya
                         </a>
 
                     </div>
