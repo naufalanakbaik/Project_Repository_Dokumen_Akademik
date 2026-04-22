@@ -91,14 +91,16 @@
                             <td class="px-6 py-4">
                                 @if ($log->action == 'upload')
                                     <span
-                                        class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md bg-blue-50 text-blue-700 border border-blue-100">
-                                        <span class="material-icons text-[14px]">upload</span>
+                                        class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-2xl bg-blue-50 text-blue-700
+                                        border border-blue-200">
+                                        <span class="material-icons !text-[13px]">upload</span>
                                         Upload
                                     </span>
                                 @else
                                     <span
-                                        class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md bg-gray-50 text-gray-700 border border-gray-200">
-                                        <span class="material-icons text-[14px]">download</span>
+                                        class="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-2xl bg-gray-50 text-gray-700 
+                                        border border-gray-200">
+                                        <span class="material-icons !text-[13px]">download</span>
                                         Download
                                     </span>
                                 @endif
