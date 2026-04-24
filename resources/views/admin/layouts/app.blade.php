@@ -14,14 +14,16 @@
 
     <!-- Google Fonts: Inter & Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    
 
-    {{-- Material icon --}}
+    <!--Material icon -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-    {{-- alpine.js dropdown sidebar --}}
+    <!-- alpine.js dropdown sidebar -->
     <script src="https://unpkg.com/alpinejs" defer></script>
 
-    {{-- Style CSS Sidebar --}}
+    <!-- Style CSS Sidebar -->
     <style>
         body,
         * {

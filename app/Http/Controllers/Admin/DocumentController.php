@@ -29,7 +29,7 @@ class DocumentController extends Controller
             $query->where('category_id', $request->category_id);
         }
 
-        $documents = $query->latest()->paginate(5);
+        $documents = $query->latest()->paginate(10);
         $categories = Category::all();
 
         return view('admin.documents.index', compact('documents', 'categories'));

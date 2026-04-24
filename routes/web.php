@@ -34,10 +34,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('dashboard');
 
-            // -- Global dokumen akses (seluruh dokumen -> user)
+            // -- Akses global dokumen (seluruh dokumen yang diunggah setiap role) -> mahasiswa
             Route::get('/documents/global', [MahasiswaDocumentController::class, 'global'])
                 ->name('katalog.global');
 
+                // -- Akses detail global dokumen (detail dokumen yang diunggah setiap role) -> mahasiswa
             Route::get('/documents/global/{id}', [MahasiswaDocumentController::class, 'showGlobal'])
                 ->name('katalog.showGlobal');
 
@@ -45,18 +46,23 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/documents', [MahasiswaDocumentController::class, 'index'])
                 ->name('documents.index');
 
+            // -- Menampilkan form tambah dokumen -> mahasiswa
             Route::get('/documents/create', [MahasiswaDocumentController::class, 'create'])
                 ->name('documents.create');
 
+            // -- Proses tambah dokumen ke table documents -> mahasiswa
             Route::post('/documents', [MahasiswaDocumentController::class, 'store'])
                 ->name('documents.store');
 
+            // -- Menampilkan detail dokumen -> mahasiswa
             Route::get('/documents/{id}', [MahasiswaDocumentController::class, 'show'])
                 ->name('documents.show');
 
+            // -- Preview (lihat) pdf dokumen -> mahasiswa
             Route::get('/documents/{id}/preview', [MahasiswaDocumentController::class, 'preview'])
                 ->name('documents.preview');
 
+            // -- Download dokumen -> mahasiswa
             Route::get('/documents/{id}/download', [MahasiswaDocumentController::class, 'download'])
                 ->name('documents.download');
         });
@@ -134,30 +140,34 @@ Route::middleware(['auth'])->group(function () {
         ->name('admin.')
         ->group(function () {
             // -- Dashboard statistik utama -> admin
-            Route::get('/dashboard', [DashboardController::class, 'index'])
-                ->name('dashboard');
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
             // -- Dashboard monitoting data pengguna -> admin
-            Route::get('/monitoring-pengguna', [DashboardController::class, 'monitoringPengguna'])
-                ->name('dashboard.monitoring-pengguna');
+            Route::get('/monitoring-pengguna', [DashboardController::class, 'monitoringPengguna'])->name('dashboard.monitoring-pengguna');
 
             // -- Dokumen akses -> admin
             Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
 
+            // -- Form tambah dan proses tambah dokumen -> admin
             Route::get('/documents/create', [DocumentController::class, 'create'])->name('documents.create');
             Route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
 
+            // -- Validation dan update status (Approved/Rejected) -> admin
             Route::get('/documents/validation', [DocumentController::class, 'validation'])->name('documents.validation');
             Route::patch('/documents/{id}/status', [DocumentController::class, 'updateStatus'])->name('documents.updateStatus');
 
+            // -- Form edit dan proses update data dokumen -> admin
             Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
             Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('documents.update');
 
+            // -- Menampilkan detail dokumen (halaman detail dokumen) -> admin
             Route::get('/documents/{id}', [DocumentController::class, 'show'])->name('documents.show');
+
+            // -- Proses hapus dokumen -> admin
             Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 
+            // -- Proses downlaod dokumen dan preview (lihat) pdf dokumen -> admin
             Route::get('/documents/{id}/download', [DocumentController::class, 'download'])->name('documents.download');
-
             Route::get('/documents/{id}/preview', [DocumentController::class, 'preview'])->name('documents.preview');
 
             // -- Kategori akses -> admin (crud)
