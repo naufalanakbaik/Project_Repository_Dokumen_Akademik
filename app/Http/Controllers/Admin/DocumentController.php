@@ -146,13 +146,14 @@ class DocumentController extends Controller
             ->withQueryString(); // agar search tidak hilang saat pindah halaman
 
         // Tampilkan ke view validation admin
-        return view('admin.documents.validation', compact('documents'));
+        return view('admin.validation-documents.validation', compact('documents'));
     }
 
 
     // --- Update status dokumen (approve / reject) Hanya boleh dilakukan oleh admin
     public function updateStatus(Request $request, $id)
     {
+        // dd($request->method());
         // Validasi role (lapisan tambahan selain middleware)
         if (auth()->user()->role !== 'admin') {
             abort(403); // Forbidden jika bukan admin
@@ -195,6 +196,40 @@ class DocumentController extends Controller
 
         // Redirect kembali dengan pesan sukses
         return back()->with('success', 'Status dokumen berhasil diperbarui.');
+    }
+
+    // -- Detail validasi dokumen (halaman review sebelum approve/reject)
+    public function showValidation($id)
+    {
+        // Ambil dokumen beserta relasi user & category
+        // eager loading untuk menghindari N+1 query
+        $document = Document::with(['user', 'category'])
+            ->findOrFail($id);
+
+        /**
+         * Proteksi utama:
+         * Hanya dokumen dengan status "pending" yang boleh diakses halaman validasi.
+         * 
+         * Tujuan:
+         * - Mencegah admin membuka ulang dokumen yang sudah divalidasi
+         * - Menjaga integritas workflow (review → approve/reject hanya sekali)
+         */
+        if ($document->status !== 'pending') {
+
+            // Redirect ke halaman list validation (bukan route yang salah)
+            return redirect()
+                ->route('admin.validation-documents.validation')
+                ->with('error', 'Dokumen sudah divalidasi sebelumnya.');
+        }
+
+        /**
+         * Tampilkan halaman detail validasi
+         * Halaman ini berisi:
+         * - Preview dokumen
+         * - Informasi uploader & kategori
+         * - Aksi approve / reject
+         */
+        return view('admin.validation-documents.show', compact('document'));
     }
 
 

@@ -11,12 +11,12 @@ use App\Http\Controllers\Dosen\DocumentController as DosenDocumentController;
 use App\Http\Controllers\Kaprodi\DocumentController as KaprodiDocumentController;
 
 
-// Halaman utama (Publik)
+// -- Routing halaman pertama (Publik)
 Route::get('/', function () {
     return view('auth.login');
 });
 
-// Autentikasi
+// -- Autentikasi User
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/documents/global', [MahasiswaDocumentController::class, 'global'])
                 ->name('katalog.global');
 
-                // -- Akses detail global dokumen (detail dokumen yang diunggah setiap role) -> mahasiswa
+            // -- Akses detail global dokumen (detail dokumen yang diunggah setiap role) -> mahasiswa
             Route::get('/documents/global/{id}', [MahasiswaDocumentController::class, 'showGlobal'])
                 ->name('katalog.showGlobal');
 
@@ -119,14 +119,14 @@ Route::middleware(['auth'])->group(function () {
         ->name('kaprodi.')
         ->group(function () {
             // -- Dashboard statistik -> kaprodi
-            Route::get('/dashboard', [DashboardController::class, 'index'])
-                ->name('dashboard');
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
             // -- Dashboard monitoring mahasiswa -> kaprodi
-            Route::get('/monitoring', [DashboardController::class, 'index'])
-                ->name('monitoring');
+            Route::get('/monitoring', [DashboardController::class, 'index'])->name('monitoring');
 
+            // -- Documents akses -> kaprodi
             Route::get('/documents', [KaprodiDocumentController::class, 'index'])->name('documents.index');
+
             Route::get('/documents/{id}/preview', [KaprodiDocumentController::class, 'preview'])->name('documents.preview');
             Route::get('/documents/{id}/download', [KaprodiDocumentController::class, 'download'])->name('documents.download');
         });
@@ -153,8 +153,19 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
 
             // -- Validation dan update status (Approved/Rejected) -> admin
-            Route::get('/documents/validation', [DocumentController::class, 'validation'])->name('documents.validation');
-            Route::patch('/documents/{id}/status', [DocumentController::class, 'updateStatus'])->name('documents.updateStatus');
+            // Route::get('/documents/validation', [DocumentController::class, 'validation'])->name('validation-documents.validation');
+            // Route::get('/validation/{id}', [DocumentController::class, 'showValidation'])->name('validation-documents.show');
+            // Route::patch('/documents/{id}/status', [DocumentController::class, 'updateStatus'])->name('documents.updateStatus');
+
+            Route::get('/documents/validation', [DocumentController::class, 'validation'])
+                ->name('validation-documents.validation');
+
+            Route::get('/validation/{id}', [DocumentController::class, 'showValidation'])
+                ->name('validation-documents.show');
+
+            Route::patch('/documents/{id}/status', [DocumentController::class, 'updateStatus'])
+                ->name('documents.updateStatus');
+
 
             // -- Form edit dan proses update data dokumen -> admin
             Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit');

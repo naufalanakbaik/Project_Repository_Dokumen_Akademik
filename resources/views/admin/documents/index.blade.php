@@ -14,7 +14,7 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <a href="{{ route('admin.documents.validation') }}"
+                <a href="{{ route('admin.validation-documents.validation') }}"
                     class="inline-flex items-center gap-1.5 px-4 h-9 text-[13px] text-gray-700 font-medium tracking-wide bg-white border border-gray-400 
                     rounded-lg hover:bg-gray-100 transition">
                     <span class="material-icons !text-[18px]">rule</span>

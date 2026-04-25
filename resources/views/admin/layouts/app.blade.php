@@ -178,12 +178,12 @@
                     </li>
 
                     <li>
-                        <a href="{{ route('admin.documents.validation') }}"
+                        <a href="{{ route('admin.validation-documents.validation') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.documents.validation') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            {{ request()->routeIs('admin.validation-documents.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}"
                                 class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.documents.validation') ? 'brightness-0 invert' : '' }}">
+                            {{ request()->routeIs('admin.validation-documents.*') ? 'brightness-0 invert' : '' }}">
                             <span class="ml-2.5 menu-text">Validasi Dokumen</span>
                         </a>
                     </li>
@@ -214,10 +214,10 @@
                     <li>
                         <a href="{{ route('admin.documents.index') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.documents.index') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            {{ request()->routeIs('admin.documents.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/journals.png') }}"
                                 class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.documents.index') ? 'brightness-0 invert' : '' }}">
+                            {{ request()->routeIs('admin.documents.*') ? 'brightness-0 invert' : '' }}">
                             <span class="ml-2.5 menu-text">Kelola Dokumen</span>
                         </a>
                     </li>
