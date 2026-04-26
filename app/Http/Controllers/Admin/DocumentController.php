@@ -52,7 +52,6 @@ class DocumentController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'user_id' => 'required|exists:users,id',
             'file' => 'required|mimes:pdf,doc,docx|max:10240',
         ]);
 
@@ -61,9 +60,9 @@ class DocumentController extends Controller
         $document = Document::create([
             'title' => $request->title,
             'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
+            'user_id' => auth()->id(), // FIX DI SINI
             'file' => $filePath,
-            'status' => 'approved', // admin langsung approve
+            'status' => 'approved',
         ]);
 
         DocumentLog::create([

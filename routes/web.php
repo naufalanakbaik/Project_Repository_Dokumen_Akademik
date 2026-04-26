@@ -153,19 +153,9 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
 
             // -- Validation dan update status (Approved/Rejected) -> admin
-            // Route::get('/documents/validation', [DocumentController::class, 'validation'])->name('validation-documents.validation');
-            // Route::get('/validation/{id}', [DocumentController::class, 'showValidation'])->name('validation-documents.show');
-            // Route::patch('/documents/{id}/status', [DocumentController::class, 'updateStatus'])->name('documents.updateStatus');
-
-            Route::get('/documents/validation', [DocumentController::class, 'validation'])
-                ->name('validation-documents.validation');
-
-            Route::get('/validation/{id}', [DocumentController::class, 'showValidation'])
-                ->name('validation-documents.show');
-
-            Route::patch('/documents/{id}/status', [DocumentController::class, 'updateStatus'])
-                ->name('documents.updateStatus');
-
+            Route::get('/documents/validation', [DocumentController::class, 'validation'])->name('validation-documents.validation');
+            Route::get('/validation/{id}', [DocumentController::class, 'showValidation'])->name('validation-documents.show');
+            Route::patch('/documents/{id}/status', [DocumentController::class, 'updateStatus'])->name('documents.updateStatus');
 
             // -- Form edit dan proses update data dokumen -> admin
             Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit');

@@ -60,18 +60,14 @@
 
                                 {{-- Status --}}
                                 <span
-                                    class="flex items-center gap-1 text-[9.5px] font-medium px-2 py-0.5 rounded-lg border
-                                    {{ $doc->status === 'approved'
-                                        ? 'bg-green-50 text-green-700 border-green-200'
-                                        : ($doc->status === 'pending'
-                                            ? 'bg-yellow-50 text-yellow-700 border-yellow-200'
-                                            : 'bg-red-50 text-red-700 border-red-200') }}">
+                                    class="flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-lg border
+                                    bg-green-50 text-green-700 border-green-200">
 
                                     <span class="material-icons !text-[11px]">
-                                        {{ $doc->status === 'approved' ? 'verified' : ($doc->status === 'pending' ? 'schedule' : 'close') }}
+                                        verified
                                     </span>
 
-                                    {{ ucfirst($doc->status) }}
+                                    Approved
                                 </span>
 
                             </div>

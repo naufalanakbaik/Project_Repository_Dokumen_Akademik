@@ -30,24 +30,19 @@ class DocumentController extends Controller
     }
 
 
-    // --- Daftar dokumen (seluruh pengguna)
+    // --- Daftar dokumen (global mahasiswa)
     public function global(Request $request)
     {
-        $query = Document::with(['user', 'category']);
+        $query = Document::with(['user', 'category'])
+            ->where('status', 'approved'); // WAJIB: hanya approved
 
         // Search
         if ($request->search) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
-        // RULE WAJIB (SECURITY)
-        $query->where(function ($q) {
-            $q->where('status', 'approved')
-                ->orWhere('user_id', auth()->id());
-        });
-
         $documents = $query->latest()
-            ->paginate(10)
+            ->paginate(12)
             ->withQueryString();
 
         return view('mahasiswa.katalog.global', compact('documents'));
@@ -57,12 +52,9 @@ class DocumentController extends Controller
     // --- Detail dokumen khusus (seluruh pengguna)
     public function showGlobal($id)
     {
-        $document = Document::with(['user', 'category'])->findOrFail($id);
-
-        // RULE GLOBAL
-        if ($document->status !== 'approved' && $document->user_id !== auth()->id()) {
-            abort(403);
-        }
+        $document = Document::with(['user', 'category'])
+            ->where('status', 'approved')
+            ->findOrFail($id);
 
         return view('mahasiswa.katalog.show-global', compact('document'));
     }

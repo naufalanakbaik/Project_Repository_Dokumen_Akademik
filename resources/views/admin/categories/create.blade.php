@@ -27,7 +27,7 @@
         <p>{{ session('success') }}</p>
     @endif
 
-    {{-- Container utama --}}
+    {{-- Container --}}
     <div class="space-y-6">
         {{-- Information --}}
         <div class="grid md:grid-cols-2 gap-4">
