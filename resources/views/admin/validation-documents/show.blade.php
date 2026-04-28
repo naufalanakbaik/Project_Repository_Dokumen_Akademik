@@ -2,179 +2,159 @@
 @section('title', 'Detail Validasi Dokumen')
 
 @section('content')
-    <div class="max-w-full mx-auto p-6 space-y-6">
 
-        <!-- ===================== -->
-        <!-- HEADER -->
-        <!-- ===================== -->
-        <div class="flex items-start justify-between border-b pb-4">
-
-            <div class="space-y-1">
-                <h1 class="text-xl font-semibold text-blue-900">
-                    {{ $document->title }}
-                </h1>
-
-                <p class="text-sm text-gray-500">
-                    Diajukan oleh
-                    <span class="font-medium text-gray-700">{{ $document->user->name }}</span>
-                </p>
-            </div>
-
-            <span
-                class="inline-flex items-center gap-1 px-3 py-1 text-xs 
-            rounded-full bg-yellow-100 text-yellow-700 border border-yellow-200">
-                <span class="material-symbols-outlined !text-[14px]">schedule</span>
-                Pending Review
-            </span>
-
+    {{-- Header --}}
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+        <div class="space-y-1">
+            <h1 class="text-2xl font-semibold text-gray-900 leading-tight">
+                {{ $document->title }}
+            </h1>
+            <p class="text-sm text-gray-500">
+                Diajukan oleh
+                <span class="font-medium text-gray-800">{{ $document->user->name }}</span>
+            </p>
         </div>
 
+        {{-- Status --}}
+        <div class="flex items-center gap-2">
+            <span
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium
+                bg-yellow-50 text-yellow-700 border border-yellow-300 rounded-full">
+                <span class="material-symbols-outlined !text-[14px] leading-none">
+                    schedule
+                </span>
+                Pending Review
+            </span>
+        </div>
+    </div>
 
-        <!-- ===================== -->
-        <!-- CONTENT -->
-        <!-- ===================== -->
-        <div class="grid grid-cols-12 gap-6">
 
-            <!-- ===================== -->
-            <!-- PREVIEW -->
-            <!-- ===================== -->
-            <div class="col-span-12 lg:col-span-8">
+    {{-- Main content --}}
+    <div class="grid grid-cols-12 gap-6">
 
-                <div class="bg-white border rounded-xl shadow-sm overflow-hidden flex flex-col">
+        {{-- Preview file --}}
+        <div class="col-span-12 lg:col-span-8">
+            <div class="bg-white border border-gray-300 rounded-lg shadow-sm overflow-hidden flex flex-col">
 
-                    <!-- HEADER -->
-                    <div class="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
-                        <div class="flex items-center gap-2 text-sm text-gray-600">
-                            <span class="material-symbols-outlined !text-[18px]">description</span>
-                            Preview Dokumen
-                        </div>
-
+                {{-- Top bar --}}
+                <div class="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
+                    <div class="flex items-center gap-1 text-sm text-gray-600">
+                        <span class="material-symbols-outlined !text-[18px]">description</span>
+                        Preview Dokumen
+                    </div>
+                    <div class="flex items-center gap-2">
                         <a href="{{ route('admin.documents.download', $document->id) }}"
-                            class="flex items-center gap-2 text-sm px-3 py-1.5 
-                        bg-gray-900 text-white rounded-lg hover:bg-gray-800 active:scale-95 transition">
-
-                            <span class="material-symbols-outlined !text-[18px]">download</span>
+                            class="flex items-center gap-1 text-[14px] px-3 py-1 bg-gray-100 text-gray-600 rounded-xl border border-gray-300
+                            hover:bg-gray-200 transition">
+                            <span class="material-symbols-outlined !text-[16px]">download</span>
                             Download
                         </a>
                     </div>
-
-                    <!-- PDF -->
-                    <iframe src="{{ asset('storage/' . $document->file) }}" class="w-full h-[620px] bg-gray-100">
-                    </iframe>
-
-                    <!-- FOOTER -->
-                    <div class="flex items-center justify-between px-4 py-2 border-t bg-gray-50 text-xs text-gray-500">
-
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined !text-[16px]">insert_drive_file</span>
-                            {{ basename($document->file) }}
-                        </div>
-
-                        <div class="flex items-center gap-4">
-                            <span class="uppercase">
-                                {{ pathinfo($document->file, PATHINFO_EXTENSION) }}
-                            </span>
-
-                            <span>
-                                {{ $document->created_at->format('d M Y') }}
-                            </span>
-                        </div>
-
-                    </div>
-
                 </div>
 
+                {{-- <!-- PDF View --> --}}
+                <iframe src="{{ asset('storage/' . $document->file) }}" class="w-full h-[680px] bg-gray-100">
+                </iframe>
+
+                {{-- <!-- File info --> --}}
+                <div class="flex items-center justify-between px-4 py-4 border-t bg-gray-50 text-xs text-gray-500">
+                    <div class="flex items-center gap-2 truncate">
+                        <span class="material-symbols-outlined !text-[16px] text-gray-400">
+                            insert_drive_file
+                        </span>
+                        <span class="truncate">{{ basename($document->file) }}</span>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <span class="uppercase tracking-wide">
+                            {{ pathinfo($document->file, PATHINFO_EXTENSION) }}
+                        </span>
+                        <span>
+                            {{ $document->created_at->translatedFormat('l, d M Y') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {{-- Right panel --}}
+        <div class="col-span-12 lg:col-span-4 space-y-5">
+
+            {{-- Meta information --}}
+            <div class="bg-white border border-gray-300 rounded-lg shadow-sm">
+                <div class="px-4 py-3 border-b rounded-t-lg bg-gray-50 text-sm font-medium text-gray-700">
+                    Informasi Dokumen
+                </div>
+
+                <div class="p-4 space-y-4 text-xs">
+                    <div class="flex items-start justify-between">
+                        <span class="text-gray-500 text-xs">Uploader</span>
+                        <span class="text-gray-600 font-medium">{{ $document->user->name }}</span>
+                    </div>
+                    <div class="flex items-start justify-between">
+                        <span class="text-gray-500 text-xs">Kategori</span>
+                        <span class="text-gray-600 font-medium">{{ $document->category->name }}</span>
+                    </div>
+                    <div class="flex items-start justify-between">
+                        <span class="text-gray-500 text-xs">Tanggal</span>
+                        <span class="text-gray-600 font-medium">
+                            {{ $document->created_at->translatedFormat('d M Y') }}
+                        </span>
+                    </div>
+                </div>
             </div>
 
 
-            <!-- ===================== -->
-            <!-- SIDEBAR -->
-            <!-- ===================== -->
-            <div class="col-span-12 lg:col-span-4 space-y-5">
+            {{-- Validation panel --}}
+            <div class="sticky top-6">
 
-                <!-- INFO -->
-                <div class="bg-white border rounded-xl shadow-sm">
-
-                    <div class="px-4 py-3 border-b bg-gray-50 text-sm font-medium text-gray-700">
-                        Informasi Dokumen
+                <div class="bg-white border border-gray-300 rounded-lg shadow-sm">
+                    <div class="px-4 py-3 border-b rounded-t-lg bg-gray-50 text-sm font-medium text-gray-700">
+                        Validasi Dokumen
                     </div>
+                    <div class="p-4 space-y-4">
 
-                    <div class="p-4 space-y-4 text-sm">
+                        <form action="{{ route('admin.documents.updateStatus', $document->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
 
-                        <div class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-gray-400 !text-[18px]">person</span>
-                            <div>
-                                <p class="text-gray-500">Uploader</p>
-                                <p class="font-medium text-gray-800">{{ $document->user->name }}</p>
-                            </div>
-                        </div>
+                            <div class="grid grid-cols-2 gap-2">
 
-                        <div class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-gray-400 !text-[18px]">category</span>
-                            <div>
-                                <p class="text-gray-500">Kategori</p>
-                                <p class="font-medium text-gray-800">{{ $document->category->name }}</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-gray-400 !text-[18px]">schedule</span>
-                            <div>
-                                <p class="text-gray-500">Tanggal Upload</p>
-                                <p class="font-medium text-gray-800">
-                                    {{ $document->created_at->format('d M Y') }}
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <!-- ACTION (STICKY) -->
-                <div class="sticky top-6">
-
-                    <div class="bg-white border rounded-xl shadow-sm">
-
-                        <div class="px-4 py-3 border-b bg-gray-50 text-sm font-medium text-gray-700">
-                            Validasi Dokumen
-                        </div>
-
-                        <div class="p-4 space-y-3">
-
-                            <form action="{{ route('admin.documents.updateStatus', $document->id) }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-
-                                <!-- APPROVE -->
+                                {{-- Approve --}}
                                 <button type="submit" name="status" value="approved"
                                     onclick="return confirm('Approve dokumen ini?')"
-                                    class="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm 
-                                bg-green-600 text-white rounded-lg 
-                                hover:bg-green-700 active:scale-95 transition">
+                                    class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium
+                                    bg-green-600 text-white rounded-lg
+                                    hover:bg-green-700 active:scale-[0.98] transition">
 
-                                    <span class="material-symbols-outlined !text-[18px]">check_circle</span>
-                                    Approve Dokumen
+                                    <span class="material-symbols-outlined !text-[16px]">check</span>
+                                    Approve
                                 </button>
 
-                                <!-- REJECT -->
+                                {{-- Reject --}}
                                 <button type="submit" name="status" value="rejected"
                                     onclick="return confirm('Reject dokumen ini?')"
-                                    class="w-full mt-2 flex items-center justify-center gap-2 px-4 py-2 text-sm 
-                                bg-red-600 text-white rounded-lg 
-                                hover:bg-red-700 active:scale-95 transition">
+                                    class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium
+                                    bg-red-600 text-white rounded-lg
+                                    hover:bg-red-700 active:scale-[0.98] transition">
 
-                                    <span class="material-symbols-outlined !text-[18px]">cancel</span>
-                                    Reject Dokumen
+                                    <span class="material-symbols-outlined !text-[16px]">close</span>
+                                    Reject
                                 </button>
 
-                            </form>
+                            </div>
 
-                            <!-- NOTE -->
-                            <p class="text-xs text-gray-400 pt-2 border-t">
-                                Pastikan dokumen telah diperiksa dengan benar sebelum melakukan validasi.
+                        </form>
+
+                        {{-- Note --}}
+                        <div class="flex items-start gap-2 text-[11px] text-gray-500 border-t pt-3">
+                            <span class="material-symbols-outlined !text-[16px] text-gray-400 mt-0.5">
+                                info
+                            </span>
+                            <p>
+                                Lakukan validasi hanya setelah memastikan isi dokumen sudah sesuai.
                             </p>
-
                         </div>
 
                     </div>
@@ -184,5 +164,7 @@
             </div>
 
         </div>
+
     </div>
+
 @endsection

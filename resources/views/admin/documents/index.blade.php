@@ -94,21 +94,37 @@
 
                             <!-- Actions -->
                             <td class="px-4 py-3 whitespace-nowrap">
-                                <div class="flex justify-end items-center gap-6 text-gray-600">
+                                <div class="flex justify-end items-center gap-5 text-gray-600">
+
                                     <!-- Detail -->
                                     <a href="{{ route('admin.documents.show', $doc->id) }}"
                                         class="hover:text-gray-800 transition">
-                                        <span class="material-symbols-outlined !text-[18px]">file_open</span> </a>
-                                    <!-- Preview file -->
+                                        <span class="material-symbols-outlined !text-[18px]">file_open</span>
+                                    </a>
+
+                                    <!-- Preview -->
                                     <a href="{{ route('admin.documents.preview', $doc->id) }}" target="_blank"
-                                        class=" hover:text-gray-800 transition">
+                                        class="hover:text-gray-800 transition">
                                         <span class="material-symbols-outlined !text-[18px]">picture_as_pdf</span>
                                     </a>
-                                    {{-- Download --}}
+
+                                    <!-- Download -->
                                     <a href="{{ route('admin.documents.download', $doc->id) }}"
-                                        class=" hover:text-gray-800 transition">
+                                        class="hover:text-gray-800 transition">
                                         <span class="material-symbols-outlined !text-[18px]">file_save</span>
                                     </a>
+
+                                    <!-- Delete -->
+                                    <form action="{{ route('admin.documents.destroy', $doc->id) }}" method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus dokumen ini?')">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="hover:text-red-600 text-gray-600 transition">
+                                            <span class="material-symbols-outlined !text-[18px]">delete</span>
+                                        </button>
+                                    </form>
+
                                 </div>
                             </td>
                         </tr>

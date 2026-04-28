@@ -52,32 +52,29 @@
                         </td>
 
                         {{-- Aksi --}}
-                        <td class="px-6 py-3 text-center">
-                            <div class="flex items-center justify-center gap-3">
+                        <td class="px-6 py-3">
+                            <div class="flex gap-2">
 
-                                {{-- Status badge --}}
+                                <!-- Status -->
                                 <span
-                                    class="inline-flex items-center gap-1 px-2.5 py-1 text-xs 
-                                bg-yellow-100 text-yellow-700 border border-yellow-200 rounded-full">
-
-                                    <span class="material-symbols-outlined !text-[14px]">schedule</span>
+                                    class="inline-flex items-center gap-1 px-3 py-1.5 text-[11px] font-medium
+                                    bg-yellow-50 text-yellow-700 border border-yellow-200 rounded-full">
+                                    <span class="material-symbols-outlined !text-[14px] leading-none">
+                                        schedule
+                                    </span>
                                     Pending
                                 </span>
 
-                                {{-- Detail --}}
+                                <!-- Detail -->
                                 <a href="{{ route('admin.validation-documents.show', $doc->id) }}"
-                                    class="inline-flex items-center gap-1 px-3 py-1.5 text-xs 
-                                bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition">
-
-                                    <span class="material-symbols-outlined !text-[16px]">visibility</span>
-                                    Detail
+                                    class="inline-flex items-center gap-1 px-3 py-1.5 text-[11px] font-medium
+                                    text-gray-700 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-full transition">
+                                    <span class="material-symbols-outlined !text-[16px] leading-none">file_open</span>
+                                    Detail dokumen
                                 </a>
-
                             </div>
                         </td>
-
                     </tr>
-
                 @empty
 
                     {{-- EMPTY STATE --}}

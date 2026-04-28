@@ -14,7 +14,7 @@ use App\Models\DocumentLog;
 class DocumentController extends Controller
 {
 
-    // --- List dafar semua dokumen pengguna (status -> aprroved/rejected)
+    // ---> List dafar semua dokumen pengguna (status -> aprroved/rejected)
     public function index(Request $request)
     {
         $query = Document::with(['user', 'category'])
@@ -36,7 +36,7 @@ class DocumentController extends Controller
     }
 
 
-    // --- Form tambah dokumen
+    // ---> Form tambah dokumen
     public function create()
     {
         $categories = Category::all();
@@ -46,7 +46,7 @@ class DocumentController extends Controller
     }
 
 
-    // --- Proses (store) menyimpan data dokumen ke table database (khusus admin status -> approved)
+    // ---> Proses (store) menyimpan data dokumen ke table database (khusus admin status -> approved)
     public function store(Request $request)
     {
         $request->validate([
@@ -76,16 +76,22 @@ class DocumentController extends Controller
     }
 
 
-    // --- Detail dokumen
+    // ---> Detail dokumen
     public function show($id)
     {
-        $document = Document::with(['user', 'category'])->findOrFail($id);
+        $document = Document::with(['user', 'category'])
+            ->withCount([
+                'logs as downloads_count' => function ($query) {
+                    $query->where('action', 'download');
+                }
+            ])
+            ->findOrFail($id);
 
         return view('admin.documents.show', compact('document'));
     }
 
 
-    // --- Form edit dokumen
+    // ---> Menampilkan Form edit dokumen
     public function edit($id)
     {
         $document = Document::findOrFail($id);
@@ -96,7 +102,7 @@ class DocumentController extends Controller
     }
 
 
-    // --- Proses memperbarui data dokumen ke table database
+    // ---> Proses memperbarui data dokumen ke table database
     public function update(Request $request, $id)
     {
         $document = Document::findOrFail($id);
@@ -104,10 +110,10 @@ class DocumentController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'user_id' => 'required|exists:users,id',
             'file' => 'nullable|mimes:pdf,doc,docx|max:10240',
         ]);
 
+        // Handle file
         if ($request->hasFile('file')) {
             Storage::disk('public')->delete($document->file);
 
@@ -115,18 +121,17 @@ class DocumentController extends Controller
             $document->file = $filePath;
         }
 
+        // Update TANPA user_id
         $document->update([
             'title' => $request->title,
             'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
         ]);
 
         return redirect()->route('admin.documents.index')
             ->with('success', 'Dokumen berhasil diperbarui.');
     }
 
-
-    // --- Menampilkan halaman VALIDATION (khusus admin) -> Hanya menampilkan dokumen dengan status PENDING
+    // ---> Menampilkan halaman VALIDATION (khusus admin) -> Hanya menampilkan dokumen dengan status PENDING
     public function validation(Request $request)
     {
         // Ambil data dokumen + relasi user & category
@@ -149,7 +154,7 @@ class DocumentController extends Controller
     }
 
 
-    // --- Update status dokumen (approve / reject) Hanya boleh dilakukan oleh admin
+    // ---> Update status dokumen (approve / reject) Hanya boleh dilakukan oleh admin
     public function updateStatus(Request $request, $id)
     {
         // dd($request->method());
@@ -197,7 +202,7 @@ class DocumentController extends Controller
         return back()->with('success', 'Status dokumen berhasil diperbarui.');
     }
 
-    // -- Detail validasi dokumen (halaman review sebelum approve/reject)
+    // ---> Detail validasi dokumen (halaman review sebelum approve/reject)
     public function showValidation($id)
     {
         // Ambil dokumen beserta relasi user & category
@@ -232,7 +237,7 @@ class DocumentController extends Controller
     }
 
 
-    // --- Download dokumen berupa (pdf)
+    // ---> Download dokumen berupa (pdf)
     public function download($id)
     {
         $document = Document::findOrFail($id);
@@ -247,7 +252,7 @@ class DocumentController extends Controller
     }
 
 
-    // --- Proses hapus data dokumen dari table database
+    // ---> Proses hapus data dokumen dari table database
     public function destroy($id)
     {
         $document = Document::findOrFail($id);

@@ -20,19 +20,20 @@
 
     <!-- Logo unsri -->
     <div class="absolute top-3 left-4 flex items-center gap-3">
-        <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-[45px] sm:h-[45px]" />
-        <div class="flex flex-col leading-none text-gray-800">
-            <h3 class="text-sm sm:text-lg font-medium">
+        <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-10 w-10 object-contain">
+        <div class="flex flex-col leading-tight">
+            <span class="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-100">
                 Fakultas Ilmu Komputer
-            </h3>
-            <h4 class="text-[10px] sm:text-xs font-normal mt-[2px] sm:mt-[-3px]">
+            </span>
+            <span class="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400">
                 Program studi Manajemen Informatika
-            </h4>
+            </span>
         </div>
     </div>
 
     <!-- Main Container -->
-    <div class="w-full max-w-4xl sm:min-h-[470px] bg-white border border-gray-300 rounded-lg shadow-md flex flex-col md:flex-row overflow-hidden">
+    <div
+        class="w-full max-w-4xl sm:min-h-[470px] bg-white border border-gray-300 rounded-lg shadow-md flex flex-col md:flex-row overflow-hidden">
         {{-- Left Content --}}
         <div class="hidden md:flex w-[50%] bg-gray-100 border-r border-gray-300 p-6 lg:p-8">
             <div class="flex flex-col justify-between w-full">

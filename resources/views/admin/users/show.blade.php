@@ -59,11 +59,11 @@
 
             {{-- Dokumen --}}
             <div class="bg-white border border-gray-300 rounded-lg p-5 flex items-center gap-4 shadow-md">
-                <span class="material-icons text-blue-700 text-[28px]">description</span>
+                <span class="material-icons text-blue-700 !text-[28px]">description</span>
 
                 <div>
                     <p class="text-xs text-gray-500">Jumlah Dokumen</p>
-                    <p class="!text-2xl font-semibold text-gray-900">
+                    <p class="text-2xl font-semibold text-gray-900">
                         {{ $user->documents->count() }}
                     </p>
                 </div>
@@ -71,11 +71,11 @@
 
             {{-- Aktivitas --}}
             <div class="bg-white border border-gray-300 rounded-lg p-5 flex items-center gap-4 shadow-md">
-                <span class="material-icons text-green-700 text-[28px]">timeline</span>
+                <span class="material-icons text-green-700 !text-[28px]">timeline</span>
 
                 <div>
                     <p class="text-xs text-gray-500">Jumlah Aktivitas</p>
-                    <p class="!text-2xl font-semibold text-gray-900">
+                    <p class="text-2xl font-semibold text-gray-900">
                         {{ $user->logs->count() }}
                     </p>
                 </div>
