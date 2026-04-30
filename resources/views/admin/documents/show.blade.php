@@ -142,7 +142,7 @@
                 <!-- Tanggal Upload -->
                 <div class="mb-3">
                     <p class="text-xs text-gray-500">Tanggal Upload</p>
-                    <p class="text-sm text-gray-700 ">
+                    <p class="text-[12px] text-gray-700 ">
                         {{ $document->created_at->format('d M Y') }}
                     </p>
                 </div>
@@ -150,7 +150,7 @@
                 <!-- Download Count -->
                 <div class="mb-3">
                     <p class="text-xs text-gray-500">Jumlah Download</p>
-                    <p class="text-sm text-gray-700">
+                    <p class="text-[12px] text-gray-700">
                         {{ $document->downloads_count ?? 0 }} kali diunduh
                     </p>
                 </div>

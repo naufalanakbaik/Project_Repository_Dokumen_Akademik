@@ -62,7 +62,6 @@
             {{-- OPTIONAL: QUICK ACTION --}}
             <a href="{{ route('mahasiswa.documents.download', $document->id) }}"
                 class="hidden sm:flex items-center gap-1 text-xs font-medium text-gray-500 hover:text-blue-600 transition">
-                {{-- <span class="material-icons !text-[14px]">download</span> --}}
                 <span class="material-symbols-outlined !text-[14px]">file_save</span>
                 Download
             </a>

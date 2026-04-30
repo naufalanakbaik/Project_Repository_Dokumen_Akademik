@@ -14,7 +14,7 @@
 
     <!-- Google Fonts: Inter & Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    
+
 
     <!--Material icon -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
@@ -146,8 +146,8 @@
             class="fixed top-0 left-0 h-screen w-64 bg-white 
             flex flex-col border-r border-gray-200 transition-all duration-300 overflow-hidden">
 
-            {{-- Side head admin -> Tombol minimize --}}
-            <div class="p-4 flex justify-center items-center bg-white border-b border-gray-200">
+            {{-- <!-- Side head admin -> Tombol minimize -->
+            <div class="p-4 flex justify-center items-center bg-white">
                 <span id="sidebar-title" class="text-sm text-gray-800 font-sans font-medium uppercase tracking-wide">
                     Halaman Admin
                 </span>
@@ -155,6 +155,37 @@
                     <span id="toggleIcon"
                         class="material-icons pt-0.5 text-gray-900 !text-[17px] hover:text-blue-700 transition">
                         keyboard_arrow_left
+                    </span>
+                </button>
+            </div> --}}
+
+
+            <!-- Side head admin -> Tombol minimize -->
+            <div class="relative  bg-white">
+
+                <!-- Header title -->
+                <div class="py-4 px-5 flex items-center justify-between">
+                    <div class="flex flex-col leading-tight">
+                        <span id="sidebar-title" class="text-sm font-semibold text-gray-800 tracking-wide">
+                            Admin Panel
+                        </span>
+                        <span class="text-[11px] text-gray-400">
+                            Dashboard Control
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Floating Toggle -->
+                <button id="toggleSidebar"
+                    class="absolute top-1/2 -translate-y-1/2 -right-[12px]
+                    w-9 h-9 flex items-center justify-center
+                    bg-white border border-gray-200 rounded-full shadow-sm
+                    hover:shadow-md hover:bg-gray-50
+                    transition-all duration-200 z-50">
+
+                    <span id="toggleIcon"
+                        class="material-symbols-outlined text-gray-700 !text-[20px] transition-all duration-300">
+                        chevron_left
                     </span>
                 </button>
             </div>
@@ -202,7 +233,7 @@
                             <img src="{{ asset('img/icon-sidebar/penerbit.png') }}"
                                 class="w-5 h-5 object-contain
                             {{ request()->routeIs('admin.dashboard.monitoring-pengguna') ? 'brightness-0 invert' : '' }}">
-                            <span class="ml-2.5 menu-text">Monitoring Pengguna</span>
+                            <span class="ml-2.5 menu-text">Aktivitas Pengguna</span>
                         </a>
                     </li>
 
@@ -267,10 +298,10 @@
                     <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-10 w-10 object-contain">
                     <div class="flex flex-col leading-tight">
                         <span class="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-100">
-                            Fakultas Ilmu Komputer
+                            Program Studi Manajemen Informatika
                         </span>
                         <span class="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400">
-                            Manajemen Informatika
+                            Fakultas Ilmu Komputer
                         </span>
                     </div>
                 </div>
@@ -285,7 +316,7 @@
                                 class="w-8 h-8 rounded-full border border-gray-300">
                             <span class="ml-3 text-gray-800 font-normal text-sm">{{ Auth::user()->name }}</span>
                             <span id="profileIcon"
-                                class="material-icons mt-0.5 ml-2 transform transition-transform duration-200 text-gray-700  menu-text !text-[19px]">arrow_drop_down</span>
+                                class="material-icons mt-0.5 ml-2 transform transition-transform duration-200 text-gray-700 !text-[19px]">arrow_drop_down</span>
                         </button>
 
                         {{-- Isi dropdown menu --}}
@@ -355,9 +386,8 @@
                         </div>
 
                         {{-- Isi dropdown menu --}}
-                        <div id="profileDropdown"
-                            class="absolute right-0 mt-2 w-56 bg-white 
-                                border border-gray-200 rounded-lg shadow-sm hidden overflow-hidden z-50">
+                        <div
+                            class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-sm hidden overflow-hidden z-50">
                             <div class="px-4 py-3 border-b border-gray-200">
                                 <div class="flex flex-col">
                                     <span class="text-sm font-semibold text-gray-800">
@@ -549,7 +579,8 @@
             const toggleBtn = document.getElementById("toggleSidebar");
             const sidebar = document.getElementById("sidebar");
             const sidebarTitle = document.getElementById("sidebar-title");
-            const menuTexts = document.querySelectorAll(".menu-text");
+            // const menuTexts = document.querySelectorAll(".menu-text");
+            const menuTexts = sidebar.querySelectorAll(".menu-text");
             const mainContent = document.getElementById("mainContent");
             const toggleIcon = document.getElementById("toggleIcon");
 

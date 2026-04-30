@@ -46,7 +46,7 @@ class DocumentController extends Controller
         });
 
         $documents = $query->latest()
-            ->paginate(10)
+            ->paginate(9)
             ->withQueryString();
 
         return view('dosen.katalog.global', compact('documents'));

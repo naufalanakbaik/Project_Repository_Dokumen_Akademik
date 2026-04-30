@@ -34,9 +34,6 @@
                 <a href="{{ route('kaprodi.documents.index') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('kaprodi.documents.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
                     Daftar Dokumen
                 </a>
-                <a href="{{ route('kaprodi.monitoring') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('kaprodi.monitoring') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
-                    Monitoring Aktivitas
-                </a>
             </nav>
 
             <div class="p-4 border-t border-slate-100">

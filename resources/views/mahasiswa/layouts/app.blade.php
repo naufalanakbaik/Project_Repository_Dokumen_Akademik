@@ -85,10 +85,10 @@
                         <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-9 w-9 object-contain">
                         <div class="flex flex-col leading-tight">
                             <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">
-                                Fakultas Ilmu Komputer
+                                Program Studi Manajemen Informatika
                             </span>
                             <span class="text-[11px] text-gray-500 dark:text-gray-400">
-                                Manajemen Informatika
+                                Fakultas Ilmu Komputer
                             </span>
                         </div>
                     </a>

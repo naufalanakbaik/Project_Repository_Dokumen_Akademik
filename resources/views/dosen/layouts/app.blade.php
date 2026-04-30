@@ -1,95 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition-colors duration-300">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dosen - {{ config('app.name', 'Academic Repository') }}</title>
+
+    {{-- Js darkmode Agar tidak relad 2x --}}
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
 
     <!-- Tailwind CSS via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <!-- Title -->
+    <title>Dosen - @yield('title')</title>
+
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Icon web browser -->
+    <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
+
     {{-- Material icon --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
+    <!-- Global style -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
     </style>
+
     @stack('styles')
 </head>
 
-<body class="bg-slate-50 text-slate-900">
-    <div class="min-h-screen flex">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col">
-            <div class="p-6">
-                <h1 class="text-xl font-bold text-indigo-600">RepoDokumen <span
-                        class="text-xs font-normal text-slate-400">Dosen</span></h1>
+<body class="bg-gray-100 dark:bg-gray-900">
+
+    {{-- Top Head Information --}}
+    <div class="text-xs bg-gray-100 border-b border-gray-200 dark:bg-gray-200">
+        <div class="max-w-7xl mx-auto px-8 py-2 flex justify-between items-center">
+
+            <div class="flex items-center gap-6">
+                <span class="flex items-center gap-2 text-gray-600 dark:text-gray-500">
+                    Repository Akademik System
+                    <span class="text-gray-700 dark:text-gray-500">v1.0</span>
+                </span>
+                <span class="hidden md:block text-gray-700 dark:text-gray-500">
+                    Sistem pengelolaan dokumen akademik dan repositori digital
+                </span>
             </div>
 
-            <nav class="flex-1 px-4 space-y-1">
-                <a href="{{ route('dosen.dashboard') }}"
-                    class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.dashboard') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
-                    Dashboard
+            <div class="flex items-center gap-5">
+                {{-- <a href="{{ route('publisher.documentation') }}"
+                    class="transition duration-200 font-normal {{ request()->routeIs('publisher.documentation')
+                        ? 'text-red-500 dark:text-red-500'
+                        : 'hover:text-blue-500 dark:hover:text-blue-400' }}">
+                    Dokumentasi
                 </a>
-                <a href="{{ route('dosen.documents.index') }}"
-                    class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.documents.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
-                    Dokumen Saya
-                </a>
-                <a href="{{ route('dosen.katalog.global') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.katalog.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
-                    Dokumen User
-                </a>
-                <a href="{{ route('dosen.monitoring') }}"
-                    class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('dosen.monitoring') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }} rounded-lg transition-colors">
-                    Monitoring
-                </a>
-            </nav>
 
-            <div class="p-4 border-t border-slate-100">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit"
-                        class="w-full text-left px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                        Logout
-                    </button>
-                </form>
+                <a href="{{ route('publisher.help') }}"
+                    class="transition duration-200 font-normal {{ request()->routeIs('publisher.help')
+                        ? 'text-red-500 dark:text-red-500'
+                        : 'hover:text-blue-500 dark:hover:text-blue-400' }}">
+                    Bantuan
+                </a> --}}
             </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="flex-1 flex flex-col">
-            <header class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between">
-                <div class="md:hidden">
-                    <button class="p-2 text-slate-600">Menu</button>
-                </div>
-                <div class="hidden md:block">
-                    <h2 class="text-lg font-semibold text-slate-800">@yield('title', 'Dosen Dashboard')</h2>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="text-right">
-                        <p class="text-sm font-medium text-slate-900">{{ auth()->user()->name }}</p>
-                        <p class="text-xs text-slate-500 capitalize">{{ auth()->user()->role }}</p>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Page Content -->
-            <div class="p-8">
-                @if (session('success'))
-                    <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @yield('content')
-            </div>
-        </main>
+        </div>
     </div>
+
+    {{-- Navbar --}}
+    <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="flex justify-between items-center h-16">
+
+                {{-- Left Section --}}
+                <div class="flex items-center gap-10">
+
+                    {{-- Logo + Brand --}}
+                    <a href="{{ route('dosen.dashboard') }}" class="flex items-center gap-3 group">
+                        <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-9 w-9 object-contain">
+                        <div class="flex flex-col leading-tight">
+                            <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                Program Studi Manajemen Informatika
+                            </span>
+                            <span class="text-[11px] text-gray-500 dark:text-gray-200">
+                                Fakultas Ilmu Komputer
+                            </span>
+                        </div>
+                    </a>
+
+                    {{-- Menu --}}
+                    <div class="hidden md:flex items-center gap-8 text-[14px] font-medium">
+
+                        @php
+                            $isDashboardActive = request()->routeIs('dosen.dashboard');
+                        @endphp
+                        <a href="{{ route('dosen.dashboard') }}"
+                            class="relative transition
+                            {{ $isDashboardActive
+                                ? 'text-blue-700 dark:text-blue-400'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}
+
+                            after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
+                            after:-bottom-2 after:h-[2.5px] 
+                            after:bg-blue-700 after:rounded-full
+                            after:transition-all after:duration-300
+
+                            {{ $isDashboardActive
+                                ? 'after:w-8 after:bg-blue-600 dark:after:bg-blue-400'
+                                : 'after:w-0 after:bg-blue-600 dark:after:bg-blue-400 hover:after:w-8' }}">
+                            Dashboard
+                        </a>
+
+                        <a href="{{ route('dosen.katalog.global') }}"
+                            class="transition duration-200
+                            {{ request()->routeIs('dosen.katalog.*')
+                                ? 'text-blue-700 dark:text-blue-400'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}">
+                            Katalog
+                        </a>
+
+                        <a href="{{ route('dosen.documents.index') }}"
+                            class="transition duration-200 
+                            {{ request()->routeIs('dosen.documents.*')
+                                ? 'text-blue-700 dark:text-blue-400'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}">
+                            Dokumen Saya
+                        </a>
+
+                    </div>
+                </div>
+
+                {{-- Right section --}}
+                <div class="relative inline-block text-left">
+
+                    <button id="userMenuButton"
+                        class="flex items-center gap-1 text-sm transition text-gray-700 dark:text-gray-200
+                        hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none">
+
+                        <span class="font-normal ml-2">
+                            {{ auth()->user()->name }}
+                        </span>
+
+                        {{-- Dropdown Icon --}}
+                        <span id="dropdownIcon"
+                            class="material-icons !text-base text-gray-400 dark:text-gray-500 transition-transform duration-200">
+                            arrow_drop_down
+                        </span>
+                    </button>
+
+                    {{-- Dropdwon --}}
+                    <div id="userDropdown"
+                        class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700
+                        rounded-xl shadow-lg opacity-0 invisible transition">
+
+                        {{-- User Header --}}
+                        <div
+                            class="px-6 py-3 bg-gray-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 rounded-tl-xl rounded-tr-xl">
+
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
+                                    @if (auth()->user()->photo)
+                                        <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Avatar"
+                                            class="w-full h-full rounded-full border-gray-200 dark:border-gray-100 object-cover">
+                                    @else
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800
+                                                flex items-center justify-center border border-gray-200 dark:border-gray-700">
+                                            <span class="material-icons text-gray-400 !text-[20px]">
+                                                person
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- User Info -->
+                                <div class="flex flex-col leading-tight">
+                                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                        {{ auth()->user()->name }}
+                                    </p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 truncate max-w-[160px]">
+                                        {{ auth()->user()->email }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Menu --}}
+                        <div class="py-2">
+
+                            {{-- Button dark mode --}}
+                            <button id="darkToggle"
+                                class="flex items-center gap-3 w-full px-5 py-2 text-sm text-gray-700 dark:text-gray-200
+                                hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                                <span id="darkIcon" class="material-icons text-gray-600 dark:text-gray-300">
+                                    dark_mode
+                                </span>
+                                Toggle Dark Mode
+                            </button>
+
+                            {{-- Logout --}}
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button
+                                    class="w-full text-left px-5 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20">
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {{-- Content --}}
+    <main class="max-w-7xl mx-auto px-8 py-5">
+        @if (session('success'))
+            <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @yield('content')
+    </main>
+
+    {{-- Js Dropdown Toogle profile --}}
+    <script>
+        const button = document.getElementById('userMenuButton');
+        const dropdown = document.getElementById('userDropdown');
+        const icon = document.getElementById('dropdownIcon');
+
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+
+            dropdown.classList.toggle('opacity-0');
+            dropdown.classList.toggle('scale-95');
+            dropdown.classList.toggle('invisible');
+
+            icon.classList.toggle('rotate-180');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+                dropdown.classList.add('opacity-0', 'scale-95', 'invisible');
+                icon.classList.remove('rotate-180');
+            }
+        });
+    </script>
+
+    {{-- Js Dark Mode --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggle = document.getElementById("darkToggle");
+            if (!toggle) return;
+            toggle.addEventListener("click", function() {
+                const html = document.documentElement;
+                html.classList.toggle("dark");
+                if (html.classList.contains("dark")) {
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    localStorage.setItem("theme", "light");
+                }
+            });
+        });
+    </script>
 
     @stack('scripts')
 </body>

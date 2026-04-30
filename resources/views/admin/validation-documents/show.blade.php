@@ -44,19 +44,19 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <a href="{{ route('admin.documents.download', $document->id) }}"
-                            class="flex items-center gap-1 text-[14px] px-3 py-1 bg-gray-100 text-gray-600 rounded-xl border border-gray-300
+                            class="flex items-center gap-1 text-[12px] px-3 py-1 bg-gray-100 text-gray-600 rounded-md border border-gray-300
                             hover:bg-gray-200 transition">
-                            <span class="material-symbols-outlined !text-[16px]">download</span>
+                            <span class="material-symbols-outlined !text-[14px]">download</span>
                             Download
                         </a>
                     </div>
                 </div>
 
-                {{-- <!-- PDF View --> --}}
+                {{-- PDF View --}}
                 <iframe src="{{ asset('storage/' . $document->file) }}" class="w-full h-[680px] bg-gray-100">
                 </iframe>
 
-                {{-- <!-- File info --> --}}
+                {{--File info --}}
                 <div class="flex items-center justify-between px-4 py-4 border-t bg-gray-50 text-xs text-gray-500">
                     <div class="flex items-center gap-2 truncate">
                         <span class="material-symbols-outlined !text-[16px] text-gray-400">
@@ -125,10 +125,10 @@
                                 <button type="submit" name="status" value="approved"
                                     onclick="return confirm('Approve dokumen ini?')"
                                     class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium
-                                    bg-green-600 text-white rounded-lg
-                                    hover:bg-green-700 active:scale-[0.98] transition">
+                                    bg-green-50 text-green-700 border border-green-300 rounded-lg
+                                    hover:bg-green-100 active:scale-[0.98] transition">
 
-                                    <span class="material-symbols-outlined !text-[16px]">check</span>
+                                    <span class="material-symbols-outlined !text-[16px]">task</span>
                                     Approve
                                 </button>
 
@@ -136,10 +136,10 @@
                                 <button type="submit" name="status" value="rejected"
                                     onclick="return confirm('Reject dokumen ini?')"
                                     class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium
-                                    bg-red-600 text-white rounded-lg
-                                    hover:bg-red-700 active:scale-[0.98] transition">
+                                    bg-red-50 text-red-700 border border-red-300 rounded-lg
+                                    hover:bg-red-100 active:scale-[0.98] transition">
 
-                                    <span class="material-symbols-outlined !text-[16px]">close</span>
+                                    <span class="material-symbols-outlined !text-[16px]">scan_delete</span>
                                     Reject
                                 </button>
 
@@ -147,7 +147,7 @@
 
                         </form>
 
-                        {{-- Note --}}
+                        {{-- Note for admin --}}
                         <div class="flex items-start gap-2 text-[11px] text-gray-500 border-t pt-3">
                             <span class="material-symbols-outlined !text-[16px] text-gray-400 mt-0.5">
                                 info
