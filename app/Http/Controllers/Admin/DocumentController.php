@@ -121,7 +121,6 @@ class DocumentController extends Controller
             $document->file = $filePath;
         }
 
-        // Update TANPA user_id
         $document->update([
             'title' => $request->title,
             'category_id' => $request->category_id,
@@ -130,6 +129,7 @@ class DocumentController extends Controller
         return redirect()->route('admin.documents.index')
             ->with('success', 'Dokumen berhasil diperbarui.');
     }
+
 
     // ---> Menampilkan halaman VALIDATION (khusus admin) -> Hanya menampilkan dokumen dengan status PENDING
     public function validation(Request $request)
@@ -169,6 +169,7 @@ class DocumentController extends Controller
         // Validasi input dari form
         $request->validate([
             'status' => 'required|in:approved,rejected',
+            'reject_note' => 'required_if:status,rejected|nullable|string|max:1000',
         ]);
 
         // Cegah update jika status sama (menghindari query tidak perlu)
@@ -184,9 +185,21 @@ class DocumentController extends Controller
         }
 
         // Update status dokumen
-        $document->update([
-            'status' => $request->status
-        ]);
+        if ($request->status === 'rejected') {
+            $document->update([
+                'status' => 'rejected',
+                'reject_note' => $request->reject_note,
+                'rejected_at' => now(),
+                'rejected_by' => auth()->id(),
+            ]);
+        } else {
+            $document->update([
+                'status' => 'approved',
+                'reject_note' => null,
+                'rejected_at' => null,
+                'rejected_by' => null,
+            ]);
+        }
 
         // Logging aktivitas validasi
         DocumentLog::create([

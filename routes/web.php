@@ -54,6 +54,10 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/documents', [MahasiswaDocumentController::class, 'store'])
                 ->name('documents.store');
 
+            // -- Route untuk edit dan update data dokumen -> mahasiswa
+            Route::get('/documents/{id}/edit', [MahasiswaDocumentController::class, 'edit'])->name('documents.edit');
+            Route::put('/documents/{id}', [MahasiswaDocumentController::class, 'update'])->name('documents.update');
+
             // -- Menampilkan detail dokumen -> mahasiswa
             Route::get('/documents/{id}', [MahasiswaDocumentController::class, 'show'])
                 ->name('documents.show');

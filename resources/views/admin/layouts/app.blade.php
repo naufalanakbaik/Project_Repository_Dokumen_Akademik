@@ -159,40 +159,40 @@
                 </button>
             </div> --}}
 
-
             <!-- Side head admin -> Tombol minimize -->
-            <div class="relative  bg-white">
+            <div class="relative bg-white">
+                <div id="sidebarHeader" class="py-4 px-4 flex items-center justify-between transition-all duration-300">
 
-                <!-- Header title -->
-                <div class="py-4 px-5 flex items-center justify-between">
-                    <div class="flex flex-col leading-tight">
+                    <!-- Title -->
+                    <div id="sidebarTitleWrapper" class="flex flex-col leading-tight transition-all duration-300">
                         <span id="sidebar-title" class="text-sm font-semibold text-gray-800 tracking-wide">
                             Admin Panel
                         </span>
-                        <span class="text-[11px] text-gray-400">
+                        <span class="text-[11px] tracking-wide text-gray-400">
                             Dashboard Control
                         </span>
                     </div>
+
+                    <!-- Toggle -->
+                    <button id="toggleSidebar"
+                        class="group w-10 h-10 flex items-center justify-center
+                        rounded-full border border-yellow-300 bg-yellow-50
+                        shadow-sm hover:bg-yellow-100
+                        transition-all duration-300">
+
+                        <span id="toggleIcon"
+                            class="material-symbols-outlined text-yellow-600 !text-[20px]
+                            transition-transform duration-300 group-hover:scale-110">
+                            menu_open
+                        </span>
+                    </button>
                 </div>
-
-                <!-- Floating Toggle -->
-                <button id="toggleSidebar"
-                    class="absolute top-1/2 -translate-y-1/2 -right-[12px]
-                    w-9 h-9 flex items-center justify-center
-                    bg-white border border-gray-200 rounded-full shadow-sm
-                    hover:shadow-md hover:bg-gray-50
-                    transition-all duration-200 z-50">
-
-                    <span id="toggleIcon"
-                        class="material-symbols-outlined text-gray-700 !text-[20px] transition-all duration-300">
-                        chevron_left
-                    </span>
-                </button>
             </div>
 
+            <!-- Menu sidebar -->
             <nav class="flex-1 overflow-y-auto">
-                <ul class="space-y-2 p-5 font-[400] font-sans text-sm">
-                    <h4 class="sidebar-heading text-xs font-semibold text-gray-800 uppercase mb-2">
+                <ul class="space-y-1.5 px-5 py-1 text-sm">
+                    <h4 class="sidebar-heading text-[11px] font-semibold text-gray-500 uppercase mb-2">
                         <span class="full-text">Fitur Admin</span>
                         <span class="short-text hidden">Fitur</span>
                     </h4>
@@ -200,10 +200,10 @@
                     <li>
                         <a href="{{ route('admin.dashboard') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.dashboard') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            {{ request()->routeIs('admin.dashboard') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/dashboard.png') }}"
                                 class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.dashboard') ? 'brightness-0 invert' : '' }}">
+                            {{ request()->routeIs('admin.dashboard') }}">
                             <span class="ml-2.5 menu-text">Dashboard</span>
                         </a>
                     </li>
@@ -211,10 +211,10 @@
                     <li>
                         <a href="{{ route('admin.validation-documents.validation') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.validation-documents.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            {{ request()->routeIs('admin.validation-documents.*') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}"
                                 class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.validation-documents.*') ? 'brightness-0 invert' : '' }}">
+                            {{ request()->routeIs('admin.validation-documents.*') }}">
                             <span class="ml-2.5 menu-text">Validasi Dokumen</span>
                         </a>
                     </li>
@@ -229,15 +229,15 @@
                     <li>
                         <a href="{{ route('admin.dashboard.monitoring-pengguna') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.dashboard.monitoring-pengguna') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            {{ request()->routeIs('admin.dashboard.monitoring-pengguna') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/penerbit.png') }}"
                                 class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.dashboard.monitoring-pengguna') ? 'brightness-0 invert' : '' }}">
+                            {{ request()->routeIs('admin.dashboard.monitoring-pengguna') }}">
                             <span class="ml-2.5 menu-text">Aktivitas Pengguna</span>
                         </a>
                     </li>
 
-                    <h4 class="sidebar-heading text-xs font-semibold text-gray-800 uppercase mb-2">
+                    <h4 class="sidebar-heading text-[11px] font-semibold text-gray-500 uppercase mb-2">
                         <span class="full-text">Kelola Admin</span>
                         <span class="short-text hidden">Kelola</span>
                     </h4>
@@ -245,10 +245,10 @@
                     <li>
                         <a href="{{ route('admin.documents.index') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.documents.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            {{ request()->routeIs('admin.documents.*') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/journals.png') }}"
                                 class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.documents.*') ? 'brightness-0 invert' : '' }}">
+                            {{ request()->routeIs('admin.documents.*') }}">
                             <span class="ml-2.5 menu-text">Kelola Dokumen</span>
                         </a>
                     </li>
@@ -256,10 +256,10 @@
                     <li>
                         <a href="{{ route('admin.categories.index') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.categories.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            {{ request()->routeIs('admin.categories.*') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/kategori.png') }}"
                                 class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.categories.*') ? 'brightness-0 invert' : '' }}">
+                            {{ request()->routeIs('admin.categories.*') }}">
                             <span class="ml-2.5 menu-text">Kelola Kategori</span>
                         </a>
                     </li>
@@ -267,10 +267,10 @@
                     <li>
                         <a href="{{ route('admin.users.index') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.users.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            {{ request()->routeIs('admin.users.*') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/anggota.png') }}"
                                 class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.users.*') ? 'brightness-0 invert' : '' }}">
+                            {{ request()->routeIs('admin.users.*') }}">
                             <span class="ml-2.5 menu-text">Kelola Pengguna</span>
                         </a>
                     </li>
@@ -278,10 +278,9 @@
             </nav>
 
             <!-- Footer Sidebar -->
-            <div class="bg-gray-50 border-t border-blue-200 p-4">
+            <div class="bg-white border-t border-gray-200 p-4">
                 <p class="sidebar-heading text-xs text-gray-700 justify-center text-center">
-                    <span class="full-text font-medium text-gray-700">© {{ date('Y') }} Repositori Dokumen
-                        Akademik.</span>
+                    <span class="full-text font-medium text-gray-700">© {{ date('Y') }} Repositori Dokumen Akademik.</span>
                     <span class="short-text hidden font-medium text-gray-800">© {{ date('Y') }}</span>
                 </p>
             </div>
@@ -294,7 +293,7 @@
             <header class=" bg-white border-gray-500 shadow flex items-center justify-between p-4">
 
                 <!-- Header logo kiri -->
-                <div class="flex items-center gap-3 group">
+                <div class="flex items-center gap-2 group">
                     <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-10 w-10 object-contain">
                     <div class="flex flex-col leading-tight">
                         <span class="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-100">
@@ -314,9 +313,9 @@
                         <button id="profileBtn" class="flex items-center focus:outline-none">
                             <img src="{{ asset('img/icon/profile-blue-icon.png') }}" alt="Profil"
                                 class="w-8 h-8 rounded-full border border-gray-300">
-                            <span class="ml-3 text-gray-800 font-normal text-sm">{{ Auth::user()->name }}</span>
+                            <span class="ml-2.5 text-gray-700 font-normal text-sm">{{ Auth::user()->name }}</span>
                             <span id="profileIcon"
-                                class="material-icons mt-0.5 ml-2 transform transition-transform duration-200 text-gray-700 !text-[19px]">arrow_drop_down</span>
+                                class="material-icons mt-0.5 ml-1 transform transition-transform duration-200 text-gray-500 !text-[18px]">arrow_drop_down</span>
                         </button>
 
                         {{-- Isi dropdown menu --}}
@@ -576,68 +575,59 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 
-            const toggleBtn = document.getElementById("toggleSidebar");
             const sidebar = document.getElementById("sidebar");
-            const sidebarTitle = document.getElementById("sidebar-title");
-            // const menuTexts = document.querySelectorAll(".menu-text");
-            const menuTexts = sidebar.querySelectorAll(".menu-text");
-            const mainContent = document.getElementById("mainContent");
+            const toggleBtn = document.getElementById("toggleSidebar");
             const toggleIcon = document.getElementById("toggleIcon");
+            const sidebarTitle = document.getElementById("sidebar-title");
+            const mainContent = document.getElementById("mainContent");
 
-            if (!toggleBtn || !sidebar) return;
+            if (!sidebar || !toggleBtn) return;
 
-            function setSidebar(minimized) {
+            const menuTexts = sidebar.querySelectorAll(".menu-text");
 
-                if (minimized) {
+            function applySidebarState(isMinimized) {
 
-                    sidebar.classList.remove("w-64");
-                    sidebar.classList.add("w-20", "minimized");
+                // Sidebar width
+                sidebar.classList.toggle("w-20", isMinimized);
+                sidebar.classList.toggle("w-64", !isMinimized);
+                sidebar.classList.toggle("minimized", isMinimized);
 
-                    mainContent?.classList.remove("ml-64");
-                    mainContent?.classList.add("ml-20");
+                // Main content
+                mainContent?.classList.toggle("ml-20", isMinimized);
+                mainContent?.classList.toggle("ml-64", !isMinimized);
 
-                    sidebarTitle?.classList.add("hidden");
+                // Title hide
+                sidebarTitleWrapper?.classList.toggle("hidden", isMinimized);
 
-                    menuTexts.forEach(text => {
-                        text.classList.add("hidden");
-                    });
+                // 👉 INI KUNCI NYA (ALIGNMENT)
+                sidebarHeader?.classList.toggle("justify-center", isMinimized);
+                sidebarHeader?.classList.toggle("justify-between", !isMinimized);
 
-                    if (toggleIcon) {
-                        toggleIcon.innerText = "keyboard_arrow_right";
-                    }
+                // Menu text
+                menuTexts.forEach(el => {
+                    el.classList.toggle("hidden", isMinimized);
+                });
 
-                    localStorage.setItem("sidebarMinimized", "1");
-
-                } else {
-
-                    sidebar.classList.remove("w-20", "minimized");
-                    sidebar.classList.add("w-64");
-
-                    mainContent?.classList.remove("ml-20");
-                    mainContent?.classList.add("ml-64");
-
-                    sidebarTitle?.classList.remove("hidden");
-
-                    menuTexts.forEach(text => {
-                        text.classList.remove("hidden");
-                    });
-
-                    if (toggleIcon) {
-                        toggleIcon.innerText = "keyboard_arrow_left";
-                    }
-
-                    localStorage.setItem("sidebarMinimized", "0");
+                // Icon rotate
+                if (toggleIcon) {
+                    toggleIcon.style.transform = isMinimized ?
+                        "rotate(180deg)" :
+                        "rotate(0deg)";
                 }
+
+                localStorage.setItem("sidebarMinimized", isMinimized ? "1" : "0");
             }
 
-            const savedState = localStorage.getItem("sidebarMinimized") === "1";
-            setSidebar(savedState);
+            // Init state dari localStorage
+            const isSavedMinimized = localStorage.getItem("sidebarMinimized") === "1";
+            applySidebarState(isSavedMinimized);
 
+            // Toggle click
             toggleBtn.addEventListener("click", () => {
-
                 const isMinimized = sidebar.classList.contains("minimized");
-                setSidebar(!isMinimized);
+                applySidebarState(!isMinimized);
             });
+
         });
     </script>
 

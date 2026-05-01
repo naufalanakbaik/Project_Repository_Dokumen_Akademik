@@ -56,7 +56,7 @@
                 <iframe src="{{ asset('storage/' . $document->file) }}" class="w-full h-[680px] bg-gray-100">
                 </iframe>
 
-                {{--File info --}}
+                {{-- File info --}}
                 <div class="flex items-center justify-between px-4 py-4 border-t bg-gray-50 text-xs text-gray-500">
                     <div class="flex items-center gap-2 truncate">
                         <span class="material-symbols-outlined !text-[16px] text-gray-400">
@@ -115,36 +115,54 @@
                     </div>
                     <div class="p-4 space-y-4">
 
-                        <form action="{{ route('admin.documents.updateStatus', $document->id) }}" method="POST">
+                        {{-- <form action="{{ route('admin.documents.updateStatus', $document->id) }}" method="POST">
                             @csrf
                             @method('PATCH')
 
                             <div class="grid grid-cols-2 gap-2">
-
-                                {{-- Approve --}}
                                 <button type="submit" name="status" value="approved"
                                     onclick="return confirm('Approve dokumen ini?')"
                                     class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium
                                     bg-green-50 text-green-700 border border-green-300 rounded-lg
                                     hover:bg-green-100 active:scale-[0.98] transition">
-
                                     <span class="material-symbols-outlined !text-[16px]">task</span>
                                     Approve
                                 </button>
 
-                                {{-- Reject --}}
                                 <button type="submit" name="status" value="rejected"
                                     onclick="return confirm('Reject dokumen ini?')"
                                     class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium
                                     bg-red-50 text-red-700 border border-red-300 rounded-lg
                                     hover:bg-red-100 active:scale-[0.98] transition">
-
                                     <span class="material-symbols-outlined !text-[16px]">scan_delete</span>
                                     Reject
                                 </button>
+                            </div>
+                        </form> --}}
 
+                        <form action="{{ route('admin.documents.updateStatus', $document->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+
+                            <!-- Approve Button -->
+                            <button type="submit" name="status" value="approved"
+                                class="px-4 py-2 bg-green-500 text-white rounded-lg">
+                                Approve
+                            </button>
+
+                            <!-- Reject Section -->
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-gray-700">
+                                    Alasan Penolakan
+                                </label>
+
+                                <textarea name="reject_note" class="w-full mt-1 border rounded-lg p-2" placeholder="Masukkan alasan penolakan..."></textarea>
                             </div>
 
+                            <button type="submit" name="status" value="rejected"
+                                class="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg">
+                                Reject
+                            </button>
                         </form>
 
                         {{-- Note for admin --}}

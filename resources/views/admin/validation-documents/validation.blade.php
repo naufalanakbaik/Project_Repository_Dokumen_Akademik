@@ -51,9 +51,9 @@
                         <td class="px-6 py-3 text-gray-500">
                             {{ $doc->created_at->format('d M Y - H:i') }}
                         </td>
-                        {{-- Tanggal --}}
+
+                        {{-- Status --}}
                         <td class="px-6 py-3 text-gray-500">
-                            <!-- Status -->
                             <span
                                 class="inline-flex items-center gap-1 px-3 py-1.5 text-[11px] font-medium
                                     bg-yellow-50 text-yellow-700 border border-yellow-300 rounded-full">
@@ -62,7 +62,6 @@
                                 </span>
                                 Pending
                             </span>
-
                         </td>
 
                         {{-- Aksi --}}
@@ -78,29 +77,20 @@
                     </tr>
                 @empty
 
-                    {{-- EMPTY STATE --}}
+                    {{-- Empty State --}}
                     <tr>
-                        <td colspan="5" class="py-14 text-center">
-
+                        <td colspan="6" class="py-14 text-center">
                             <div class="flex flex-col items-center justify-center space-y-3 text-gray-500">
-
-                                <!-- ICON -->
-                                <span class="material-symbols-outlined text-[42px] text-gray-300">
+                                <span class="material-symbols-outlined !text-[42px] text-gray-300">
                                     folder_off
                                 </span>
-
-                                <!-- TITLE -->
                                 <p class="text-sm font-medium text-gray-700">
                                     Tidak ada dokumen untuk divalidasi
                                 </p>
-
-                                <!-- SUBTITLE -->
                                 <p class="text-xs text-gray-400">
                                     Semua dokumen sudah diproses atau belum ada yang diajukan.
                                 </p>
-
                             </div>
-
                         </td>
                     </tr>
                 @endforelse
@@ -108,7 +98,7 @@
             </tbody>
         </table>
 
-        {{-- PAGINATION (hanya tampil kalau ada data) --}}
+        {{-- Pagination (hanya tampil kalau ada data) --}}
         @if ($documents->count() > 0)
             <div class="p-4 border-t bg-gray-50">
                 {{ $documents->links('vendor.pagination.tailwind-darkmode') }}

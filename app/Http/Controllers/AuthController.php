@@ -23,7 +23,14 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $role = auth()->user()->role;
-            return redirect()->intended(route($role . '.dashboard'));
+
+            // 👉 Role mahasiswa & dosen ke katalog
+            if (in_array($role, ['mahasiswa', 'dosen'])) {
+                return redirect()->route($role . '.katalog.global');
+            }
+
+            // 👉 Role lain ke dashboard
+            return redirect()->route($role . '.dashboard');
         }
 
         return back()->withErrors([

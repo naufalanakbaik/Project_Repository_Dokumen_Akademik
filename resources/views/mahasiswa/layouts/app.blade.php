@@ -38,18 +38,18 @@
     @stack('styles')
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900">
+<body>
 
     {{-- Top Head Information --}}
-    <div class="text-xs bg-gray-100 border-b border-gray-200 dark:bg-gray-200">
+    <div class="text-xs bg-yellow-400 border-b border-gray-300 dark:bg-gray-200">
         <div class="max-w-7xl mx-auto px-8 py-2 flex justify-between items-center">
 
             <div class="flex items-center gap-6">
-                <span class="flex items-center gap-2 text-gray-600 dark:text-gray-500">
+                <span class="flex items-center text-[11px] gap-2 text-gray-700 dark:text-gray-500">
                     Repository Akademik System
                     <span class="text-gray-700 dark:text-gray-500">v1.0</span>
                 </span>
-                <span class="hidden md:block text-gray-700 dark:text-gray-500">
+                <span class="hidden md:block text-[11px] text-gray-600 dark:text-gray-500">
                     Sistem pengelolaan dokumen akademik dan repositori digital
                 </span>
             </div>
@@ -73,7 +73,7 @@
     </div>
 
     {{-- Navbar --}}
-    <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+    <nav class="sticky top-0 z-50 bg-white/50 dark:bg-gray-900 backdrop-blur-md  dark:border-gray-700">
         <div class="max-w-7xl mx-auto px-8">
             <div class="flex justify-between items-center h-16">
 
@@ -81,7 +81,7 @@
                 <div class="flex items-center gap-10">
 
                     {{-- Logo + Brand --}}
-                    <a href="{{ route('mahasiswa.dashboard') }}" class="flex items-center gap-3 group">
+                    <a href="{{ route('mahasiswa.dashboard') }}" class="flex items-center gap-2 group">
                         <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-9 w-9 object-contain">
                         <div class="flex flex-col leading-tight">
                             <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">
@@ -103,39 +103,40 @@
                             Dashboard
                         </a> --}}
 
+                        <a href="{{ route('mahasiswa.katalog.global') }}"
+                            class="transition duration-200
+                            {{ request()->routeIs('mahasiswa.katalog.*')
+                                ? 'text-yellow-600 dark:text-blue-400'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400' }}">
+                            Repository
+                        </a>
+
                         @php
                             $isDashboardActive = request()->routeIs('mahasiswa.dashboard');
                         @endphp
                         <a href="{{ route('mahasiswa.dashboard') }}"
                             class="relative transition
                             {{ $isDashboardActive
-                                ? 'text-blue-700 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}
+                                ? 'text-yellow-600 dark:text-yellow-400'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400' }}
 
+                            {{-- Garis underline --}}
                             after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
                             after:-bottom-2 after:h-[2.5px] 
-                            after:bg-blue-700 after:rounded-full
+                            after:bg-yellow-600 after:rounded-full
                             after:transition-all after:duration-300
 
                             {{ $isDashboardActive
-                                ? 'after:w-8 after:bg-blue-600 dark:after:bg-blue-400'
-                                : 'after:w-0 after:bg-blue-600 dark:after:bg-blue-400 hover:after:w-8' }}">
+                                ? 'after:w-8 after:bg-yellow-600 dark:after:bg-yellow-400'
+                                : 'after:w-0 after:bg-yellow-600 dark:after:bg-yellow-400 hover:after:w-8' }}">
                             Dashboard
-                        </a>
-
-                        <a href="{{ route('mahasiswa.katalog.global') }}"
-                            class="transition duration-200
-                            {{ request()->routeIs('mahasiswa.katalog.*')
-                                ? 'text-blue-700 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}">
-                            Katalog
                         </a>
 
                         <a href="{{ route('mahasiswa.documents.index') }}"
                             class="transition duration-200 
                             {{ request()->routeIs('mahasiswa.documents.*')
-                                ? 'text-blue-700 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}">
+                                ? 'text-yellow-600 dark:text-blue-400'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400' }}">
                             Dokumen Saya
                         </a>
 
@@ -170,7 +171,7 @@
                         {{-- <div class="h-8 w-8 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-white flex items-center justify-center font-semibold text-xs shadow-sm ring-2 ring-white dark:ring-gray-900">
                             {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                         </div>  --}}
-
+                        
                         <span class="font-normal ml-2">
                             {{ auth()->user()->name }}
                         </span>
@@ -184,26 +185,25 @@
 
                     {{-- Dropdwon --}}
                     <div id="userDropdown"
-                        class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700
-                        rounded-xl shadow-lg opacity-0 invisible transition">
+                        class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700
+                        rounded-lg shadow-sm opacity-0 invisible transition">
 
                         {{-- User Header --}}
                         <div
-                            class="px-6 py-3 bg-gray-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 rounded-tl-xl rounded-tr-xl">
+                            class="px-6 py-3 bg-gray-100 dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 rounded-tl-lg rounded-tr-lg">
 
                             <div class="flex items-center gap-3">
                                 <!-- Avatar -->
-                                <div
-                                    class="h-10 w-10 rounded-full overflo
-                                w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
+                                <div class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
+                                    
                                     @if (auth()->user()->photo)
                                         <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Avatar"
                                             class="w-full h-full rounded-full border-gray-200 dark:border-gray-100 object-cover">
                                     @else
                                         <div
-                                            class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800
-                                                flex items-center justify-center border border-gray-200 dark:border-gray-700">
-                                            <span class="material-icons text-gray-400 !text-[20px]">
+                                            class="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center 
+                                            border border-yellow-300 dark:bg-gray-800 dark:border-gray-700">
+                                            <span class="material-icons text-yellow-400 !text-[20px]">
                                                 person
                                             </span>
                                         </div>
@@ -212,10 +212,10 @@
 
                                 <!-- User Info -->
                                 <div class="flex flex-col leading-tight">
-                                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                    <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
                                         {{ auth()->user()->name }}
                                     </p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400 truncate max-w-[160px]">
+                                    <p class="text-[11px] text-gray-600 dark:text-gray-400 truncate max-w-[160px]">
                                         {{ auth()->user()->email }}
                                     </p>
                                 </div>
@@ -228,7 +228,7 @@
                             {{-- Button dark mode --}}
                             <button id="darkToggle"
                                 class="flex items-center gap-3 w-full px-5 py-2 text-sm text-gray-700 dark:text-gray-200
-                            hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                                hover:bg-gray-100 dark:hover:bg-gray-700 transition">
                                 <span id="darkIcon" class="material-icons text-gray-600 dark:text-gray-300">
                                     dark_mode
                                 </span>

@@ -15,6 +15,13 @@ class Document extends Model
         'user_id',
         'file',
         'status',
+        'reject_note',
+        'rejected_at',
+        'rejected_by',
+    ];
+
+    protected $casts = [
+        'rejected_at' => 'datetime',
     ];
 
     /**
@@ -39,5 +46,10 @@ class Document extends Model
     public function logs()
     {
         return $this->hasMany(DocumentLog::class);
+    }
+
+    public function rejectedBy()
+    {
+        return $this->belongsTo(User::class, 'rejected_by');
     }
 }

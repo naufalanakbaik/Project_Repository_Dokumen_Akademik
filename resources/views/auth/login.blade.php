@@ -19,14 +19,14 @@
 <body class="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-6 sm:p-6">
 
     <!-- Logo unsri -->
-    <div class="absolute top-3 left-4 flex items-center gap-3">
+    <div class="absolute top-3 left-4 flex items-center gap-2">
         <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-10 w-10 object-contain">
         <div class="flex flex-col leading-tight">
             <span class="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-100">
-                Fakultas Ilmu Komputer
+                Program Studi Manajemen Informatika
             </span>
             <span class="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400">
-                Program studi Manajemen Informatika
+                Fakultas Ilmu Komputer - Universitas Sriwijaya
             </span>
         </div>
     </div>
