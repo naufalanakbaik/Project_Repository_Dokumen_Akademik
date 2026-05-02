@@ -163,12 +163,10 @@ class DocumentController extends Controller
     public function show($id)
     {
         $document = Document::with(['user', 'category'])->findOrFail($id);
-
         // SECURITY
         if ($document->status !== 'approved' && $document->user_id !== auth()->id()) {
             abort(403);
         }
-
         return view('mahasiswa.documents.show', compact('document'));
     }
 

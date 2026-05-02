@@ -171,7 +171,7 @@
                         {{-- <div class="h-8 w-8 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-white flex items-center justify-center font-semibold text-xs shadow-sm ring-2 ring-white dark:ring-gray-900">
                             {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                         </div>  --}}
-                        
+
                         <span class="font-normal ml-2">
                             {{ auth()->user()->name }}
                         </span>
@@ -190,12 +190,29 @@
 
                         {{-- User Header --}}
                         <div
-                            class="px-6 py-3 bg-gray-100 dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 rounded-tl-lg rounded-tr-lg">
+                            class="px-6 py-3 bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 rounded-tl-lg rounded-tr-lg">
 
                             <div class="flex items-center gap-3">
                                 <!-- Avatar -->
-                                <div class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
-                                    
+                                <div
+                                    class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
+
+                                    @if (auth()->user()->photo)
+                                        <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Avatar"
+                                            class="w-full h-full rounded-full border-gray-200 dark:border-gray-100 object-cover">
+                                    @else
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center 
+                                            border border-gray-300 dark:bg-gray-800 dark:border-gray-700">
+                                            <span class="material-icons text-gray-500 !text-[20px]">
+                                                person
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
+                                {{-- <div
+                                    class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
+
                                     @if (auth()->user()->photo)
                                         <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Avatar"
                                             class="w-full h-full rounded-full border-gray-200 dark:border-gray-100 object-cover">
@@ -208,7 +225,7 @@
                                             </span>
                                         </div>
                                     @endif
-                                </div>
+                                </div> --}}
 
                                 <!-- User Info -->
                                 <div class="flex flex-col leading-tight">
@@ -224,6 +241,14 @@
 
                         {{-- Menu --}}
                         <div class="py-2">
+                            {{-- Profile --}}
+                            <a href="{{ route('mahasiswa.profile.show') }}"
+                                class="block px-5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                Profil Saya
+                            </a>
+
+                            {{-- Divider --}}
+                            <div class="border-t border-gray-200 my-1"></div>
 
                             {{-- Button dark mode --}}
                             <button id="darkToggle"
@@ -235,11 +260,6 @@
                                 Toggle Dark Mode
                             </button>
 
-                            {{-- Profile --}}
-                            {{-- <a href="{{ route('publisher.profile.show') }}"
-                                class="block px-5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                Profil Saya
-                            </a> --}}
 
                             {{-- Logout --}}
                             <form action="{{ route('logout') }}" method="POST">

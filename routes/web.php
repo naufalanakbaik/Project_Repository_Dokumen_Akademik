@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Mahasiswa\DocumentController as MahasiswaDocumentController;
+use App\Http\Controllers\Mahasiswa\ProfileController as MahasiswaProfileController;
 use App\Http\Controllers\Dosen\DocumentController as DosenDocumentController;
 use App\Http\Controllers\Kaprodi\DocumentController as KaprodiDocumentController;
 
@@ -61,6 +62,15 @@ Route::middleware(['auth'])->group(function () {
             // -- Menampilkan detail dokumen -> mahasiswa
             Route::get('/documents/{id}', [MahasiswaDocumentController::class, 'show'])
                 ->name('documents.show');
+
+            // -- Menampilkan detail data mahasiswa
+            Route::get('/profile', [MahasiswaProfileController::class, 'show'])
+                ->name('profile.show');
+
+            // -- Menampilkan form edit dan proses update data
+            Route::get('/profile/edit', [MahasiswaProfileController::class, 'edit'])->name('profile.edit');
+            Route::put('/profile', [MahasiswaProfileController::class, 'update'])->name('profile.update');
+
 
             // -- Preview (lihat) pdf dokumen -> mahasiswa
             Route::get('/documents/{id}/preview', [MahasiswaDocumentController::class, 'preview'])

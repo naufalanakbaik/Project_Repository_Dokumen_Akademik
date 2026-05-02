@@ -17,7 +17,7 @@
         <a href="{{ route('mahasiswa.documents.create') }}"
             class="inline-flex items-center gap-1.5 px-4 py-2 text-[13px] text-blue-700 font-medium tracking-wide bg-blue-50 border border-blue-400 
             rounded-lg hover:bg-blue-100 transition">
-            <span class="material-symbols-outlined !text-[17px]">add_notes</span>
+            <span class="material-symbols-outlined !text-[17px]">playlist_add</span>
             Unggah Dokumen
         </a>
     </div>

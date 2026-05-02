@@ -27,8 +27,8 @@
         <div
             class="px-4 py-3 rounded-lg border text-sm
             {{ $document->status === 'rejected'
-            ? 'bg-red-50 border-red-300 text-red-700'
-            : 'bg-yellow-50 border-yellow-300 text-yellow-700' }}">
+                ? 'bg-red-50 border-red-300 text-red-700'
+                : 'bg-yellow-50 border-yellow-300 text-yellow-700' }}">
 
             <div class="flex items-start gap-2">
                 <span class="material-symbols-outlined !text-[18px]">
@@ -83,17 +83,27 @@
                                 Kategori
                             </label>
 
-                            <select name="category_id"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg
-                            focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
+                            <div class="relative">
+                                <select name="category_id"
+                                    class="w-full appearance-none px-3 py-2.5 pr-10 text-sm border border-gray-300 rounded-lg
+                                    focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition">
 
-                                @foreach ($categories as $cat)
-                                    <option value="{{ $cat->id }}"
-                                        {{ $cat->id == old('category_id', $document->category_id) ? 'selected' : '' }}>
-                                        {{ $cat->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                                    @foreach ($categories as $cat)
+                                        <option value="{{ $cat->id }}"
+                                            {{ $cat->id == old('category_id', $document->category_id) ? 'selected' : '' }}>
+                                            {{ $cat->name }}
+                                        </option>
+                                    @endforeach
+
+                                </select>
+
+                                {{-- Custom Arrow --}}
+                                <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                                    <span class="material-symbols-outlined text-gray-400 !text-[18px]">
+                                        expand_more
+                                    </span>
+                                </span>
+                            </div>
                         </div>
 
                         {{-- File --}}
@@ -137,10 +147,10 @@
                         {{-- Button --}}
                         <div class="flex justify-end pt-5 border-t pb-4">
                             <button type="submit"
-                                class="flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-blue-50 text-blue-600 rounded-lg
-                            border border-blue-300 hover:bg-blue-100 transition">
+                                class="flex items-center gap-1 px-5 py-2.5 text-sm font-medium bg-blue-50 text-blue-600 rounded-lg
+                                border border-blue-300 hover:bg-blue-100 transition">
                                 <span class="material-symbols-outlined !text-[17px]">
-                                    save
+                                    send
                                 </span>
                                 Simpan Perubahan
                             </button>
