@@ -16,7 +16,7 @@
 
         <a href="{{ route('mahasiswa.documents.create') }}"
             class="inline-flex items-center gap-1.5 px-4 py-2 text-[13px] text-blue-700 font-medium tracking-wide bg-blue-50 border border-blue-400 
-            rounded-lg hover:bg-blue-100 transition">
+            rounded-xl hover:bg-blue-100 transition">
             <span class="material-symbols-outlined !text-[17px]">playlist_add</span>
             Unggah Dokumen
         </a>
@@ -215,7 +215,7 @@
                 </div>
                 <div class="px-5 py-3 border-t border-gray-100 bg-gray-50 flex justify-end">
                     <button onclick="closeRejectModal()"
-                        class="px-4 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-md hover:bg-gray-100 transition">
+                        class="px-4 py-1.5 text-[12px] font-medium text-gray-600 bg-white border border-gray-200 rounded-md hover:bg-gray-50 transition">
                         Mengerti
                     </button>
                 </div>

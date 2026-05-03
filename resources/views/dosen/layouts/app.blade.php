@@ -38,18 +38,18 @@
     @stack('styles')
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900">
+<body class="dark:bg-gray-900">
 
     {{-- Top Head Information --}}
-    <div class="text-xs bg-gray-100 border-b border-gray-200 dark:bg-gray-200">
+    <div class="text-xs bg-yellow-400 dark:bg-gray-200">
         <div class="max-w-7xl mx-auto px-8 py-2 flex justify-between items-center">
 
             <div class="flex items-center gap-6">
-                <span class="flex items-center gap-2 text-gray-600 dark:text-gray-500">
+                <span class="flex items-center text-[11px] gap-2 text-gray-700 dark:text-gray-500">
                     Repository Akademik System
                     <span class="text-gray-700 dark:text-gray-500">v1.0</span>
                 </span>
-                <span class="hidden md:block text-gray-700 dark:text-gray-500">
+                <span class="hidden md:block text-[11px] text-gray-600 dark:text-gray-500">
                     Sistem pengelolaan dokumen akademik dan repositori digital
                 </span>
             </div>
@@ -73,7 +73,7 @@
     </div>
 
     {{-- Navbar --}}
-    <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+    <nav class="sticky top-0 z-50 bg-white/50 dark:bg-gray-900 backdrop-blur-md  dark:border-gray-700">
         <div class="max-w-7xl mx-auto px-8">
             <div class="flex justify-between items-center h-16">
 
@@ -95,52 +95,58 @@
 
                     {{-- Menu --}}
                     <div class="hidden md:flex items-center gap-8 text-[14px] font-medium">
-
                         @php
-                            $isDashboardActive = request()->routeIs('dosen.dashboard');
+                            function navClass($isActive)
+                            {
+                                return 'relative inline-block px-1 py-2 text-sm font-medium transition duration-200 ' .
+                                    ($isActive ? 
+                                        'text-yellow-600' : 
+                                        'text-gray-600 hover:text-yellow-600 dark:text-gray-300 dark:hover:text-yellow-500'
+                                    ) .
+
+                                    " after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
+                                    after:-bottom-1 after:h-[2.5px] after:rounded-full
+                                    after:bg-yellow-600 after:transition-all after:duration-300 " .
+
+                                    ($isActive ? 
+                                        'after:w-6' : 
+                                        'after:w-0 hover:after:w-6'
+                                    );
+                            }
                         @endphp
-                        <a href="{{ route('dosen.dashboard') }}"
-                            class="relative transition
-                            {{ $isDashboardActive
-                                ? 'text-blue-700 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}
 
-                            after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
-                            after:-bottom-2 after:h-[2.5px] 
-                            after:bg-blue-700 after:rounded-full
-                            after:transition-all after:duration-300
+                            {{-- Repositori --}}
+                            <a href="{{ route('dosen.katalog.global') }}"
+                                class="{{ navClass(request()->routeIs('dosen.katalog.*')) }}">
+                                Repositori
+                            </a>
 
-                            {{ $isDashboardActive
-                                ? 'after:w-8 after:bg-blue-600 dark:after:bg-blue-400'
-                                : 'after:w-0 after:bg-blue-600 dark:after:bg-blue-400 hover:after:w-8' }}">
-                            Dashboard
-                        </a>
+                            {{-- Dashboard --}}
+                            <a href="{{ route('dosen.dashboard') }}"
+                                class="{{ navClass(request()->routeIs('dosen.dashboard')) }}">
+                                Dashboard
+                            </a>
 
-                        <a href="{{ route('dosen.katalog.global') }}"
-                            class="transition duration-200
-                            {{ request()->routeIs('dosen.katalog.*')
-                                ? 'text-blue-700 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}">
-                            Katalog
-                        </a>
-
-                        <a href="{{ route('dosen.documents.index') }}"
-                            class="transition duration-200 
-                            {{ request()->routeIs('dosen.documents.*')
-                                ? 'text-blue-700 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400' }}">
-                            Dokumen Saya
-                        </a>
-
+                            {{-- Dokumen Saya --}}
+                            <a href="{{ route('dosen.documents.index') }}"
+                                class="{{ navClass(request()->routeIs('dosen.documents.*')) }}">
+                                Dokumen Saya
+                            </a>
                     </div>
                 </div>
 
                 {{-- Right section --}}
                 <div class="relative inline-block text-left">
 
+                    {{-- User Menu Button --}}
                     <button id="userMenuButton"
                         class="flex items-center gap-1 text-sm transition text-gray-700 dark:text-gray-200
                         hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none">
+
+                        {{-- Avatar --}}
+                        {{-- <div class="h-8 w-8 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-white flex items-center justify-center font-semibold text-xs shadow-sm ring-2 ring-white dark:ring-gray-900">
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        </div>  --}}
 
                         <span class="font-normal ml-2">
                             {{ auth()->user()->name }}
@@ -155,36 +161,54 @@
 
                     {{-- Dropdwon --}}
                     <div id="userDropdown"
-                        class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700
-                        rounded-xl shadow-lg opacity-0 invisible transition">
+                        class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700
+                        rounded-lg shadow-sm opacity-0 invisible transition">
 
                         {{-- User Header --}}
                         <div
-                            class="px-6 py-3 bg-gray-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 rounded-tl-xl rounded-tr-xl">
+                            class="px-6 py-3 bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 rounded-tl-lg rounded-tr-lg">
 
                             <div class="flex items-center gap-3">
+                                <!-- Avatar -->
                                 <div
                                     class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
+
                                     @if (auth()->user()->photo)
                                         <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Avatar"
                                             class="w-full h-full rounded-full border-gray-200 dark:border-gray-100 object-cover">
                                     @else
                                         <div
-                                            class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800
-                                                flex items-center justify-center border border-gray-200 dark:border-gray-700">
-                                            <span class="material-icons text-gray-400 !text-[20px]">
+                                            class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center 
+                                            border border-gray-300 dark:bg-gray-800 dark:border-gray-700">
+                                            <span class="material-icons text-gray-500 !text-[20px]">
                                                 person
                                             </span>
                                         </div>
                                     @endif
                                 </div>
+                                {{-- <div
+                                    class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
+
+                                    @if (auth()->user()->photo)
+                                        <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Avatar"
+                                            class="w-full h-full rounded-full border-gray-200 dark:border-gray-100 object-cover">
+                                    @else
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center 
+                                            border border-yellow-300 dark:bg-gray-800 dark:border-gray-700">
+                                            <span class="material-icons text-yellow-400 !text-[20px]">
+                                                person
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div> --}}
 
                                 <!-- User Info -->
                                 <div class="flex flex-col leading-tight">
-                                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                    <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
                                         {{ auth()->user()->name }}
                                     </p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400 truncate max-w-[160px]">
+                                    <p class="text-[11px] text-gray-600 dark:text-gray-400 truncate max-w-[160px]">
                                         {{ auth()->user()->email }}
                                     </p>
                                 </div>
@@ -193,6 +217,14 @@
 
                         {{-- Menu --}}
                         <div class="py-2">
+                            {{-- Profile --}}
+                            <a href="{{ route('mahasiswa.profile.show') }}"
+                                class="block px-5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                Profil Saya
+                            </a>
+
+                            {{-- Divider --}}
+                            <div class="border-t border-gray-200 my-1"></div>
 
                             {{-- Button dark mode --}}
                             <button id="darkToggle"
@@ -204,6 +236,7 @@
                                 Toggle Dark Mode
                             </button>
 
+
                             {{-- Logout --}}
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -214,6 +247,7 @@
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

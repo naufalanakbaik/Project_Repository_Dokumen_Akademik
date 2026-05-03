@@ -18,7 +18,7 @@
 
         @forelse($documents as $doc)
             <div
-                class="bg-white border border-blue-200 rounded-xl hover:border-blue-300 transition-all duration-200 flex flex-col h-full group">
+                class="bg-white border border-gray-200 rounded-xl hover:border-gray-300 transition-all duration-200 flex flex-col h-full group">
 
                 {{-- HEADER --}}
                 <div class="p-5 border-b border-gray-100 min-h-[76px]">

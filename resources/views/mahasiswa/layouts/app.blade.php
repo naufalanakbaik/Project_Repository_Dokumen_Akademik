@@ -38,7 +38,7 @@
     @stack('styles')
 </head>
 
-<body>
+<body class="dark:bg-gray-900">
 
     {{-- Top Head Information --}}
     <div class="text-xs bg-yellow-400 border-b border-gray-300 dark:bg-gray-200">
@@ -163,6 +163,7 @@
                         </a>
                     </div> --}}
 
+                    {{-- User Menu Button --}}
                     <button id="userMenuButton"
                         class="flex items-center gap-1 text-sm transition text-gray-700 dark:text-gray-200
                         hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none">
