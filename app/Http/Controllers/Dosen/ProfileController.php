@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mahasiswa;
+namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        return view('mahasiswa.profile.edit', compact('user'));
+        return view('dosen.profile.edit', compact('user'));
     }
 
     // --- Update profile
@@ -39,10 +39,12 @@ class ProfileController extends Controller
 
         $user->update($data);
 
-        return back()->with('success', 'Profile berhasil diperbarui.');
+        return redirect()
+            ->route('dosen.profile.show')
+            ->with('success', 'Profil berhasil diperbarui.');
     }
 
-    // --- Detail data profile mahasiswa
+    // --- Detail data profile dosen
     public function show()
     {
         $user = auth()->user();
@@ -55,7 +57,7 @@ class ProfileController extends Controller
         $pending = $user->documents()->where('status', 'pending')->count();
         $rejected = $user->documents()->where('status', 'rejected')->count();
 
-        return view('mahasiswa.profile.show', compact(
+        return view('dosen.profile.show', compact(
             'user',
             'documents',
             'totalDocuments',

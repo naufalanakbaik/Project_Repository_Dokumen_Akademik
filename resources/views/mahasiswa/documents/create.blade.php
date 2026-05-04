@@ -8,10 +8,10 @@
         {{-- Header --}}
         <div class="flex items-start justify-between pb-2">
             <div>
-                <h1 class="text-2xl font-semibold text-gray-900">
+                <h1 class="text-xl font-semibold text-gray-900">
                     Upload Dokumen
                 </h1>
-                <p class="text-sm text-gray-500 mt-1">
+                <p class="text-sm text-gray-500 mt-0.5">
                     Unggah dokumen akademik dengan informasi yang jelas dan terstruktur
                 </p>
             </div>
@@ -47,10 +47,10 @@
             {{-- Form tambah dokumen --}}
             <div class="col-span-12 lg:col-span-8">
 
-                <div class="bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition px-8">
+                <div class="bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition px-6 py-5">
 
                     <form method="POST" action="{{ route('mahasiswa.documents.store') }}" enctype="multipart/form-data"
-                        class="space-y-6">
+                        class="">
                         @csrf
 
                         {{-- Title --}}
@@ -146,19 +146,19 @@
                     </h2>
                     <div class="space-y-3 text-xs text-gray-600">
                         <div class="flex items-start gap-2">
-                            <span class="material-symbols-outlined text-green-500 !text-[16px]">
+                            <span class="material-symbols-outlined text-green-600 !text-[16px]">
                                 check_circle
                             </span>
                             <p>Gunakan judul yang jelas dan relevan</p>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="material-symbols-outlined text-green-500 !text-[16px]">
+                            <span class="material-symbols-outlined text-green-600 !text-[16px]">
                                 check_circle
                             </span>
                             <p>Pilih kategori sesuai jenis dokumen</p>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="material-symbols-outlined text-green-500 !text-[16px]">
+                            <span class="material-symbols-outlined text-green-600 !text-[16px]">
                                 check_circle
                             </span>
                             <p>Pastikan file sudah final & siap diverifikasi</p>

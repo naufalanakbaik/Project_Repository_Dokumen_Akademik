@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Mahasiswa\DocumentController as MahasiswaDocumentController;
 use App\Http\Controllers\Mahasiswa\ProfileController as MahasiswaProfileController;
 use App\Http\Controllers\Dosen\DocumentController as DosenDocumentController;
+use App\Http\Controllers\Dosen\ProfileController as DosenProfileController;
 use App\Http\Controllers\Kaprodi\DocumentController as KaprodiDocumentController;
 
 
@@ -64,8 +65,7 @@ Route::middleware(['auth'])->group(function () {
                 ->name('documents.show');
 
             // -- Menampilkan detail data mahasiswa
-            Route::get('/profile', [MahasiswaProfileController::class, 'show'])
-                ->name('profile.show');
+            Route::get('/profile', [MahasiswaProfileController::class, 'show'])->name('profile.show');
 
             // -- Menampilkan form edit dan proses update data
             Route::get('/profile/edit', [MahasiswaProfileController::class, 'edit'])->name('profile.edit');
@@ -114,8 +114,19 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/documents', [DosenDocumentController::class, 'store'])
                 ->name('documents.store');
 
+            // -- Route untuk edit dan update data dokumen -> mahasiswa
+            Route::get('/documents/{id}/edit', [DosenDocumentController::class, 'edit'])->name('documents.edit');
+            Route::put('/documents/{id}', [DosenDocumentController::class, 'update'])->name('documents.update');
+
             Route::get('/documents/{id}', [DosenDocumentController::class, 'show'])
                 ->name('documents.show');
+
+            // -- Menampilkan detail data mahasiswa
+            Route::get('/profile', [DosenProfileController::class, 'show'])->name('profile.show');
+
+            // -- Menampilkan form edit dan proses update data
+            Route::get('/profile/edit', [DosenProfileController::class, 'edit'])->name('profile.edit');
+            Route::put('/profile', [DosenProfileController::class, 'update'])->name('profile.update');
 
             Route::get('/documents/{id}/preview', [DosenDocumentController::class, 'preview'])
                 ->name('documents.preview');

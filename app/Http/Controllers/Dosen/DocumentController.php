@@ -18,15 +18,24 @@ class DocumentController extends Controller
         $query = Document::with('category')
             ->where('user_id', Auth::id());
 
+        // SEARCH
         if ($request->search) {
             $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        // FILTER CATEGORY
+        if ($request->category) {
+            $query->where('category_id', $request->category);
         }
 
         $documents = $query->latest()
             ->paginate(5)
             ->withQueryString();
 
-        return view('dosen.documents.index', compact('documents'));
+        // ambil category untuk dropdown
+        $categories = Category::all();
+
+        return view('dosen.documents.index', compact('documents', 'categories'));
     }
 
     // --- Daftar dokumen (seluruh pengguna)
@@ -39,6 +48,11 @@ class DocumentController extends Controller
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
+        // Filter Category (INI YANG KAMU TAMBAHKAN)
+        if ($request->category_id) {
+            $query->where('category_id', $request->category_id);
+        }
+
         // RULE WAJIB (SECURITY)
         $query->where(function ($q) {
             $q->where('status', 'approved')
@@ -49,7 +63,10 @@ class DocumentController extends Controller
             ->paginate(9)
             ->withQueryString();
 
-        return view('dosen.katalog.global', compact('documents'));
+        // Kirim categories ke view
+        $categories = Category::all();
+
+        return view('dosen.katalog.global', compact('documents', 'categories'));
     }
 
 
@@ -105,6 +122,58 @@ class DocumentController extends Controller
 
         return redirect()->route('dosen.documents.index')
             ->with('success', 'Dokumen berhasil diupload.');
+    }
+
+    public function edit($id)
+    {
+        $document = Document::findOrFail($id);
+
+        // SECURITY: hanya pemilik
+        if ($document->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $categories = Category::all();
+
+        return view('dosen.documents.edit', compact('document', 'categories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $document = Document::findOrFail($id);
+
+        // SECURITY
+        if ($document->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'file' => 'nullable|mimes:pdf,doc,docx|max:10240',
+        ]);
+
+        // Update file jika ada
+        if ($request->hasFile('file')) {
+
+            // Hapus file lama
+            if ($document->file && Storage::disk('public')->exists($document->file)) {
+                Storage::disk('public')->delete($document->file);
+            }
+
+            $filePath = $request->file('file')->store('documents', 'public');
+            $document->file = $filePath;
+        }
+
+        // Update data
+        $document->update([
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            // status tetap approved (jangan diubah)
+        ]);
+
+        return redirect()->route('dosen.documents.index')
+            ->with('success', 'Dokumen berhasil diperbarui.');
     }
 
     /**

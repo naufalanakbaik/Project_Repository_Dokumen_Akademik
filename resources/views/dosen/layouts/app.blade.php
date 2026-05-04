@@ -45,9 +45,9 @@
         <div class="max-w-7xl mx-auto px-8 py-2 flex justify-between items-center">
 
             <div class="flex items-center gap-6">
-                <span class="flex items-center text-[11px] gap-2 text-gray-700 dark:text-gray-500">
+                <span class="flex items-center text-[11px] gap-2 text-gray-800 dark:text-gray-500">
                     Repository Akademik System
-                    <span class="text-gray-700 dark:text-gray-500">v1.0</span>
+                    <span class="text-gray-900 dark:text-gray-500">v1.0</span>
                 </span>
                 <span class="hidden md:block text-[11px] text-gray-600 dark:text-gray-500">
                     Sistem pengelolaan dokumen akademik dan repositori digital
@@ -99,39 +99,33 @@
                             function navClass($isActive)
                             {
                                 return 'relative inline-block px-1 py-2 text-sm font-medium transition duration-200 ' .
-                                    ($isActive ? 
-                                        'text-yellow-600' : 
-                                        'text-gray-600 hover:text-yellow-600 dark:text-gray-300 dark:hover:text-yellow-500'
-                                    ) .
-
+                                    ($isActive
+                                        ? 'text-yellow-600'
+                                        : 'text-gray-600 hover:text-yellow-600 dark:text-gray-300 dark:hover:text-yellow-500') .
                                     " after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
                                     after:-bottom-1 after:h-[2.5px] after:rounded-full
                                     after:bg-yellow-600 after:transition-all after:duration-300 " .
-
-                                    ($isActive ? 
-                                        'after:w-6' : 
-                                        'after:w-0 hover:after:w-6'
-                                    );
+                                    ($isActive ? 'after:w-6' : 'after:w-0 hover:after:w-6');
                             }
                         @endphp
 
-                            {{-- Repositori --}}
-                            <a href="{{ route('dosen.katalog.global') }}"
-                                class="{{ navClass(request()->routeIs('dosen.katalog.*')) }}">
-                                Repositori
-                            </a>
+                        {{-- Repositori --}}
+                        <a href="{{ route('dosen.katalog.global') }}"
+                            class="{{ navClass(request()->routeIs('dosen.katalog.*')) }}">
+                            Repositori
+                        </a>
 
-                            {{-- Dashboard --}}
-                            <a href="{{ route('dosen.dashboard') }}"
-                                class="{{ navClass(request()->routeIs('dosen.dashboard')) }}">
-                                Dashboard
-                            </a>
+                        {{-- Dashboard --}}
+                        <a href="{{ route('dosen.dashboard') }}"
+                            class="{{ navClass(request()->routeIs('dosen.dashboard')) }}">
+                            Dashboard
+                        </a>
 
-                            {{-- Dokumen Saya --}}
-                            <a href="{{ route('dosen.documents.index') }}"
-                                class="{{ navClass(request()->routeIs('dosen.documents.*')) }}">
-                                Dokumen Saya
-                            </a>
+                        {{-- Dokumen Saya --}}
+                        <a href="{{ route('dosen.documents.index') }}"
+                            class="{{ navClass(request()->routeIs('dosen.documents.*')) }}">
+                            Dokumen Saya
+                        </a>
                     </div>
                 </div>
 
@@ -169,23 +163,23 @@
                             class="px-6 py-3 bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 rounded-tl-lg rounded-tr-lg">
 
                             <div class="flex items-center gap-3">
-                                <!-- Avatar -->
-                                <div
-                                    class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
+                                {{-- Avatar --}}
+                                @php
+                                    $name = auth()->user()->name;
+                                    $initials = collect(explode(' ', $name))
+                                        ->map(fn($word) => strtoupper(substr($word, 0, 1)))
+                                        ->take(1)
+                                        ->join('');
+                                @endphp
 
-                                    @if (auth()->user()->photo)
-                                        <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Avatar"
-                                            class="w-full h-full rounded-full border-gray-200 dark:border-gray-100 object-cover">
-                                    @else
-                                        <div
-                                            class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center 
-                                            border border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-                                            <span class="material-icons text-gray-500 !text-[20px]">
-                                                person
-                                            </span>
-                                        </div>
-                                    @endif
+                                <div class="h-10 w-10 rounded-full overflow-hidden shadow-sm ring-1 ring-yellow-200 dark:ring-gray-900">
+                                    <div
+                                        class="w-full h-full flex items-center justify-center
+                                        bg-yellow-100 text-yellow-600 font-serif font-semibold text-sm">
+                                        {{ $initials }}
+                                    </div>
                                 </div>
+
                                 {{-- <div
                                     class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
 
@@ -203,7 +197,7 @@
                                     @endif
                                 </div> --}}
 
-                                <!-- User Info -->
+                                {{-- User info --}}
                                 <div class="flex flex-col leading-tight">
                                     <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
                                         {{ auth()->user()->name }}
@@ -218,7 +212,7 @@
                         {{-- Menu --}}
                         <div class="py-2">
                             {{-- Profile --}}
-                            <a href="{{ route('mahasiswa.profile.show') }}"
+                            <a href="{{ route('dosen.profile.show') }}"
                                 class="block px-5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 Profil Saya
                             </a>

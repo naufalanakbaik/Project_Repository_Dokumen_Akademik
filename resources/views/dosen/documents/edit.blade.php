@@ -1,0 +1,185 @@
+@extends('dosen.layouts.app')
+@section('title', 'Edit Dokumen Saya')
+
+
+@section('content')
+    <div class="max-w-full mx-auto space-y-6">
+
+        {{-- Header --}}
+        <div class="flex items-start justify-between">
+            <div>
+                <h1 class="text-xl font-semibold text-gray-900">
+                    Edit Dokumen
+                </h1>
+                <p class="text-sm text-gray-500">
+                    Perbarui informasi dokumen Anda dengan detail yang benar.
+                </p>
+            </div>
+
+            {{-- Status --}}
+            <span class="text-xs px-3 py-1 rounded-2xl bg-green-50 text-green-700 border border-green-300">
+                Approved
+            </span>
+        </div>
+
+        {{-- Info card --}}
+        <div class="bg-white border border-gray-200 rounded-lg p-4 flex items-start gap-4">
+
+            <span class="material-icons text-blue-600 !text-[20px]">info</span>
+
+            <div class="text-sm text-gray-600 font-medium leading-relaxed">
+                Pastikan data yang Anda ubah sudah benar. Mengganti file akan otomatis memperbarui dokumen yang tersimpan.
+                <div class="mt-1 text-xs font-medium text-gray-400">
+                    Terakhir diperbarui:
+                    {{ $document->updated_at->format('d M Y, H:i') }}
+                </div>
+            </div>
+
+        </div>
+
+        {{-- Form edit data dokumen --}}
+        <form action="{{ route('dosen.documents.update', $document->id) }}" method="POST" enctype="multipart/form-data"
+            class="bg-white border border-gray-200 rounded-lg shadow-sm">
+
+            @csrf
+            @method('PUT')
+            <div class="p-6 space-y-6">
+
+                {{-- Title --}}
+                <div class="space-y-1">
+                    <label class="text-[13px] font-medium text-gray-600">
+                        Judul Dokumen
+                    </label>
+
+                    <input type="text" name="title" value="{{ old('title', $document->title) }}"
+                        class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md text-gray-700
+                        focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
+
+                    <p class="text-[11px] text-gray-500">
+                        *Gunakan judul yang jelas dan deskriptif
+                    </p>
+
+                    @error('title')
+                        <p class="text-xs text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Category --}}
+                <div class="space-y-1">
+                    <label class="text-[13px] font-medium text-gray-600">
+                        Kategori
+                    </label>
+
+                    <div class="relative">
+
+                        <select name="category_id"
+                            class="appearance-none w-full px-3 py-2 text-sm border border-gray-300 rounded-md text-gray-700
+                            focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
+
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_id', $document->category_id) == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+
+                        </select>
+
+                        {{-- Custom Arrow --}}
+                        <span
+                            class="material-icons absolute right-2 top-1/2 -translate-y-1/2 text-[19px] text-gray-400 pointer-events-none">
+                            arrow_drop_down
+                        </span>
+
+                    </div>
+
+                    <p class="text-[11px] text-gray-500">
+                        Pilih kategori yang sesuai dengan dokumen
+                    </p>
+
+                    @error('category_id')
+                        <p class="text-xs text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Input File --}}
+                <div class="space-y-2">
+
+                    <label class="text-[13px] font-medium text-gray-600">
+                        File Dokumen
+                    </label>
+
+                    <p class="text-[11px] text-gray-500">
+                        File saat ini: {{ basename($document->file) }}. Upload file baru untuk mengganti dokumen yang
+                        tersimpan.
+                    </p>
+
+                    {{-- File lama --}}
+                    <div class="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-md px-3 py-2">
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span class="material-icons !text-[18px] text-gray-500">
+                                description
+                            </span>
+                            <span class="truncate">
+                                {{ basename($document->file) }}
+                            </span>
+                        </div>
+
+                        <a href="{{ asset('storage/' . $document->file) }}" target="_blank"
+                            class="text-xs text-blue-600 hover:underline">
+                            Lihat
+                        </a>
+                    </div>
+
+                    {{-- Upload Baru --}}
+                    <div class="border border-dashed border-gray-300 rounded-md p-4 bg-gray-50 text-center">
+                        <span class="material-icons text-gray-400 text-2xl">upload_file</span>
+                        <p class="text-[11px] text-gray-500 mt-1">
+                            Drag & drop file atau klik untuk upload
+                        </p>
+                        <input type="file" name="file" class="mt-2 text-sm w-full">
+                        <p class="text-xs text-gray-400 mt-2">
+                            Kosongkan jika tidak ingin mengganti file
+                        </p>
+                    </div>
+
+                    @error('file')
+                        <p class="text-xs text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Checkbox confirm --}}
+                <div class="flex items-start gap-3">
+                    <div class="flex items-center h-5">
+                        <input id="confirm" type="checkbox"
+                            class="w-4 h-4 rounded border-gray-300 text-blue-600
+                            focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer">
+                    </div>
+                    <label for="confirm" class="text-sm text-gray-600 leading-relaxed cursor-pointer">
+                        Saya memastikan bahwa dokumen ini sudah benar dan siap digunakan
+                    </label>
+                </div>
+
+            </div>
+
+            {{-- Footer action buttons --}}
+            <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                <a href="{{ route('dosen.documents.index') }}" class="text-sm text-gray-600 hover:text-gray-800">
+                    Batal
+                </a>
+
+                <button type="submit"
+                    class="inline-flex items-center gap-1 px-3.5 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border border-blue-400 
+                    rounded-lg hover:bg-blue-200 transition">
+                    <span class="material-symbols-outlined !text-[17px]">
+                        forward
+                    </span>
+                    Simpan Perubahan
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+@endsection

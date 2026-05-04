@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        {{-- Right: Document Info --}}
+        {{-- Right: Information --}}
         <div class="col-span-12 lg:col-span-4 space-y-5">
 
             {{-- Document Info --}}

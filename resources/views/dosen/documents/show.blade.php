@@ -2,134 +2,169 @@
 @section('title', 'Detail Dokumen')
 
 @section('content')
-    <div class="w-full space-y-6">
+    <div class="max-w-full mx-auto space-y-6">
 
-        <!-- Header -->
+        {{-- Header --}}
         <div class="flex items-start justify-between">
-
             <div>
-                <h1 class="text-2xl font-semibold text-gray-900 leading-snug">
-                    {{ $document->title }}
+                <h1 class="text-xl font-semibold text-gray-900 leading-tight">
+                    Detail {{ $document->title }}
                 </h1>
 
-                <p class="text-sm text-gray-500 mt-1">
-                    {{ $document->category->name }}
-                </p>
+                <div class="flex flex-wrap items-center gap-3 text-[12px] text-gray-500 mt-1.5">
+                    <span>•</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">person</span>
+                        {{ $document->user->name }}
+                    </span>
+
+                    <span>•</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">folder</span>
+                        {{ $document->category->name }}
+                    </span>
+
+                    <span>•</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
+                        {{ $document->created_at->format('d M Y') }}
+                    </span>
+                </div>
             </div>
 
-            <!-- Status -->
-            <span
-                class="inline-flex items-center gap-1 px-3 py-1.5 text-xs rounded-full border font-medium
-            {{ $document->status === 'approved'
-                ? 'bg-green-50 text-green-700 border-green-200'
-                : ($document->status === 'pending'
-                    ? 'bg-yellow-50 text-yellow-700 border-yellow-200'
-                    : 'bg-red-50 text-red-700 border-red-200') }}">
-
-                <span class="material-symbols-outlined !text-[14px]">
-                    {{ $document->status === 'approved'
-                        ? 'check_circle'
-                        : ($document->status === 'pending'
-                            ? 'schedule'
-                            : 'cancel') }}
-                </span>
-
-                {{ ucfirst($document->status) }}
-            </span>
-
+            <a href="{{ route('dosen.documents.index') }}"
+                class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-1">
+                Back
+                <span class="material-icons !text-[18px]">low_priority</span>
+            </a>
         </div>
 
-        <!-- Main content -->
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        {{-- Main grid content --}}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <!-- PDF Viewer -->
-            <div class="xl:col-span-2 bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex flex-col">
+            {{-- Left --}}
+            <div class="lg:col-span-2 space-y-5">
 
-                <!-- Header Viewer -->
-                <div class="px-4 py-3 border-b bg-gray-50 text-sm font-medium text-gray-700 flex justify-between">
-                    <span>Preview Dokumen</span>
+                {{-- Header title --}}
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex items-center justify-between">
 
-                    <a href="{{ route('dosen.documents.preview', $document->id) }}" target="_blank"
-                        class="text-blue-600 hover:underline text-xs">
-                        Buka Tab Baru
-                    </a>
-                </div>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 flex items-center justify-center rounded-lg
+                        bg-red-50 border border-red-200 text-red-600">
+                            <span class="material-icons !text-[22px]">picture_as_pdf</span>
+                        </div>
 
-                <!-- Iframe -->
-                <div class="w-full h-[75vh]">
-                    <iframe src="{{ route('dosen.documents.preview', $document->id) }}" class="w-full h-full"
-                        frameborder="0">
-                    </iframe>
-                </div>
+                        <div class="leading-tight">
+                            <p class="text-sm font-semibold text-gray-900 line-clamp-1">
+                                {{ $document->title }}
+                            </p>
 
-                <!-- Footer Viewer -->
-                <div class="px-4 py-2 border-t bg-gray-50 text-xs text-gray-500 flex justify-between">
-                    <span>
-                        {{ \Carbon\Carbon::parse($document->created_at)->translatedFormat('d M Y') }}
+                            <div class="flex items-center gap-2 text-[12px] text-gray-500 mt-0.5">
+                                <span>PDF</span>
+                                <span>•</span>
+                                <span>Preview tersedia</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span
+                        class="inline-flex items-center px-2.5 py-1 text-[10px] font-medium rounded-xl uppercase
+                            {{ $document->status === 'approved'
+                            ? 'bg-green-50 text-green-700 border border-green-300'
+                            : ($document->status === 'pending'
+                            ? 'bg-yellow-50 text-yellow-700 border border-yellow-300'
+                            : 'bg-red-50 text-red-700 border border-red-300') }}">
+                        {{ ucfirst($document->status) }}
                     </span>
-
-                    <span>
-                        Gunakan scroll untuk membaca
-                    </span>
                 </div>
 
+                {{-- PDF viewer --}}
+                <div class="bg-white border border-gray-300 rounded-lg shadow-sm overflow-hidden">
+                    <div class="px-5 py-4 border-b bg-gray-50 flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-700">
+                            Preview Dokumen
+                        </span>
+
+                        <a href="{{ route('dosen.documents.preview', $document->id) }}" target="_blank"
+                            class="text-xs text-blue-600 hover:underline">
+                            Buka di tab baru
+                        </a>
+                    </div>
+
+                    <div class="w-full h-[650px] bg-gray-100">
+                        <iframe src="{{ route('dosen.documents.preview', $document->id) }}" class="w-full h-full"></iframe>
+                    </div>
+
+                    <div class="px-5 py-3 border-t bg-gray-50 text-xs text-gray-500 flex justify-between">
+                        <span>Gunakan scroll untuk membaca dokumen</span>
+                        <span>Format: PDF</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Side bar information -->
+            {{-- Right --}}
             <div class="space-y-5">
 
-                <!-- Info -->
-                <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+                {{-- Data document --}}
+                <div class="bg-white border border-gray-300 rounded-lg">
 
-                    <div class="px-4 py-3 border-b bg-gray-50 text-sm rounded-t-xl font-medium text-gray-700">
+                    <div class="px-5 py-4 border-b bg-gray-50 text-sm rounded-t-lg font-medium text-gray-700">
                         Informasi Dokumen
                     </div>
 
-                    <div class="p-4 space-y-4 text-sm">
+                    <div class="divide-y text-sm">
 
-                        <div>
-                            <p class="text-xs text-gray-500">Judul</p>
-                            <p class="text-gray-900 font-medium mt-1">
-                                {{ $document->title }}
-                            </p>
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="text-xs text-gray-500 font-medium">Uploader</span>
+                            <span class="font-medium text-gray-600">
+                                {{ $document->user->name }}
+                            </span>
                         </div>
 
-                        <div>
-                            <p class="text-xs text-gray-500">Kategori</p>
-                            <p class="text-gray-800 mt-1">
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="text-xs text-gray-500 font-medium">Kategori</span>
+                            <span class="font-medium text-gray-600">
                                 {{ $document->category->name }}
-                            </p>
+                            </span>
                         </div>
 
-                        <div>
-                            <p class="text-xs text-gray-500">Tanggal Upload</p>
-                            <p class="text-gray-800 mt-1">
-                                {{ \Carbon\Carbon::parse($document->created_at)->translatedFormat('d M Y') }}
-                            </p>
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="text-xs text-gray-500 font-medium">Tanggal Upload</span>
+                            <span class="font-medium text-gray-600">
+                                {{ $document->created_at->format('d M Y') }}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="text-xs text-gray-500 font-medium">Tipe File</span>
+                            <span class="font-medium text-gray-600">
+                                PDF
+                            </span>
                         </div>
 
                     </div>
                 </div>
 
-                <!-- Actions -->
-                <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 space-y-3">
+
+                {{-- Action buttons --}}
+                <div class="bg-white border border-gray-300 rounded-lg p-3 space-y-2">
 
                     <a href="{{ route('dosen.documents.download', $document->id) }}"
-                        class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-
-                        <span class="material-symbols-outlined !text-[18px]">
-                            download
-                        </span>
+                        class="w-full flex items-center justify-center gap-2 px-3 py-2 text-[13px] font-medium
+                        border border-red-300 bg-red-50 text-red-700 rounded-md hover:bg-red-100 transition">
+                        <span class="material-icons !text-[16px]">download</span>
                         Download
                     </a>
 
                     <a href="{{ route('dosen.documents.preview', $document->id) }}" target="_blank"
-                        class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm border border-gray-200 rounded-lg hover:bg-gray-50 transition">
-
-                        <span class="material-symbols-outlined !text-[18px]">
-                            open_in_new
-                        </span>
-                        Buka Tab Baru
+                        class="w-full flex items-center justify-center gap-2 px-3 py-2 text-[13px] font-medium
+                        border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition">
+                        <span class="material-icons !text-[16px]">open_in_new</span>
+                        Buka di Tab Baru
                     </a>
 
                 </div>
@@ -139,4 +174,5 @@
         </div>
 
     </div>
+
 @endsection

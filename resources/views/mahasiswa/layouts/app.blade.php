@@ -163,7 +163,7 @@
                         </a>
                     </div> --}}
 
-                    {{-- User Menu Button --}}
+                    {{-- Fitur profile dropdown --}}
                     <button id="userMenuButton"
                         class="flex items-center gap-1 text-sm transition text-gray-700 dark:text-gray-200
                         hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none">
@@ -184,7 +184,7 @@
                         </span>
                     </button>
 
-                    {{-- Dropdwon --}}
+                    {{-- Menu dropdown --}}
                     <div id="userDropdown"
                         class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700
                         rounded-lg shadow-sm opacity-0 invisible transition">
@@ -194,16 +194,13 @@
                             class="px-6 py-3 bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 rounded-tl-lg rounded-tr-lg">
 
                             <div class="flex items-center gap-3">
-                                <!-- Avatar -->
-                                <div
-                                    class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
-
+                                {{-- Avatar --}}
+                                <div class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
                                     @if (auth()->user()->photo)
                                         <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Avatar"
                                             class="w-full h-full rounded-full border-gray-200 dark:border-gray-100 object-cover">
                                     @else
-                                        <div
-                                            class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center 
+                                        <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center 
                                             border border-gray-300 dark:bg-gray-800 dark:border-gray-700">
                                             <span class="material-icons text-gray-500 !text-[20px]">
                                                 person
@@ -211,6 +208,7 @@
                                         </div>
                                     @endif
                                 </div>
+
                                 {{-- <div
                                     class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
 
@@ -228,7 +226,7 @@
                                     @endif
                                 </div> --}}
 
-                                <!-- User Info -->
+                                {{-- User info --}}
                                 <div class="flex flex-col leading-tight">
                                     <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
                                         {{ auth()->user()->name }}

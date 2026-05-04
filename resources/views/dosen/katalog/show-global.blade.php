@@ -5,143 +5,145 @@
     <div class="max-w-full mx-auto space-y-6">
 
         {{-- Header --}}
-        <div class="flex items-start justify-between">
+        <div class="flex items-start justify-between mb-5">
             <div>
-                <h1 class="text-xl font-semibold text-gray-900 leading-snug">
-                    {{ $document->title }}
+                <h1 class="text-xl font-semibold text-gray-900 leading-tight">
+                    Detail {{ $document->title }}
                 </h1>
-                <div class="flex items-center gap-3 text-[12px] text-gray-500 mt-1">
-                    <div class="flex items-center gap-1">
-                        <span class="material-symbols-outlined !text-[14px]">person</span>
-                        {{ $document->user->name }}
-                    </div>
+
+                <div class="flex flex-wrap items-center gap-3 text-[12px] text-gray-500 mt-1.5">
                     <span>•</span>
-                    <div class="flex items-center gap-1">
-                        <span class="material-symbols-outlined !text-[14px]">folder</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">person</span>
+                        {{ $document->user->name }}
+                    </span>
+
+                    <span>•</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">folder</span>
                         {{ $document->category->name }}
-                    </div>
+                    </span>
+
+                    <span>•</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
+                        {{ $document->created_at->format('d M Y') }}
+                    </span>
                 </div>
             </div>
 
             <a href="{{ route('dosen.katalog.global') }}"
-                class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-0.5">
+                class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-1">
                 Back
-                <span class="material-icons !text-[18px]">low_priority</span>
+                <span class="material-symbols-outlined !text-[18px]">low_priority</span>
             </a>
         </div>
 
-        {{-- Main Content --}}
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            {{-- Preview PDF --}}
-            <div class="lg:col-span-2 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+        {{-- Main gird card --}}
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
 
-                {{-- Viewer Header --}}
-                <div class="px-4 py-4 border-b bg-gray-50 flex items-center justify-between">
-                    <span class="text-sm font-medium text-gray-700">
-                        Preview Dokumen
-                    </span>
+            {{-- Head title bar --}}
+            <div class="flex items-center justify-between p-5 border-b border-gray-100 bg-gray-50">
 
-                    <a href="{{ route('dosen.documents.preview', $document->id) }}" target="_blank"
-                        class="text-xs text-blue-600 hover:underline">
-                        Buka di tab baru
-                    </a>
-                </div>
-
-                {{-- Frame PDF --}}
-                <div class="w-full h-[650px]">
-                    <iframe src="{{ route('dosen.documents.preview', $document->id) }}" class="w-full h-full"
-                        frameborder="0">
-                    </iframe>
-                </div>
-
-                {{-- Footer --}}
-                <div class="px-4 py-4 border-t bg-gray-50 flex items-center justify-between text-xs text-gray-500">
-
-                    <div class="flex items-center gap-3">
-                        <span class="flex items-center gap-1">
-                            <span class="material-symbols-outlined !text-[14px]">description</span>
-                            PDF Document
-                        </span>
-
-                        <span>•</span>
-
-                        <span>
-                            {{ \Carbon\Carbon::parse($document->created_at)->translatedFormat('d M Y') }}
-                        </span>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 flex items-center justify-center rounded-lg bg-red-50 border border-red-200 text-red-600">
+                        <span class="material-symbols-outlined text-[26px]">picture_as_pdf</span>
                     </div>
 
-                    <div class="flex items-center gap-3">
-                        <span class="hidden sm:inline">
-                            Gunakan scroll untuk membaca
-                        </span>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-800 line-clamp-1">
+                            {{ $document->title }}
+                        </p>
+                        <p class="text-xs text-gray-500 mt-0.5">
+                            PDF Document • Siap dibuka
+                        </p>
+                    </div>
+                </div>
+
+                <span
+                    class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-xl tracking-wide uppercase
+                        {{ $document->status === 'approved'
+                        ? 'bg-green-50 text-green-700 border border-green-200'
+                        : ($document->status === 'pending'  
+                        ? 'bg-yellow-50 text-yellow-700 border border-yellow-200'
+                        : 'bg-red-50 text-red-700 border border-red-200') }}">
+                    {{ ucfirst($document->status) }}
+                </span>
+
+            </div>
+
+
+            {{-- CONTENT --}}
+            <div class="p-6 space-y-6">
+
+                {{-- FILE PREVIEW BLOCK (NO IFRAME) --}}
+                <div class="border border-gray-200 rounded-lg p-5 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 flex items-center justify-center rounded-lg
+                            bg-red-50 border border-red-200 text-red-600">
+                            <span class="material-symbols-outlined text-[22px]">picture_as_pdf</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">
+                                {{ $document->title }}
+                            </p>
+                            <p class="text-xs text-gray-500 mt-0.5">
+                                PDF • {{ $document->created_at->diffForHumans() }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <a href="{{ route('dosen.documents.preview', $document->id) }}" target="_blank"
+                            class="px-3 py-1.5 text-[11px] border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition flex items-center gap-1">
+                            <span class="material-icons !text-[14px]">open_in_new</span>
+                            Buka PDF
+                        </a>
 
                         <a href="{{ route('dosen.documents.download', $document->id) }}"
-                            class="text-blue-600 hover:underline">
+                            class="px-3 py-1.5 text-[11px] border border-red-300 bg-red-50 text-red-700 rounded-md hover:bg-red-100 transition flex items-center gap-1">
+                            <span class="material-icons !text-[14px]">download</span>
                             Download
                         </a>
                     </div>
-
-                </div>
-            </div>
-
-            {{-- Left information --}}
-            <div class="space-y-5">
-
-                {{-- Info Card --}}
-                <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
-
-                    <div class="px-4 py-3 border-b bg-gray-50 text-sm rounded-t-lg font-medium text-gray-700">
-                        Informasi Dokumen
-                    </div>
-
-                    <div class="p-4 space-y-4 text-sm">
-
-                        <div>
-                            <p class="text-xs text-gray-500">Uploader</p>
-                            <p class="text-gray-900 font-medium mt-1">
-                                {{ $document->user->name }}
-                            </p>
-                        </div>
-
-                        <div>
-                            <p class="text-xs text-gray-500">Kategori</p>
-                            <p class="text-gray-800 mt-1">
-                                {{ $document->category->name }}
-                            </p>
-                        </div>
-
-                        <div>
-                            <p class="text-xs text-gray-500">Tanggal Upload</p>
-                            <p class="text-gray-800 mt-1">
-                                {{ \Carbon\Carbon::parse($document->created_at)->translatedFormat('d M Y') }}
-                            </p>
-                        </div>
-
-                    </div>
                 </div>
 
-                <!-- Actions -->
-                <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 space-y-3">
 
-                    <a href="{{ route('dosen.documents.download', $document->id) }}"
-                        class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                {{-- INFO GRID --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Uploader</p>
+                        <p class="text-sm font-medium text-gray-600">
+                            {{ $document->user->name }}
+                        </p>
+                    </div>
 
-                        <span class="material-symbols-outlined !text-[18px]">
-                            download
-                        </span>
-                        Download Dokumen
-                    </a>
+                    <div>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Kategori</p>
+                        <p class="text-sm font-medium text-gray-600">
+                            {{ $document->category->name }}
+                        </p>
+                    </div>
 
-                    <a href="{{ route('dosen.documents.preview', $document->id) }}" target="_blank"
-                        class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                    <div>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Tanggal Upload</p>
+                        <p class="text-sm font-medium text-gray-600">
+                            {{ $document->created_at->format('d F Y') }}
+                        </p>
+                    </div>
 
-                        <span class="material-symbols-outlined !text-[18px]">
-                            open_in_new
-                        </span>
-                        Buka Tab Baru
-                    </a>
-
+                    <div>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Tipe File</p>
+                        <p class="text-sm font-medium text-gray-600">
+                            PDF Document
+                        </p>
+                    </div>
                 </div>
 
             </div>
@@ -149,4 +151,5 @@
         </div>
 
     </div>
+
 @endsection
