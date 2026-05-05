@@ -8,7 +8,7 @@
         {{-- Header --}}
         <div class="flex items-start justify-between">
             <div>
-                <h1 class="text-xl font-semibold text-gray-900">
+                <h1 class="text-xl font-semibold text-gray-800">
                     Edit Dokumen
                 </h1>
                 <p class="text-sm text-gray-500">
@@ -94,7 +94,7 @@
                     </div>
 
                     <p class="text-[11px] text-gray-500">
-                        Pilih kategori yang sesuai dengan dokumen
+                        *Pilih kategori yang sesuai dengan dokumen
                     </p>
 
                     @error('category_id')
@@ -102,84 +102,51 @@
                     @enderror
                 </div>
 
-                {{-- Input File --}}
-                <div class="space-y-2">
-
+                {{-- Input file / upload file--}}
+                <div class="space-y-1">
+                    {{-- Label --}}
                     <label class="text-[13px] font-medium text-gray-600">
                         File Dokumen
                     </label>
 
-                    <p class="text-[11px] text-gray-500">
-                        File saat ini: {{ basename($document->file) }}. Upload file baru untuk mengganti dokumen yang
-                        tersimpan.
-                    </p>
-
-                    {{-- File lama --}}
-                    <div class="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-md px-3 py-2">
-                        <div class="flex items-center gap-2 text-sm text-gray-600">
-                            <span class="material-icons !text-[18px] text-gray-500">
-                                description
-                            </span>
-                            <span class="truncate">
-                                {{ basename($document->file) }}
-                            </span>
-                        </div>
-
-                        <a href="{{ asset('storage/' . $document->file) }}" target="_blank"
-                            class="text-xs text-blue-600 hover:underline">
-                            Lihat
-                        </a>
-                    </div>
-
-                    {{-- Upload Baru --}}
-                    <div class="border border-dashed border-gray-300 rounded-md p-4 bg-gray-50 text-center">
-                        <span class="material-icons text-gray-400 text-2xl">upload_file</span>
-                        <p class="text-[11px] text-gray-500 mt-1">
-                            Drag & drop file atau klik untuk upload
-                        </p>
-                        <input type="file" name="file" class="mt-2 text-sm w-full">
-                        <p class="text-xs text-gray-400 mt-2">
-                            Kosongkan jika tidak ingin mengganti file
-                        </p>
-                    </div>
-
-                    @error('file')
-                        <p class="text-xs text-red-500">{{ $message }}</p>
-                    @enderror
+                    <x-upload-dropzone 
+                    name="file" 
+                    label="Upload Dokumen Baru" 
+                    hint="Seret file atau klik untuk memilih"
+                    note="*Kosongkan jika tidak ingin mengganti file" 
+                    accept=".pdf,.doc,.docx" 
+                    :currentFile="$document->file" />
                 </div>
-
+                
                 {{-- Checkbox confirm --}}
                 <div class="flex items-start gap-3">
                     <div class="flex items-center h-5">
                         <input id="confirm" type="checkbox"
                             class="w-4 h-4 rounded border-gray-300 text-blue-600
-                            focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer">
+                            focus:ring-1 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer">
                     </div>
-                    <label for="confirm" class="text-sm text-gray-600 leading-relaxed cursor-pointer">
+                    <label for="confirm" class="text-[13px] text-gray-600 leading-relaxed cursor-pointer">
                         Saya memastikan bahwa dokumen ini sudah benar dan siap digunakan
                     </label>
                 </div>
 
-            </div>
+                {{-- Footer action buttons --}}
+                <div class="flex items-center justify-between px-2 py-2 pt-5 border-t border-gray-300">
+                    <a href="{{ route('dosen.documents.index') }}" class="text-sm text-gray-600 hover:text-gray-800">
+                        Batal
+                    </a>
 
-            {{-- Footer action buttons --}}
-            <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
-                <a href="{{ route('dosen.documents.index') }}" class="text-sm text-gray-600 hover:text-gray-800">
-                    Batal
-                </a>
-
-                <button type="submit"
-                    class="inline-flex items-center gap-1 px-3.5 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border border-blue-400 
-                    rounded-lg hover:bg-blue-200 transition">
-                    <span class="material-symbols-outlined !text-[17px]">
-                        forward
-                    </span>
-                    Simpan Perubahan
-                </button>
-            </div>
-
+                    <button type="submit"
+                        class="inline-flex items-center gap-1 px-3.5 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border 
+                        border-blue-400 rounded-lg hover:bg-blue-200 transition">
+                        <span class="material-symbols-outlined !text-[17px]">
+                            forward
+                        </span>
+                        Simpan Perubahan
+                    </button>
+                </div>
         </form>
-
     </div>
+
 
 @endsection

@@ -4,66 +4,132 @@
 @section('content')
     <div class="max-w-full mx-auto space-y-6">
 
-        {{-- Header --}}
-        <div class="space-y-3">
-            <div>
-                <h1 class="text-lg font-semibold text-gray-800">
-                    Katalog Dokumen Global
-                </h1>
-                <p class="text-[13px] text-blue-600">
-                    Jelajahi dan temukan dokumen akademik dari mahasiswa dan dosen.
-                </p>
+        <div class="relative mb-20">
+            {{-- Header --}}
+            <section class="relative h-[360px] md:h-[460px] rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+
+                <div class="absolute inset-0 overflow-hidden rounded-xl">
+                    {{-- Img slider --}}
+                    <div id="slider" class="relative w-full h-full z-0">
+                        <div class="slide absolute inset-0 bg-cover bg-center transition-opacity duration-700 opacity-100"
+                            style="background-image: url('{{ asset('img/img-slider/bg-1.jpeg') }}')">
+                        </div>
+                        <div class="slide absolute inset-0 bg-cover bg-center transition-opacity duration-700 opacity-0"
+                            style="background-image: url('{{ asset('img/img-slider/bg-2.jpeg') }}')">
+                        </div>
+                        <div class="slide absolute inset-0 bg-cover bg-center transition-opacity duration-700 opacity-0"
+                            style="background-image: url('{{ asset('img/img-slider/bg-3.jpeg') }}')">
+                        </div>
+                    </div>
+
+                    {{-- Overlay (lebih soft) --}}
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent z-10"></div>
+                </div>
+
+
+                {{-- Content info (dipanggil dijs) --}}
+                <div class="absolute inset-0 flex items-center z-20">
+                    <div class="max-w-6xl mx-auto w-full px-6 md:px-16">
+                        <div id="slide-content" class="max-w-xl text-white">
+                            <h1 class="text-3xl md:text-5xl font-semibold leading-tight drop-shadow-md">
+                                Katalog Dokumen Global
+                            </h1>
+                            <p class="mt-3 text-sm md:text-base text-white/90 drop-shadow-sm">
+                                Jelajahi berbagai dokumen akademik secara terpusat dan terorganisir.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Arrow navigation --}}
+                <div class="absolute inset-0 flex items-center justify-between px-4 md:px-6 z-30">
+                    {{-- Prev --}}
+                    <button id="prev"
+                        class="w-8 h-8 flex items-center justify-center bg-black/30 hover:bg-black/50
+                        text-white rounded-full backdrop-blur-sm transition">
+                        <span class="material-symbols-outlined pr-0.5 !text-[20px] leading-none">
+                            keyboard_arrow_left
+                        </span>
+                    </button>
+
+                    {{-- Next --}}
+                    <button id="next"
+                        class="w-8 h-8 flex items-center justify-center bg-black/30 hover:bg-black/50
+                        text-white rounded-full backdrop-blur-sm transition">
+                        <span class="material-symbols-outlined pl-0.5 !text-[20px] leading-none">
+                            keyboard_arrow_right
+                        </span>
+                    </button>
+                </div>
+
+                {{-- Dot indicator (lebih rapi & balanced) --}}
+                <div class="pb-7 absolute bottom-6 inset-x-0 flex justify-center z-30">
+                    <div class="flex items-center gap-3 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full shadow-sm">
+                        <button class="dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300"></button>
+                        <button class="dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300"></button>
+                        <button class="dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300"></button>
+                    </div>
+                </div>
+            </section>
+
+            {{-- Filter --}}
+            <div class="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-1/2 w-full max-w-6xl px-4 z-40">
+
+                <form method="GET" action="{{ route('dosen.katalog.global') }}"
+                    class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 md:p-5">
+
+                    <div class="flex flex-col md:flex-row gap-3">
+
+                        {{-- Search --}}
+                        <div class="relative flex-1">
+                            <span
+                                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 !text-[20px]">
+                                search
+                            </span>
+
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="Cari judul dokumen..."
+                                class="w-full pl-10 pr-3 h-11 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-200
+                                focus:border-blue-500 outline-none">
+                        </div>
+
+                        {{-- Category --}}
+                        <div class="relative md:w-60">
+                            <select name="category_id"
+                                class="w-full h-11 text-sm border border-gray-200 rounded-xl px-5 pr-8 text-gray-600 bg-white
+                                appearance-none outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition">
+                                <option value="">Semua Kategori</option>
+                                @foreach ($categories as $cat)
+                                    <option value="{{ $cat->id }}"
+                                        {{ request('category_id') == $cat->id ? 'selected' : '' }}>
+                                        {{ $cat->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <span
+                                class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 !text-[18px] pointer-events-none">
+                                expand_more
+                            </span>
+                        </div>
+
+                        {{-- Button --}}
+                        <button type="submit"
+                            class="h-11 px-6 flex items-center justify-center gap-1.5 bg-blue-50 border border-blue-300 text-blue-700
+                            rounded-xl font-medium hover:bg-blue-100 active:scale-[0.98] transition">
+                            <span class="material-symbols-outlined !text-[18px]">
+                                search
+                            </span>
+                            <span class="text-[14px]">Cari</span>
+                        </button>
+                    </div>
+                </form>
             </div>
 
-            {{-- Filter & Search --}}
-            <form method="GET" action="{{ route('dosen.katalog.global') }}" class="flex flex-wrap items-center gap-3 mb-5">
-
-                {{-- Search --}}
-                <div class="relative flex-1 min-w-[220px]">
-                    <span
-                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 !text-[18px]">
-                        search
-                    </span>
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari judul dokumen..."
-                        class="w-full pl-10 pr-3 h-10 text-sm border border-gray-200 rounded-lg
-                        focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none">
-                </div>
-
-                {{-- Category --}}
-                <div class="relative">
-                    <select name="category_id"
-                        class="h-10 text-sm border border-gray-200 rounded-lg px-3 pr-8 text-gray-600
-                        focus:ring-2 focus:ring-blue-100 focus:border-blue-500 appearance-none">
-
-                        <option value="">Semua Kategori</option>
-
-                        @foreach ($categories as $cat)
-                            <option value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>
-                                {{ $cat->name }}
-                            </option>
-                        @endforeach
-                    </select>
-
-                    {{-- Arrow --}}
-                    <span
-                        class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 !text-[18px] pointer-events-none">
-                        expand_more
-                    </span>
-                </div>
-
-                {{-- Button --}}
-                <button type="submit"
-                    class="h-10 px-3 flex items-center gap-1 text-sm font-medium
-                    bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition">
-                    <span class="material-symbols-outlined !text-[22px]">
-                        search
-                    </span>
-                </button>
-            </form>
         </div>
 
         {{-- Grid content --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($documents as $doc)
                 {{-- Avatar profile --}}
                 @php
@@ -149,12 +215,89 @@
                     </p>
                 </div>
             @endforelse
-        </div>
+        </section>
 
         {{-- Pagination --}}
         <div>
-            {{ $documents->links() }}
+            {{ $documents->links('vendor.pagination.tailwind-darkmode') }}
         </div>
 
+        <script>
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const title = document.querySelector('#slide-content h1');
+            const desc = document.querySelector('#slide-content p');
+
+            const data = [{
+                    title: "Katalog Dokumen Global",
+                    desc: "Jelajahi berbagai dokumen akademik secara terpusat dan terorganisir."
+                },
+                {
+                    title: "Akses Cepat & Efisien",
+                    desc: "Cari dokumen berdasarkan judul, kategori, atau penulis dengan mudah."
+                },
+                {
+                    title: "Terintegrasi untuk Akademisi",
+                    desc: "Platform terstruktur untuk mahasiswa dan dosen berbagi dokumen."
+                }
+            ];
+
+            let current = 0;
+            let interval;
+
+            function updateUI(index) {
+                slides.forEach((slide, i) => {
+                    slide.style.opacity = i === index ? '1' : '0';
+                });
+
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('bg-white', i === index);
+                    dot.classList.toggle('scale-110', i === index);
+                    dot.classList.toggle('bg-white/40', i !== index);
+                });
+
+                title.textContent = data[index].title;
+                desc.textContent = data[index].desc;
+            }
+
+            function next() {
+                current = (current + 1) % slides.length;
+                updateUI(current);
+            }
+
+            function prev() {
+                current = (current - 1 + slides.length) % slides.length;
+                updateUI(current);
+            }
+
+            function start() {
+                interval = setInterval(next, 5000);
+            }
+
+            function reset() {
+                clearInterval(interval);
+                start();
+            }
+
+            document.getElementById('next').onclick = () => {
+                next();
+                reset();
+            };
+            document.getElementById('prev').onclick = () => {
+                prev();
+                reset();
+            };
+
+            dots.forEach((dot, i) => {
+                dot.onclick = () => {
+                    current = i;
+                    updateUI(current);
+                    reset();
+                };
+            });
+
+            updateUI(current);
+            start();
+        </script>
     </div>
 @endsection

@@ -17,7 +17,7 @@
         <a href="{{ route('mahasiswa.documents.index') }}"
             class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-0.5">
             Back
-            <span class="material-icons !text-[18px]">low_priority</span>
+            <span class="material-symbols-outlined !text-[18px]">low_priority</span>
         </a>
     </div>
 

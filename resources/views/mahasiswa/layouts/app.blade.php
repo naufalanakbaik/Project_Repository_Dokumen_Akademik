@@ -41,13 +41,13 @@
 <body class="dark:bg-gray-900">
 
     {{-- Top Head Information --}}
-    <div class="text-xs bg-yellow-400 border-b border-gray-300 dark:bg-gray-200">
+    <div class="text-xs bg-yellow-400 dark:bg-gray-200">
         <div class="max-w-7xl mx-auto px-8 py-2 flex justify-between items-center">
 
             <div class="flex items-center gap-6">
-                <span class="flex items-center text-[11px] gap-2 text-gray-700 dark:text-gray-500">
+                <span class="flex items-center text-[11px] gap-2 text-gray-800 dark:text-gray-500">
                     Repository Akademik System
-                    <span class="text-gray-700 dark:text-gray-500">v1.0</span>
+                    <span class="text-gray-800 dark:text-gray-500">v1.0</span>
                 </span>
                 <span class="hidden md:block text-[11px] text-gray-600 dark:text-gray-500">
                     Sistem pengelolaan dokumen akademik dan repositori digital
@@ -81,7 +81,7 @@
                 <div class="flex items-center gap-10">
 
                     {{-- Logo + Brand --}}
-                    <a href="{{ route('mahasiswa.dashboard') }}" class="flex items-center gap-2 group">
+                    <a href="{{ route('mahasiswa.dashboard') }}" class="flex items-center gap-2.5 group">
                         <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-9 w-9 object-contain">
                         <div class="flex flex-col leading-tight">
                             <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">
@@ -95,51 +95,37 @@
 
                     {{-- Menu --}}
                     <div class="hidden md:flex items-center gap-8 text-[14px] font-medium">
-
-                        {{-- <a href="{{ route('publisher.dashboard') }}"
-                            class="transition duration-200 font-normal {{ request()->routeIs('publisher.dashboard')
-                                ? 'text-blue-600 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
-                            Dashboard
-                        </a> --}}
-
-                        <a href="{{ route('mahasiswa.katalog.global') }}"
-                            class="transition duration-200
-                            {{ request()->routeIs('mahasiswa.katalog.*')
-                                ? 'text-yellow-600 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400' }}">
-                            Repository
-                        </a>
-
                         @php
-                            $isDashboardActive = request()->routeIs('mahasiswa.dashboard');
+                            function navClass($isActive)
+                            {
+                                return 'relative inline-block px-1 py-2 text-sm font-medium transition duration-200 ' .
+                                    ($isActive
+                                        ? 'text-yellow-600'
+                                        : 'text-gray-600 hover:text-yellow-600 dark:text-gray-300 dark:hover:text-yellow-500') .
+                                    " after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
+                                    after:-bottom-1 after:h-[2.5px] after:rounded-full
+                                    after:bg-yellow-600 after:transition-all after:duration-300 " .
+                                    ($isActive ? 'after:w-6' : 'after:w-0 hover:after:w-6');
+                            }
                         @endphp
+
+                        {{-- Repositori --}}
+                        <a href="{{ route('mahasiswa.katalog.global') }}"
+                            class="{{ navClass(request()->routeIs('mahasiswa.katalog.*')) }}">
+                            Repositori
+                        </a>
+
+                        {{-- Dashboard --}}
                         <a href="{{ route('mahasiswa.dashboard') }}"
-                            class="relative transition
-                            {{ $isDashboardActive
-                                ? 'text-yellow-600 dark:text-yellow-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400' }}
-
-                            {{-- Garis underline --}}
-                            after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
-                            after:-bottom-2 after:h-[2.5px] 
-                            after:bg-yellow-600 after:rounded-full
-                            after:transition-all after:duration-300
-
-                            {{ $isDashboardActive
-                                ? 'after:w-8 after:bg-yellow-600 dark:after:bg-yellow-400'
-                                : 'after:w-0 after:bg-yellow-600 dark:after:bg-yellow-400 hover:after:w-8' }}">
+                            class="{{ navClass(request()->routeIs('mahasiswa.dashboard')) }}">
                             Dashboard
                         </a>
 
+                        {{-- Dokumen Saya --}}
                         <a href="{{ route('mahasiswa.documents.index') }}"
-                            class="transition duration-200 
-                            {{ request()->routeIs('mahasiswa.documents.*')
-                                ? 'text-yellow-600 dark:text-blue-400'
-                                : 'text-gray-600 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400' }}">
+                            class="{{ navClass(request()->routeIs('mahasiswa.documents.*')) }}">
                             Dokumen Saya
                         </a>
-
                     </div>
                 </div>
 

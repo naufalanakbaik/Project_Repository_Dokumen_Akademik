@@ -7,7 +7,7 @@
         {{-- Header --}}
         <div class="flex items-start justify-between">
             <div>
-                <h1 class="text-xl font-semibold text-gray-900 leading-tight">
+                <h1 class="text-xl font-semibold text-gray-800 leading-tight">
                     Detail {{ $document->title }}
                 </h1>
 
@@ -54,7 +54,7 @@
                     <div class="flex items-center gap-4">
                         <div
                             class="w-10 h-10 flex items-center justify-center rounded-lg
-                        bg-red-50 border border-red-200 text-red-600">
+                            bg-red-50 border border-red-200 text-red-600">
                             <span class="material-icons !text-[22px]">picture_as_pdf</span>
                         </div>
 

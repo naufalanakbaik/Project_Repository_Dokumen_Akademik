@@ -13,30 +13,58 @@ use Illuminate\Http\Request;
 class DocumentController extends Controller
 {
     // --- List daftar dokumen saya (pribadi)
+    // public function index(Request $request)
+    // {
+    //     $query = Document::with('category')
+    //         ->where('user_id', Auth::id());
+
+    //     // Search
+    //     if ($request->search) {
+    //         $query->where('title', 'like', '%' . $request->search . '%');
+    //     }
+
+    //     // Filter Category
+    //     if ($request->category) {
+    //         $query->where('category_id', $request->category);
+    //     }
+
+    //     $documents = $query->latest()
+    //         ->paginate(5)
+    //         ->withQueryString();
+
+    //     // ambil category untuk dropdown
+    //     $categories = Category::all();
+
+    //     return view('dosen.documents.index', compact('documents', 'categories'));
+    // }
+
+    // --- List daftar dokumen saya (pribadi) dengan AJAX
     public function index(Request $request)
     {
         $query = Document::with('category')
-            ->where('user_id', Auth::id());
+            ->where('user_id', auth()->id());
 
-        // SEARCH
         if ($request->search) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
-        // FILTER CATEGORY
         if ($request->category) {
             $query->where('category_id', $request->category);
         }
 
-        $documents = $query->latest()
-            ->paginate(5)
-            ->withQueryString();
+        $documents = $query->latest()->paginate(10);
 
-        // ambil category untuk dropdown
         $categories = Category::all();
 
+        // Jika request dari AJAX, render partial view untuk update daftar saja
+        if ($request->ajax()) {
+            return view('dosen.documents.partials.list', compact('documents'))->render();
+        }
+
+        // Jika request biasa, render view penuh
         return view('dosen.documents.index', compact('documents', 'categories'));
     }
+
 
     // --- Daftar dokumen (seluruh pengguna)
     public function global(Request $request)
@@ -48,12 +76,12 @@ class DocumentController extends Controller
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
-        // Filter Category (INI YANG KAMU TAMBAHKAN)
+        // Filter Category
         if ($request->category_id) {
             $query->where('category_id', $request->category_id);
         }
 
-        // RULE WAJIB (SECURITY)
+        // Rule wajib (SECURITY)
         $query->where(function ($q) {
             $q->where('status', 'approved')
                 ->orWhere('user_id', auth()->id());
@@ -75,7 +103,7 @@ class DocumentController extends Controller
     {
         $document = Document::with(['user', 'category'])->findOrFail($id);
 
-        // RULE GLOBAL
+        // Rule global
         if ($document->status !== 'approved' && $document->user_id !== auth()->id()) {
             abort(403);
         }

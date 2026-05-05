@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {{-- Js darkmode Agar tidak relad 2x --}}
+    <!-- Js darkmode Agar tidak relad 2x -->
     <script>
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
@@ -24,7 +24,7 @@
     <!-- Icon web browser -->
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
 
-    {{-- Material icon --}}
+    <!-- Material icon -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
@@ -47,7 +47,7 @@
             <div class="flex items-center gap-6">
                 <span class="flex items-center text-[11px] gap-2 text-gray-800 dark:text-gray-500">
                     Repository Akademik System
-                    <span class="text-gray-900 dark:text-gray-500">v1.0</span>
+                    <span class="text-gray-800 dark:text-gray-500">v1.0</span>
                 </span>
                 <span class="hidden md:block text-[11px] text-gray-600 dark:text-gray-500">
                     Sistem pengelolaan dokumen akademik dan repositori digital
@@ -81,7 +81,7 @@
                 <div class="flex items-center gap-10">
 
                     {{-- Logo + Brand --}}
-                    <a href="{{ route('dosen.dashboard') }}" class="flex items-center gap-3 group">
+                    <a href="{{ route('dosen.dashboard') }}" class="flex items-center gap-2.5 group">
                         <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-9 w-9 object-contain">
                         <div class="flex flex-col leading-tight">
                             <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">
