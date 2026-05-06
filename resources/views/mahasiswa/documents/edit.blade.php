@@ -2,17 +2,16 @@
 @section('title', 'Edit Dokumen')
 
 @section('content')
-
-    <div class="w-full space-y-3">
+    <div class="max-w-full mx-auto space-y-6">
 
         {{-- Header --}}
-        <div class="flex items-start justify-between pb-2">
+        <div class="flex items-start justify-between">
             <div>
-                <h1 class="text-2xl font-semibold text-gray-900">
+                <h1 class="text-xl font-semibold text-gray-800">
                     Edit Dokumen
                 </h1>
-                <p class="text-sm text-gray-500 mt-1">
-                    Perbarui dokumen dan lakukan perbaikan jika diperlukan
+                <p class="text-sm text-gray-500">
+                    Perbarui informasi dokumen Anda dengan detail yang benar.
                 </p>
             </div>
 
@@ -23,29 +22,27 @@
             </a>
         </div>
 
-        {{-- Status Info --}}
+        {{-- Status badge --}}
         <div
-            class="px-4 py-3 rounded-lg border text-sm
-            {{ $document->status === 'rejected'
-                ? 'bg-red-50 border-red-300 text-red-700'
-                : 'bg-yellow-50 border-yellow-300 text-yellow-700' }}">
+            class=" border rounded-lg shadow-sm p-4 flex items-start gap-4 text-sm
+                {{ $document->status === 'rejected'
+                    ? 'bg-red-50 border-red-200 text-red-600'
+                    : 'bg-yellow-50 border-yellow-200 text-yellow-600' }}">
 
-            <div class="flex items-start gap-2">
-                <span class="material-symbols-outlined !text-[18px]">
+            <div class="flex items-start gap-3">
+                <span class="material-symbols-outlined !text-[20px]">
                     {{ $document->status === 'rejected' ? 'cancel' : 'schedule' }}
                 </span>
-
                 <div>
                     <p class="font-medium">
                         Status: {{ ucfirst($document->status) }}
                     </p>
-
                     @if ($document->status === 'rejected')
-                        <p class="text-xs mt-1">
-                            {{ $document->reject_note }}
+                        <p class="text-xs font-medium mt-1">
+                            Note: {{ $document->reject_note }}
                         </p>
                     @else
-                        <p class="text-xs mt-1">
+                        <p class="text-xs font-medium mt-1">
                             Dokumen akan divalidasi ulang setelah diperbarui
                         </p>
                     @endif
@@ -53,136 +50,131 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-12 gap-6">
+        {{-- Info card --}}
+        <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-4 flex items-start gap-4">
 
-            {{-- Form --}}
-            <div class="col-span-12 lg:col-span-8">
-                <div class="bg-white border border-gray-300 rounded-lg shadow-sm px-8">
-                    <form method="POST" action="{{ route('mahasiswa.documents.update', $document->id) }}"
-                        enctype="multipart/form-data" class="space-y-6">
-                        @csrf
-                        @method('PUT')
+            <span class="material-icons text-blue-600 !text-[20px]">info</span>
 
-                        {{-- Title --}}
-                        <div class="space-y-1.5">
-                            <label class="text-xs font-medium text-gray-700">
-                                Judul Dokumen
-                            </label>
-                            <input type="text" name="title" value="{{ old('title', $document->title) }}"
-                                class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg
-                            focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
-
-                            @error('title')
-                                <p class="text-xs text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        {{-- Category --}}
-                        <div class="space-y-1.5">
-                            <label class="text-xs font-medium text-gray-700">
-                                Kategori
-                            </label>
-
-                            <div class="relative">
-                                <select name="category_id"
-                                    class="w-full appearance-none px-3 py-2.5 pr-10 text-sm border border-gray-300 rounded-lg
-                                    focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition">
-
-                                    @foreach ($categories as $cat)
-                                        <option value="{{ $cat->id }}"
-                                            {{ $cat->id == old('category_id', $document->category_id) ? 'selected' : '' }}>
-                                            {{ $cat->name }}
-                                        </option>
-                                    @endforeach
-
-                                </select>
-
-                                {{-- Custom Arrow --}}
-                                <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                                    <span class="material-symbols-outlined text-gray-400 !text-[18px]">
-                                        expand_more
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-
-                        {{-- File --}}
-                        <div class="space-y-2">
-                            <label class="text-xs font-medium text-gray-700">
-                                File Dokumen
-                            </label>
-
-                            {{-- File lama --}}
-                            <div class="text-xs text-gray-500">
-                                File saat ini:
-                                <span class="font-medium text-gray-700">
-                                    {{ basename($document->file) }}
-                                </span>
-                            </div>
-
-                            {{-- Upload baru --}}
-                            <label
-                                class="group flex flex-col items-center justify-center w-full px-4 py-8 border-2 border-dashed
-                            border-gray-300 rounded-xl cursor-pointer hover:border-blue-500 hover:bg-blue-50/40 transition text-center">
-
-                                <span
-                                    class="material-symbols-outlined text-gray-400 group-hover:text-blue-500 mb-2 !text-[28px]">
-                                    upload_file
-                                </span>
-
-                                <span class="text-sm text-gray-600">
-                                    Ganti file (opsional)
-                                </span>
-
-                                <span class="text-xs text-gray-400 mt-1">
-                                    PDF, DOC, DOCX • Maks 10MB
-                                </span>
-
-                                <span id="file-name" class="text-xs text-blue-600 mt-3 hidden font-medium"></span>
-
-                                <input type="file" name="file" id="file-input" class="hidden">
-                            </label>
-                        </div>
-
-                        {{-- Button --}}
-                        <div class="flex justify-end pt-5 border-t pb-4">
-                            <button type="submit"
-                                class="flex items-center gap-1 px-5 py-2.5 text-sm font-medium bg-blue-50 text-blue-600 rounded-lg
-                                border border-blue-300 hover:bg-blue-100 transition">
-                                <span class="material-symbols-outlined !text-[17px]">
-                                    send
-                                </span>
-                                Simpan Perubahan
-                            </button>
-                        </div>
-
-                    </form>
+            <div class="text-sm text-gray-600 font-medium leading-relaxed">
+                Pastikan data yang Anda ubah sudah benar. Mengganti file akan otomatis memperbarui dokumen yang tersimpan.
+                <div class="mt-1 text-xs font-medium text-gray-400">
+                    Terakhir diperbarui:
+                    {{ $document->updated_at->format('d M Y, H:i') }}
                 </div>
             </div>
-
-            {{-- Info --}}
-            <div class="col-span-12 lg:col-span-4">
-                <div class="bg-gray-50 border border-gray-300 rounded-lg p-5 text-xs text-gray-600 space-y-3">
-                    <p>• Perubahan akan mengembalikan status ke <b>pending</b></p>
-                    <p>• Pastikan dokumen sudah diperbaiki sesuai catatan</p>
-                    <p>• File baru tidak wajib diupload</p>
-                </div>
-            </div>
-
         </div>
+
+        {{-- Form edit data dokumen --}}
+        <form method="POST" action="{{ route('mahasiswa.documents.update', $document->id) }}" enctype="multipart/form-data"
+            class="bg-white border border-gray-300 rounded-lg shadow-sm">
+            @csrf
+            @method('PUT')
+            <div class="p-6 space-y-6">
+
+                {{-- Title --}}
+                <div class="space-y-1">
+                    <label class="text-[13px] font-medium text-gray-600">
+                        Judul Dokumen
+                    </label>
+
+                    <input type="text" name="title" value="{{ old('title', $document->title) }}"
+                        class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md text-gray-700
+                        focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
+
+                    <p class="text-[11px] text-gray-500">
+                        *Gunakan judul yang jelas dan deskriptif
+                    </p>
+
+                    @error('title')
+                        <p class="text-xs text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Category --}}
+                <div class="space-y-1">
+                    <label class="text-[13px] font-medium text-gray-600">
+                        Kategori
+                    </label>
+
+                    <div class="relative">
+
+                        <select name="category_id"
+                            class="appearance-none w-full px-3 py-2 text-sm border border-gray-300 rounded-md text-gray-700
+                            focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
+
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_id', $document->category_id) == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+
+                        </select>
+
+                        {{-- Custom Arrow --}}
+                        <span
+                            class="material-icons absolute right-2 top-1/2 -translate-y-1/2 text-[19px] text-gray-400 pointer-events-none">
+                            arrow_drop_down
+                        </span>
+
+                    </div>
+
+                    <p class="text-[11px] text-gray-500">
+                        *Pilih kategori yang sesuai dengan dokumen
+                    </p>
+
+                    @error('category_id')
+                        <p class="text-xs text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Input file / upload file--}}
+                <div class="space-y-1">
+                    {{-- Label --}}
+                    <label class="text-[13px] font-medium text-gray-600">
+                        File Dokumen
+                    </label>
+
+                    <x-upload-dropzone 
+                    name="file" 
+                    label="Upload Dokumen Baru" 
+                    hint="Seret file atau klik untuk memilih"
+                    note="*Kosongkan jika tidak ingin mengganti file" 
+                    accept=".pdf,.doc,.docx" 
+                    :currentFile="$document->file" />
+                </div>
+                
+                {{-- Checkbox confirm --}}
+                <div class="flex items-start gap-3">
+                    <div class="flex items-center h-5">
+                        <input id="confirm" type="checkbox"
+                            class="w-4 h-4 rounded border-gray-300 text-blue-600
+                            focus:ring-1 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer">
+                    </div>
+                    <label for="confirm" class="text-[13px] text-gray-600 leading-relaxed cursor-pointer">
+                        Saya memastikan bahwa dokumen ini sudah benar dan siap digunakan
+                    </label>
+                </div>
+
+                {{-- Action buttons --}}
+                <div class="flex items-center justify-between px-2 py-2 pt-5 border-t border-gray-300">
+                    <a href="{{ route('mahasiswa.documents.index') }}" class="text-sm text-gray-600 hover:text-gray-800">
+                        Batal
+                    </a>
+
+                    <button type="submit"
+                        class="inline-flex items-center gap-1 px-3.5 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border 
+                        border-blue-400 rounded-lg hover:bg-blue-200 transition">
+                        <span class="material-symbols-outlined !text-[17px]">
+                            forward
+                        </span>
+                        Simpan Perubahan
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
     </div>
-
-    {{-- Script input file --}}
-    <script>
-        const fileInput = document.getElementById('file-input');
-        const fileName = document.getElementById('file-name');
-
-        fileInput.addEventListener('change', function() {
-            if (this.files.length > 0) {
-                fileName.textContent = this.files[0].name;
-                fileName.classList.remove('hidden');
-            }
-        });
-    </script>
 
 @endsection

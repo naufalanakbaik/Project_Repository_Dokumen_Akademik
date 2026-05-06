@@ -23,7 +23,7 @@
         </div>
 
         {{-- Info card --}}
-        <div class="bg-white border border-gray-200 rounded-lg p-4 flex items-start gap-4">
+        <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-4 flex items-start gap-4">
 
             <span class="material-icons text-blue-600 !text-[20px]">info</span>
 
@@ -34,12 +34,11 @@
                     {{ $document->updated_at->format('d M Y, H:i') }}
                 </div>
             </div>
-
         </div>
 
         {{-- Form edit data dokumen --}}
         <form action="{{ route('dosen.documents.update', $document->id) }}" method="POST" enctype="multipart/form-data"
-            class="bg-white border border-gray-200 rounded-lg shadow-sm">
+            class="bg-white border border-gray-300 rounded-lg shadow-sm">
 
             @csrf
             @method('PUT')
@@ -130,7 +129,7 @@
                     </label>
                 </div>
 
-                {{-- Footer action buttons --}}
+                {{-- Action buttons --}}
                 <div class="flex items-center justify-between px-2 py-2 pt-5 border-t border-gray-300">
                     <a href="{{ route('dosen.documents.index') }}" class="text-sm text-gray-600 hover:text-gray-800">
                         Batal
@@ -145,6 +144,7 @@
                         Simpan Perubahan
                     </button>
                 </div>
+            </div>
         </form>
     </div>
 

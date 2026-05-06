@@ -14,7 +14,8 @@
                     Unggah dokumen akademik dengan informasi yang jelas dan terstruktur
                 </p>
             </div>
-
+            
+            {{-- Back button --}}
             <a href="{{ route('dosen.documents.index') }}"
                 class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-0.5">
                 Back
@@ -28,7 +29,7 @@
             $today = \Carbon\Carbon::now();
         @endphp
         <div
-            class="flex items-center justify-between bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-600">
+            class="flex items-center justify-between bg-white border border-gray-300 rounded-lg shadow-sm px-4 py-2.5 text-sm text-gray-600">
             <div class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-gray-400 !text-[18px]">
                     calendar_today
@@ -42,15 +43,14 @@
         {{-- Main content --}}
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <div class="lg:col-span-2 bg-white border border-gray-300 rounded-lg">
-
+            {{-- Form tambah dokumen --}}
+            <div class="lg:col-span-2 bg-white border border-gray-300 rounded-lg shadow-sm">
                 <div class="px-6 py-3 bg-gray-50 rounded-t-lg border-b border-gray-300">
                     <h3 class="text-sm font-medium text-gray-700">
                         Tambah Dokumen
                     </h3>
                 </div>
 
-                {{-- Form tambah dokumen --}}
                 <form action="{{ route('dosen.documents.store') }}" method="POST" enctype="multipart/form-data"
                     class="py-1 px-6 space-y-5">
                     @csrf
@@ -61,7 +61,7 @@
                             Judul
                         </label>
 
-                        <input type="text" name="title" required
+                        <input type="text" name="title" placeholder="Masukan judul dokumen" required
                             class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md
                             focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
 
@@ -145,7 +145,7 @@
             <div class="space-y-4 text-sm">
 
                 {{-- Panduan --}}
-                <div class="bg-white border border-gray-300 rounded-lg">
+                <div class="bg-white border border-gray-300 rounded-lg shadow-sm">
                     <div class="px-4 py-3 bg-gray-50 rounded-t-lg border-b border-gray-300">
                         <h3 class="font-medium text-gray-700">
                             Panduan
@@ -180,7 +180,7 @@
                 </div>
 
                 {{-- Catatan --}}
-                <div class="bg-white border border-gray-300 rounded-lg">
+                <div class="bg-white border border-gray-300 rounded-lg shadow-sm">
                     <div class="px-4 py-3 bg-gray-50 rounded-t-lg border-b border-gray-300">
                         <h3 class="font-medium text-gray-700">
                             Catatan

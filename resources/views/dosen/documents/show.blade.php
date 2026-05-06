@@ -45,7 +45,7 @@
         {{-- Main grid content --}}
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            {{-- Left --}}
+            {{-- Left: preview frame pdf--}}
             <div class="lg:col-span-2 space-y-5">
 
                 {{-- Header title --}}
@@ -82,8 +82,10 @@
                     </span>
                 </div>
 
-                {{-- PDF viewer --}}
+                {{-- PDF preview frame --}}
                 <div class="bg-white border border-gray-300 rounded-lg shadow-sm overflow-hidden">
+
+                    {{-- Header Preview --}}
                     <div class="px-5 py-4 border-b bg-gray-50 flex items-center justify-between">
                         <span class="text-sm font-medium text-gray-700">
                             Preview Dokumen
@@ -95,10 +97,12 @@
                         </a>
                     </div>
 
+                    {{-- PDF Viewer --}}
                     <div class="w-full h-[650px] bg-gray-100">
                         <iframe src="{{ route('dosen.documents.preview', $document->id) }}" class="w-full h-full"></iframe>
                     </div>
 
+                    {{-- Footer --}}
                     <div class="px-5 py-3 border-t bg-gray-50 text-xs text-gray-500 flex justify-between">
                         <span>Gunakan scroll untuk membaca dokumen</span>
                         <span>Format: PDF</span>
@@ -106,10 +110,10 @@
                 </div>
             </div>
 
-            {{-- Right --}}
+            {{-- Right: information documents & action buttons --}}
             <div class="space-y-5">
 
-                {{-- Data document --}}
+                {{-- Data documents --}}
                 <div class="bg-white border border-gray-300 rounded-lg">
 
                     <div class="px-5 py-4 border-b bg-gray-50 text-sm rounded-t-lg font-medium text-gray-700">
@@ -148,7 +152,6 @@
 
                     </div>
                 </div>
-
 
                 {{-- Action buttons --}}
                 <div class="bg-white border border-gray-300 rounded-lg p-3 space-y-2">

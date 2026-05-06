@@ -48,6 +48,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/documents', [MahasiswaDocumentController::class, 'index'])
                 ->name('documents.index');
 
+            // Route::get('/documents/filter', [MahasiswaDocumentController::class, 'filter'])
+            //     ->name('documents.filter');
+
             // -- Menampilkan form tambah dokumen -> mahasiswa
             Route::get('/documents/create', [MahasiswaDocumentController::class, 'create'])
                 ->name('documents.create');

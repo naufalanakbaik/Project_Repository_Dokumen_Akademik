@@ -3,125 +3,156 @@
 
 @section('content')
 
-    {{-- HEADER --}}
-    <div class="flex items-start justify-between mb-5">
-        <div>
-            <h1 class="text-xl font-semibold text-gray-900 leading-tight">
-                Detail {{ $document->title }}
-            </h1>
-            <div class="flex items-center gap-3 text-[12px] text-gray-500 mt-1.5 flex-wrap">
-                <span>•</span>
-                <span class="flex items-center gap-1">
-                    <span class="material-icons !text-[15px]">person</span>
-                    {{ $document->user->name }}
-                </span>
-                <span>•</span>
-                <span class="flex items-center gap-1">
-                    <span class="material-icons !text-[15px]">folder</span>
-                    {{ $document->category->name }}
-                </span>
-                <span>•</span>
-                <span class="flex items-center gap-1">
-                    <span class="material-icons !text-[15px]">schedule</span>
-                    {{ $document->created_at->format('d M Y') }}
-                </span>
-            </div>
-        </div>
+    <div class="max-w-full mx-auto space-y-6">
 
-        <a href="{{ route('mahasiswa.katalog.global') }}"
-            class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-0.5">
-            Back
-            <span class="material-icons !text-[18px]">low_priority</span>
-        </a>
-    </div>
+        {{-- Header --}}
+        <div class="flex items-start justify-between mb-5">
+            <div>
+                <h1 class="text-xl font-semibold text-gray-900 leading-tight">
+                    Detail {{ $document->title }}
+                </h1>
 
+                <div class="flex flex-wrap items-center gap-3 text-[12px] text-gray-500 mt-1.5">
+                    <span>•</span>
 
-    {{-- MAIN CARD --}}
-    <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-
-        {{-- FILE PREVIEW HEADER --}}
-        <div class="flex items-center justify-between p-5 border-b border-gray-100 bg-gray-50">
-            <div class="flex items-center gap-4">
-                {{-- FILE ICON PDF --}}
-                <div
-                    class="w-12 h-12 flex items-center justify-center rounded-lg bg-red-50 border border-red-200 text-red-600">
-                    <span class="material-icons text-[26px]">picture_as_pdf</span>
-                </div>
-                <div>
-                    {{-- TITLE --}}
-                    <p class="text-sm font-semibold text-gray-800 line-clamp-1">
-                        {{ $document->title }}
-                    </p>
-                    {{-- SUBTITLE --}}
-                    <p class="text-xs text-gray-500 mt-0.5">
-                        PDF Document • Preview File
-                    </p>
-                </div>
-            </div>
-
-            {{-- OPTIONAL: QUICK ACTION --}}
-            <a href="{{ route('mahasiswa.documents.download', $document->id) }}"
-                class="hidden sm:flex items-center gap-1 text-xs font-medium text-gray-500 hover:text-blue-600 transition">
-                <span class="material-symbols-outlined !text-[14px]">file_save</span>
-                Download
-            </a>
-        </div>
-
-        {{-- CONTENT --}}
-        <div class="p-6 space-y-6">
-            {{-- INFO GRID --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                    <p class="text-xs text-gray-500 mb-1">Uploader</p>
-                    <p class="text-sm font-medium text-gray-900">
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">person</span>
                         {{ $document->user->name }}
-                    </p>
-                </div>
-                <div>
-                    <p class="text-xs text-gray-500 mb-1">Category</p>
-                    <p class="text-sm font-medium text-gray-900">
+                    </span>
+
+                    <span>•</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">folder</span>
                         {{ $document->category->name }}
-                    </p>
-                </div>
-                <div>
-                    <p class="text-xs text-gray-500 mb-1">Tanggal Upload</p>
-                    <p class="text-sm font-medium text-gray-900">
-                        {{ $document->created_at->format('d F Y') }}
-                    </p>
-                </div>
-                <div>
-                    <p class="text-xs text-gray-500 mb-1">Status</p>
-                    <span
-                        class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-xl uppercase
-                        {{ $document->status === 'approved'
-                            ? 'bg-green-50 text-green-700 border border-green-200'
-                            : ($document->status === 'pending'
-                            ? 'bg-yellow-50 text-yellow-700 border border-yellow-200'
-                            : 'bg-red-50 text-red-700 border border-red-200') }}">
-                        {{ ucfirst($document->status) }}
+                    </span>
+
+                    <span>•</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
+                        {{ $document->created_at->format('d M Y') }}
                     </span>
                 </div>
             </div>
 
-            {{-- DIVIDER --}}
-            <div class="border-t border-gray-100"></div>
-
-            {{-- ACTIONS --}}
-            <div class="flex flex-wrap gap-3">
-                {{-- PREVIEW --}}
-                <a href="{{ route('mahasiswa.documents.preview', $document->id) }}" target="_blank"
-                    class="flex items-center gap-1.5 px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-                    <span class="material-symbols-outlined !text-[17px]">file_open</span>
-                    Preview
-                </a>
-                {{-- DOWNLOAD PRIMARY --}}
-                <a href="{{ route('mahasiswa.documents.download', $document->id) }}"
-                    class="flex items-center gap-1.5 px-4 py-2 text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg hover:bg-red-100 transition shadow-sm">
-                    <span class="material-symbols-outlined !text-[17px]">file_save</span>
-                    Download PDF
-                </a>
-            </div>
+            <a href="{{ route('mahasiswa.katalog.global') }}"
+                class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-1">
+                Back
+                <span class="material-symbols-outlined !text-[18px]">low_priority</span>
+            </a>
         </div>
+
+
+        {{-- Main card --}}
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+
+            {{-- Header bar --}}
+            <div class="flex items-center justify-between p-5 border-b border-gray-100 bg-gray-50">
+
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 flex items-center justify-center rounded-lg bg-red-50 border border-red-200 text-red-600">
+                        <span class="material-symbols-outlined !text-[26px]">picture_as_pdf</span>
+                    </div>
+
+                    <div>
+                        <p class="text-sm font-semibold text-gray-800 line-clamp-1">
+                            {{ $document->title }}
+                        </p>
+                        <p class="text-xs text-gray-500 mt-0.5">
+                            PDF Document • Ready To Open
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Status  --}}
+                <span
+                    class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-xl uppercase bg-green-50 text-green-700 border border-green-200">
+                    Published
+                </span>
+
+            </div>
+
+
+            {{-- Content --}}
+            <div class="p-6 space-y-6">
+
+                {{-- File preview no frame --}}
+                <div class="border border-gray-200 rounded-lg p-5 flex items-center justify-between">
+
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 flex items-center justify-center rounded-lg
+                        bg-red-50 border border-red-200 text-red-600">
+                            <span class="material-symbols-outlined !text-[22px]">picture_as_pdf</span>
+                        </div>
+
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">
+                                {{ $document->title }}
+                            </p>
+                            <p class="text-xs text-gray-500 mt-0.5">
+                                PDF • {{ $document->created_at->diffForHumans() }}
+                            </p>
+                        </div>
+                    </div>
+
+                    {{-- Action buttons --}}
+                    <div class="flex items-center gap-2">
+                        <a href="{{ route('mahasiswa.documents.preview', $document->id) }}" target="_blank"
+                            class="px-3 py-1.5 text-[11px] border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition flex items-center gap-1">
+                            <span class="material-icons !text-[14px]">open_in_new</span>
+                            Preview
+                        </a>
+
+                        <a href="{{ route('mahasiswa.documents.download', $document->id) }}"
+                            class="px-3 py-1.5 text-[11px] border border-red-300 bg-red-50 text-red-700 rounded-md hover:bg-red-100 transition flex items-center gap-1">
+                            <span class="material-icons !text-[14px]">download</span>
+                            Download
+                        </a>
+                    </div>
+
+                </div>
+
+
+                {{-- Information Grid --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                    <div>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Uploader</p>
+                        <p class="text-sm font-medium text-gray-600">
+                            {{ $document->user->name }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Category</p>
+                        <p class="text-sm font-medium text-gray-600">
+                            {{ $document->category->name }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Upload Date</p>
+                        <p class="text-sm font-medium text-gray-600">
+                            {{ $document->created_at->format('d F Y') }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">File Type</p>
+                        <p class="text-sm font-medium text-gray-600">
+                            PDF Document
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
 @endsection

@@ -13,7 +13,7 @@
 
                     {{-- Avatar --}}
                     <div
-                        class="w-16 h-16 rounded-full bg-gray-200 border border-gray-300 flex items-center justify-center text-lg font-semibold text-gray-600">
+                        class="w-16 h-16 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-lg font-serif font-semibold text-gray-700">
                         {{ strtoupper(substr($user->name, 0, 1)) }}
                     </div>
 
@@ -26,7 +26,7 @@
                     </p>
 
                     <span class="mt-2.5 text-[11px] text-gray-500">Status sekarang
-                        <span class=" text-[10px] px-2 py-1 bg-gray-100 border border-gray-300 text-gray-700 rounded-md">
+                        <span class="font-semibold text-gray-700">
                             Mahasiswa
                         </span>
                     </span>
@@ -114,7 +114,7 @@
                                     class="w-full px-3 py-2 pr-10 text-sm border border-gray-300 text-gray-600 rounded-md">
                                 <button type="button" onclick="togglePassword('password', this)"
                                     class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-700">
-                                    <span class="material-symbols-outlined text-[16px]">
+                                    <span class="material-symbols-outlined !text-[16px]">
                                         visibility
                                     </span>
                                 </button>
@@ -129,7 +129,7 @@
                                     class="w-full px-3 py-2 pr-10 text-sm border border-gray-300 text-gray-600 rounded-md">
                                 <button type="button" onclick="togglePassword('password_confirmation', this)"
                                     class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-700">
-                                    <span class="material-symbols-outlined text-[16px]">
+                                    <span class="material-symbols-outlined !text-[16px]">
                                         visibility
                                     </span>
                                 </button>
@@ -147,8 +147,12 @@
                         Batal
                     </a>
                     <button
-                        class="px-5 py-2 text-[13px] font-medium bg-blue-100 text-blue-800 border border-blue-400 rounded-md hover:bg-blue-200 transition">
-                        Simpan Perubahan
+                        class="inline-flex items-center gap-1 px-4 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border border-blue-400 
+                        rounded-lg hover:bg-blue-200 transition">
+                        <span class="material-symbols-outlined !text-[17px]">
+                            forward
+                        </span>
+                        Perbarui Profile
                     </button>
                 </div>
 

@@ -26,7 +26,7 @@
                     </p>
 
                     <span class="mt-2.5 text-[11px] text-gray-500">Status sekarang
-                        <span class=" text-[10px] px-2 py-0.5 bg-yellow-100 border border-yellow-300 text-yellow-600 rounded-lg">
+                        <span class="font-semibold text-yellow-600">
                             Dosen
                         </span>
                     </span>
@@ -114,7 +114,7 @@
                                     class="w-full px-3 py-2 pr-10 text-sm border border-gray-300 text-gray-600 rounded-md">
                                 <button type="button" onclick="togglePassword('password', this)"
                                     class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-700">
-                                    <span class="material-symbols-outlined text-[16px]">
+                                    <span class="material-symbols-outlined !text-[16px]">
                                         visibility
                                     </span>
                                 </button>
@@ -129,7 +129,7 @@
                                     class="w-full px-3 py-2 pr-10 text-sm border border-gray-300 text-gray-600 rounded-md">
                                 <button type="button" onclick="togglePassword('password_confirmation', this)"
                                     class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-700">
-                                    <span class="material-symbols-outlined text-[16px]">
+                                    <span class="material-symbols-outlined !text-[16px]">
                                         visibility
                                     </span>
                                 </button>

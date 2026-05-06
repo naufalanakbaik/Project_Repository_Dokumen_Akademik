@@ -65,23 +65,19 @@
                     </div>
                 </div>
 
+                {{-- Status published --}}
                 <span
-                    class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-xl tracking-wide uppercase
-                        {{ $document->status === 'approved'
-                        ? 'bg-green-50 text-green-700 border border-green-200'
-                        : ($document->status === 'pending'  
-                        ? 'bg-yellow-50 text-yellow-700 border border-yellow-200'
-                        : 'bg-red-50 text-red-700 border border-red-200') }}">
-                    {{ ucfirst($document->status) }}
+                    class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-xl uppercase bg-green-50 text-green-700 border border-green-200">
+                    Published
                 </span>
 
             </div>
 
 
-            {{-- CONTENT --}}
+            {{-- Content --}}
             <div class="p-6 space-y-6">
 
-                {{-- FILE PREVIEW BLOCK (NO IFRAME) --}}
+                {{-- File preview no frame --}}
                 <div class="border border-gray-200 rounded-lg p-5 flex items-center justify-between">
                     <div class="flex items-center gap-4">
                         <div
@@ -99,6 +95,7 @@
                         </div>
                     </div>
 
+                    {{-- Action buttons --}}
                     <div class="flex items-center gap-2">
                         <a href="{{ route('dosen.documents.preview', $document->id) }}" target="_blank"
                             class="px-3 py-1.5 text-[11px] border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition flex items-center gap-1">
@@ -115,7 +112,7 @@
                 </div>
 
 
-                {{-- INFO GRID --}}
+                {{-- Information Grid --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                         <p class="text-[11.5px] font-medium text-gray-500 mb-1">Uploader</p>

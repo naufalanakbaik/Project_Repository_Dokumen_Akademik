@@ -26,7 +26,7 @@
 
             {{-- Avatar --}}
             <div
-                class="w-16 h-16 rounded-full bg-gray-200 border border-gray-400 flex items-center justify-center text-lg font-semibold font-serif text-gray-700">
+                class="w-16 h-16 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-lg font-semibold font-serif text-gray-700">
                 {{ strtoupper(substr($user->name, 0, 1)) }}
             </div>
 

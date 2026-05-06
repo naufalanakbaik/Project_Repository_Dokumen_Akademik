@@ -2,228 +2,301 @@
 @section('title', 'Detail Dokumen')
 
 @section('content')
+    <div class="max-w-full mx-auto space-y-6">
 
-    {{-- Header --}}
-    <div class="flex items-start justify-between pb-2">
-        <div>
-            <h1 class="text-2xl font-semibold text-gray-900">
-                Detail Dokumen
-            </h1>
-            <p class="text-sm text-gray-500 mt-1">
-                Informasi lengkap dan preview dokumen
-            </p>
+        {{-- Header --}}
+        <div class="flex items-start justify-between">
+            <div>
+                <h1 class="text-xl font-semibold text-gray-800 leading-tight">
+                    Detail {{ $document->title }}
+                </h1>
+
+                <div class="flex flex-wrap items-center gap-3 text-[12px] text-gray-500 mt-1.5">
+                    <span>•</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">person</span>
+                        {{ $document->user->name }}
+                    </span>
+
+                    <span>•</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">folder</span>
+                        {{ $document->category->name }}
+                    </span>
+
+                    <span>•</span>
+
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
+                        {{ $document->created_at->format('d M Y') }}
+                    </span>
+                </div>
+            </div>
+
+            <a href="{{ route('mahasiswa.documents.index') }}"
+                class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-1">
+                Back
+                <span class="material-icons !text-[18px]">low_priority</span>
+            </a>
         </div>
 
-        <a href="{{ route('mahasiswa.documents.index') }}"
-            class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-0.5">
-            Back
-            <span class="material-symbols-outlined !text-[18px]">low_priority</span>
-        </a>
-    </div>
+        {{-- Main grid --}}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-    {{-- Main grid --}}
-    <div class="grid grid-cols-12 gap-6">
+            {{-- Left: preview frame pdf file --}}
+            <div class="lg:col-span-2 space-y-5">
 
-        {{-- Left: Preview file --}}
-        <div class="col-span-12 lg:col-span-8">
+                {{-- Header title --}}
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex items-center justify-between">
 
-            <div class="bg-white border border-gray-300 rounded-lg shadow-sm overflow-hidden flex flex-col">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 flex items-center justify-center rounded-lg
+                            bg-red-50 border border-red-200 text-red-600">
+                            <span class="material-icons !text-[22px]">picture_as_pdf</span>
+                        </div>
 
-                {{-- Header Preview --}}
-                <div class="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
-                    <div class="flex items-center gap-2 text-sm text-gray-700">
-                        <span class="material-symbols-outlined !text-[18px]">description</span>
-                        Preview Dokumen
+                        <div class="leading-tight">
+                            <p class="text-sm font-semibold text-gray-900 line-clamp-1">
+                                {{ $document->title }}
+                            </p>
+
+                            <div class="flex items-center gap-2 text-[12px] text-gray-500 mt-0.5">
+                                <span>PDF</span>
+                                <span>•</span>
+                                <span>Preview tersedia</span>
+                            </div>
+                        </div>
                     </div>
-                    <a href="{{ route('mahasiswa.documents.download', $document->id) }}"
-                        class="flex items-center gap-1 text-xs px-3 py-1.5 border border-gray-300
-                        bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition">
-                        <span class="material-symbols-outlined !text-[16px]">download</span>
-                        Download
-                    </a>
+
+                    <span
+                        class="inline-flex items-center px-2.5 py-1 text-[10px] font-medium rounded-xl uppercase
+                            {{ $document->status === 'approved'
+                                ? 'bg-green-50 text-green-700 border border-green-300'
+                                : ($document->status === 'pending'
+                                    ? 'bg-yellow-50 text-yellow-700 border border-yellow-300'
+                                    : 'bg-red-50 text-red-700 border border-red-300') }}">
+                        {{ ucfirst($document->status) }}
+                    </span>
                 </div>
 
-                {{-- PDF Viewer --}}
-                <iframe src="{{ asset('storage/' . $document->file) }}" class="w-full h-[650px] bg-gray-100">
-                </iframe>
+                {{-- PDF preview frame  --}}
+                <div class="bg-white border border-gray-300 rounded-lg shadow-sm overflow-hidden">
 
-                {{-- Footer --}}
-                <div class="flex items-center justify-between px-4 py-4 border-t bg-gray-50 text-xs text-gray-500">
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined !text-[16px]">insert_drive_file</span>
-                        {{ basename($document->file) }}
+                    {{-- Header Preview --}}
+                    <div class="px-5 py-4 border-b bg-gray-50 flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-700">
+                            Preview Dokumen
+                        </span>
+
+                        <a href="{{ route('mahasiswa.documents.preview', $document->id) }}" target="_blank"
+                            class="text-xs text-blue-600 hover:underline">
+                            Buka di tab baru
+                        </a>
                     </div>
-                    <div>
-                        {{ \Carbon\Carbon::parse($document->created_at)->translatedFormat('d M Y') }}
+
+                    {{-- PDF Viewer --}}
+                    {{-- <iframe src="{{ asset('storage/' . $document->file) }}" class="w-full h-[650px] bg-gray-100"></iframe> --}}
+                    <div class="w-full h-[650px] bg-gray-100">
+                        <iframe src="{{ route('mahasiswa.documents.preview', $document->id) }}"
+                            class="w-full h-full"></iframe>
+                    </div>
+
+                    {{-- Footer --}}
+                    <div class="flex items-center justify-between px-4 py-4 border-t bg-gray-50 text-xs text-gray-500">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined !text-[16px]">insert_drive_file</span>
+                            {{ basename($document->file) }}
+                        </div>
+                        <div>
+                            {{ \Carbon\Carbon::parse($document->created_at)->translatedFormat('d M Y') }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        {{-- Right: Information --}}
-        <div class="col-span-12 lg:col-span-4 space-y-5">
+            {{-- Right: Information documents & action buttons --}}
+            <div class="space-y-5">
 
-            {{-- Document Info --}}
-            <div class="bg-white border border-gray-300 rounded-lg shadow-sm">
+                {{-- Data documents --}}
+                <div class="bg-white border border-gray-300 rounded-lg shadow-sm">
 
-                {{-- Header --}}
-                <div class="flex items-center justify-between px-5 py-4 border-b bg-gray-50 rounded-t-xl">
-                    <div class="flex items-center gap-2 text-sm text-gray-700">
-                        <span class="material-symbols-outlined !text-[18px]">list_alt</span>
+                    <div class="px-5 py-4 border-b bg-gray-50 text-sm rounded-t-lg font-medium text-gray-700">
                         Informasi Dokumen
                     </div>
-                </div>
 
-                {{-- Content --}}
-                <div class="p-4 space-y-5">
+                    <div class="divide-y text-sm">
 
-                    {{-- Title Highlight --}}
-                    <div class="bg-yellow-50 border border-gray-300 rounded-lg p-4">
-                        <p class="text-xs text-gray-500 mb-1">Judul Dokumen</p>
-                        <h3 class="text-sm font-semibold text-gray-600 leading-snug">
-                            {{ $document->title }}
-                        </h3>
-                    </div>
-
-                    {{-- Grid Info --}}
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-                        {{-- Category --}}
-                        <div
-                            class="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition">
-                            <span class="material-symbols-outlined text-gray-400 !text-[20px]">
-                                folder
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="text-xs text-gray-500 font-medium">Uploader</span>
+                            <span class="font-medium text-gray-600">
+                                {{ $document->user->name }}
                             </span>
-                            <div>
-                                <p class="text-xs text-gray-500">Kategori</p>
-                                <p class="text-sm font-medium text-gray-600">
-                                    {{ $document->category->name }}
-                                </p>
-                            </div>
                         </div>
 
-                        {{-- Date --}}
-                        <div
-                            class="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition">
-                            <span class="material-symbols-outlined text-gray-400 !text-[20px]">
-                                calendar_today
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="text-xs text-gray-500 font-medium">Kategori</span>
+                            <span class="font-medium text-gray-600">
+                                {{ $document->category->name }}
                             </span>
-                            <div>
-                                <p class="text-xs text-gray-500">Tanggal Upload</p>
-                                <p class="text-sm font-medium text-gray-600">
-                                    {{ \Carbon\Carbon::parse($document->created_at)->translatedFormat('d M Y') }}
-                                </p>
-                            </div>
                         </div>
 
-                    </div>
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="text-xs text-gray-500 font-medium">Tanggal Upload</span>
+                            <span class="font-medium text-gray-600">
+                                {{ $document->created_at->format('d M Y') }}
+                            </span>
+                        </div>
 
-                    {{-- Status (Highlight Section) --}}
-                    <div class="border-t pt-4">
-                        <p class="text-xs text-gray-500 mb-2">Status Dokumen</p>
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="text-xs text-gray-500 font-medium">Tipe File</span>
+                            <span class="font-medium text-gray-600">
+                                PDF
+                            </span>
+                        </div>
 
-                        <span
-                            class="inline-flex items-center gap-1 px-3 py-1 text-[10px] rounded-lg border font-medium uppercase tracking-wide
-                            {{ $document->status === 'approved'
-                                ? 'bg-green-50 text-green-700 border-green-300'
-                                : ($document->status === 'pending'
+                        {{-- Status section --}}
+                        <div class="px-4 py-4">
+
+                            <p class="text-xs font-medium text-gray-500 mb-2">Status Dokumen</p>
+
+                            <div class="flex items-center justify-between">
+
+                                {{-- Status badge --}}
+                                <span class="inline-flex items-center gap-1 px-3 py-1 text-[11px] rounded-2xl border font-medium 
+                                uppercase tracking-wide
+                                    {{ $document->status === 'approved'
+                                    ? 'bg-green-50 text-green-700 border-green-300'
+                                    : ($document->status === 'pending'
                                     ? 'bg-yellow-50 text-yellow-700 border-yellow-300'
                                     : 'bg-red-50 text-red-700 border-red-300') }}">
 
-                            <span class="material-symbols-outlined !text-[15px]">
-                                {{ $document->status === 'approved'
-                                    ? 'check_circle'
-                                    : ($document->status === 'pending'
-                                        ? 'schedule'
-                                        : 'cancel') }}
-                            </span>
+                                    <span class="material-symbols-outlined !text-[16px]">
+                                        {{ $document->status === 'approved'
+                                            ? 'check_circle'
+                                            : ($document->status === 'pending'
+                                            ? 'schedule'
+                                            : 'cancel') 
+                                        }}
+                                    </span>
 
-                            {{ ucfirst($document->status) }}
-                        </span>
-                    </div>
+                                    {{ ucfirst($document->status) }}
+                                </span>
 
-                    {{-- Alasan penolakan dokumen --}}
-                    @if ($document->status === 'rejected')
-                        <div class="mt-3 rounded-lg border border-gray-200 bg-white p-4">
-                            <div class="flex items-start gap-3">
-                                <div class="mt-1 w-2 h-2 rounded-full bg-red-500"></div>
-                                <div class="flex-1">
+                                {{-- Status meta --}}
+                                @if ($document->status === 'approved')
+                                    <span class="text-[11px] text-gray-500">
+                                        Verified
+                                    </span>
+                                @elseif($document->status === 'pending')
+                                    <span class="text-[11px] text-gray-500">
+                                        Menunggu verifikasi
+                                    </span>
+                                @elseif($document->status === 'rejected')
+                                    <span class="text-[11px] text-gray-500">
+                                        {{ optional($document->rejected_at)->format('d M Y') }}
+                                    </span>
+                                @endif
 
-                                    {{-- Header --}}
-                                    <div class="flex items-center justify-between">
-                                        <h3 class="text-sm font-semibold text-gray-900">
-                                            Dokumen ditolak
-                                        </h3>
-                                        <span class="text-[11px] text-gray-400">
-                                            {{ optional($document->rejected_at)->format('d M Y, H:i') ?? '-' }}
-                                        </span>
-                                    </div>
+                            </div>
 
-                                    {{-- Reason --}} 
-                                    <p class="mt-1 text-sm text-gray-600 leading-relaxed whitespace-pre-line">                                        
-                                        {{ $document->reject_note ?? 'Tidak ada keterangan.' }}
-                                    </p>
+                        </div>
 
-                                    {{-- Meta --}}
-                                    <div class="mt-3 flex items-center justify-between text-xs text-gray-500">
-                                        <span>
-                                            oleh admin
-                                            <span class="font-medium text-gray-700">
-                                                {{ $document->rejectedBy->name ?? 'Admin' }}
+
+                        {{-- Rejection section --}}
+                        @if ($document->status === 'rejected')
+                            <div class="mx-4 mb-4 rounded-lg border border-red-200 bg-red-50 p-4">
+
+                                <div class="flex items-start gap-3">
+
+                                    {{-- Icon --}}
+                                    <span class="material-symbols-outlined text-red-600 mt-0.5">
+                                        error
+                                    </span>
+
+                                    <div class="flex-1">
+
+                                        {{-- Header --}}
+                                        <div class="flex items-center justify-between">
+                                            <h3 class="text-sm font-semibold text-red-700">
+                                                Dokumen ditolak
+                                            </h3>
+
+                                            <span class="text-[11px] text-red-400">
+                                                {{ optional($document->rejected_at)->format('d M Y, H:i') ?? '-' }}
                                             </span>
-                                        </span>
-                                        <a href="{{ route('mahasiswa.documents.edit', $document->id) }}"
-                                            class="text-blue-600 hover:text-blue-700 font-medium transition">
-                                            Perbaiki
-                                        </a>
+                                        </div>
+
+                                        {{-- Reason --}}
+                                        <p class="mt-1.5 text-sm text-red-700 leading-relaxed whitespace-pre-line">
+                                            {{ $document->reject_note ?? 'Tidak ada keterangan.' }}
+                                        </p>
+
+                                        {{-- Meta action --}}
+                                        <div class="mt-3 flex items-center justify-between text-xs">
+
+                                            <span class="text-gray-600">
+                                                Oleh
+                                                <span class="font-medium text-gray-800">
+                                                    {{ $document->rejectedBy->name ?? 'Admin' }}
+                                                </span>
+                                            </span>
+
+                                            <a href="{{ route('mahasiswa.documents.edit', $document->id) }}"
+                                                class="text-red-600 hover:text-red-700 font-medium transition">
+                                                Perbaiki dokumen
+                                            </a>
+
+                                        </div>
+
                                     </div>
                                 </div>
+
                             </div>
-                        </div>
-                    @endif
+                        @endif
 
-                </div>
-            </div>
-
-            {{-- Actions button --}}
-            <div class="bg-white border border-gray-300 rounded-lg shadow-sm sticky top-6">
-                <div class="px-5 py-3 border-b bg-gray-50 text-sm rounded-t-lg">
-                    <div class="flex items-center gap-1 text-sm text-gray-700">
-                        <span class="material-symbols-outlined !text-[18px]">right_click</span>
-                        Aksi Cepat
                     </div>
                 </div>
-                <div class="p-4 space-y-3">
-                    @if ($document->status !== 'approved')
-                        <a href="{{ route('mahasiswa.documents.edit', $document->id) }}" target="_blank"
-                            class="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-yellow-600
-                            border border-yellow-400 rounded-lg hover:bg-yellow-50 transition">
-                            <span class="material-symbols-outlined !text-[18px]">
-                                edit_document
-                            </span>
-                            Edit Dokumen
+
+                {{-- Actions buttons --}}
+                <div class="bg-white border border-gray-300 rounded-lg shadow-sm sticky top-6">
+
+                    <div class="px-5 py-4 border-b bg-gray-50 text-sm rounded-t-lg">
+                        <div class="flex items-center gap-1 text-sm font-medium text-gray-700">
+                            <span class="material-symbols-outlined !text-[17px]">right_click</span>
+                            Aksi Cepat
+                        </div>
+                    </div>
+
+                    <div class="p-4 space-y-3">
+                        {{-- Edit --}}
+                        @if ($document->status !== 'approved')
+                            <a href="{{ route('mahasiswa.documents.edit', $document->id) }}" target="_blank"
+                                class="w-full flex items-center justify-center gap-2 px-3 py-2 text-[13px] font-medium
+                                border border-yellow-300 bg-white text-yellow-600 rounded-md hover:bg-yellow-50 transition">
+                                <span class="material-symbols-outlined !text-[16px]">edit_document</span>
+                                Edit Dokumen
+                            </a>
+                        @endif
+
+                        {{-- Download --}}
+                        <a href="{{ route('mahasiswa.documents.download', $document->id) }}"
+                            class="w-full flex items-center justify-center gap-2 px-3 py-2 text-[13px] font-medium
+                            border border-red-300 bg-red-50 text-red-700 rounded-md hover:bg-red-100 transition">
+                            <span class="material-symbols-outlined !text-[16px]">file_save</span>
+                            Download
                         </a>
-                    @endif
 
-                    {{-- Preview --}}
-                    <a href="{{ route('mahasiswa.documents.preview', $document->id) }}" target="_blank"
-                        class="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-800
-                        border border-gray-400 rounded-lg hover:bg-gray-50 transition">
-                        <span class="material-symbols-outlined !text-[18px]">
-                            open_in_new
-                        </span>
-                        Buka di Tab Baru
-                    </a>
-
-                    {{-- Download --}}
-                    <a href="{{ route('mahasiswa.documents.download', $document->id) }}"
-                        class="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium border border-red-400
-                        bg-white text-red-700 rounded-lg hover:bg-red-50 transition">
-                        <span class="material-symbols-outlined !text-[19px]">
-                            download
-                        </span>
-                        Download File
-                    </a>
+                        {{-- Preview in new tab --}}
+                        <a href="{{ route('mahasiswa.documents.preview', $document->id) }}" target="_blank"
+                            class="w-full flex items-center justify-center gap-2 px-3 py-2 text-[13px] font-medium
+                            border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition">
+                            <span class="material-symbols-outlined !text-[16px]">open_in_new</span>
+                            Buka di Tab Baru
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

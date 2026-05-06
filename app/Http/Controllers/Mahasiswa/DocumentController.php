@@ -13,20 +13,57 @@ use App\Models\DocumentLog;
 class DocumentController extends Controller
 {
     // --- List daftar dokumen saya (pribadi)
+    // public function index(Request $request)
+    // {
+    //     $query = Document::with('category')
+    //         ->where('user_id', Auth::id());
+
+    //     if ($request->search) {
+    //         $query->where('title', 'like', '%' . $request->search . '%');
+    //     }
+
+    //     $documents = $query->latest()
+    //         ->paginate(5)
+    //         ->withQueryString();
+
+    //     return view('mahasiswa.documents.index', compact('documents'));
+    // }
+
     public function index(Request $request)
     {
         $query = Document::with('category')
-            ->where('user_id', Auth::id());
+            ->where('user_id', auth()->id());
 
+        // SEARCH
         if ($request->search) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
-        $documents = $query->latest()
-            ->paginate(5)
-            ->withQueryString();
+        // CATEGORY
+        if ($request->category) {
+            $query->where('category_id', $request->category);
+        }
 
-        return view('mahasiswa.documents.index', compact('documents'));
+        // STATUS (tambahan dari kamu)
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        $documents = $query->latest()->paginate(5);
+        $categories = Category::all();
+
+        // AJAX RESPONSE
+        if ($request->ajax()) {
+            return view(
+                'mahasiswa.documents.partials.table',
+                compact('documents')
+            )->render();
+        }
+
+        return view('mahasiswa.documents.index', compact(
+            'documents',
+            'categories'
+        ));
     }
 
 
@@ -97,7 +134,7 @@ class DocumentController extends Controller
         return redirect()->route('mahasiswa.documents.index')
             ->with('success', 'Dokumen berhasil diupload dan menunggu validasi.');
     }
-    
+
     // --- Menampikan form edit dokumen
     public function edit($id)
     {

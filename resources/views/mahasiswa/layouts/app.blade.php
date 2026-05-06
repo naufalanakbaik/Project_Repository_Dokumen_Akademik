@@ -181,18 +181,20 @@
 
                             <div class="flex items-center gap-3">
                                 {{-- Avatar --}}
-                                <div class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
-                                    @if (auth()->user()->photo)
-                                        <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Avatar"
-                                            class="w-full h-full rounded-full border-gray-200 dark:border-gray-100 object-cover">
-                                    @else
-                                        <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center 
-                                            border border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-                                            <span class="material-icons text-gray-500 !text-[20px]">
-                                                person
-                                            </span>
-                                        </div>
-                                    @endif
+                                @php
+                                    $name = auth()->user()->name;
+                                    $initials = collect(explode(' ', $name))
+                                        ->map(fn($word) => strtoupper(substr($word, 0, 1)))
+                                        ->take(1)
+                                        ->join('');
+                                @endphp
+
+                                <div class="h-10 w-10 rounded-full overflow-hidden shadow-sm ring-1 ring-gray-200 dark:ring-gray-900">
+                                    <div
+                                        class="w-full h-full flex items-center justify-center
+                                        bg-gray-100 text-gray-600 font-serif font-semibold text-sm">
+                                        {{ $initials }}
+                                    </div>
                                 </div>
 
                                 {{-- <div
