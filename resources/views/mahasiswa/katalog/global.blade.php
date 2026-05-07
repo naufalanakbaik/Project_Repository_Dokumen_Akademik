@@ -18,14 +18,14 @@
 
         @forelse($documents as $doc)
             <div
-                class="bg-white border border-gray-200 rounded-xl hover:border-gray-300 transition-all duration-200 flex flex-col h-full group">
+                class="bg-white border border-gray-200 rounded-xl shadow-sm hover:border-gray-300 transition-all duration-200 flex flex-col h-full group">
 
-                {{-- HEADER --}}
+                {{-- Header --}}
                 <div class="p-5 border-b border-gray-100 min-h-[76px]">
 
                     <div class="flex items-start gap-3.5">
 
-                        {{-- ICON --}}
+                        {{-- Icon documents --}}
                         <div
                             class="w-10 h-10 grid place-items-center rounded-lg bg-red-50 text-red-600 border border-red-200 leading-none">
                             <span class="material-symbols-outlined block !text-[20px]">
@@ -53,18 +53,11 @@
                                 {{-- Divider --}}
                                 <span class="text-gray-300 text-xs">•</span>
 
-                                {{-- Status --}}
-                                <span
-                                    class="flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-xl border
-                                    bg-green-50 text-green-700 border-green-200">
-
-                                    <span class="material-symbols-outlined !text-[11px]">
-                                        approval_delegation
-                                    </span>
-
-                                    Published
+                                {{-- Tahun Terbit --}}
+                                <span class="text-xs text-gray-500">
+                                    Tahun Terbit
+                                    {{ $doc->tahun_terbit }}
                                 </span>
-
                             </div>
 
                         </div>
@@ -73,36 +66,43 @@
 
                 </div>
 
-                <div class="px-5 py-4 flex flex-col flex-1">
-                    {{-- Data varibale intial avatar  --}}
-                    @php
-                        $name = $doc->user->name ?? 'Unknown';
-                        $initials = collect(explode(' ', $name))
-                            ->take(2)
-                            ->map(fn($n) => strtoupper(substr($n, 0, 1)))
-                            ->implode('');
-                    @endphp
+                {{-- Body --}}
+                <div class="px-5 py-4 flex items-center justify-between flex-1">
 
-                    {{-- Author + Avatar --}}
-                    <div class="flex items-center gap-3 mt-auto">
+                    {{-- User Info --}}
+                    <div class="flex items-center gap-3 min-w-0">
+                        @php
+                            $initials = collect(explode(' ', $doc->user->name))
+                                ->map(fn($w) => strtoupper(substr($w, 0, 1)))
+                                ->take(2)
+                                ->join('');
+                        @endphp
 
-                        {{-- Avatar (Initial-based) --}}
+                        {{-- Avatar --}}
                         <div
-                            class="w-10 h-10 rounded-full bg-indigo-100 text-blue-600 flex items-center justify-center border border-indigo-300 
-                            font-semibold text-xs tracking-wider shrink-0">
+                            class="w-10 h-10 rounded-full bg-indigo-100 text-blue-600 flex items-center justify-center
+                            border border-indigo-300 font-semibold text-xs tracking-wider shrink-0">
                             {{ $initials }}
                         </div>
 
-                        {{-- Name & Date --}}
+                        {{-- User info --}}
                         <div class="flex flex-col leading-tight min-w-0">
                             <span class="text-[13px] font-medium text-gray-700 truncate">
-                                {{ $name }}
+                                {{ $doc->user->name }}
                             </span>
+
                             <span class="text-[11px] text-gray-500 flex items-center gap-1 mt-0.5">
-                                <span class="material-symbols-outlined !text-[11px]">calendar_check</span>
                                 {{ $doc->created_at->format('d M Y') }}
                             </span>
                         </div>
+                    </div>
+
+                    {{-- Status --}}
+                    <div
+                        class="flex items-center gap-1.5 px-2.5 py-1 rounded-2xl border border-emerald-200
+                        bg-emerald-50 text-emerald-700 text-[11px] font-medium shrink-0">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        Published
                     </div>
 
                 </div>

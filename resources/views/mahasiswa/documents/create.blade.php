@@ -73,6 +73,25 @@
                         @enderror
                     </div>
 
+                    {{-- Tahun Terbit --}}
+                    <div class="space-y-1.5">
+                        <label class="text-sm font-medium text-gray-600">
+                            Tahun Terbit
+                        </label>
+
+                        <input type="text" name="tahun_terbit" placeholder="Masukan tahun terbit" required
+                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md
+                            focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
+
+                        <p class="text-[11px] text-gray-500">
+                            *Gunakan tahun yang jelas dan valid.
+                        </p>
+
+                        @error('tahun_terbit')
+                            <p class="text-xs text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     {{-- Category --}}
                     <div class="space-y-1.5">
                         <label class="text-sm font-medium text-gray-600">

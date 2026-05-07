@@ -100,11 +100,11 @@
                             {
                                 return 'relative inline-block px-1 py-2 text-sm font-medium transition duration-200 ' .
                                     ($isActive
-                                        ? 'text-yellow-600'
-                                        : 'text-gray-600 hover:text-yellow-600 dark:text-gray-300 dark:hover:text-yellow-500') .
-                                    " after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
-                                    after:-bottom-1 after:h-[2.5px] after:rounded-full
-                                    after:bg-yellow-600 after:transition-all after:duration-300 " .
+                                        ? 'text-amber-500'
+                                        : 'text-gray-600 hover:text-amber-500 dark:text-gray-300 dark:hover:text-amber-500') .
+                                        " after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
+                                        after:-bottom-1 after:h-[2.5px] after:rounded-full
+                                        after:bg-amber-500 after:transition-all after:duration-300 " .
                                     ($isActive ? 'after:w-6' : 'after:w-0 hover:after:w-6');
                             }
                         @endphp

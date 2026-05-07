@@ -31,7 +31,8 @@
 
                     <span class="flex items-center gap-1">
                         <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
-                        {{ $document->created_at->format('d M Y') }}
+                        Tahun Terbit
+                        {{ $document->tahun_terbit }}
                     </span>
                 </div>
             </div>

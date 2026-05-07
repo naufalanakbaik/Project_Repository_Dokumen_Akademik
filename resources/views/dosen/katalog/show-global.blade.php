@@ -30,8 +30,13 @@
 
                     <span class="flex items-center gap-1">
                         <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
-                        {{ $document->created_at->format('d M Y') }}
+                        Tahun Terbit {{ $document->tahun_terbit }}
                     </span>
+
+                    {{-- <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
+                        {{ $document->created_at->format('d M Y') }}
+                    </span> --}}
                 </div>
             </div>
 
@@ -52,7 +57,7 @@
                 <div class="flex items-center gap-4">
                     <div
                         class="w-12 h-12 flex items-center justify-center rounded-lg bg-red-50 border border-red-200 text-red-600">
-                        <span class="material-symbols-outlined text-[26px]">picture_as_pdf</span>
+                        <span class="material-symbols-outlined !text-[26px]">picture_as_pdf</span>
                     </div>
 
                     <div>
@@ -66,10 +71,11 @@
                 </div>
 
                 {{-- Status published --}}
-                <span
-                    class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-xl uppercase bg-green-50 text-green-700 border border-green-200">
+                <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-2xl border border-emerald-200
+                    bg-emerald-50 text-emerald-700 text-[11px] font-medium shrink-0">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                     Published
-                </span>
+                </div>
 
             </div>
 
@@ -83,7 +89,7 @@
                         <div
                             class="w-10 h-10 flex items-center justify-center rounded-lg
                             bg-red-50 border border-red-200 text-red-600">
-                            <span class="material-symbols-outlined text-[22px]">picture_as_pdf</span>
+                            <span class="material-symbols-outlined !text-[22px]">picture_as_pdf</span>
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-900">

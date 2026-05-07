@@ -30,7 +30,8 @@
 
                     <span class="flex items-center gap-1">
                         <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
-                        {{ $document->created_at->format('d M Y') }}
+                        Tahun Terbit
+                        {{ $document->tahun_terbit }}
                     </span>
                 </div>
             </div>
@@ -72,12 +73,17 @@
                     </div>
 
                     <span
-                        class="inline-flex items-center px-2.5 py-1 text-[10px] font-medium rounded-xl uppercase
-                            {{ $document->status === 'approved'
-                                ? 'bg-green-50 text-green-700 border border-green-300'
-                                : ($document->status === 'pending'
-                                    ? 'bg-yellow-50 text-yellow-700 border border-yellow-300'
-                                    : 'bg-red-50 text-red-700 border border-red-300') }}">
+                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl border text-[11px] font-medium
+                        {{ $document->status === 'approved'
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                        : ($document->status === 'pending'
+                        ? 'bg-amber-50 text-amber-600 border-amber-200'
+                        : 'bg-red-50 text-red-700 border-red-200') }}">
+
+                        <span class="material-symbols-outlined !text-[14px]">
+                            {{ $document->status === 'approved' ? 'check_circle' : ($document->status === 'pending' ? 'schedule' : 'cancel') }}
+                        </span>
+
                         {{ ucfirst($document->status) }}
                     </span>
                 </div>
@@ -137,6 +143,13 @@
                         </div>
 
                         <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="text-xs text-gray-500 font-medium">Tahun Terbit</span>
+                            <span class="font-medium text-gray-600">
+                                {{ $document->tahun_terbit }}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
                             <span class="text-xs text-gray-500 font-medium">Kategori</span>
                             <span class="font-medium text-gray-600">
                                 {{ $document->category->name }}
@@ -165,21 +178,16 @@
                             <div class="flex items-center justify-between">
 
                                 {{-- Status badge --}}
-                                <span class="inline-flex items-center gap-1 px-3 py-1 text-[11px] rounded-2xl border font-medium 
-                                uppercase tracking-wide
+                                <span
+                                    class="inline-flex items-center gap-1 px-3 py-0.5 rounded-xl border text-[11px] font-medium
                                     {{ $document->status === 'approved'
-                                    ? 'bg-green-50 text-green-700 border-green-300'
-                                    : ($document->status === 'pending'
-                                    ? 'bg-yellow-50 text-yellow-700 border-yellow-300'
-                                    : 'bg-red-50 text-red-700 border-red-300') }}">
+                                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                        : ($document->status === 'pending'
+                                            ? 'bg-amber-50 text-amber-600 border-amber-200'
+                                            : 'bg-red-50 text-red-700 border-red-200') }}">
 
-                                    <span class="material-symbols-outlined !text-[16px]">
-                                        {{ $document->status === 'approved'
-                                            ? 'check_circle'
-                                            : ($document->status === 'pending'
-                                            ? 'schedule'
-                                            : 'cancel') 
-                                        }}
+                                    <span class="material-symbols-outlined !text-[14px]">
+                                        {{ $document->status === 'approved' ? 'check_circle' : ($document->status === 'pending' ? 'schedule' : 'cancel') }}
                                     </span>
 
                                     {{ ucfirst($document->status) }}
@@ -275,7 +283,7 @@
                         @if ($document->status !== 'approved')
                             <a href="{{ route('mahasiswa.documents.edit', $document->id) }}" target="_blank"
                                 class="w-full flex items-center justify-center gap-2 px-3 py-2 text-[13px] font-medium
-                                border border-yellow-300 bg-white text-yellow-600 rounded-md hover:bg-yellow-50 transition">
+                                border border-amber-300 bg-white text-amber-600 rounded-md hover:bg-amber-50 transition">
                                 <span class="material-symbols-outlined !text-[16px]">edit_document</span>
                                 Edit Dokumen
                             </a>

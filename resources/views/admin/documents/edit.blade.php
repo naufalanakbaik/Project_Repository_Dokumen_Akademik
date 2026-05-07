@@ -69,6 +69,28 @@
                         @enderror
                     </div>
 
+                    <!-- Tahun Terbit -->
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-medium text-gray-700">
+                            Tahun Terbit
+                        </label>
+                        <input type="number" name="tahun_terbit" value="{{ old('tahun_terbit', $document->tahun_terbit) }}"
+                            placeholder="Contoh: 2023"
+                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white
+                            focus:ring-2 focus:ring-blue-100 focus:border-blue-400 focus:outline-none transition
+                            @error('tahun_terbit') border-red-300 focus:border-red-400 focus:ring-red-100 @enderror">
+
+                        <!-- Helper -->
+                        <p class="text-[11px] text-gray-400">
+                            Gunakan tahun terbit yang sesuai dengan dokumen
+                        </p>
+
+                        <!-- Error -->
+                        @error('tahun_terbit')
+                            <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <!-- Category -->
                     <div class="space-y-1.5">
                         <label class="text-xs font-medium text-gray-600">

@@ -63,6 +63,25 @@
                     @enderror
                 </div>
 
+                {{-- Tahun Terbit --}}
+                <div class="space-y-1">
+                    <label class="text-[13px] font-medium text-gray-600">
+                        Tahun Terbit
+                    </label>
+
+                    <input type="text" name="tahun_terbit" value="{{ old('tahun_terbit', $document->tahun_terbit) }}"
+                        class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md text-gray-700
+                        focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
+
+                    <p class="text-[11px] text-gray-500">
+                        *Masukkan tahun terbit yang valid
+                    </p>
+
+                    @error('tahun_terbit')
+                        <p class="text-xs text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 {{-- Category --}}
                 <div class="space-y-1">
                     <label class="text-[13px] font-medium text-gray-600">

@@ -57,7 +57,7 @@
 
                 {{-- Status --}}
                 <td class="px-5 py-3 text-left">
-                    <span
+                    {{-- <span
                         class="inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-2xl border font-medium
                                 {{ $doc->status === 'approved'
                                     ? 'bg-green-50 text-green-700 border-green-200'
@@ -68,6 +68,22 @@
                         <span class="material-symbols-outlined !text-[13px]">
                             {{ $doc->status === 'approved' ? 'check_circle' : ($doc->status === 'pending' ? 'schedule' : 'cancel') }}
                         </span>
+                        {{ ucfirst($doc->status) }}
+                    </span> --}}
+
+                    {{-- Status --}}
+                    <span
+                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl border text-[11px] font-medium
+                        {{ $doc->status === 'approved'
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                        : ($doc->status === 'pending'
+                            ? 'bg-amber-50 text-amber-600 border-amber-200'
+                            : 'bg-red-50 text-red-700 border-red-200') }}">
+
+                        <span class="material-symbols-outlined !text-[12px]">
+                            {{ $doc->status === 'approved' ? 'check_circle' : ($doc->status === 'pending' ? 'schedule' : 'cancel') }}
+                        </span>
+
                         {{ ucfirst($doc->status) }}
                     </span>
                 </td>

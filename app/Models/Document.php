@@ -11,6 +11,7 @@ class Document extends Model
      */
     protected $fillable = [
         'title',
+        'tahun_terbit',
         'category_id',
         'user_id',
         'file',

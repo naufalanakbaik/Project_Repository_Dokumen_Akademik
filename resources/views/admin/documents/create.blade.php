@@ -77,16 +77,25 @@
                             Informasi Dokumen
                         </h2>
 
-                        {{-- Input Title --}}
+                        {{-- Judul --}}
                         <div>
                             <label class="text-xs text-gray-600">Judul Dokumen</label>
                             <input type="text" name="title" value="{{ old('title') }}"
                                 class="mt-1 w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg 
-                            focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition"
+                                focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition"
                                 placeholder="Contoh: Laporan Kerja Praktik Sistem Informasi">
                         </div>
+                        
+                        {{-- Tahun Terbit --}}
+                        <div>
+                            <label class="text-xs text-gray-600">Tahun Terbit</label>
+                            <input type="number" name="tahun_terbit" value="{{ old('tahun_terbit') }}"
+                                class="mt-1 w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg 
+                                focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition"
+                                placeholder="Contoh: 2023">
+                        </div>
 
-                        {{-- Input Category --}}
+                        {{-- Kategori --}}
                         <div>
                             <label class="text-xs text-gray-600">Kategori</label>
 

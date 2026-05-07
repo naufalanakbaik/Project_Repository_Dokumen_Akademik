@@ -131,6 +131,14 @@
                     </p>
                 </div>
 
+                <!-- Tahun Terbit -->
+                <div class="mb-3">
+                    <p class="text-xs text-gray-500">Tahun Terbit</p>
+                    <p class="text-sm font-medium text-gray-600 mt-0.5">
+                        {{ $document->tahun_terbit }}
+                    </p>
+                </div>
+
                 <!-- Kategori -->
                 <div class="mb-3">
                     <p class="text-xs text-gray-500">Kategori</p>

@@ -5,13 +5,61 @@
 @section('content')
 
     {{-- Header --}}
-    <div class="mb-5">
-        <h1 class="text-2xl font-semibold text-gray-950">
-            Dashboard Admin
-        </h1>
-        <p class="text-[13px] text-gray-600 mt-0.5">
-            Hai <span class="font-medium text-blue-600">{{ auth()->user()->name }}</span>, berikut ringkasan sistem.
-        </p>
+    <div class="relative overflow-hidden rounded-lg border border-gray-200/80 bg-white px-6 py-5 mb-6 shadow-sm">
+
+        {{-- Accent Blur --}}
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full blur-3xl opacity-40">
+        </div>
+
+        <div class="relative flex items-start justify-between">
+
+            {{-- Left Content --}}
+            <div>
+                {{-- Badge --}}
+                <div class="inline-flex items-center gap-2 px-3 py-1 mb-3 rounded-full border border-blue-200 bg-blue-50">
+                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                    <span class="text-[11px] font-semibold tracking-wide text-blue-700 uppercase">
+                        Admin Dashboard
+                    </span>
+                </div>
+
+                {{-- Title --}}
+                <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 leading-tight">
+                    Dashboard Admin
+                </h1>
+
+                {{-- Description --}}
+                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                    Hai
+                    <span class="font-semibold text-blue-600">
+                        {{ auth()->user()->name }}
+                    </span>,
+                    selamat datang kembali di sistem repositori dokumen akademik.
+                    Pantau aktivitas pengguna, validasi dokumen, dan statistik sistem
+                    secara realtime.
+                </p>
+            </div>
+
+            {{-- Right Decoration --}}
+            <div>
+                <span class="material-symbols-outlined text-blue-600 !text-[28px]">
+                    space_dashboard
+                </span>
+            </div>
+        </div>
+
+        {{-- Bottom Line --}}
+        <div class="mt-5 pt-4 border-t border-dashed border-gray-200 flex items-center justify-between">
+
+            <div class="flex items-center gap-2 text-xs text-gray-500">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                Sistem berjalan normal
+            </div>
+
+            <div class="text-xs text-gray-400">
+                {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
+            </div>
+        </div>
     </div>
 
     {{-- Statistic card --}}

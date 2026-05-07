@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Document;
 use App\Models\Category;
 use App\Models\DocumentLog;
+use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
 {
@@ -49,7 +50,7 @@ class DocumentController extends Controller
             $query->where('status', $request->status);
         }
 
-        $documents = $query->latest()->paginate(5);
+        $documents = $query->latest()->paginate(10);
         $categories = Category::all();
 
         // AJAX RESPONSE
@@ -107,32 +108,112 @@ class DocumentController extends Controller
 
 
     // --- Proses (store) menyimpan data dokumen ke table database (default status -> pending)
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'tahun_terbit' => [
+    //             'required',
+    //             'integer',
+    //             'between:2000,' . date('Y'),
+    //         ],
+    //         'category_id' => 'required|exists:categories,id',
+    //         'file' => 'required|mimes:pdf,doc,docx|max:10240',
+    //     ]);
+
+    //     $filePath = $request->file('file')->store('documents', 'public');
+
+    //     $document = Document::create([
+    //         'title' => $request->title,
+    //         'tahun_terbit' => $request->tahun_terbit,
+    //         'category_id' => $request->category_id,
+    //         'user_id' => auth()->id(),
+    //         'file' => $filePath,
+    //         'status' => 'pending',
+    //     ]);
+
+    //     DocumentLog::create([
+    //         'user_id' => auth()->id(),
+    //         'document_id' => $document->id,
+    //         'action' => 'upload',
+    //     ]);
+
+    //     return redirect()->route('mahasiswa.documents.index')
+    //         ->with('success', 'Dokumen berhasil diupload dan menunggu validasi.');
+    // }
+
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
+
+            'tahun_terbit' => [
+                'required',
+                'integer',
+                'between:2000,' . date('Y'),
+            ],
+
             'category_id' => 'required|exists:categories,id',
+
             'file' => 'required|mimes:pdf,doc,docx|max:10240',
         ]);
 
-        $filePath = $request->file('file')->store('documents', 'public');
+        DB::beginTransaction();
 
-        $document = Document::create([
-            'title' => $request->title,
-            'category_id' => $request->category_id,
-            'user_id' => auth()->id(),
-            'file' => $filePath,
-            'status' => 'pending',
-        ]);
+        try {
 
-        DocumentLog::create([
-            'user_id' => auth()->id(),
-            'document_id' => $document->id,
-            'action' => 'upload',
-        ]);
+            // Upload file
+            $filePath = $request->file('file')
+                ->store('documents', 'public');
 
-        return redirect()->route('mahasiswa.documents.index')
-            ->with('success', 'Dokumen berhasil diupload dan menunggu validasi.');
+            // Simpan dokumen
+            $document = Document::create([
+                'title' => $request->title,
+                'tahun_terbit' => $request->tahun_terbit,
+                'category_id' => $request->category_id,
+                'user_id' => auth()->id(),
+                'file' => $filePath,
+
+                // default workflow mahasiswa
+                'status' => 'pending',
+
+                // reset rejection state
+                'reject_note' => null,
+                'rejected_at' => null,
+                'rejected_by' => null,
+            ]);
+
+            // Simpan log aktivitas
+            DocumentLog::create([
+                'user_id' => auth()->id(),
+                'document_id' => $document->id,
+                'action' => 'upload',
+            ]);
+
+            DB::commit();
+
+            return redirect()
+                ->route('mahasiswa.documents.index')
+                ->with(
+                    'success',
+                    'Dokumen berhasil diupload dan menunggu validasi.'
+                );
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            // Hapus file jika database gagal
+            if (isset($filePath) && Storage::disk('public')->exists($filePath)) {
+                Storage::disk('public')->delete($filePath);
+            }
+
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Terjadi kesalahan saat mengupload dokumen.'
+                );
+        }
     }
 
     // --- Menampikan form edit dokumen
@@ -152,49 +233,124 @@ class DocumentController extends Controller
     }
 
     // --- Proses update data dokumen
+    // public function update(Request $request, $id)
+    // {
+    //     $document = Document::where('user_id', auth()->id())
+    //         ->findOrFail($id);
+
+    //     // RULE 1: approved LOCK TOTAL
+    //     if ($document->status === 'approved') {
+    //         return back()->with('error', 'Dokumen yang sudah disetujui tidak dapat diubah.');
+    //     }
+
+    //     $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'tahun_terbit' => [
+    //             'required',
+    //             'integer',
+    //             'between:2000,' . date('Y'),
+    //         ],
+    //         'category_id' => 'required|exists:categories,id',
+    //         'file' => 'nullable|mimes:pdf,doc,docx|max:10240',
+    //     ]);
+
+    //     $data = [
+    //         'title' => $request->title,
+    //         'tahun_terbit' => $request->tahun_terbit,
+    //         'category_id' => $request->category_id,
+    //         'status' => 'pending', // 🔥 reset ke pending setelah edit
+    //         'reject_note' => null,
+    //         'rejected_at' => null,
+    //         'rejected_by' => null,
+    //     ];
+
+    //     // jika upload file baru
+    //     if ($request->hasFile('file')) {
+    //         Storage::disk('public')->delete($document->file);
+    //         $data['file'] = $request->file('file')->store('documents', 'public');
+    //     }
+
+    //     $document->update($data);
+
+    //     DocumentLog::create([
+    //         'user_id' => auth()->id(),
+    //         'document_id' => $document->id,
+    //         'action' => 'update',
+    //     ]);
+
+    //     return redirect()->route('mahasiswa.documents.index')
+    //         ->with('success', 'Dokumen berhasil diperbarui dan kembali ke status pending.');
+    // }
     public function update(Request $request, $id)
     {
         $document = Document::where('user_id', auth()->id())
             ->findOrFail($id);
 
-        // RULE 1: approved LOCK TOTAL
+        // RULE: approved tidak boleh diedit
         if ($document->status === 'approved') {
-            return back()->with('error', 'Dokumen yang sudah disetujui tidak dapat diubah.');
+            return back()->with(
+                'error',
+                'Dokumen yang sudah disetujui tidak dapat diubah.'
+            );
         }
 
         $request->validate([
             'title' => 'required|string|max:255',
+            'tahun_terbit' => [
+                'required',
+                'integer',
+                'between:2000,' . date('Y'),
+            ],
             'category_id' => 'required|exists:categories,id',
             'file' => 'nullable|mimes:pdf,doc,docx|max:10240',
         ]);
 
+        // Data update
         $data = [
             'title' => $request->title,
+            'tahun_terbit' => $request->tahun_terbit,
             'category_id' => $request->category_id,
-            'status' => 'pending', // 🔥 reset ke pending setelah edit
+
+            // Reset approval
+            'status' => 'pending',
             'reject_note' => null,
             'rejected_at' => null,
             'rejected_by' => null,
         ];
 
-        // jika upload file baru
+        // Upload file baru
         if ($request->hasFile('file')) {
-            Storage::disk('public')->delete($document->file);
-            $data['file'] = $request->file('file')->store('documents', 'public');
+
+            // Hapus file lama jika ada
+            if (
+                $document->file &&
+                Storage::disk('public')->exists($document->file)
+            ) {
+                Storage::disk('public')->delete($document->file);
+            }
+
+            // Upload file baru
+            $data['file'] = $request->file('file')
+                ->store('documents', 'public');
         }
 
+        // Update database
         $document->update($data);
 
+        // Log aktivitas
         DocumentLog::create([
             'user_id' => auth()->id(),
             'document_id' => $document->id,
             'action' => 'update',
         ]);
 
-        return redirect()->route('mahasiswa.documents.index')
-            ->with('success', 'Dokumen berhasil diperbarui dan kembali ke status pending.');
+        return redirect()
+            ->route('mahasiswa.documents.index')
+            ->with(
+                'success',
+                'Dokumen berhasil diperbarui dan kembali ke status pending.'
+            );
     }
-
 
     // --- Detail dokumen saya (pribadi)
     public function show($id)

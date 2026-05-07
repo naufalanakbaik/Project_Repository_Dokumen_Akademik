@@ -13,8 +13,7 @@
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
 
     <!-- Google Fonts: Inter & Montserrat -->
-    {{-- <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" /> --}}
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
 
     <!--Material icon -->
@@ -144,19 +143,31 @@
 
         <!-- Sidebar -->
         <aside id="sidebar"
-            class="fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950
-            flex flex-col border-r border-gray-800 transition-all duration-300 overflow-hidden">
+            class="fixed top-0 left-0 h-screen w-64 bg-white 
+            flex flex-col border-r border-gray-200 transition-all duration-300 overflow-hidden">
 
-            <!-- Side head admin -->
-            <div class="relative border-b border-gray-800/80 bg-gray-950/80 backdrop-blur-xl">
+            {{-- <!-- Side head admin -> Tombol minimize -->
+            <div class="p-4 flex justify-center items-center bg-white">
+                <span id="sidebar-title" class="text-sm text-gray-800 font-sans font-medium uppercase tracking-wide">
+                    Halaman Admin
+                </span>
+                <button id="toggleSidebar" class="flex items-center justify-center w-10 h-10">
+                    <span id="toggleIcon"
+                        class="material-icons pt-0.5 text-gray-900 !text-[17px] hover:text-blue-700 transition">
+                        keyboard_arrow_left
+                    </span>
+                </button>
+            </div> --}}
+
+            <!-- Side head admin -> Tombol minimize -->
+            <div class="relative bg-white">
                 <div id="sidebarHeader" class="py-4 px-4 flex items-center justify-between transition-all duration-300">
 
                     <!-- Title -->
                     <div id="sidebarTitleWrapper" class="flex flex-col leading-tight transition-all duration-300">
-                        <span id="sidebar-title" class="text-sm font-semibold text-white tracking-wide">
+                        <span id="sidebar-title" class="text-sm font-semibold text-gray-800 tracking-wide">
                             Admin Panel
                         </span>
-
                         <span class="text-[11px] tracking-wide text-gray-400">
                             Dashboard Control
                         </span>
@@ -164,11 +175,14 @@
 
                     <!-- Toggle -->
                     <button id="toggleSidebar"
-                        class="group w-10 h-10 flex items-center justify-center rounded-xl border border-gray-700 bg-gray-900
-                        hover:bg-gray-800 shadow-lg shadow-black/20 transition-all duration-300">
+                        class="group w-10 h-10 flex items-center justify-center
+                        rounded-full border border-yellow-300 bg-yellow-50
+                        shadow-sm hover:bg-yellow-100
+                        transition-all duration-300">
 
                         <span id="toggleIcon"
-                            class="material-symbols-outlined text-white !text-[20px] transition-transform duration-300 group-hover:scale-110">
+                            class="material-symbols-outlined text-yellow-600 !text-[20px]
+                            transition-transform duration-300 group-hover:scale-110">
                             menu_open
                         </span>
                     </button>
@@ -176,135 +190,98 @@
             </div>
 
             <!-- Menu sidebar -->
-            <nav class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-                <ul class="space-y-1.5 px-4 py-4 text-[13.5px]">
-
-                    <!-- Heading -->
-                    <h4
-                        class="sidebar-heading text-[11px] font-semibold text-gray-400 uppercase tracking-widest px-2 mb-2">
+            <nav class="flex-1 overflow-y-auto">
+                <ul class="space-y-1.5 px-5 py-1 text-sm">
+                    <h4 class="sidebar-heading text-[11px] font-semibold text-gray-500 uppercase mb-2">
                         <span class="full-text">Fitur Admin</span>
                         <span class="short-text hidden">Fitur</span>
                     </h4>
 
-                    <!-- Dashboard -->
                     <li>
                         <a href="{{ route('admin.dashboard') }}"
-                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
-
-                            {{ request()->routeIs('admin.dashboard')
-                            ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
-
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.dashboard') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/dashboard.png') }}"
-                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
-
-                            <span class="ml-3 menu-text tracking-wide">Dashboard</span>
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.dashboard') }}">
+                            <span class="ml-2.5 menu-text">Dashboard</span>
                         </a>
                     </li>
 
-                    <!-- Validasi -->
                     <li>
                         <a href="{{ route('admin.validation-documents.validation') }}"
-                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
-
-                            {{ request()->routeIs('admin.validation-documents.*')
-                            ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
-
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.validation-documents.*') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}"
-                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
-
-                            <span class="ml-3 menu-text tracking-wide">Validasi Dokumen</span>
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.validation-documents.*') }}">
+                            <span class="ml-2.5 menu-text">Validasi Dokumen</span>
                         </a>
                     </li>
 
-                    <!-- Aktivitas -->
+                    <li>
+                        <a href="#" class="flex items-center py-[0.470rem] px-3 rounded-lg transition">
+                            <img src="{{ asset('img/icon-sidebar/buku.png') }}" class="w-5 h-5 object-contain">
+                            <span class="ml-2.5 menu-text">Monitoring Dokumen</span>
+                        </a>
+                    </li>
+
                     <li>
                         <a href="{{ route('admin.dashboard.monitoring-pengguna') }}"
-                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
-
-                            {{ request()->routeIs('admin.dashboard.monitoring-pengguna')
-                            ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
-
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.dashboard.monitoring-pengguna') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/penerbit.png') }}"
-                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
-
-                            <span class="ml-3 menu-text tracking-wide">Aktivitas Pengguna</span>
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.dashboard.monitoring-pengguna') }}">
+                            <span class="ml-2.5 menu-text">Aktivitas Pengguna</span>
                         </a>
                     </li>
 
-                    <!-- Heading -->
-                    <h4
-                        class="sidebar-heading text-[11px] font-semibold text-gray-400 uppercase tracking-widest px-2 pt-4 mb-2">
+                    <h4 class="sidebar-heading text-[11px] font-semibold text-gray-500 uppercase mb-2">
                         <span class="full-text">Kelola Admin</span>
                         <span class="short-text hidden">Kelola</span>
                     </h4>
 
-                    <!-- Kelola Dokumen -->
                     <li>
                         <a href="{{ route('admin.documents.index') }}"
-                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
-
-                            {{ request()->routeIs('admin.documents.*')
-                            ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
-
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.documents.*') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/journals.png') }}"
-                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
-
-                            <span class="ml-3 menu-text tracking-wide">Kelola Dokumen</span>
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.documents.*') }}">
+                            <span class="ml-2.5 menu-text">Kelola Dokumen</span>
                         </a>
                     </li>
 
-                    <!-- Kategori -->
                     <li>
                         <a href="{{ route('admin.categories.index') }}"
-                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
-
-                            {{ request()->routeIs('admin.categories.*')
-                            ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
-
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.categories.*') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/kategori.png') }}"
-                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
-
-                            <span class="ml-3 menu-text tracking-wide">Kelola Kategori</span>
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.categories.*') }}">
+                            <span class="ml-2.5 menu-text">Kelola Kategori</span>
                         </a>
                     </li>
 
-                    <!-- User -->
                     <li>
                         <a href="{{ route('admin.users.index') }}"
-                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
-
-                            {{ request()->routeIs('admin.users.*')
-                            ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
-
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('admin.users.*') ? 'bg-yellow-50 text-yellow-600 border border-yellow-500 shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/anggota.png') }}"
-                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
-
-                            <span class="ml-3 menu-text tracking-wide">Kelola Pengguna</span>
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('admin.users.*') }}">
+                            <span class="ml-2.5 menu-text">Kelola Pengguna</span>
                         </a>
                     </li>
                 </ul>
             </nav>
 
             <!-- Footer Sidebar -->
-            <div class="bg-gray-950/90 border-t border-gray-800 px-4 py-4 backdrop-blur-xl">
-                <p class="sidebar-heading text-xs text-center text-gray-400 leading-relaxed">
-                    <!-- Full text for larger screens -->
-                    <span class="full-text">
-                        © {{ date('Y') }}
-                        <span class="font-medium text-gray-300">
-                            Repositori Dokumen Akademik
-                        </span>
-                    </span>
-                    <!-- Short text for smaller screens -->
-                    <span class="short-text hidden font-medium text-gray-300">
-                        © {{ date('Y') }}
-                    </span>
+            <div class="bg-white border-t border-gray-200 p-4">
+                <p class="sidebar-heading text-xs text-gray-700 justify-center text-center">
+                    <span class="full-text font-medium text-gray-700">© {{ date('Y') }} Repositori Dokumen Akademik.</span>
+                    <span class="short-text hidden font-medium text-gray-800">© {{ date('Y') }}</span>
                 </p>
             </div>
         </aside>
@@ -319,31 +296,29 @@
                 <div class="flex items-center gap-2 group">
                     <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-10 w-10 object-contain">
                     <div class="flex flex-col leading-tight">
-                        <span class="text-[13px] sm:text-[14px] font-semibold text-gray-800 dark:text-gray-100">
+                        <span class="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-100">
                             Program Studi Manajemen Informatika
                         </span>
-                        <span class="text-[10px] sm:text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
-                            Fakultas Ilmu Komputer - Universitas Sriwijaya
+                        <span class="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400">
+                            Fakultas Ilmu Komputer
                         </span>
                     </div>
                 </div>
 
-                <!-- Profile dropdown -->
+                {{-- Head Left --}}
                 <div class="flex items-center space-x-4 mr-2">
 
-                    <!-- Dropdown Menu -->
+                    {{-- Dropdown Menu --}}
                     <div class="relative">
                         <button id="profileBtn" class="flex items-center focus:outline-none">
                             <img src="{{ asset('img/icon/profile-blue-icon.png') }}" alt="Profil"
                                 class="w-8 h-8 rounded-full border border-gray-300">
                             <span class="ml-2.5 text-gray-700 font-normal text-sm">{{ Auth::user()->name }}</span>
                             <span id="profileIcon"
-                                class="material-icons ml-1 transform transition-transform duration-200 text-gray-500 !text-[18px]">
-                                arrow_drop_down
-                            </span>
+                                class="material-icons mt-0.5 ml-1 transform transition-transform duration-200 text-gray-500 !text-[18px]">arrow_drop_down</span>
                         </button>
 
-                        <!-- Isi dropdown menu -->
+                        {{-- Isi dropdown menu --}}
                         <div id="profileDropdown"
                             class="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg 
                             shadow-sm hidden overflow-hidden z-50">
@@ -351,6 +326,8 @@
                             <!-- Header -->
                             <div class="px-4 py-3 border-b border-gray-200">
                                 <p class="text-[11px] text-gray-500 mb-0.5">Signed in as</p>
+
+
                                 <p class="text-sm font-semibold text-gray-900 truncate">
                                     {{ Auth::user()->name }}
                                 </p>
@@ -367,7 +344,7 @@
                             <!-- Body -->
                             <div class="py-1 text-sm text-gray-700">
 
-                                <!-- Edit Profile -->
+                                {{-- Edit Profile --}}
                                 <a href="{{ route('admin.users.edit', Auth::id()) }}"
                                     class="block px-4 py-2 hover:bg-gray-100 transition">
                                     Edit profile
@@ -386,7 +363,7 @@
                                 <!-- Divider -->
                                 <div class="border-t border-gray-200 my-1"></div>
 
-                                <!-- Fullscreen -->
+                                {{-- Fullscreen --}}
                                 <button id="fullscreenBtn"
                                     class="w-full text-left px-4 py-2 hover:bg-gray-100 transition">
                                     <span id="fullscreenText">Fullscreen</span>
@@ -395,7 +372,7 @@
                                 <!-- Divider -->
                                 <div class="border-t border-gray-200 my-1"></div>
 
-                                <!-- Logout -->
+                                <!-- LOGOUT -->
                                 <form action="{{ route('logout') }}" method="post">
                                     @csrf
                                     <button type="submit"
@@ -405,6 +382,89 @@
                                 </form>
 
                             </div>
+                        </div>
+
+                        {{-- Isi dropdown menu --}}
+                        <div
+                            class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-sm hidden overflow-hidden z-50">
+                            <div class="px-4 py-3 border-b border-gray-200">
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-semibold text-gray-800">
+                                        Menu
+                                    </span>
+                                    {{-- Tanggal hari ini --}}
+                                    <span class="text-xs text-gray-500 mt-0.5">
+                                        {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {{-- Menu --}}
+                            <div class="py-1">
+                                {{-- Dokumen Masuk --}}
+                                {{-- @if (auth()->check() && auth()->user()->role === 'admin')
+                                    <a href="{{ route('admin.journals.index') }}"
+                                        class="flex items-center gap-3 px-5 py-2 text-sm text-gray-700 dark:text-gray-300 
+                                            hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                                        <img src="{{ asset('img/icon-dropdown/journals.png') }}"
+                                            class="w-5 h-5 object-contain dark:invert dark:brightness-200">
+                                        <span>Jurnal Masuk</span>
+                                    </a>
+                                @endif --}}
+
+                                {{-- Edit Profil --}}
+                                @if (Auth::check())
+                                    <a href="{{ route('admin.users.edit', Auth::id()) }}"
+                                        class="flex items-center gap-3 px-5 py-2 text-sm text-gray-700 hover:bg-gray-100
+                                            transition">
+                                        <img src="{{ asset('img/icon-dropdown/akun.png') }}"
+                                            class="w-5 h-5 object-contain">
+                                        <span>Edit Profil Saya</span>
+                                    </a>
+                                @endif
+
+                                {{-- Divider --}}
+                                <div class="border-t border-gray-200 my-1"></div>
+
+                                {{-- Fullscreen --}}
+                                <button id="fullscreenBtn"
+                                    class="w-full flex items-center gap-3 px-5 py-1.5 text-sm text-gray-700 
+                                        hover:bg-gray-100 transition text-left">
+                                    <span id="fullscreenIcon" class="material-icons !text-[20px] text-gray-800">
+                                        crop_free
+                                    </span>
+                                    <span id="fullscreenText">Fullscreen</span>
+                                </button>
+
+                                {{-- Dark Mode --}}
+                                {{-- <button id="darkModeBtn"
+                                    class="w-full flex items-center gap-3  py-1.5 px-5 text-sm text-gray-700 dark:text-gray-300 
+                                        hover:bg-gray-100 dark:hover:bg-gray-800 transition text-left">
+                                    <span id="darkModeIcon"
+                                        class="material-icons !text-[20px] text-gray-800 dark:text-gray-300">
+                                        dark_mode
+                                    </span>
+                                    <span id="darkModeText">Dark Mode</span>
+                                </button> --}}
+
+                                {{-- Divider --}}
+                                <div class="border-t border-gray-200 my-1"></div>
+
+                                {{-- Logout --}}
+                                @if (Auth::check())
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full flex items-center px-4 py-2.5 text-xs text-gray-700 hover:bg-red-50  transition justify-center">
+                                            <span class="material-icons mr-1 !text-[18px] text-red-600">logout</span>
+                                            <span
+                                                class="font-medium tracking-wide text-red-600 uppercase">Logout</span>
+                                        </button>
+                                    </form>
+                                @endif
+
+                            </div>
+
                         </div>
 
                     </div>
@@ -511,7 +571,7 @@
         });
     </script>
 
-    {{-- Script toogle minimize side bar --}}
+    <!-- Script toogle minimize side bar -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 

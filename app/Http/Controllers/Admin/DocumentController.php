@@ -47,31 +47,71 @@ class DocumentController extends Controller
 
 
     // ---> Proses (store) menyimpan data dokumen ke table database (khusus admin status -> approved)
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'tahun_terbit' => 'required|digits:4|integer|min:2000|max:' . date('Y'),
+    //         'category_id' => 'required|exists:categories,id',
+    //         'file' => 'required|mimes:pdf,doc,docx|max:10240',
+    //     ]);
+
+    //     $filePath = $request->file('file')->store('documents', 'public');
+
+    //     $document = Document::create([
+    //         'title' => $request->title,
+    //         'tahun_terbit' => $request->tahun_terbit,
+    //         'category_id' => $request->category_id,
+    //         'user_id' => auth()->id(),
+    //         'file' => $filePath,
+    //         'status' => 'approved',
+    //     ]);
+
+    //     DocumentLog::create([
+    //         'user_id' => auth()->id(),
+    //         'document_id' => $document->id,
+    //         'action' => 'upload',
+    //     ]);
+
+    //     return redirect()->route('admin.documents.index')
+    //         ->with('success', 'Dokumen berhasil ditambahkan.');
+    // }
+
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'tahun_terbit' => [
+                'required',
+                'integer',
+                'between:2000,' . date('Y'),
+            ],
             'category_id' => 'required|exists:categories,id',
             'file' => 'required|mimes:pdf,doc,docx|max:10240',
         ]);
 
+        // Upload file
         $filePath = $request->file('file')->store('documents', 'public');
 
+        // Simpan dokumen
         $document = Document::create([
             'title' => $request->title,
+            'tahun_terbit' => $request->tahun_terbit,
             'category_id' => $request->category_id,
-            'user_id' => auth()->id(), // FIX DI SINI
+            'user_id' => auth()->id(),
             'file' => $filePath,
             'status' => 'approved',
         ]);
 
+        // Log aktivitas
         DocumentLog::create([
             'user_id' => auth()->id(),
             'document_id' => $document->id,
             'action' => 'upload',
         ]);
 
-        return redirect()->route('admin.documents.index')
+        return redirect()
+            ->route('admin.documents.index')
             ->with('success', 'Dokumen berhasil ditambahkan.');
     }
 
@@ -103,30 +143,75 @@ class DocumentController extends Controller
 
 
     // ---> Proses memperbarui data dokumen ke table database
+    // public function update(Request $request, $id)
+    // {
+    //     $document = Document::findOrFail($id);
+
+    //     $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'tahun_terbit' => 'required|digits:4|integer|min:2000|max:' . date('Y'),
+    //         'category_id' => 'required|exists:categories,id',
+    //         'file' => 'nullable|mimes:pdf,doc,docx|max:10240',
+    //     ]);
+
+    //     // Handle file
+    //     if ($request->hasFile('file')) {
+    //         Storage::disk('public')->delete($document->file);
+
+    //         $filePath = $request->file('file')->store('documents', 'public');
+    //         $document->file = $filePath;
+    //     }
+
+    //     $document->update([
+    //         'title' => $request->title,
+    //         'tahun_terbit' => $request->tahun_terbit,
+    //         'category_id' => $request->category_id,
+    //     ]);
+
+    //     return redirect()->route('admin.documents.index')
+    //         ->with('success', 'Dokumen berhasil diperbarui.');
+    // }
+
     public function update(Request $request, $id)
     {
         $document = Document::findOrFail($id);
 
         $request->validate([
             'title' => 'required|string|max:255',
+            'tahun_terbit' => [
+                'required',
+                'integer',
+                'between:2000,' . date('Y'),
+            ],
             'category_id' => 'required|exists:categories,id',
             'file' => 'nullable|mimes:pdf,doc,docx|max:10240',
         ]);
 
-        // Handle file
-        if ($request->hasFile('file')) {
-            Storage::disk('public')->delete($document->file);
+        // Data update
+        $data = [
+            'title' => $request->title,
+            'tahun_terbit' => $request->tahun_terbit,
+            'category_id' => $request->category_id,
+        ];
 
-            $filePath = $request->file('file')->store('documents', 'public');
-            $document->file = $filePath;
+        // Jika upload file baru
+        if ($request->hasFile('file')) {
+
+            // Hapus file lama
+            if ($document->file && Storage::disk('public')->exists($document->file)) {
+                Storage::disk('public')->delete($document->file);
+            }
+
+            // Upload file baru
+            $data['file'] = $request->file('file')
+                ->store('documents', 'public');
         }
 
-        $document->update([
-            'title' => $request->title,
-            'category_id' => $request->category_id,
-        ]);
+        // Update database
+        $document->update($data);
 
-        return redirect()->route('admin.documents.index')
+        return redirect()
+            ->route('admin.documents.index')
             ->with('success', 'Dokumen berhasil diperbarui.');
     }
 

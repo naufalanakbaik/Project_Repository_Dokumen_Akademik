@@ -4,6 +4,7 @@
 @section('content')
     <div class="max-w-full mx-auto space-y-6">
 
+        {{-- Main content header dan filter --}}
         <div class="relative mb-20">
             {{-- Header --}}
             <section class="relative h-[360px] md:h-[460px] rounded-xl overflow-hidden border border-gray-200 shadow-sm">
@@ -25,7 +26,6 @@
                     {{-- Overlay (lebih soft) --}}
                     <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent z-10"></div>
                 </div>
-
 
                 {{-- Content info (dipanggil dijs) --}}
                 <div class="absolute inset-0 flex items-center z-20">
@@ -130,89 +130,126 @@
 
         {{-- Grid content --}}
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            @forelse ($documents as $doc)
-                {{-- Avatar profile --}}
-                @php
-                    $initials = collect(explode(' ', $doc->user->name))
-                        ->map(fn($w) => strtoupper(substr($w, 0, 1)))
-                        ->take(2)
-                        ->join('');
-                @endphp
 
-                <a href="{{ route('dosen.katalog.showGlobal', $doc->id) }}"
-                    class="group bg-white border border-gray-200 rounded-xl p-5">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center gap-3">
+            @forelse ($documents as $doc)
+                <div
+                    class="bg-white border border-gray-200 rounded-xl shadow-sm hover:border-gray-300 transition-all duration-200 flex flex-col
+                h-full group overflow-hidden">
+
+                    {{-- Header --}}
+                    <div class="p-5 border-b border-gray-100 min-h-[90px]">
+                        <div class="flex items-start gap-3.5">
+
+                            {{-- Icon --}}
+                            <div
+                                class="w-10 h-10 grid place-items-center rounded-lg bg-red-50 text-red-600 border border-red-200 shrink-0">
+                                <span class="material-symbols-outlined !text-[20px]">
+                                    description
+                                </span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+
+                                {{-- Title --}}
+                                <a href="{{ route('dosen.katalog.showGlobal', $doc->id) }}"
+                                    class="text-[15px] font-semibold text-gray-800 hover:text-blue-600 transition leading-snug
+                                    line-clamp-2 uppercase">
+                                    {{ $doc->title }}
+                                </a>
+
+                                {{-- Category and status --}}
+                                <div class="flex items-center gap-2 mt-2 flex-wrap">
+
+                                    {{-- Category --}}
+                                    <span class="text-xs text-gray-500 truncate">
+                                        {{ $doc->category->name }}
+                                    </span>
+
+                                    {{-- Divider --}}
+                                    <span class="text-gray-300 text-xs">•</span>
+
+                                    {{-- Tahun Terbit --}}
+                                    <span class="text-xs text-gray-500 truncate">
+                                        Tahun Terbit {{ $doc->tahun_terbit }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Body --}}
+                    <div class="px-5 py-4 flex items-center justify-between flex-1">
+
+                        {{-- User Info --}}
+                        <div class="flex items-center gap-3 min-w-0">
+                            @php
+                                $initials = collect(explode(' ', $doc->user->name))
+                                    ->map(fn($w) => strtoupper(substr($w, 0, 1)))
+                                    ->take(2)
+                                    ->join('');
+                            @endphp
 
                             {{-- Avatar --}}
-                            <div
-                                class="w-10 h-10 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-xs
-                            font-semibold text-gray-700">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 text-blue-600 flex items-center justify-center
+                            border border-indigo-300 font-semibold text-xs tracking-wider shrink-0">
                                 {{ $initials }}
                             </div>
 
-                            {{-- User --}}
-                            <div class="text-xs leading-tight">
-                                <p class="font-medium text-gray-800">
+                            {{-- User info --}}
+                            <div class="flex flex-col leading-tight min-w-0">
+                                <span class="text-[13px] font-medium text-gray-700 truncate">
                                     {{ $doc->user->name }}
-                                </p>
-                                <p class="text-[10px] text-gray-400">
-                                    {{ $doc->created_at->format('d M Y') }}
-                                </p>
-                            </div>
+                                </span>
 
+                                <span class="text-[11px] text-gray-500 flex items-center gap-1 mt-0.5">
+                                    {{ $doc->created_at->format('d M Y') }}
+                                </span>
+                            </div>
                         </div>
 
-                        {{-- Status (FIXED) --}}
-                        <span
-                            class="text-[11px] px-2.5 py-0.5 rounded-2xl border font-medium bg-green-50 text-green-700 border-green-200">
+                        {{-- Status --}}
+                        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-2xl border border-emerald-200
+                        bg-emerald-50 text-emerald-700 text-[11px] font-medium shrink-0">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                             Published
-                        </span>
+                        </div>
 
                     </div>
 
-                    {{-- Title --}}
-                    <div class="mt-4 flex items-start gap-2">
-                        <span class="material-symbols-outlined text-gray-400 !text-[18px] mt-0.5">
-                            description
-                        </span>
+                    {{-- Action --}}
+                    <div class="px-5 py-3 border-t border-gray-100 flex items-center justify-between">
 
-                        <h3 class="text-[15px] font-semibold uppercase text-gray-800 leading-snug line-clamp-2">
-                            {{ $doc->title }}
-                        </h3>
+                        {{-- Left --}}
+                        <a href="{{ route('dosen.katalog.showGlobal', $doc->id) }}"
+                            class="text-[13px] font-medium text-gray-600 hover:text-blue-600 transition-colors duration-200">
+                            Lihat Detail
+                        </a>
+
+                        {{-- Right --}}
+                        <a href="{{ route('dosen.katalog.showGlobal', $doc->id) }}"
+                            class="w-9 h-9 rounded-lg flex items-center justify-center text-gray-500 hover:text-blue-600 hover:bg-blue-50
+                            transition-all duration-200 group/icon">
+                            <span
+                                class="material-symbols-outlined !text-[18px] transition-transform duration-200 group-hover/icon:scale-110
+                                group-hover/icon:translate-x-0.5">
+                                arrow_outward
+                            </span>
+                        </a>
                     </div>
 
-                    {{-- Category --}}
-                    <div class="mt-3 flex items-center gap-2 text-xs text-gray-500">
-                        <span class="material-symbols-outlined !text-[14px] text-gray-400">
-                            folder
-                        </span>
-                        <span class="truncate">
-                            {{ $doc->category->name }}
-                        </span>
-                    </div>
+                </div>
 
-                    {{-- Footer action button --}}
-                    <div
-                        class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between
-                    text-gray-400 group-hover:text-gray-900 transition">
-                        <span class="text-xs font-medium">
-                            Lihat detail
-                        </span>
-
-                        <span class="material-symbols-outlined !text-[18px] transition-transform group-hover:translate-x-1">
-                            arrow_outward
-                        </span>
-                    </div>
-                </a>
             @empty
+
+                {{-- Empty state --}}
                 <div class="col-span-full text-center py-16 text-gray-500">
-                    <span class="material-symbols-outlined text-gray-300 !text-[48px]">
-                        folder_open
-                    </span>
-                    <p class="mt-3 text-sm font-medium">
-                        Belum ada dokumen tersedia
-                    </p>
+                    <div class="flex flex-col items-center gap-2">
+                        <span class="material-symbols-outlined text-gray-300 !text-[48px]">
+                            folder_open
+                        </span>
+                        <p class="text-sm font-medium">
+                            Belum ada dokumen tersedia
+                        </p>
+                    </div>
                 </div>
             @endforelse
         </section>

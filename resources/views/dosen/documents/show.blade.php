@@ -22,16 +22,22 @@
                     <span>•</span>
 
                     <span class="flex items-center gap-1">
-                        <span class="material-symbols-outlined !text-[15px]">folder</span>
-                        {{ $document->category->name }}
+                        <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
+                        Tahun Terbit
+                        {{ $document->tahun_terbit }}
                     </span>
 
                     <span>•</span>
 
                     <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined !text-[15px]">folder</span>
+                        {{ $document->category->name }}
+                    </span>
+
+                    {{-- <span class="flex items-center gap-1">
                         <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
                         {{ $document->created_at->format('d M Y') }}
-                    </span>
+                    </span> --}}
                 </div>
             </div>
 
@@ -45,7 +51,7 @@
         {{-- Main grid content --}}
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            {{-- Left: preview frame pdf--}}
+            {{-- Left: preview frame pdf --}}
             <div class="lg:col-span-2 space-y-5">
 
                 {{-- Header title --}}
@@ -72,12 +78,17 @@
                     </div>
 
                     <span
-                        class="inline-flex items-center px-2.5 py-1 text-[10px] font-medium rounded-xl uppercase
-                            {{ $document->status === 'approved'
-                            ? 'bg-green-50 text-green-700 border border-green-300'
-                            : ($document->status === 'pending'
-                            ? 'bg-yellow-50 text-yellow-700 border border-yellow-300'
-                            : 'bg-red-50 text-red-700 border border-red-300') }}">
+                        class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-xl
+                        {{ $document->status === 'approved'
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                        : ($document->status === 'pending'
+                        ? 'bg-amber-50 text-amber-600 border-amber-300'
+                        : 'bg-red-50 text-red-700 border-red-300') }}">
+
+                        <span class="material-symbols-outlined !text-[12px]">
+                            {{ $document->status === 'approved' ? 'check_circle' : ($document->status === 'pending' ? 'schedule' : 'cancel') }}
+                        </span>
+
                         {{ ucfirst($document->status) }}
                     </span>
                 </div>
@@ -126,6 +137,13 @@
                             <span class="text-xs text-gray-500 font-medium">Uploader</span>
                             <span class="font-medium text-gray-600">
                                 {{ $document->user->name }}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="text-xs text-gray-500 font-medium">Tahun Terbit</span>
+                            <span class="font-medium text-gray-600">
+                                {{ $document->tahun_terbit }}
                             </span>
                         </div>
 
