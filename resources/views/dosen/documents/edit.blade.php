@@ -17,7 +17,7 @@
             </div>
 
             {{-- Status --}}
-            <span class="text-xs px-3 py-1 rounded-2xl bg-green-50 text-green-700 border border-green-300">
+            <span class="text-xs font-medium px-3 py-1 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-300">
                 Approved
             </span>
         </div>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -13,15 +14,29 @@ use App\Http\Controllers\Dosen\ProfileController as DosenProfileController;
 use App\Http\Controllers\Kaprodi\DocumentController as KaprodiDocumentController;
 
 
-// -- Routing halaman pertama (Publik)
-Route::get('/', function () {
-    return view('auth.login');
-});
+/*|------------------------------------------------------------------------|
+|                                 PUBLIK PAGE                              |
+|--------------------------------------------------------------------------*/
+// -- Landing page (halaman utama) -> publik
+Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
-// -- Autentikasi User
+// -- Repository publik (halaman katalog dokumen) -> publik
+Route::get('/repository', [LandingPageController::class, 'repository'])->name('repository');
+
+// -- Detail dokumen publik (halaman detail dokumen) -> publik
+Route::get('/repository/{id}', [LandingPageController::class, 'show'])->name('repository.show');
+
+
+/*|------------------------------------------------------------------------|
+|                                 AUTHTENTIKASI                            |
+|--------------------------------------------------------------------------*/
+// -- Autentikasi (login/logout)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+// -- Proses login
 Route::post('/login', [AuthController::class, 'login']);
+// -- Proses logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 // -- Route middleware autentikasi -> Default login akses
 Route::middleware(['auth'])->group(function () {

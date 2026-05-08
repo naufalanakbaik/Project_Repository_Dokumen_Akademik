@@ -12,28 +12,68 @@
     {{-- Img web browser --}}
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
 
+    {{-- Google Fonts: Inter --}}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     {{-- Material icon --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    {{-- Global style --}}
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 
-<body class="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-6 sm:p-6">
+<body
+    class="min-h-screen bg-gradient-to-br from-slate-100 via-white to-blue-50 flex items-center justify-center px-4 py-6 sm:p-6">
 
-    <!-- Logo unsri -->
-    <div class="absolute top-3 left-4 flex items-center gap-2">
-        <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-10 w-10 object-contain">
-        <div class="flex flex-col leading-tight">
-            <span class="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-100">
-                Program Studi Manajemen Informatika
-            </span>
-            <span class="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400">
-                Fakultas Ilmu Komputer - Universitas Sriwijaya
-            </span>
+    {{-- Top Navigation --}}
+    <div class="absolute top-0 inset-x-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
+
+            {{-- Left --}}
+            <div class="flex items-center gap-2.5 min-w-0">
+
+                {{-- Logo --}}
+                <div class="shrink-0">
+                    <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="w-10 h-10 object-contain">
+                </div>
+
+                {{-- Text --}}
+                <div class="leading-tight min-w-0">
+                    <h1 class="text-[13px] sm:text-sm font-semibold text-gray-900 truncate">
+                        Program Studi Manajemen Informatika
+                    </h1>
+                    <p class="text-[11px] text-gray-500 truncate">
+                        Fakultas Ilmu Komputer · Universitas Sriwijaya
+                    </p>
+                </div>
+            </div>
+
+            {{-- Right --}}
+            <a href="{{ route('landing') }}"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-[13px] font-medium 
+                text-gray-700 transition duration-200">
+
+                <span class="material-symbols-outlined !text-[18px] text-gray-700">
+                    keyboard_return
+                </span>
+
+                <span class="hidden sm:inline">
+                    Kembali ke Beranda
+                </span>
+
+            </a>
+
         </div>
     </div>
 
     <!-- Main Container -->
     <div
-        class="w-full max-w-4xl sm:min-h-[470px] bg-white border border-gray-300 rounded-lg shadow-md flex flex-col md:flex-row overflow-hidden">
+        class="w-full max-w-4xl sm:min-h-[470px] bg-white border border-gray-300 rounded-lg shadow-sm flex flex-col md:flex-row overflow-hidden">
         {{-- Left Content --}}
         <div class="hidden md:flex w-[50%] bg-gray-100 border-r border-gray-300 p-6 lg:p-8">
             <div class="flex flex-col justify-between w-full">
@@ -41,7 +81,7 @@
                 <div class="space-y-6 py-3 px-3">
                     <!-- Heading -->
                     <div class="space-y-3">
-                        <h1 class="text-xl font-medium text-gray-900 leading-snug">
+                        <h1 class="text-xl font-semibold text-gray-800 leading-snug">
                             Sistem Repositori Dokumen Akademik
                         </h1>
                         <p class="text-gray-700 text-xs leading-relaxed">
@@ -86,7 +126,7 @@
 
                 <!-- Header -->
                 <div class="space-y-1 text-center border-b border-gray-300 pb-3">
-                    <h2 class="text-xl sm:text-2xl font-semibold text-gray-900">
+                    <h2 class="text-xl sm:text-2xl font-semibold text-gray-800">
                         Selamat Datang
                     </h2>
                     <p class="text-[11px] sm:text-xs text-gray-600">
@@ -107,16 +147,16 @@
                     @csrf
 
                     <!-- Email -->
-                    <div class="space-y-1">
-                        <label class="text-xs sm:text-sm font-normal text-gray-800 pl-2.5">Email</label>
+                    <div class="space-y-0.5">
+                        <label class="text-xs sm:text-sm font-medium text-gray-700 pl-2.5">Email</label>
                         <input type="email" name="email" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm
                             focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition">
                     </div>
 
                     <!-- Password -->
-                    <div class="space-y-1 relative">
-                        <label class="text-sm font-normal text-gray-800 pl-2.5">Password</label>
+                    <div class="space-y-0.5 relative">
+                        <label class="text-sm font-medium text-gray-700 pl-2.5">Password</label>
                         <input type="password" name="password" id="password" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm
                             focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition">

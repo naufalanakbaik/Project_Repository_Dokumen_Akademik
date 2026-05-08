@@ -61,13 +61,17 @@ Intinya AJAX =
                     {{ $doc->category->name }}
                 </div>
 
+                <span>•</span>
+
                 {{-- Tahun Terbit --}}
                 <div class="flex items-center gap-1">
                     <span class="material-symbols-outlined !text-[14px]">
-                        calendar_today
+                        calendar_check
                     </span>
                     Tahun Terbit {{ $doc->tahun_terbit }}
                 </div>
+
+                <span>•</span>
 
                 {{-- Status --}}
                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl border text-[10px] font-medium

@@ -7,67 +7,44 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // ---> Menampilkan halaman login
     public function showLogin()
     {
-        // Jika sudah login
-        if (Auth::check()) {
-
-            $role = auth()->user()->role;
-
-            // Mahasiswa & dosen -> katalog global
-            if (in_array($role, ['mahasiswa', 'dosen'])) {
-                return redirect()->route($role . '.katalog.global');
-            }
-
-            // Role lain -> dashboard
-            return redirect()->route($role . '.dashboard');
-        }
-
         return view('auth.login');
     }
 
-
-    // ---> Proses login
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required']
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
 
         if (Auth::attempt($credentials)) {
-
             $request->session()->regenerate();
 
             $role = auth()->user()->role;
 
-            // Mahasiswa & dosen
+            // 👉 Role mahasiswa & dosen ke katalog
             if (in_array($role, ['mahasiswa', 'dosen'])) {
                 return redirect()->route($role . '.katalog.global');
             }
 
-            // Admin & kaprodi
+            // 👉 Role lain ke dashboard
             return redirect()->route($role . '.dashboard');
         }
 
-        return back()
-            ->withErrors([
-                'email' => 'Email atau password salah',
-            ])
-            ->onlyInput('email');
+        return back()->withErrors([
+            'email' => 'Email atau password salah',
+        ]);
     }
 
-
-    // ---> Logout
     public function logout(Request $request)
     {
         Auth::logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-        return redirect()->route('landing');
+        return redirect('/login');
     }
 }
