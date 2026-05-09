@@ -1,6 +1,6 @@
 @extends('landing.layouts.public')
 
-{{-- @section('title', $document->title) --}}
+@section('title', $document->title)
 @section('meta_description', $document->description)
 
 @section('content')

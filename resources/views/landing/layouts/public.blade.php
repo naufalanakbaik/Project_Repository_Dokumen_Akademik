@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <title>@yield('title', 'Repository Dokumen Akademik')</title>
+    {{-- <title>@yield('title', 'Repository Dokumen Akademik')</title> --}}
+    <title>Public - @yield('title')</title>
 
     <meta name="description" content="@yield(
         'meta_description',
-        'Repository dokumen akademik digital untuk akses laporan, jurnal, penelitian, 
-                                dan dokumen kampus secara modern.'
+        'Repository dokumen akademik digital untuk akses laporan, jurnal, penelitian, dan dokumen kampus secara modern.'
     )">
 
-    <meta name="keywords"
-        content="repository akademik, jurnal mahasiswa, laporan tugas akhir, repository kampus, dokumen akademik">
+    <meta name="keywords" content="repository akademik, jurnal mahasiswa, laporan tugas akhir, repository kampus, dokumen akademik">
 
     <meta name="author" content="Repository Akademik">
 
@@ -60,26 +59,23 @@
                     Repository Akademik System
                     <span class="text-gray-800 dark:text-gray-500">v1.0</span>
                 </span>
+
                 <span class="hidden md:block text-[11px] text-gray-600 dark:text-gray-500">
                     Sistem pengelolaan dokumen akademik dan repositori digital
                 </span>
             </div>
 
-            <div class="flex items-center gap-5">
-                {{-- <a href="{{ route('publisher.documentation') }}"
-                    class="transition duration-200 font-normal {{ request()->routeIs('publisher.documentation')
-                        ? 'text-red-500 dark:text-red-500'
-                        : 'hover:text-blue-500 dark:hover:text-blue-400' }}">
-                    Dokumentasi
-                </a>
+            {{-- Right --}}
+            <div class="hidden md:flex items-center gap-2 text-[11px] text-gray-600 dark:text-gray-500">
+                <span class="font-medium">
+                    {{ now()->translatedFormat('l') }},
+                </span>
 
-                <a href="{{ route('publisher.help') }}"
-                    class="transition duration-200 font-normal {{ request()->routeIs('publisher.help')
-                        ? 'text-red-500 dark:text-red-500'
-                        : 'hover:text-blue-500 dark:hover:text-blue-400' }}">
-                    Bantuan
-                </a> --}}
+                <span>
+                    {{ now()->translatedFormat('d F Y') }}
+                </span>
             </div>
+
         </div>
     </div>
 
@@ -132,12 +128,12 @@
 
                         {{-- Repository --}}
                         <a href="{{ route('repository') }}" class="{{ navClass(request()->routeIs('repository*')) }}">
-                            Repository
+                            Repositori
                         </a>
 
                         {{-- Repository --}}
                         <a href="/" class="{{ navClass(request()->routeIs('/')) }}">
-                            Tentang Kami
+                            Profile Kami
                         </a>
                     </div>
                 </div>
@@ -146,19 +142,21 @@
                 <div class="relative inline-block text-left">
 
                     {{-- Login --}}
-                    <div class="flex items-center gap-1">
+                    <div class="flex items-center gap-0.5">
                         <a href="{{ route('login') }}"
-                            class="px-4 py-2 text-[13px] font-medium text-gray-600 hover:text-amber-400 transition">
+                            class="px-4 py-2 text-[13px] font-medium text-gray-500 hover:text-gray-600 transition">
                             Masuk
                         </a>
                         <a href="{{ route('login') }}"
-                            class="px-4 py-2 rounded-lg bg-amber-400 hover:bg-amber-500
-                            text-white text-[13px] font-medium shadow-sm transition
-                            ring-1 ring-amber-300/70 hover:ring-amber-400
-                            hover:shadow-amber-200/60 hover:shadow-md">
-
+                            class="px-4 py-2 rounded-lg bg-white text-amber-500 border border-amber-300 text-[12px] font-medium shadow-sm 
+                            transition hover:bg-amber-50 hover:shadow-md">
                             Login Sistem
                         </a>
+                        {{-- <a href="{{ route('login') }}"
+                            class="px-4 py-2 rounded-lg bg-amber-400 text-white text-[12px] font-medium shadow-sm 
+                            transition hover:bg-amber-500 hover:shadow-md">
+                            Login Sistem
+                        </a> --}}
                     </div>
 
                 </div>

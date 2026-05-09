@@ -1,393 +1,479 @@
 @extends('landing.layouts.public')
 
-{{-- @section('title', 'Repository Dokumen Akademik') --}}
-@section('meta_description', 'Platform repository akademik digital untuk mengakses jurnal, laporan tugas akhir, dan dokumen penelitian.')
+@section('title', 'Beranda Dokumen Akademik')
+@section('meta_description',
+    'Platform repository akademik digital untuk mengakses jurnal, laporan tugas akhir, dan
+    dokumen penelitian.')
 
 @section('content')
 
-    {{-- HERO --}}
-    <section class="relative overflow-hidden hero-gradient">
+    {{-- Header Section --}}
+    <section
+        class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100">
 
-        {{-- Blur Decoration --}}
-        <div
-            class="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2">
+        {{-- Soft Decoration --}}
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/30 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-100/50 rounded-full blur-3xl pointer-events-none">
         </div>
 
-        <div
-            class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3">
-        </div>
-
-        <div class="relative max-w-7xl mx-auto px-6 py-24 lg:py-32">
-
+        <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
 
                 {{-- Badge --}}
                 <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-100 bg-blue-50 text-blue-700 text-sm font-medium mb-6">
-
-                    <span class="material-icons-outlined text-[18px]">
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm 
+                    text-yellow-700 text-sm font-medium shadow-sm mb-6">
+                    <span class="material-icons-outlined !text-[18px] text-yellow-600">
                         auto_stories
                     </span>
-
                     Repository Akademik Digital
                 </div>
 
                 {{-- Heading --}}
-                <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-gray-950">
-
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-gray-900">
                     Akses Dokumen Akademik
-                    Secara
-                    <span class="text-blue-600">
-                        Modern
+                    <span class="text-yellow-600">
+                        Lebih Modern
                     </span>
-                    dan Terpusat
+                    dan Terstruktur
                 </h1>
 
                 {{-- Description --}}
-                <p class="mt-6 text-lg leading-relaxed text-gray-600 max-w-2xl">
-
+                <p class="mt-6 text-sm leading-relaxed text-gray-600 max-w-2xl">
                     Platform repository digital untuk menyimpan, mencari,
-                    dan mengelola dokumen akademik seperti laporan tugas akhir,
-                    jurnal mahasiswa, modul praktikum, dan dokumen penelitian lainnya.
+                    dan mengelola dokumen akademik secara terpusat dengan
+                    tampilan yang modern, sederhana, dan mudah digunakan.
                 </p>
 
-                {{-- CTA --}}
+                {{-- Action Buttons --}}
                 <div class="mt-10 flex flex-wrap items-center gap-4">
 
+                    {{-- Primary --}}
                     <a href="{{ route('repository') }}"
-                        class="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-lg shadow-blue-100 transition duration-300">
-
+                        class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium
+                        shadow-lg shadow-yellow-200/50 transition-all duration-300">
+                        <span class="material-icons-outlined !text-[18px]">
+                            folder_open
+                        </span>
                         Jelajahi Repository
                     </a>
 
+                    {{-- Secondary --}}
                     <a href="{{ route('login') }}"
-                        class="px-6 py-3 rounded-2xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium transition duration-300">
-
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-yellow-300 bg-white/90 hover:bg-yellow-50
+                        text-gray-700 text-sm font-medium shadow-sm transition-all duration-300">
+                        <span class="material-icons-outlined !text-[18px] text-yellow-500">
+                            login
+                        </span>
                         Login Sistem
                     </a>
 
                 </div>
 
-            </div>
+                {{-- Bottom Info --}}
+                <div class="mt-10 flex flex-wrap items-center gap-6 text-sm text-gray-500">
 
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                        Akses Cepat
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+                        Repository Terpusat
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                        Tampilan Modern
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </section>
 
-    {{-- STATISTICS --}}
-    <section class="max-w-7xl mx-auto px-6 -mt-10 relative z-10">
+    {{-- Statistics Section --}}
+    <section class="w-full max-w-[78rem] mx-auto px-6 -mt-10 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-
-            {{-- Documents --}}
+            {{-- Card total dokumen --}}
             <div
-                class="bg-white rounded-3xl border border-gray-200 shadow-sm p-7 hover:shadow-md transition duration-300">
+                class="group h-full min-h-[210px] bg-white backdrop-blur-sm border border-red-200 rounded-xl p-8 flex flex-col 
+                justify-between transition-all duration-300 hover:border-red-300 hover:shadow-red-300">
 
-                <div
-                    class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-5">
-
-                    <span class="material-icons-outlined text-[28px]">
-                        description
+                {{-- Top --}}
+                <div class="flex items-center justify-between">
+                    <div class="w-12 h-12 rounded-xl bg-red-50 border border-red-300 flex items-center justify-center">
+                        <span class="material-icons-outlined text-red-500 !text-[22px]">
+                            description
+                        </span>
+                    </div>
+                    <span
+                        class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-red-50 text-red-600 border border-red-300">
+                        Dokumen
                     </span>
-
                 </div>
 
-                <h2 class="text-3xl font-bold text-gray-950">
-                    {{ number_format($stats['documents']) }}
-                </h2>
-
-                <p class="mt-2 text-gray-500">
-                    Total dokumen terpublikasi
-                </p>
-
+                {{-- Content --}}
+                <div class="mt-6">
+                    <h2 class="text-4xl font-semibold tracking-tight text-gray-700">
+                        {{ number_format($stats['documents']) }}
+                    </h2>
+                    <p class="mt-4 text-[13px] leading-relaxed text-gray-500">
+                        Total dokumen akademik yang telah dipublikasikan dalam repository digital.
+                    </p>
+                </div>
             </div>
 
-            {{-- Categories --}}
+            {{-- Card jumlah kategori --}}
             <div
-                class="bg-white rounded-3xl border border-gray-200 shadow-sm p-7 hover:shadow-md transition duration-300">
+                class="group h-full min-h-[210px] bg-white backdrop-blur-sm border border-amber-200 rounded-xl p-8 flex flex-col 
+                justify-between transition-all duration-300 hover:border-amber-300 hover:shadow-amber-300">
 
-                <div
-                    class="w-14 h-14 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mb-5">
-
-                    <span class="material-icons-outlined text-[28px]">
-                        category
+                {{-- Top --}}
+                <div class="flex items-center justify-between">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-300 flex items-center justify-center">
+                        <span class="material-icons-outlined text-amber-500 !text-[22px]">
+                            folder_copy
+                        </span>
+                    </div>
+                    <span
+                        class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-300">
+                        Kategori
                     </span>
-
                 </div>
 
-                <h2 class="text-3xl font-bold text-gray-950">
-                    {{ number_format($stats['categories']) }}
-                </h2>
-
-                <p class="mt-2 text-gray-500">
-                    Kategori dokumen tersedia
-                </p>
-
+                {{-- Content --}}
+                <div class="mt-6">
+                    <h2 class="text-4xl font-semibold tracking-tight text-gray-700">
+                        {{ number_format($stats['categories']) }}
+                    </h2>
+                    <p class="mt-4 text-[13px] leading-relaxed text-gray-500">
+                        Kategori dokumen yang tersedia untuk pengelolaan repository.
+                    </p>
+                </div>
             </div>
 
-            {{-- Users --}}
+            {{-- Card jumlah user aktif --}}
             <div
-                class="bg-white rounded-3xl border border-gray-200 shadow-sm p-7 hover:shadow-md transition duration-300">
+                class="group h-full min-h-[210px] bg-white backdrop-blur-sm border border-blue-200 rounded-xl p-8 flex flex-col 
+                justify-between transition-all duration-300 hover:border-blue-300 hover:shadow-blue-300">
 
-                <div
-                    class="w-14 h-14 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center mb-5">
-
-                    <span class="material-icons-outlined text-[28px]">
-                        groups
+                {{-- Top --}}
+                <div class="flex items-center justify-between">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-300 flex items-center justify-center">
+                        <span class="material-icons-outlined text-blue-500 !text-[22px]">
+                            group
+                        </span>
+                    </div>
+                    <span
+                        class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-300">
+                        Pengguna
                     </span>
-
                 </div>
 
-                <h2 class="text-3xl font-bold text-gray-950">
-                    {{ number_format($stats['users']) }}
-                </h2>
-
-                <p class="mt-2 text-gray-500">
-                    Pengguna aktif sistem
-                </p>
-
+                {{-- Content --}}
+                <div class="mt-6">
+                    <h2 class="text-4xl font-bold tracking-tight text-gray-700">
+                        {{ number_format($stats['users']) }}
+                    </h2>
+                    <p class="mt-4 text-[13px] leading-relaxed text-gray-500">
+                        Pengguna aktif yang menggunakan sistem repository digital.
+                    </p>
+                </div>
             </div>
 
         </div>
 
     </section>
 
-    {{-- FEATURED DOCUMENTS --}}
-    <section class="max-w-7xl mx-auto px-6 py-24">
+    {{-- New Documents Section --}}
+    <section class="w-full max-w-[77rem] mx-auto px-6 py-20">
 
         {{-- Header --}}
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-6">
 
-            <div>
-
+            {{-- Left --}}
+            <div class="max-w-2xl">
+                {{-- Badge --}}
                 <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium mb-4">
-
+                    class="inline-flex items-center gap-2 px-5 py-2 rounded-3xl bg-amber-50 border border-amber-300
+                    text-amber-600 text-sm font-medium shadow-md mb-4">
                     <span class="material-icons-outlined text-[18px]">
-                        folder_open
+                        folder_copy
                     </span>
-
                     Dokumen Terbaru
                 </div>
 
-                <h2 class="text-4xl font-bold text-gray-950 tracking-tight">
-                    Koleksi Repository Publik
+                {{-- Heading --}}
+                <h2 class="text-2xl md:text-[35px] font-semibold leading-tight text-gray-900">
+                    Koleksi Repository Akademik
                 </h2>
 
-                <p class="mt-4 text-gray-600 max-w-2xl leading-relaxed">
+                {{-- Description --}}
+                <p class="mt-3 text-[14px] leading-2 text-gray-600">
                     Jelajahi berbagai dokumen akademik yang telah dipublikasikan
-                    dan tersedia untuk diakses oleh seluruh pengguna.
+                    dan tersedia untuk diakses seluruh pengguna repository digital
+                    secara mudah, cepat, dan terstruktur.
                 </p>
-
             </div>
 
-            <a href="{{ route('repository') }}"
-                class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition">
-
-                Lihat Semua
-
-                <span class="material-icons-outlined text-[20px]">
-                    arrow_forward
-                </span>
-
-            </a>
+            {{-- Right --}}
+            <div class="flex items-center">
+                <a href="{{ route('repository') }}"
+                    class="group inline-flex items-center gap-2 text-[14px] font-medium text-gray-600 transition-all duration-300">
+                    <span>
+                        Lihat Semua
+                    </span>
+                    <span
+                        class="material-icons-outlined text-[16px] text-yellow-600 transition-transform duration-300 group-hover:translate-x-1">
+                        east
+                    </span>
+                </a>
+            </div>
 
         </div>
 
         {{-- Cards --}}
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
             @forelse ($documents as $document)
                 <a href="{{ route('repository.show', $document->id) }}"
-                    class="group bg-white rounded-3xl border border-gray-200 hover:border-blue-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden">
+                    class="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-amber-200 bg-white shadow-sm 
+                    transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-yellow-100/40 hover:border-yellow-300">
 
-                    {{-- Top --}}
-                    <div class="p-7">
+                    {{-- Glow Effect --}}
+                    <div
+                        class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-50/60 via-transparent to-amber-50/40
+                        group-hover:opacity-100">
+                    </div>
 
-                        {{-- Category --}}
-                        <div class="flex items-center justify-between gap-3 mb-5">
+                    {{-- Content --}}
+                    <div class="relative p-6 flex flex-col h-full">
 
+                        {{-- Top --}}
+                        <div class="flex items-start justify-between gap-4 mb-5">
+
+                            {{-- Category --}}
                             <span
-                                class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-100">
-
+                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50
+                                border border-amber-200 text-amber-600 text-[11px] font-medium tracking-wide">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                                 {{ $document->category->name }}
                             </span>
 
-                            <span class="text-xs text-gray-400">
-                                {{ $document->created_at->format('d M Y') }}
-                            </span>
-
+                            {{-- Date --}}
+                            <div class="text-right shrink-0">
+                                <p class="text-[9px] uppercase tracking-wide font-medium text-green-600">
+                                    Published
+                                </p>
+                                <p class="text-[11px] font-medium text-gray-500">
+                                    {{ $document->created_at->format('d M Y') }}
+                                </p>
+                            </div>
                         </div>
 
                         {{-- Title --}}
                         <h3
-                            class="text-xl font-bold text-gray-900 leading-snug line-clamp-2 group-hover:text-blue-600 transition">
-
+                            class="text-[20px] leading-snug font-semibold uppercase text-gray-800 line-clamp-2 transition duration-300 group-hover:text-yellow-700">
                             {{ $document->title }}
                         </h3>
 
                         {{-- Description --}}
-                        <p class="mt-4 text-sm leading-relaxed text-gray-500 line-clamp-3">
-
+                        <p class="mt-4 text-[13px] leading-relaxed text-gray-500 line-clamp-3">
                             Dokumen akademik yang telah dipublikasikan
                             dalam repository sistem dan tersedia
-                            untuk ditinjau lebih lanjut.
+                            untuk ditinjau lebih lanjut oleh pengguna.
                         </p>
 
-                    </div>
+                        {{-- Divider --}}
+                        <div class="mt-6 border-t border-dashed border-gray-300"></div>
 
-                    {{-- Footer --}}
-                    <div
-                        class="px-7 py-5 border-t border-gray-100 bg-gray-50/60 flex items-center justify-between">
+                        {{-- Footer --}}
+                        <div class="mt-5 flex items-center justify-between gap-4">
 
-                        <div class="flex items-center gap-3">
+                            {{-- User info & avatar profile --}}
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div
+                                    class="w-11 h-11 rounded-full bg-gray-50 border border-gray-200
+                                    flex items-center justify-center text-gray-600 text-sm font-semibold shrink-0 shadow-sm ring-1 ring-gray-100">
+                                    {{ strtoupper(substr($document->user->name, 0, 1)) }}
+                                </div>
 
-                            <div
-                                class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-600">
-
-                                <span class="material-icons-outlined text-[20px]">
-                                    person
-                                </span>
-
+                                <div class="min-w-0">
+                                    <p class="text-sm font-semibold text-gray-600 truncate">
+                                        {{ $document->user->name }}
+                                    </p>
+                                    <p class="text-xs text-gray-500 capitalize">
+                                        {{ $document->user->role }}
+                                    </p>
+                                </div>
                             </div>
 
-                            <div>
-                                <p class="text-sm font-medium text-gray-800">
-                                    {{ $document->user->name }}
-                                </p>
-
-                                <p class="text-xs text-gray-500">
-                                    {{ ucfirst($document->user->role) }}
-                                </p>
+                            {{-- Detail --}}
+                            <div
+                                class="flex items-center gap-1.5 text-[13px] font-medium text-gray-400 transition-all duration-300
+                                group-hover:text-yellow-700">
+                                <span>
+                                    Detail
+                                </span>
+                                <span class="material-icons-outlined text-[15px]">
+                                    open_in_new
+                                </span>
                             </div>
 
                         </div>
 
-                        <span
-                            class="material-icons-outlined text-gray-400 group-hover:text-blue-600 transition">
-                            arrow_forward
-                        </span>
-
                     </div>
 
                 </a>
+
             @empty
 
+                {{-- Empty State --}}
                 <div
-                    class="col-span-full bg-white border border-dashed border-gray-300 rounded-3xl p-16 text-center">
-
+                    class="col-span-full rounded-3xl border border-dashed border-yellow-200 bg-gradient-to-br from-white to-yellow-50/40
+                    p-16 text-center shadow-sm">
                     <div
-                        class="w-20 h-20 mx-auto rounded-3xl bg-gray-100 flex items-center justify-center text-gray-400">
-
-                        <span class="material-icons-outlined text-[38px]">
+                        class="w-24 h-24 mx-auto rounded-3xl bg-gradient-to-br from-yellow-50 to-amber-50 border border-yellow-100
+                        flex items-center justify-center text-yellow-600 shadow-inner">
+                        <span class="material-icons-outlined text-[40px]">
                             folder_off
                         </span>
-
                     </div>
-
-                    <h3 class="mt-6 text-xl font-semibold text-gray-800">
+                    <h3 class="mt-7 text-2xl font-bold text-gray-800">
                         Belum Ada Dokumen
                     </h3>
-
-                    <p class="mt-2 text-gray-500">
-                        Dokumen publik belum tersedia saat ini.
+                    <p class="mt-3 text-sm leading-relaxed text-gray-500 max-w-md mx-auto">
+                        Saat ini belum terdapat dokumen publik yang tersedia
+                        di dalam repository sistem.
                     </p>
-
                 </div>
-
             @endforelse
-
         </div>
-
     </section>
 
-    {{-- BENEFITS --}}
-    <section class="bg-white border-y border-gray-200">
+    {{-- Benefits Section --}}
+    <section class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-y border-yellow-100">
 
-        <div class="max-w-7xl mx-auto px-6 py-24">
+        {{-- Soft Decoration --}}
+        <div class="absolute -top-32 -left-32 w-80 h-80 bg-yellow-300/40 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="absolute bottom-0 right-0 w-[280px] h-[280px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative max-w-[78rem] mx-auto px-6 py-16">
 
             {{-- Heading --}}
-            <div class="max-w-3xl mb-16">
+            <div class="max-w-2xl mb-10">
 
-                <h2 class="text-4xl font-bold text-gray-950 tracking-tight">
-                    Mengapa Menggunakan Repository Ini?
+                {{-- Badge --}}
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-amber-300
+                    text-amber-600 text-sm font-medium shadow-sm mb-5">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    Keunggulan Repository
+                </div>
+
+                <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-gray-950">
+                    Mengapa Menggunakan
+                    <span class="text-yellow-700">
+                        Repository Ini?
+                    </span>
                 </h2>
 
-                <p class="mt-5 text-lg leading-relaxed text-gray-600">
-                    Sistem repository modern yang dirancang untuk membantu
-                    penyimpanan dan distribusi dokumen akademik secara lebih efisien.
+                <p class="mt-2 text-[15px] text-gray-600">
+                    Sistem repository modern untuk penyimpanan dan distribusi
+                    dokumen akademik secara lebih cepat, aman, dan terstruktur.
                 </p>
-
             </div>
 
             {{-- Grid --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
 
-                {{-- Item --}}
-                <div class="rounded-3xl border border-gray-200 p-8 hover:shadow-md transition">
+                {{-- Card --}}
+                <div class="group relative overflow-hidden rounded-2xl border border-yellow-100/80 bg-white/80 backdrop-blur-sm
+                    p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-yellow-100/40">
 
-                    <div
-                        class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
-
-                        <span class="material-icons-outlined text-[28px]">
-                            search
-                        </span>
-
+                    {{-- Glow --}}
+                    <div class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-50/60 via-transparent to-transparent
+                        group-hover:opacity-100">
                     </div>
 
-                    <h3 class="text-xl font-semibold text-gray-900">
-                        Pencarian Cepat
-                    </h3>
-
-                    <p class="mt-4 text-gray-600 leading-relaxed">
-                        Temukan dokumen akademik secara mudah melalui
-                        sistem pencarian modern dan terstruktur.
-                    </p>
+                    {{-- Icon --}}
+                    <div class="relative">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-100 to-amber-50 border border-yellow-200
+                            text-yellow-700 flex items-center justify-center shadow-sm mb-5">
+                            <span class="material-icons-outlined text-[26px]">
+                                search
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">
+                            Pencarian Cepat
+                        </h3>
+                        <p class="mt-3 text-sm leading-relaxed text-gray-600">
+                            Temukan dokumen akademik secara mudah
+                            melalui sistem pencarian modern.
+                        </p>
+                    </div>
 
                 </div>
 
-                {{-- Item --}}
-                <div class="rounded-3xl border border-gray-200 p-8 hover:shadow-md transition">
+                {{-- Card --}}
+                <div class="group relative overflow-hidden rounded-2xl border border-yellow-100/80 bg-white/80 backdrop-blur-sm
+                    p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-yellow-100/40">
 
-                    <div
-                        class="w-14 h-14 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mb-6">
-
-                        <span class="material-icons-outlined text-[28px]">
-                            security
-                        </span>
-
+                    {{-- Glow --}}
+                    <div class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-amber-50/60 via-transparent to-transparent
+                        group-hover:opacity-100">
                     </div>
 
-                    <h3 class="text-xl font-semibold text-gray-900">
-                        Validasi Dokumen
-                    </h3>
+                    <div class="relative">
+                        <div  class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-100 to-yellow-50 border border-amber-200
+                            text-amber-700 flex items-center justify-center shadow-sm mb-5">
+                            <span class="material-icons-outlined text-[26px]">
+                                verified_user
+                            </span>
+                        </div>
 
-                    <p class="mt-4 text-gray-600 leading-relaxed">
-                        Seluruh dokumen diverifikasi admin sehingga
-                        kualitas dan validitas data lebih terjaga.
-                    </p>
+                        <h3 class="text-xl font-semibold text-gray-900">
+                            Validasi Dokumen
+                        </h3>
 
+                        <p class="mt-3 text-sm leading-relaxed text-gray-600">
+                            Seluruh dokumen diverifikasi agar
+                            kualitas data tetap terpercaya.
+                        </p>
+                    </div>
                 </div>
 
-                {{-- Item --}}
-                <div class="rounded-3xl border border-gray-200 p-8 hover:shadow-md transition">
+                {{-- Card --}}
+                <div class="group relative overflow-hidden rounded-2xl border border-yellow-100/80 bg-white/80 backdrop-blur-sm
+                    p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-yellow-100/40">
 
-                    <div
-                        class="w-14 h-14 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center mb-6">
-
-                        <span class="material-icons-outlined text-[28px]">
-                            cloud_done
-                        </span>
-
+                    {{-- Glow --}}
+                    <div class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-50/60 via-transparent to-transparent
+                        group-hover:opacity-100">
                     </div>
 
-                    <h3 class="text-xl font-semibold text-gray-900">
-                        Akses Terpusat
-                    </h3>
+                    <div class="relative">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-100 to-amber-50 border border-yellow-200
+                            text-yellow-700 flex items-center justify-center shadow-sm mb-5">
+                            <span class="material-icons-outlined text-[26px]">
+                                cloud_done
+                            </span>
+                        </div>
 
-                    <p class="mt-4 text-gray-600 leading-relaxed">
-                        Seluruh dokumen akademik tersimpan dalam
-                        satu sistem digital yang modern dan terintegrasi.
-                    </p>
+                        <h3 class="text-xl font-semibold text-gray-900">
+                            Akses Terpusat
+                        </h3>
+
+                        <p class="mt-3 text-sm leading-relaxed text-gray-600">
+                            Semua dokumen tersimpan dalam
+                            satu sistem digital modern.
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -397,15 +483,13 @@
 
     </section>
 
-    {{-- CTA --}}
+    {{-- CTA section --}}
     <section class="max-w-7xl mx-auto px-6 py-24">
 
-        <div
-            class="relative overflow-hidden rounded-[40px] bg-gray-950 px-8 py-16 lg:px-16 lg:py-20 text-white">
+        <div class="relative overflow-hidden rounded-[40px] bg-gray-950 px-8 py-16 lg:px-16 lg:py-20 text-white">
 
             {{-- Blur --}}
-            <div
-                class="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-500/20 rounded-full blur-3xl">
+            <div class="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-500/20 rounded-full blur-3xl">
             </div>
 
             <div class="relative max-w-3xl">
@@ -453,5 +537,8 @@
         </div>
 
     </section>
+
+
+
 
 @endsection

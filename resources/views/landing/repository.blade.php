@@ -1,6 +1,6 @@
 @extends('landing.layouts.public')
 
-{{-- @section('title', 'Repository Publik') --}}
+@section('title', 'Repository Dokumen Akademik')
 @section('meta_description', 'Jelajahi koleksi dokumen akademik publik dalam repository digital modern.')
 
 @section('content')
