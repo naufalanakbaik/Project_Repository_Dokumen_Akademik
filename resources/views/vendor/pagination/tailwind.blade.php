@@ -3,15 +3,19 @@
     <nav class="flex items-center justify-center">
 
         <div
-            class="inline-flex items-center gap-2 rounded-2xl border border-gray-200 bg-white p-2 shadow-sm">
+            class="inline-flex items-center gap-1.5
+            rounded-2xl border border-gray-200
+            bg-white px-2 py-2 shadow-sm">
 
             {{-- Previous --}}
             @if ($paginator->onFirstPage())
 
                 <span
-                    class="w-11 h-11 rounded-xl flex items-center justify-center text-gray-300 cursor-not-allowed">
+                    class="w-10 h-10 rounded-xl
+                    flex items-center justify-center
+                    text-gray-300 cursor-not-allowed">
 
-                    <span class="material-icons-outlined text-[20px]">
+                    <span class="material-icons-outlined text-[18px]">
                         chevron_left
                     </span>
 
@@ -20,9 +24,12 @@
             @else
 
                 <a href="{{ $paginator->previousPageUrl() }}"
-                    class="w-11 h-11 rounded-xl flex items-center justify-center text-gray-600 hover:bg-gray-100 transition">
+                    class="w-10 h-10 rounded-xl
+                    flex items-center justify-center
+                    text-gray-500 transition-all duration-200
+                    hover:bg-amber-50 hover:text-amber-700">
 
-                    <span class="material-icons-outlined text-[20px]">
+                    <span class="material-icons-outlined text-[18px]">
                         chevron_left
                     </span>
 
@@ -33,14 +40,16 @@
             {{-- Pages --}}
             @foreach ($elements as $element)
 
+                {{-- Separator --}}
                 @if (is_string($element))
 
-                    <span class="px-2 text-gray-400">
+                    <span class="px-1 text-sm text-gray-300">
                         {{ $element }}
                     </span>
 
                 @endif
 
+                {{-- Page Number --}}
                 @if (is_array($element))
 
                     @foreach ($element as $page => $url)
@@ -48,16 +57,26 @@
                         @if ($page == $paginator->currentPage())
 
                             <span
-                                class="w-11 h-11 rounded-xl bg-blue-600 text-white text-sm font-semibold flex items-center justify-center shadow-sm">
+                                class="w-10 h-10 rounded-xl
+                                bg-amber-100 border border-amber-200
+                                text-amber-700 text-sm font-semibold
+                                flex items-center justify-center">
 
                                 {{ $page }}
+
                             </span>
+
                         @else
 
                             <a href="{{ $url }}"
-                                class="w-11 h-11 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center justify-center transition">
+                                class="w-10 h-10 rounded-xl
+                                text-sm font-medium text-gray-600
+                                flex items-center justify-center
+                                transition-all duration-200
+                                hover:bg-gray-50 hover:text-gray-900">
 
                                 {{ $page }}
+
                             </a>
 
                         @endif
@@ -72,9 +91,12 @@
             @if ($paginator->hasMorePages())
 
                 <a href="{{ $paginator->nextPageUrl() }}"
-                    class="w-11 h-11 rounded-xl flex items-center justify-center text-gray-600 hover:bg-gray-100 transition">
+                    class="w-10 h-10 rounded-xl
+                    flex items-center justify-center
+                    text-gray-500 transition-all duration-200
+                    hover:bg-amber-50 hover:text-amber-700">
 
-                    <span class="material-icons-outlined text-[20px]">
+                    <span class="material-icons-outlined text-[18px]">
                         chevron_right
                     </span>
 
@@ -83,9 +105,11 @@
             @else
 
                 <span
-                    class="w-11 h-11 rounded-xl flex items-center justify-center text-gray-300 cursor-not-allowed">
+                    class="w-10 h-10 rounded-xl
+                    flex items-center justify-center
+                    text-gray-300 cursor-not-allowed">
 
-                    <span class="material-icons-outlined text-[20px]">
+                    <span class="material-icons-outlined text-[18px]">
                         chevron_right
                     </span>
 

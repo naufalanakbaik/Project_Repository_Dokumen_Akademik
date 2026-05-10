@@ -2,8 +2,7 @@
 
 @section('title', 'Beranda Dokumen Akademik')
 @section('meta_description',
-    'Platform repository akademik digital untuk mengakses jurnal, laporan tugas akhir, dan
-    dokumen penelitian.')
+    'Platform repository akademik digital untuk mengakses jurnal, laporan tugas akhir, dan dokumen penelitian.')
 
 @section('content')
 
@@ -14,8 +13,7 @@
         {{-- Soft Decoration --}}
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/30 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-100/50 rounded-full blur-3xl pointer-events-none">
-        </div>
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-100/50 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
@@ -24,7 +22,7 @@
                 <div
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm 
                     text-yellow-700 text-sm font-medium shadow-sm mb-6">
-                    <span class="material-icons-outlined !text-[18px] text-yellow-600">
+                    <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                         auto_stories
                     </span>
                     Repository Akademik Digital
@@ -53,7 +51,7 @@
                     <a href="{{ route('repository') }}"
                         class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium
                         shadow-lg shadow-yellow-200/50 transition-all duration-300">
-                        <span class="material-icons-outlined !text-[18px]">
+                        <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
                         Jelajahi Repository
@@ -63,7 +61,7 @@
                     <a href="{{ route('login') }}"
                         class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-yellow-300 bg-white/90 hover:bg-yellow-50
                         text-gray-700 text-sm font-medium shadow-sm transition-all duration-300">
-                        <span class="material-icons-outlined !text-[18px] text-yellow-500">
+                        <span class="material-symbols-outlined !text-[18px] text-yellow-500">
                             login
                         </span>
                         Login Sistem
@@ -107,7 +105,7 @@
                 {{-- Top --}}
                 <div class="flex items-center justify-between">
                     <div class="w-12 h-12 rounded-xl bg-red-50 border border-red-300 flex items-center justify-center">
-                        <span class="material-icons-outlined text-red-500 !text-[22px]">
+                        <span class="material-symbols-outlined text-red-500 !text-[22px]">
                             description
                         </span>
                     </div>
@@ -136,7 +134,7 @@
                 {{-- Top --}}
                 <div class="flex items-center justify-between">
                     <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-300 flex items-center justify-center">
-                        <span class="material-icons-outlined text-amber-500 !text-[22px]">
+                        <span class="material-symbols-outlined text-amber-500 !text-[22px]">
                             folder_copy
                         </span>
                     </div>
@@ -165,7 +163,7 @@
                 {{-- Top --}}
                 <div class="flex items-center justify-between">
                     <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-300 flex items-center justify-center">
-                        <span class="material-icons-outlined text-blue-500 !text-[22px]">
+                        <span class="material-symbols-outlined text-blue-500 !text-[22px]">
                             group
                         </span>
                     </div>
@@ -190,7 +188,7 @@
 
     </section>
 
-    {{-- New Documents Section --}}
+    {{-- Documents Section --}}
     <section class="w-full max-w-[77rem] mx-auto px-6 py-20">
 
         {{-- Header --}}
@@ -200,11 +198,9 @@
             <div class="max-w-2xl">
                 {{-- Badge --}}
                 <div
-                    class="inline-flex items-center gap-2 px-5 py-2 rounded-3xl bg-amber-50 border border-amber-300
-                    text-amber-600 text-sm font-medium shadow-md mb-4">
-                    <span class="material-icons-outlined text-[18px]">
-                        folder_copy
-                    </span>
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 backdrop-blur-sm border border-yellow-300
+                    text-yellow-700 text-[14px] font-medium shadow-md mb-4">
+                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                     Dokumen Terbaru
                 </div>
 
@@ -229,7 +225,7 @@
                         Lihat Semua
                     </span>
                     <span
-                        class="material-icons-outlined text-[16px] text-yellow-600 transition-transform duration-300 group-hover:translate-x-1">
+                        class="material-symbols-outlined !text-[16px] text-yellow-600 transition-transform duration-300 group-hover:translate-x-1">
                         east
                     </span>
                 </a>
@@ -269,7 +265,7 @@
                                 <p class="text-[9px] uppercase tracking-wide font-medium text-green-600">
                                     Published
                                 </p>
-                                <p class="text-[11px] font-medium text-gray-500">
+                                <p class="text-[11px] font-normal text-gray-400">
                                     {{ $document->created_at->format('d M Y') }}
                                 </p>
                             </div>
@@ -297,8 +293,8 @@
                             {{-- User info & avatar profile --}}
                             <div class="flex items-center gap-3 min-w-0">
                                 <div
-                                    class="w-11 h-11 rounded-full bg-gray-50 border border-gray-200
-                                    flex items-center justify-center text-gray-600 text-sm font-semibold shrink-0 shadow-sm ring-1 ring-gray-100">
+                                    class="w-11 h-11 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center
+                                    text-gray-700 text-sm font-semibold shrink-0 shadow-sm">
                                     {{ strtoupper(substr($document->user->name, 0, 1)) }}
                                 </div>
 
@@ -319,7 +315,7 @@
                                 <span>
                                     Detail
                                 </span>
-                                <span class="material-icons-outlined text-[15px]">
+                                <span class="material-symbols-outlined !text-[15px]">
                                     open_in_new
                                 </span>
                             </div>
@@ -339,7 +335,7 @@
                     <div
                         class="w-24 h-24 mx-auto rounded-3xl bg-gradient-to-br from-yellow-50 to-amber-50 border border-yellow-100
                         flex items-center justify-center text-yellow-600 shadow-inner">
-                        <span class="material-icons-outlined text-[40px]">
+                        <span class="material-symbols-outlined text-[40px]">
                             folder_off
                         </span>
                     </div>
@@ -356,12 +352,15 @@
     </section>
 
     {{-- Benefits Section --}}
-    <section class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-y border-yellow-100">
+    <section
+        class="relative overflow-hidden shadow-amber-100 bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-y border-yellow-100">
 
         {{-- Soft Decoration --}}
         <div class="absolute -top-32 -left-32 w-80 h-80 bg-yellow-300/40 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="absolute bottom-0 right-0 w-[280px] h-[280px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div
+            class="absolute bottom-0 right-0 w-[280px] h-[280px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none">
+        </div>
 
         <div class="relative max-w-[78rem] mx-auto px-6 py-16">
 
@@ -369,8 +368,9 @@
             <div class="max-w-2xl mb-10">
 
                 {{-- Badge --}}
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-amber-300
-                    text-amber-600 text-sm font-medium shadow-sm mb-5">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-amber-300
+                    text-amber-700 text-sm font-medium shadow-sm mb-5">
                     <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                     Keunggulan Repository
                 </div>
@@ -389,29 +389,32 @@
             </div>
 
             {{-- Grid --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
                 {{-- Card --}}
-                <div class="group relative overflow-hidden rounded-2xl border border-yellow-100/80 bg-white/80 backdrop-blur-sm
+                <div
+                    class="group relative overflow-hidden rounded-xl border border-amber-200 bg-white/80 backdrop-blur-sm
                     p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-yellow-100/40">
 
                     {{-- Glow --}}
-                    <div class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-50/60 via-transparent to-transparent
+                    <div
+                        class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-50/60 via-transparent to-transparent
                         group-hover:opacity-100">
                     </div>
 
                     {{-- Icon --}}
                     <div class="relative">
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-100 to-amber-50 border border-yellow-200
+                        <div
+                            class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-100 to-amber-50 border border-yellow-200
                             text-yellow-700 flex items-center justify-center shadow-sm mb-5">
-                            <span class="material-icons-outlined text-[26px]">
+                            <span class="material-symbols-outlined !text-[26px]">
                                 search
                             </span>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900">
+                        <h3 class="text-xl font-semibold text-gray-800">
                             Pencarian Cepat
                         </h3>
-                        <p class="mt-3 text-sm leading-relaxed text-gray-600">
+                        <p class="mt-3 text-[13px] leading-relaxed text-gray-600">
                             Temukan dokumen akademik secara mudah
                             melalui sistem pencarian modern.
                         </p>
@@ -420,27 +423,30 @@
                 </div>
 
                 {{-- Card --}}
-                <div class="group relative overflow-hidden rounded-2xl border border-yellow-100/80 bg-white/80 backdrop-blur-sm
+                <div
+                    class="group relative overflow-hidden rounded-xl border border-amber-200 bg-white/80 backdrop-blur-sm
                     p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-yellow-100/40">
 
                     {{-- Glow --}}
-                    <div class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-amber-50/60 via-transparent to-transparent
+                    <div
+                        class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-amber-50/60 via-transparent to-transparent
                         group-hover:opacity-100">
                     </div>
 
                     <div class="relative">
-                        <div  class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-100 to-yellow-50 border border-amber-200
+                        <div
+                            class="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-100 to-yellow-50 border border-amber-200
                             text-amber-700 flex items-center justify-center shadow-sm mb-5">
-                            <span class="material-icons-outlined text-[26px]">
+                            <span class="material-symbols-outlined !text-[26px]">
                                 verified_user
                             </span>
                         </div>
 
-                        <h3 class="text-xl font-semibold text-gray-900">
+                        <h3 class="text-xl font-semibold text-gray-800">
                             Validasi Dokumen
                         </h3>
 
-                        <p class="mt-3 text-sm leading-relaxed text-gray-600">
+                        <p class="mt-3 text-[13px] leading-relaxed text-gray-600">
                             Seluruh dokumen diverifikasi agar
                             kualitas data tetap terpercaya.
                         </p>
@@ -448,27 +454,30 @@
                 </div>
 
                 {{-- Card --}}
-                <div class="group relative overflow-hidden rounded-2xl border border-yellow-100/80 bg-white/80 backdrop-blur-sm
+                <div
+                    class="group relative overflow-hidden rounded-xl border border-amber-200 bg-white/80 backdrop-blur-sm
                     p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-yellow-100/40">
 
                     {{-- Glow --}}
-                    <div class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-50/60 via-transparent to-transparent
+                    <div
+                        class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-50/60 via-transparent to-transparent
                         group-hover:opacity-100">
                     </div>
 
                     <div class="relative">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-100 to-amber-50 border border-yellow-200
+                        <div
+                            class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-100 to-amber-50 border border-yellow-200
                             text-yellow-700 flex items-center justify-center shadow-sm mb-5">
-                            <span class="material-icons-outlined text-[26px]">
+                            <span class="material-symbols-outlined !text-[26px]">
                                 cloud_done
                             </span>
                         </div>
 
-                        <h3 class="text-xl font-semibold text-gray-900">
+                        <h3 class="text-xl font-semibold text-gray-00">
                             Akses Terpusat
                         </h3>
 
-                        <p class="mt-3 text-sm leading-relaxed text-gray-600">
+                        <p class="mt-3 text-[13px] leading-relaxed text-gray-600">
                             Semua dokumen tersimpan dalam
                             satu sistem digital modern.
                         </p>
@@ -483,53 +492,62 @@
 
     </section>
 
-    {{-- CTA section --}}
-    <section class="max-w-7xl mx-auto px-6 py-24">
+    {{-- CTA Section --}}
+    <section class="max-w-[78rem] mx-auto px-6 py-20">
 
-        <div class="relative overflow-hidden rounded-[40px] bg-gray-950 px-8 py-16 lg:px-16 lg:py-20 text-white">
+        <div class="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-yellow-50 via-amber-50 to-white
+            px-8 py-14 lg:px-14 lg:py-16">
 
-            {{-- Blur --}}
-            <div class="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-500/20 rounded-full blur-3xl">
+            {{-- Soft Blur --}}
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-yellow-200/40 rounded-full blur-3xl pointer-events-none">
             </div>
 
+            <div class="absolute bottom-0 left-0 w-60 h-60 bg-amber-100/50 rounded-full blur-3xl pointer-events-none">
+            </div>
+
+            {{-- Content --}}
             <div class="relative max-w-3xl">
 
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 text-sm font-medium mb-6">
-
-                    <span class="material-icons-outlined text-[18px]">
-                        lock
-                    </span>
-
+                {{-- Badge --}}
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-yellow-200
+                    text-yellow-700 text-sm font-medium shadow-sm mb-5">
+                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                     Akses Repository Penuh
                 </div>
 
-                <h2 class="text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
-
+                {{-- Heading --}}
+                <h2 class="text-4xl lg:text-4xl font-bold tracking-tight leading-relaxed text-gray-950">
                     Login untuk Mengakses
-                    Seluruh Fitur Repository
+                    <span class="text-yellow-700">
+                        Seluruh Fitur Repository
+                    </span>
                 </h2>
 
-                <p class="mt-6 text-lg text-gray-300 leading-relaxed">
-                    Masuk ke sistem untuk melihat seluruh koleksi dokumen,
-                    melakukan download file, upload dokumen akademik,
-                    dan mengakses dashboard repository.
+                {{-- Description --}}
+                <p class="mt-5 text-[15px] leading-relaxed text-gray-600 max-w-2xl">
+                    Masuk ke sistem untuk melakukan download dokumen,
+                    preview file lengkap, upload repository,
+                    dan mengakses seluruh dashboard akademik.
                 </p>
 
-                <div class="mt-10 flex flex-wrap gap-4">
-
-                    <a href="{{ route('login') }}"
-                        class="px-6 py-3 rounded-2xl bg-white text-gray-900 font-semibold hover:bg-gray-100 transition">
-
-                        Masuk ke Sistem
+                {{-- Action buttons--}}
+                <div class="mt-10 flex flex-wrap items-center gap-4">
+                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-950 text-white text-sm 
+                    font-semibold transition-all duration-300 hover:bg-black hover:-translate-y-0.5">
+                        <span class="material-symbols-outlined !text-[18px]">
+                            login
+                        </span>
+                        Login ke Sistem
                     </a>
 
-                    <a href="{{ route('repository') }}"
-                        class="px-6 py-3 rounded-2xl border border-white/15 hover:bg-white/5 transition">
-
+                    <a href="{{ route('repository') }}" 
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 
+                        text-gray-800 text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300">
+                        <span class="material-symbols-outlined !text-[18px]">
+                            folder_open
+                        </span>
                         Lihat Repository
                     </a>
-
                 </div>
 
             </div>
@@ -537,8 +555,5 @@
         </div>
 
     </section>
-
-
-
 
 @endsection

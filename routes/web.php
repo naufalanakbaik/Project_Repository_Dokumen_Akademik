@@ -23,6 +23,9 @@ Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 // -- Repository publik (halaman katalog dokumen) -> publik
 Route::get('/repository', [LandingPageController::class, 'repository'])->name('repository');
 
+// -- Profile kami -> publik
+Route::view('/profile', 'landing.profile')->name('profile');
+
 // -- Detail dokumen publik (halaman detail dokumen) -> publik
 Route::get('/repository/{id}', [LandingPageController::class, 'show'])->name('repository.show');
 

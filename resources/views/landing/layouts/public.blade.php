@@ -32,6 +32,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     {{-- Material Icons --}}
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     {{-- Custom Styles GGlobal --}}
@@ -112,11 +113,11 @@
                             {
                                 return 'relative inline-block px-1 py-2 text-sm font-medium transition duration-200 ' .
                                     ($isActive
-                                        ? 'text-amber-500'
-                                        : 'text-gray-600 hover:text-amber-500 dark:text-gray-300 dark:hover:text-amber-500') .
+                                        ? 'text-amber-600'
+                                        : 'text-gray-600 hover:text-amber-600 dark:text-gray-300 dark:hover:text-amber-500') .
                                     " after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
                                         after:-bottom-1 after:h-[2.5px] after:rounded-full
-                                        after:bg-amber-500 after:transition-all after:duration-300 " .
+                                        after:bg-amber-600 after:transition-all after:duration-300 " .
                                     ($isActive ? 'after:w-6' : 'after:w-0 hover:after:w-6');
                             }
                         @endphp
@@ -132,7 +133,7 @@
                         </a>
 
                         {{-- Repository --}}
-                        <a href="/" class="{{ navClass(request()->routeIs('/')) }}">
+                        <a href="{{ route('profile') }}" class="{{ navClass(request()->routeIs('profile')) }}">
                             Profile Kami
                         </a>
                     </div>
@@ -148,7 +149,7 @@
                             Masuk
                         </a>
                         <a href="{{ route('login') }}"
-                            class="px-4 py-2 rounded-lg bg-white text-amber-500 border border-amber-300 text-[12px] font-medium shadow-sm 
+                            class="px-4 py-2 rounded-lg bg-white text-amber-600 border border-amber-300 text-[12px] font-medium shadow-sm 
                             transition hover:bg-amber-50 hover:shadow-md">
                             Login Sistem
                         </a>
@@ -170,7 +171,7 @@
     </main>
 
     {{-- Footer --}}
-    <footer class="border-t border-gray-200 bg-white mt-24">
+    <footer class="border-t border-gray-200 bg-white">
         <div class="max-w-7xl mx-auto px-6 py-10">
 
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">

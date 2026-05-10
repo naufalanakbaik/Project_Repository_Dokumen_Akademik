@@ -5,311 +5,308 @@
 
 @section('content')
 
-    {{-- HEADER --}}
-    <section class="relative overflow-hidden hero-gradient border-b border-gray-200">
+    {{-- Header --}}
+    <section
+        class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100">
 
-        {{-- Blur --}}
-        <div
-            class="absolute top-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2">
+        {{-- Soft Decoration --}}
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/30 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-100/50 rounded-full blur-3xl pointer-events-none">
         </div>
 
-        <div class="relative max-w-7xl mx-auto px-6 py-20">
-
+        <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
 
                 {{-- Badge --}}
                 <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-sm font-medium mb-6">
-
-                    <span class="material-icons-outlined text-[18px]">
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm 
+                    text-yellow-700 text-sm font-medium shadow-sm mb-6">
+                    <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                         auto_stories
                     </span>
-
-                    Repository Publik
+                    Repository Akademik Digital
                 </div>
 
                 {{-- Title --}}
-                <h1 class="text-5xl font-extrabold tracking-tight text-gray-950 leading-tight">
-
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-gray-900">
                     Jelajahi Dokumen
-                    Akademik Publik
+                    <span class="text-yellow-600">
+                        Akademik Publik
+                    </span>
                 </h1>
 
                 {{-- Description --}}
-                <p class="mt-6 text-lg text-gray-600 leading-relaxed max-w-2xl">
-
+                <p class="mt-5 text-sm leading-relaxed text-gray-600 max-w-2xl">
                     Temukan berbagai dokumen akademik seperti laporan,
                     jurnal mahasiswa, dan dokumen penelitian
                     yang telah dipublikasikan dalam sistem repository.
                 </p>
-
             </div>
-
         </div>
-
     </section>
 
-    {{-- SEARCH --}}
-    <section class="max-w-7xl mx-auto px-6 -mt-8 relative z-10">
-
-        <div class="bg-white border border-gray-200 rounded-3xl shadow-sm p-5">
-
+    {{-- Search Section --}}
+    <section class="max-w-[75rem] mx-auto px-6 -mt-8 relative z-10">
+        <div class="rounded-2xl border border-gray-200 bg-white/95 backdrop-blur-sm shadow-sm p-5">
             <form method="GET" action="{{ route('repository') }}">
-
                 <div class="flex flex-col lg:flex-row gap-4">
 
                     {{-- Search Input --}}
                     <div class="flex-1 relative">
 
+                        {{-- Icon --}}
                         <span
-                            class="material-icons-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-[22px]">
-
+                            class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 !text-[20px]">
                             search
                         </span>
 
-                        <input type="text"
-                            name="search"
-                            value="{{ request('search') }}"
+                        {{-- Input --}}
+                        <input type="text" name="search" value="{{ request('search') }}"
                             placeholder="Cari judul dokumen atau kategori..."
-                            class="w-full h-14 pl-12 pr-4 rounded-2xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition">
-
+                            class="w-full h-14 pl-12 pr-4 rounded-xl border border-gray-200 bg-white text-gray-700 placeholder:text-gray-400
+                            text-sm shadow-sm transition-all duration-200 focus:outline-none focus:border-yellow-400 focus:ring-4
+                            focus:ring-yellow-100">
                     </div>
 
                     {{-- Button --}}
                     <button type="submit"
-                        class="h-14 px-8 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-medium transition shadow-sm">
-
-                        Cari Dokumen
+                        class="h-14 px-6 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm font-medium inline-flex items-center 
+                        justify-center gap-2 shadow-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-300">
+                        <span class="material-symbols-outlined text-[19px]">
+                            search
+                        </span>
+                        Cari
                     </button>
-
                 </div>
-
             </form>
-
         </div>
-
     </section>
 
-    {{-- DOCUMENTS --}}
-    <section class="max-w-7xl mx-auto px-6 py-16">
+    {{-- Repository documents --}}
+    <section class="w-full max-w-[78rem] mx-auto px-6 py-12">
 
-        {{-- Top --}}
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-10">
+        {{-- Header --}}
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-10">
+            {{-- Left --}}
+            <div class="max-w-2xl">
+                {{-- Badge --}}
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 border border-amber-200
+                    text-amber-700 text-[13px] font-medium shadow-sm mb-3">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    Repository Digital
+                </div>
 
-            <div>
-
-                <h2 class="text-2xl font-bold text-gray-950">
-                    Koleksi Dokumen
+                {{-- Heading --}}
+                <h2 class="text-3xl md:text-[36px] font-semibold tracking-tight leading-tight text-gray-900">
+                    Koleksi Dokumen Akademik
                 </h2>
 
-                <p class="mt-2 text-gray-500">
-                    Menampilkan {{ $documents->total() }} dokumen publik tersedia
+                {{-- Description --}}
+                <p class="mt-2 text-[14px] leading-relaxed text-gray-600 max-w-2xl">
+                    Menampilkan {{ $documents->total() }} dokumen publik
+                    yang tersedia di dalam sistem repository digital
+                    secara modern, cepat, dan terstruktur.
                 </p>
-
             </div>
-
         </div>
 
-        {{-- Grid --}}
+        {{-- Cards --}}
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
             @forelse ($documents as $document)
+                <a href="{{ route('repository.show', $document->id) }}" 
+                    class="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-amber-200 bg-white shadow-sm
+                    transition-all duration-300 hover:-translate-y-1 hover:border-yellow-300 hover:shadow-lg hover:shadow-yellow-100/40">
 
-                <a href="{{ route('repository.show', $document->id) }}"
-                    class="group bg-white rounded-3xl border border-gray-200 hover:border-blue-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden">
+                    {{-- Glow Effect --}}
+                    <div class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-50/60 via-transparent to-amber-50/40
+                        group-hover:opacity-100">
+                    </div>
 
                     {{-- Content --}}
-                    <div class="p-7">
+                    <div class="relative p-6 flex flex-col h-full">
 
-                        {{-- Category + Date --}}
-                        <div class="flex items-center justify-between gap-3 mb-5">
+                        {{-- Top --}}
+                        <div class="flex items-start justify-between gap-4 mb-5">
 
-                            <span
-                                class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100 text-xs font-semibold">
-
+                            {{-- Category --}}
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200
+                                text-amber-700 text-[11px] font-medium">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                                 {{ $document->category->name }}
                             </span>
 
-                            <span class="text-xs text-gray-400">
-                                {{ $document->created_at->format('d M Y') }}
-                            </span>
-
+                            {{-- Date --}}
+                            <div class="text-right shrink-0">
+                                <p class="text-[9px] uppercase tracking-wide font-medium text-green-600">
+                                    Published
+                                </p>
+                                <p class="text-[11px] font-normal text-gray-400">
+                                    {{ $document->created_at->format('d M Y') }}
+                                </p>
+                            </div>
                         </div>
 
                         {{-- Title --}}
-                        <h3
-                            class="text-xl font-bold text-gray-900 leading-snug line-clamp-2 group-hover:text-blue-600 transition">
-
+                        <h3 class="text-[20px] leading-snug font-semibold text-gray-900 line-clamp-2 transition duration-300 uppercase
+                            group-hover:text-yellow-700">
                             {{ $document->title }}
                         </h3>
 
                         {{-- Description --}}
-                        <p class="mt-4 text-sm text-gray-500 leading-relaxed line-clamp-3">
-
-                            Dokumen akademik yang tersedia
-                            dalam repository publik sistem.
+                        <p class="mt-4 text-[13px] leading-relaxed text-gray-500 line-clamp-3">
+                            Dokumen akademik yang telah dipublikasikan
+                            dalam repository sistem dan tersedia
+                            untuk ditinjau lebih lanjut oleh pengguna.
                         </p>
 
                         {{-- Meta --}}
-                        <div class="mt-6 flex flex-wrap items-center gap-3">
-
+                        <div class="mt-4 flex flex-wrap items-center gap-3">
                             {{-- Year --}}
-                            <div
-                                class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-100 text-gray-700 text-xs font-medium">
-
-                                <span class="material-icons-outlined text-[16px]">
-                                    calendar_month
+                            <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-gray-50 border border-gray-200
+                                text-gray-600 text-[11px] font-medium">
+                                <span class="material-symbols-outlined !text-[15px]">
+                                    calendar_check
                                 </span>
-
-                                {{ $document->tahun_terbit ?? '-' }}
+                                Tahun terbit {{ $document->tahun_terbit ?? '-' }}
                             </div>
-
                             {{-- Role --}}
-                            <div
-                                class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-100 text-gray-700 text-xs font-medium">
-
-                                <span class="material-icons-outlined text-[16px]">
-                                    badge
+                            <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-gray-50 border border-gray-200
+                                text-gray-600 text-[11px] font-medium">
+                                <span class="material-symbols-outlined !text-[15px]">
+                                    article_person
                                 </span>
-
                                 {{ ucfirst($document->user->role) }}
                             </div>
-
                         </div>
 
-                    </div>
+                        {{-- Divider --}}
+                        <div class="mt-5 border-t border-dashed border-gray-300"></div>
 
-                    {{-- Footer --}}
-                    <div
-                        class="px-7 py-5 border-t border-gray-100 bg-gray-50/70 flex items-center justify-between">
+                        {{-- Footer avatar profile dan button detail --}}
+                        <div class="mt-3 flex items-center justify-between gap-4">
+                            {{-- User info --}}
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="w-11 h-11 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center
+                                    text-gray-700 text-sm font-semibold shrink-0 shadow-sm">
+                                    {{ strtoupper(substr($document->user->name, 0, 1)) }}
+                                </div>
 
-                        <div class="flex items-center gap-3">
+                                <div class="min-w-0">
+                                    <p class="text-sm font-semibold text-gray-700 truncate">
+                                        {{ $document->user->name }}
+                                    </p>
+                                    <p class="text-xs text-gray-500 capitalize">
+                                        {{ $document->user->role }}
+                                    </p>
+                                </div>
+                            </div>
 
-                            <div
-                                class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-600">
-
-                                <span class="material-icons-outlined text-[20px]">
-                                    person
+                            {{-- Detail --}}
+                            <div class="flex items-center gap-1.5 text-[13px] font-medium text-gray-400 transition-all duration-300
+                                group-hover:text-yellow-700">
+                                <span>
+                                    Detail
                                 </span>
-
+                                <span class="material-symbols-outlined !text-[15px]">
+                                    open_in_new
+                                </span>
                             </div>
-
-                            <div>
-
-                                <p class="text-sm font-medium text-gray-800">
-                                    {{ $document->user->name }}
-                                </p>
-
-                                <p class="text-xs text-gray-500">
-                                    Uploaded Document
-                                </p>
-
-                            </div>
-
                         </div>
-
-                        <span
-                            class="material-icons-outlined text-gray-400 group-hover:text-blue-600 transition">
-
-                            arrow_forward
-                        </span>
 
                     </div>
 
                 </a>
 
             @empty
-
-                {{-- Empty --}}
-                <div
-                    class="col-span-full bg-white border border-dashed border-gray-300 rounded-3xl p-16 text-center">
-
-                    <div
-                        class="w-20 h-20 mx-auto rounded-3xl bg-gray-100 flex items-center justify-center text-gray-400">
-
+                {{-- Empty State --}}
+                <div class="col-span-full rounded-2xl border border-dashed border-yellow-200 bg-gradient-to-br from-white to-yellow-50/40
+                    p-16 text-center shadow-sm">
+                    {{-- Icon --}}
+                    <div class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-yellow-50 to-amber-50
+                        border border-yellow-100 flex items-center justify-center text-yellow-600 shadow-inner">
                         <span class="material-icons-outlined text-[40px]">
                             folder_off
                         </span>
-
                     </div>
-
-                    <h3 class="mt-6 text-2xl font-bold text-gray-800">
+                    {{-- Text --}}
+                    <h3 class="mt-7 text-2xl font-bold text-gray-800">
                         Dokumen Tidak Ditemukan
                     </h3>
-
-                    <p class="mt-3 text-gray-500">
-                        Tidak ada dokumen yang sesuai dengan pencarian Anda.
+                    <p class="mt-3 text-sm leading-relaxed text-gray-500 max-w-md mx-auto">
+                        Tidak ada dokumen yang sesuai dengan pencarian
+                        atau filter yang digunakan saat ini.
                     </p>
-
                 </div>
-
             @endforelse
-
         </div>
 
         {{-- Pagination --}}
         @if ($documents->hasPages())
-
-            <div class="mt-14">
-
+            <div class="mt-14 flex justify-center">
                 {{ $documents->links() }}
-
             </div>
-
         @endif
 
     </section>
 
-    {{-- CTA --}}
-    <section class="max-w-7xl mx-auto px-6 pb-24">
+    {{-- CTA Section --}}
+    <section class="max-w-[78rem] mx-auto px-6 pb-16">
 
-        <div
-            class="rounded-[36px] border border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 p-10 lg:p-14 overflow-hidden relative">
+        <div class="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-yellow-50 via-amber-50 to-white
+            px-8 py-14 lg:px-14 lg:py-16">
 
-            {{-- Blur --}}
-            <div
-                class="absolute top-0 right-0 w-[250px] h-[250px] bg-blue-300/20 rounded-full blur-3xl">
+            {{-- Soft Blur --}}
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-yellow-200/40 rounded-full blur-3xl pointer-events-none">
             </div>
 
+            <div class="absolute bottom-0 left-0 w-60 h-60 bg-amber-100/50 rounded-full blur-3xl pointer-events-none">
+            </div>
+
+            {{-- Content --}}
             <div class="relative max-w-3xl">
 
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-blue-100 text-blue-700 text-sm font-medium mb-6">
-
-                    <span class="material-icons-outlined text-[18px]">
-                        lock
-                    </span>
-
+                {{-- Badge --}}
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-yellow-200
+                    text-yellow-700 text-sm font-medium shadow-sm mb-5">
+                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                     Akses Repository Penuh
                 </div>
 
-                <h2 class="text-4xl font-bold text-gray-950 leading-tight">
-
+                {{-- Heading --}}
+                <h2 class="text-4xl lg:text-4xl font-bold tracking-tight leading-relaxed text-gray-950">
                     Login untuk Mengakses
-                    Seluruh Fitur Sistem
+                    <span class="text-yellow-700">
+                        Seluruh Fitur Repository
+                    </span>
                 </h2>
 
-                <p class="mt-5 text-lg text-gray-600 leading-relaxed">
-
+                {{-- Description --}}
+                <p class="mt-5 text-[15px] leading-relaxed text-gray-600 max-w-2xl">
                     Masuk ke sistem untuk melakukan download dokumen,
                     preview file lengkap, upload repository,
                     dan mengakses seluruh dashboard akademik.
                 </p>
 
-                <div class="mt-8 flex flex-wrap gap-4">
-
-                    <a href="{{ route('login') }}"
-                        class="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm transition">
-
-                        Login Sistem
+                {{-- Action buttons--}}
+                <div class="mt-10 flex flex-wrap items-center gap-4">
+                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-950 text-white text-sm 
+                    font-semibold transition-all duration-300 hover:bg-black hover:-translate-y-0.5">
+                        <span class="material-symbols-outlined !text-[18px]">
+                            login
+                        </span>
+                        Login ke Sistem
                     </a>
 
-                    <a href="{{ route('landing') }}"
-                        class="px-6 py-3 rounded-2xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium transition">
-
+                    <a href="{{ route('landing') }}" 
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 
+                        text-gray-800 text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300">
+                        <span class="material-symbols-outlined !text-[18px]">
+                            folder_open
+                        </span>
                         Kembali ke Beranda
                     </a>
-
                 </div>
 
             </div>
