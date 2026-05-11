@@ -121,39 +121,10 @@ class DocumentController extends Controller
         return view('dosen.documents.create', compact('categories'));
     }
 
+
     /**
      * Simpan dokumen (langsung approved)
      */
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'tahun_terbit' => 'required|integer|min:1000|max:' . date('Y'),
-    //         'category_id' => 'required|exists:categories,id',
-    //         'file' => 'required|mimes:pdf,doc,docx|max:10240',
-    //     ]);
-
-    //     $filePath = $request->file('file')->store('documents', 'public');
-
-    //     $document = Document::create([
-    //         'title' => $request->title,
-    //         'tahun_terbit' => $request->tahun_terbit,
-    //         'category_id' => $request->category_id,
-    //         'user_id' => auth()->id(),
-    //         'file' => $filePath,
-    //         'status' => 'approved', // 🔥 langsung approved
-    //     ]);
-
-    //     DocumentLog::create([
-    //         'user_id' => auth()->id(),
-    //         'document_id' => $document->id,
-    //         'action' => 'upload',
-    //     ]);
-
-    //     return redirect()->route('dosen.documents.index')
-    //         ->with('success', 'Dokumen berhasil diupload.');
-    // }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -207,46 +178,10 @@ class DocumentController extends Controller
         return view('dosen.documents.edit', compact('document', 'categories'));
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $document = Document::findOrFail($id);
 
-    //     // SECURITY
-    //     if ($document->user_id !== auth()->id()) {
-    //         abort(403);
-    //     }
-
-    //     $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'tahun_terbit' => 'required|integer|min:1000|max:' . date('Y'),
-    //         'category_id' => 'required|exists:categories,id',
-    //         'file' => 'nullable|mimes:pdf,doc,docx|max:10240',
-    //     ]);
-
-    //     // Update file jika ada
-    //     if ($request->hasFile('file')) {
-
-    //         // Hapus file lama
-    //         if ($document->file && Storage::disk('public')->exists($document->file)) {
-    //             Storage::disk('public')->delete($document->file);
-    //         }
-
-    //         $filePath = $request->file('file')->store('documents', 'public');
-    //         $document->file = $filePath;
-    //     }
-
-    //     // Update data
-    //     $document->update([
-    //         'title' => $request->title,
-    //         'tahun_terbit' => $request->tahun_terbit,
-    //         'category_id' => $request->category_id,
-    //         // status tetap approved (jangan diubah)
-    //     ]);
-
-    //     return redirect()->route('dosen.documents.index')
-    //         ->with('success', 'Dokumen berhasil diperbarui.');
-    // }
-
+    /**
+     * Update dokumen
+     */
     public function update(Request $request, $id)
     {
         $document = Document::findOrFail($id);

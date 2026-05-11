@@ -5,85 +5,88 @@
 
 @section('content')
 
-    {{-- HEADER --}}
-    <section class="relative overflow-hidden hero-gradient border-b border-gray-200">
+    {{-- Hero Section --}}
+    <section
+        class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100">
 
-        {{-- Blur --}}
-        <div
-            class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3">
+        {{-- Soft Decoration --}}
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/40 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-100/50 rounded-full blur-3xl pointer-events-none">
         </div>
 
-        <div class="relative max-w-7xl mx-auto px-6 py-20">
+        <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
+            <div class="flex items-start justify-between gap-6">
 
-            <div class="max-w-4xl">
+                {{-- Left Content --}}
+                <div class="max-w-3xl">
+                    {{-- Category --}}
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm
+                        text-yellow-700 text-sm font-medium shadow-sm mb-6">
+                        <span class="material-symbols-outlined !text-[18px] text-yellow-600">
+                            folder_open
+                        </span>
+                        {{ $document->category->name }}
+                    </div>
 
-                {{-- Category --}}
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-sm font-semibold mb-6">
+                    {{-- Title --}}
+                    <h1 class="text-4xl md:text-4xl font-bold tracking-tight leading-tight text-gray-950">
+                        {{ $document->title }}
+                    </h1>
 
-                    <span class="material-icons-outlined text-[18px]">
-                        category
-                    </span>
+                    {{-- Description --}}
+                    <p class="mt-6 text-base leading-relaxed text-gray-600 max-w-4xl">
+                        Dokumen akademik yang telah dipublikasikan
+                        dalam sistem repository digital dan tersedia
+                        untuk ditinjau oleh seluruh pengguna.
+                    </p>
 
-                    {{ $document->category->name }}
+                    {{-- Meta --}}
+                    <div class="mt-8 flex flex-wrap items-center gap-5">
+                        {{-- User --}}
+                        <div class="flex items-center gap-2">
+                            {{-- Avatar --}}
+                            <div class="w-10 h-10 rounded-full bg-gray-50 border border-gray-300 flex items-center justify-center text-gray-700
+                                text-sm font-semibold">
+                                {{ strtoupper(substr($document->user->name, 0, 1)) }}
+                            </div>
+
+                            {{-- Info --}}
+                            <div class="leading-tight">
+                                <p class="text-sm font-medium text-gray-800">
+                                    {{ $document->user->name }}
+                                </p>
+                                <p class="text-[12px] text-gray-600 capitalize">
+                                    {{ $document->user->role }}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        {{-- Divider --}}
+                        <div class="hidden sm:block w-1 h-1 rounded-full bg-gray-500"></div>
+
+                        {{-- Year --}}
+                        <div class="inline-flex items-center gap-2 text-sm text-gray-700">
+                            <span class="material-symbols-outlined !text-[17px] text-yellow-600">
+                                calendar_check
+                            </span>
+                            Tahun terbit
+                            {{ $document->tahun_terbit ?? '-' }}
+                        </div>
+                    </div>
+
                 </div>
 
-                {{-- Title --}}
-                <h1 class="text-5xl font-extrabold leading-tight tracking-tight text-gray-950">
-
-                    {{ $document->title }}
-                </h1>
-
-                {{-- Meta --}}
-                <div class="mt-8 flex flex-wrap items-center gap-4">
-
-                    {{-- User --}}
-                    <div
-                        class="inline-flex items-center gap-3 px-4 py-3 rounded-2xl bg-white border border-gray-200 shadow-sm">
-
-                        <div
-                            class="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600">
-
-                            <span class="material-icons-outlined text-[20px]">
-                                person
-                            </span>
-
-                        </div>
-
-                        <div>
-                            <p class="text-sm font-semibold text-gray-900">
-                                {{ $document->user->name }}
-                            </p>
-
-                            <p class="text-xs text-gray-500">
-                                {{ ucfirst($document->user->role) }}
-                            </p>
-                        </div>
-
-                    </div>
-
-                    {{-- Year --}}
-                    <div
-                        class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-white border border-gray-200 shadow-sm text-sm font-medium text-gray-700">
-
-                        <span class="material-icons-outlined text-[20px]">
-                            calendar_month
+                {{-- Right Action --}}
+                <div class="hidden md:block">
+                    <a href="{{ route('repository') }}" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-gray-300 bg-white/90 
+                        backdrop-blur-sm text-gray-700 text-[13.5px] font-medium shadow-sm hover:bg-gray-50 hover:border-gray-400 transition">
+                        Back
+                        <span class="material-symbols-outlined !text-[15px]">
+                            low_priority
                         </span>
-
-                        Tahun {{ $document->tahun_terbit ?? '-' }}
-                    </div>
-
-                    {{-- Upload --}}
-                    <div
-                        class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-white border border-gray-200 shadow-sm text-sm font-medium text-gray-700">
-
-                        <span class="material-icons-outlined text-[20px]">
-                            schedule
-                        </span>
-
-                        {{ $document->created_at->format('d M Y') }}
-                    </div>
-
+                    </a>
                 </div>
 
             </div>
@@ -92,239 +95,189 @@
 
     </section>
 
-    {{-- CONTENT --}}
-    <section class="max-w-7xl mx-auto px-6 py-16">
+    {{-- Content --}}
+    <section class="max-w-[78rem] mx-auto px-6 py-12">
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {{-- Top Grid --}}
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-7 mb-7">
 
-            {{-- LEFT --}}
-            <div class="lg:col-span-2 space-y-8">
+            {{-- Information --}}
+            <div class="xl:col-span-3 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
 
-                {{-- Description --}}
-                <div class="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
-
-                    <div class="flex items-center gap-3 mb-6">
-
-                        <div
-                            class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
-
-                            <span class="material-icons-outlined text-[24px]">
-                                description
-                            </span>
-
-                        </div>
-
-                        <div>
-
-                            <h2 class="text-2xl font-bold text-gray-900">
-                                Informasi Dokumen
-                            </h2>
-
-                            <p class="text-sm text-gray-500 mt-1">
-                                Detail repository akademik publik
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <div class="space-y-6">
-
-                        <div>
-
-                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-                                Judul Dokumen
-                            </h3>
-
-                            <p class="mt-3 text-lg leading-relaxed text-gray-800">
-                                {{ $document->title }}
-                            </p>
-
-                        </div>
-
-                        <div>
-
-                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-                                Deskripsi
-                            </h3>
-
-                            <p class="mt-3 text-gray-600 leading-relaxed">
-                                Dokumen akademik yang telah dipublikasikan dalam sistem repository.
-                                Untuk melihat file lengkap dan melakukan download dokumen,
-                                silakan login ke sistem repository akademik.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                {{-- Locked Preview --}}
-                <div
-                    class="relative overflow-hidden bg-white border border-gray-200 rounded-3xl shadow-sm">
-
-                    {{-- Blur Overlay --}}
+                {{-- Header --}}
+                <div class="flex items-center gap-4 px-7 py-4 border-b border-gray-100 bg-gray-50/70">
                     <div
-                        class="absolute inset-0 backdrop-blur-sm bg-white/60 z-10 flex flex-col items-center justify-center text-center p-10">
-
-                        <div
-                            class="w-20 h-20 rounded-3xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
-
-                            <span class="material-icons-outlined text-[42px]">
-                                lock
-                            </span>
-
-                        </div>
-
-                        <h3 class="text-2xl font-bold text-gray-900">
-                            Preview Dokumen Dikunci
-                        </h3>
-
-                        <p class="mt-4 text-gray-600 max-w-lg leading-relaxed">
-                            Login diperlukan untuk melihat preview PDF lengkap
-                            dan mengunduh file dokumen repository.
+                        class="flex items-center justify-center w-11 h-11 rounded-lg border border-amber-200 bg-amber-50 text-amber-700 shrink-0">
+                        <span class="material-symbols-outlined !text-[23px]">
+                            description
+                        </span>
+                    </div>
+                    <div>
+                        <h2 class="text-[18px] font-semibold tracking-tight text-gray-900">
+                            Informasi Dokumen
+                        </h2>
+                        <p class="text-[13px] text-gray-500">
+                            Detail repository akademik publik
                         </p>
-
-                        <a href="{{ route('login') }}"
-                            class="mt-8 px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm transition">
-
-                            Login untuk Akses Penuh
-                        </a>
-
                     </div>
-
-                    {{-- Fake Preview --}}
-                    <div class="p-10 opacity-40">
-
-                        <div class="space-y-4">
-
-                            <div class="h-6 bg-gray-200 rounded-xl w-3/4"></div>
-                            <div class="h-6 bg-gray-200 rounded-xl"></div>
-                            <div class="h-6 bg-gray-200 rounded-xl w-5/6"></div>
-
-                            <div class="pt-6 space-y-3">
-
-                                <div class="h-4 bg-gray-200 rounded-lg"></div>
-                                <div class="h-4 bg-gray-200 rounded-lg"></div>
-                                <div class="h-4 bg-gray-200 rounded-lg w-11/12"></div>
-                                <div class="h-4 bg-gray-200 rounded-lg"></div>
-                                <div class="h-4 bg-gray-200 rounded-lg w-10/12"></div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
                 </div>
 
+                {{-- Content --}}
+                <div class="p-7 space-y-6">
+                    {{-- Title --}}
+                    <div>
+                        <h3 class="text-[13px] font-medium text-gray-500 mb-2.5">
+                            Judul Dokumen
+                        </h3>
+                        <p class="text-[17px] leading-relaxed font-semibold text-gray-800">
+                            {{ $document->title }}
+                        </p>
+                    </div>
+
+                    {{-- Divider --}}
+                    <div class="border-t border-dashed border-gray-200"></div>
+
+                    {{-- Description --}}
+                    <div>
+                        <h3 class="text-[13px] font-medium text-gray-500 mb-2.5">
+                            Deskripsi
+                        </h3>
+                        <p class="text-[14px] text-gray-600">
+                            Dokumen akademik yang telah dipublikasikan dalam sistem
+                            repository digital program studi. Untuk melihat preview
+                            PDF lengkap dan mengunduh dokumen, silakan login terlebih
+                            dahulu ke sistem repository akademik.
+                        </p>
+                    </div>
+                </div>
             </div>
 
-            {{-- RIGHT --}}
-            <div class="space-y-6">
+            {{-- Additional Info --}}
+            <div class="xl:col-span-1 rounded-xl border border-gray-200 bg-white shadow-sm">
+                <div class="p-6 space-y-5">
 
-                {{-- Access Card --}}
-                <div class="bg-gray-950 text-white rounded-3xl p-8 overflow-hidden relative">
-
-                    {{-- Blur --}}
-                    <div
-                        class="absolute top-0 right-0 w-[200px] h-[200px] bg-blue-500/20 rounded-full blur-3xl">
-                    </div>
-
-                    <div class="relative">
-
+                    {{-- Item --}}
+                    <div class="flex items-start gap-3">
                         <div
-                            class="w-14 h-14 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center mb-6">
-
-                            <span class="material-icons-outlined text-[28px]">
-                                verified_user
+                            class="flex items-center justify-center w-10 h-10 rounded-xl border border-yellow-200 bg-yellow-50 text-yellow-700 
+                        shrink-0">
+                            <span class="material-symbols-outlined !text-[18px]">
+                                verified
                             </span>
-
                         </div>
 
-                        <h2 class="text-2xl font-bold leading-snug">
-                            Akses Repository Lengkap
-                        </h2>
-
-                        <p class="mt-4 text-gray-300 leading-relaxed">
-                            Login untuk mengakses seluruh file repository,
-                            preview PDF lengkap, dan fitur download dokumen.
-                        </p>
-
-                        <a href="{{ route('login') }}"
-                            class="mt-8 inline-flex items-center justify-center w-full h-12 rounded-2xl bg-white text-gray-900 font-semibold hover:bg-gray-100 transition">
-
-                            Login Sistem
-                        </a>
-
+                        <div>
+                            <p class="text-[13px] font-semibold text-gray-900">
+                                Dokumen Terverifikasi
+                            </p>
+                            <p class="text-[12px] text-gray-500 mt-1">
+                                Sudah divalidasi admin repository.
+                            </p>
+                        </div>
                     </div>
 
-                </div>
+                    {{-- Divider --}}
+                    <div class="border-t border-dashed border-gray-200"></div>
 
-                {{-- Information --}}
-                <div class="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
-
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">
-                        Informasi Tambahan
-                    </h3>
-
-                    <div class="space-y-5">
-
-                        <div class="flex items-start gap-4">
-
-                            <div
-                                class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-
-                                <span class="material-icons-outlined text-[22px]">
-                                    security
-                                </span>
-
-                            </div>
-
-                            <div>
-
-                                <h4 class="font-semibold text-gray-900">
-                                    Dokumen Terverifikasi
-                                </h4>
-
-                                <p class="mt-1 text-sm text-gray-500 leading-relaxed">
-                                    Dokumen telah melalui proses validasi admin repository.
-                                </p>
-
-                            </div>
-
+                    {{-- Item --}}
+                    <div class="flex items-start gap-3">
+                        <div
+                            class="flex items-center justify-center w-10 h-10 rounded-xl border border-red-200 bg-red-50 text-red-700 shrink-0">
+                            <span class="material-symbols-outlined !text-[18px]">
+                                picture_as_pdf
+                            </span>
                         </div>
 
-                        <div class="flex items-start gap-4">
-
-                            <div
-                                class="w-11 h-11 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center shrink-0">
-
-                                <span class="material-icons-outlined text-[22px]">
-                                    cloud_done
-                                </span>
-
-                            </div>
-
-                            <div>
-
-                                <h4 class="font-semibold text-gray-900">
-                                    Repository Terpusat
-                                </h4>
-
-                                <p class="mt-1 text-sm text-gray-500 leading-relaxed">
-                                    Dokumen disimpan secara digital dan terintegrasi.
-                                </p>
-
-                            </div>
-
+                        <div>
+                            <p class="text-[13px] font-semibold text-gray-900">
+                                Format PDF
+                            </p>
+                            <p class="text-[12px] text-gray-500 mt-1">
+                                Dokumen tersedia dalam format PDF.
+                            </p>
                         </div>
 
                     </div>
 
+                    {{-- Divider --}}
+                    <div class="border-t border-dashed border-gray-200"></div>
+
+                    {{-- Item --}}
+                    <div class="flex items-start gap-3">
+                        <div
+                            class="flex items-center justify-center w-10 h-10 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 
+                            shrink-0">
+                            <span class="material-symbols-outlined !text-[18px]">
+                                cloud_done
+                            </span>
+                        </div>
+
+                        <div>
+                            <p class="text-[13px] font-semibold text-gray-900">
+                                Repository Digital
+                            </p>
+                            <p class="text-[12px] text-gray-500 mt-1">
+                                Tersimpan aman di sistem repository.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {{-- Locked Preview --}}
+        <div class="relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+
+            {{-- Overlay --}}
+            <div
+                class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/75 backdrop-blur-[2px] text-center px-6">
+                {{-- Icon --}}
+                <div
+                    class="flex items-center justify-center w-20 h-20 rounded-2xl border border-yellow-200 bg-yellow-50 text-yellow-700 mb-6">
+                    <span class="material-symbols-outlined !text-[38px]">
+                        lock
+                    </span>
                 </div>
 
+                {{-- Title --}}
+                <h3 class="text-2xl font-semibold tracking-tight text-gray-900">
+                    Preview Dokumen Dikunci
+                </h3>
+
+                {{-- Desc --}}
+                <p class="max-w-2xl mt-4 text-[14px] leading-5 text-gray-600">
+                    Login diperlukan untuk melihat preview PDF lengkap dan
+                    mengunduh dokumen repository akademik yang tersedia
+                    di sistem.
+                </p>
+
+                {{-- Button --}}
+                <a href="{{ route('login') }}"
+                    class="inline-flex items-center gap-2 mt-7 px-4 py-3 rounded-xl bg-gray-950 hover:bg-black
+                    text-white text-[13px] font-medium transition">
+                    <span class="material-symbols-outlined !text-[18px]">
+                        login
+                    </span>
+                    Login untuk Akses
+                </a>
+            </div>
+
+            {{-- Fake PDF Preview --}}
+            <div class="p-10 md:p-10 opacity-40">
+                <div class="space-y-4 mb-10">
+                    <div class="h-7 rounded-xl bg-gray-400 w-3/4"></div>
+                    <div class="h-6 rounded-xl bg-gray-400"></div>
+                    <div class="h-6 rounded-xl bg-gray-400 w-5/6"></div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="h-4 rounded-lg bg-gray-400"></div>
+                    <div class="h-4 rounded-lg bg-gray-400"></div>
+                    <div class="h-4 rounded-lg bg-gray-400 w-11/12"></div>
+                    <div class="h-4 rounded-lg bg-gray-400"></div>
+                    <div class="h-4 rounded-lg bg-gray-400 w-10/12"></div>
+                </div>
             </div>
 
         </div>

@@ -19,15 +19,12 @@ use App\Http\Controllers\Kaprodi\DocumentController as KaprodiDocumentController
 |--------------------------------------------------------------------------*/
 // -- Landing page (halaman utama) -> publik
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
-
 // -- Repository publik (halaman katalog dokumen) -> publik
 Route::get('/repository', [LandingPageController::class, 'repository'])->name('repository');
-
-// -- Profile kami -> publik
-Route::view('/profile', 'landing.profile')->name('profile');
-
 // -- Detail dokumen publik (halaman detail dokumen) -> publik
 Route::get('/repository/{id}', [LandingPageController::class, 'show'])->name('repository.show');
+// -- Profile kami -> publik
+Route::view('/profile', 'landing.profile')->name('profile');
 
 
 /*|------------------------------------------------------------------------|
@@ -122,6 +119,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/documents/global', [DosenDocumentController::class, 'global'])
                 ->name('katalog.global');
 
+            // -- Detail global dokumen akses
             Route::get('/documents/global/{id}', [DosenDocumentController::class, 'showGlobal'])
                 ->name('katalog.showGlobal');
 
@@ -129,31 +127,27 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/documents', [DosenDocumentController::class, 'index'])
                 ->name('documents.index');
 
-            Route::get('/documents/create', [DosenDocumentController::class, 'create'])
-                ->name('documents.create');
+            // -- Form tambah dan proses tambah dokumen -> dosen
+            Route::get('/documents/create', [DosenDocumentController::class, 'create'])->name('documents.create');
+            Route::post('/documents', [DosenDocumentController::class, 'store'])->name('documents.store');
 
-            Route::post('/documents', [DosenDocumentController::class, 'store'])
-                ->name('documents.store');
-
-            // -- Route untuk edit dan update data dokumen -> mahasiswa
+            // -- Route untuk edit dan update data dokumen -> dosen
             Route::get('/documents/{id}/edit', [DosenDocumentController::class, 'edit'])->name('documents.edit');
             Route::put('/documents/{id}', [DosenDocumentController::class, 'update'])->name('documents.update');
 
-            Route::get('/documents/{id}', [DosenDocumentController::class, 'show'])
-                ->name('documents.show');
+            // -- Route detail dokumen
+            Route::get('/documents/{id}', [DosenDocumentController::class, 'show'])->name('documents.show');
 
-            // -- Menampilkan detail data mahasiswa
+            // -- Menampilkan detail data pribadi
             Route::get('/profile', [DosenProfileController::class, 'show'])->name('profile.show');
 
-            // -- Menampilkan form edit dan proses update data
+            // -- Menampilkan form edit dan proses update data -> dosen
             Route::get('/profile/edit', [DosenProfileController::class, 'edit'])->name('profile.edit');
             Route::put('/profile', [DosenProfileController::class, 'update'])->name('profile.update');
 
-            Route::get('/documents/{id}/preview', [DosenDocumentController::class, 'preview'])
-                ->name('documents.preview');
-
-            Route::get('/documents/{id}/download', [DosenDocumentController::class, 'download'])
-                ->name('documents.download');
+            // -- Proses downlaod dokumen dan preview (lihat) pdf dokumen -> dosen
+            Route::get('/documents/{id}/download', [DosenDocumentController::class, 'download'])->name('documents.download');
+            Route::get('/documents/{id}/preview', [DosenDocumentController::class, 'preview'])->name('documents.preview');
         });
 
 
@@ -173,8 +167,9 @@ Route::middleware(['auth'])->group(function () {
             // -- Documents akses -> kaprodi
             Route::get('/documents', [KaprodiDocumentController::class, 'index'])->name('documents.index');
 
-            Route::get('/documents/{id}/preview', [KaprodiDocumentController::class, 'preview'])->name('documents.preview');
+            // -- Proses downlaod dokumen dan preview (lihat) pdf dokumen -> kaprodi
             Route::get('/documents/{id}/download', [KaprodiDocumentController::class, 'download'])->name('documents.download');
+            Route::get('/documents/{id}/preview', [KaprodiDocumentController::class, 'preview'])->name('documents.preview');
         });
 
 
