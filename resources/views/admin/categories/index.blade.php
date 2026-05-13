@@ -5,7 +5,6 @@
 
     {{-- Header --}}
     <div class="relative overflow-hidden rounded-lg border border-gray-200/80 bg-white px-6 py-5 mb-6 shadow-sm">
-
         {{-- Soft Accent --}}
         <div class="absolute -top-10 -right-10 w-40 h-40 bg-violet-100 rounded-full blur-3xl opacity-40"></div>
 

@@ -13,23 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
 {
-    // --- List daftar dokumen saya (pribadi)
-    // public function index(Request $request)
-    // {
-    //     $query = Document::with('category')
-    //         ->where('user_id', Auth::id());
-
-    //     if ($request->search) {
-    //         $query->where('title', 'like', '%' . $request->search . '%');
-    //     }
-
-    //     $documents = $query->latest()
-    //         ->paginate(5)
-    //         ->withQueryString();
-
-    //     return view('mahasiswa.documents.index', compact('documents'));
-    // }
-
+    // --- List daftar dokumen saya (pribadi) dengan AJAX
     public function index(Request $request)
     {
         $query = Document::with('category')
@@ -68,22 +52,97 @@ class DocumentController extends Controller
     }
 
 
-    // --- Daftar dokumen (global mahasiswa)
+    // --- Daftar dokumen global seluruh pengguna
     public function global(Request $request)
     {
+        /*
+        |--------------------------------------------------------------------------
+        | Query Dasar
+        |--------------------------------------------------------------------------
+        */
         $query = Document::with(['user', 'category'])
-            ->where('status', 'approved'); // WAJIB: hanya approved
+            ->where('status', 'approved');
 
-        // Search
-        if ($request->search) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+        /*
+        |--------------------------------------------------------------------------
+        | Search Judul / Nama User
+        |--------------------------------------------------------------------------
+        */
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+
+                // Search judul dokumen
+                $q->where('title', 'like', '%' . $search . '%')
+                    // Search nama user
+                    ->orWhereHas('user', function ($userQuery) use ($search) {
+                        $userQuery->where('name', 'like', '%' . $search . '%');
+                    });
+            });
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Filter Category
+        |--------------------------------------------------------------------------
+        */
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Filter Tahun Terbit
+        |--------------------------------------------------------------------------
+        */
+        if ($request->filled('tahun')) {
+            $query->where('tahun_terbit', $request->tahun);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Data Dokumen
+        |--------------------------------------------------------------------------
+        */
         $documents = $query->latest()
             ->paginate(12)
             ->withQueryString();
 
-        return view('mahasiswa.katalog.global', compact('documents'));
+        /*
+        |--------------------------------------------------------------------------
+        | Data Category Filter
+        |--------------------------------------------------------------------------
+        */
+        $categories = Category::orderBy('name')
+            ->get();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Data Tahun Filter
+        |--------------------------------------------------------------------------
+        */
+        $years = Document::where('status', 'approved')
+            ->whereNotNull('tahun_terbit')
+            ->distinct()
+            ->orderByDesc('tahun_terbit')
+            ->pluck('tahun_terbit');
+
+        $favorites = auth()->user()
+            ->favoriteDocuments()
+            ->pluck('documents.id')
+            ->toArray();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Return View
+        |--------------------------------------------------------------------------
+        */
+        return view('mahasiswa.katalog.global', compact(
+            'documents',
+            'categories',
+            'years',
+            'favorites'
+        ));
     }
 
 
@@ -102,46 +161,11 @@ class DocumentController extends Controller
     public function create()
     {
         $categories = Category::all();
-
         return view('mahasiswa.documents.create', compact('categories'));
     }
 
 
     // --- Proses (store) menyimpan data dokumen ke table database (default status -> pending)
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'tahun_terbit' => [
-    //             'required',
-    //             'integer',
-    //             'between:2000,' . date('Y'),
-    //         ],
-    //         'category_id' => 'required|exists:categories,id',
-    //         'file' => 'required|mimes:pdf,doc,docx|max:10240',
-    //     ]);
-
-    //     $filePath = $request->file('file')->store('documents', 'public');
-
-    //     $document = Document::create([
-    //         'title' => $request->title,
-    //         'tahun_terbit' => $request->tahun_terbit,
-    //         'category_id' => $request->category_id,
-    //         'user_id' => auth()->id(),
-    //         'file' => $filePath,
-    //         'status' => 'pending',
-    //     ]);
-
-    //     DocumentLog::create([
-    //         'user_id' => auth()->id(),
-    //         'document_id' => $document->id,
-    //         'action' => 'upload',
-    //     ]);
-
-    //     return redirect()->route('mahasiswa.documents.index')
-    //         ->with('success', 'Dokumen berhasil diupload dan menunggu validasi.');
-    // }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -216,6 +240,7 @@ class DocumentController extends Controller
         }
     }
 
+
     // --- Menampikan form edit dokumen
     public function edit($id)
     {
@@ -232,55 +257,8 @@ class DocumentController extends Controller
         return view('mahasiswa.documents.edit', compact('document', 'categories'));
     }
 
+
     // --- Proses update data dokumen
-    // public function update(Request $request, $id)
-    // {
-    //     $document = Document::where('user_id', auth()->id())
-    //         ->findOrFail($id);
-
-    //     // RULE 1: approved LOCK TOTAL
-    //     if ($document->status === 'approved') {
-    //         return back()->with('error', 'Dokumen yang sudah disetujui tidak dapat diubah.');
-    //     }
-
-    //     $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'tahun_terbit' => [
-    //             'required',
-    //             'integer',
-    //             'between:2000,' . date('Y'),
-    //         ],
-    //         'category_id' => 'required|exists:categories,id',
-    //         'file' => 'nullable|mimes:pdf,doc,docx|max:10240',
-    //     ]);
-
-    //     $data = [
-    //         'title' => $request->title,
-    //         'tahun_terbit' => $request->tahun_terbit,
-    //         'category_id' => $request->category_id,
-    //         'status' => 'pending', // 🔥 reset ke pending setelah edit
-    //         'reject_note' => null,
-    //         'rejected_at' => null,
-    //         'rejected_by' => null,
-    //     ];
-
-    //     // jika upload file baru
-    //     if ($request->hasFile('file')) {
-    //         Storage::disk('public')->delete($document->file);
-    //         $data['file'] = $request->file('file')->store('documents', 'public');
-    //     }
-
-    //     $document->update($data);
-
-    //     DocumentLog::create([
-    //         'user_id' => auth()->id(),
-    //         'document_id' => $document->id,
-    //         'action' => 'update',
-    //     ]);
-
-    //     return redirect()->route('mahasiswa.documents.index')
-    //         ->with('success', 'Dokumen berhasil diperbarui dan kembali ke status pending.');
-    // }
     public function update(Request $request, $id)
     {
         $document = Document::where('user_id', auth()->id())
@@ -352,6 +330,7 @@ class DocumentController extends Controller
             );
     }
 
+
     // --- Detail dokumen saya (pribadi)
     public function show($id)
     {
@@ -401,5 +380,49 @@ class DocumentController extends Controller
         ]);
 
         return Storage::disk('public')->download($document->file);
+    }
+
+
+    // -- Tambah dokumen ke favorit
+    public function favorite($id)
+    {
+        auth()->user()
+            ->favoriteDocuments()
+            ->syncWithoutDetaching([$id]);
+
+        return back()->with(
+            'success',
+            'Dokumen berhasil ditambahkan ke favorit.'
+        );
+    }
+
+
+    // -- Hapus dokumen dari favorit
+    public function unfavorite($id)
+    {
+        auth()->user()
+            ->favoriteDocuments()
+            ->detach($id);
+
+        return back()->with(
+            'success',
+            'Dokumen berhasil dihapus dari favorit.'
+        );
+    }
+
+
+    // -- Halaman daftar dokumen favorit
+    public function favorites()
+    {
+        $documents = auth()->user()
+            ->favoriteDocuments()
+            ->with(['user', 'category'])
+            ->latest()
+            ->paginate(9);
+
+        return view(
+            'mahasiswa.katalog.favorites',
+            compact('documents')
+        );
     }
 }

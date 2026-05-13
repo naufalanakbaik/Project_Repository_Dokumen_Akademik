@@ -1,8 +1,6 @@
-@extends('landing.layouts.public')
-
+@extends('dosen.layouts.app')
 @section('title', 'Beranda Dokumen Akademik')
-@section('meta_description',
-    'Platform repository akademik digital untuk mengakses jurnal, laporan tugas akhir, dan dokumen penelitian.')
+
 
 @section('content')
 
@@ -13,7 +11,8 @@
         {{-- Soft Decoration --}}
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none">
+        </div>
 
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
@@ -48,7 +47,7 @@
                 <div class="mt-10 flex flex-wrap items-center gap-4">
 
                     {{-- Primary --}}
-                    <a href="{{ route('repository') }}"
+                    <a href="{{ route('dosen.katalog.global') }}"
                         class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium
                         shadow-lg shadow-yellow-200/50 transition-all duration-300">
                         <span class="material-symbols-outlined !text-[18px]">
@@ -58,13 +57,13 @@
                     </a>
 
                     {{-- Secondary --}}
-                    <a href="{{ route('login') }}"
-                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-yellow-300 bg-white/90 hover:bg-yellow-50
+                    <a href="{{ route('dosen.documents.create') }}"
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-400 bg-white/90 hover:bg-amber-50
                         text-gray-700 text-sm font-medium shadow-sm transition-all duration-300">
                         <span class="material-symbols-outlined !text-[18px] text-yellow-600">
-                            login
+                            upload_file
                         </span>
-                        Login Sistem
+                        Unggah Dokumen
                     </a>
 
                 </div>
@@ -219,13 +218,13 @@
 
             {{-- Right --}}
             <div class="flex items-center">
-                <a href="{{ route('repository') }}"
-                    class="group inline-flex items-center gap-1.5 text-[14px] font-medium text-gray-600 transition-all duration-300">
+                <a href="{{ route('dosen.katalog.global') }}"
+                    class="group inline-flex items-center gap-2 text-[14px] font-medium text-gray-600 transition-all duration-300">
                     <span>
                         Lihat Semua
                     </span>
                     <span
-                        class="material-symbols-outlined !text-[15px] text-yellow-600 transition-transform duration-300 group-hover:translate-x-1">
+                        class="material-symbols-outlined !text-[16px] text-yellow-600 transition-transform duration-300 group-hover:translate-x-1">
                         east
                     </span>
                 </a>
@@ -236,13 +235,13 @@
         {{-- Cards --}}
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             @forelse ($documents as $document)
-                <a href="{{ route('repository.show', $document->id) }}"
+                <a href="{{ route('dosen.katalog.showGlobal', $document->id) }}}"
                     class="group relative flex flex-col h-full overflow-hidden rounded-xl border border-amber-200 bg-white shadow-sm 
                     transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-yellow-100/40 hover:border-yellow-300">
 
                     {{-- Glow Effect --}}
                     <div
-                        class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-50/60 via-transparent to-amber-50/40
+                        class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-100/40 via-transparent to-amber-50/40
                         group-hover:opacity-100">
                     </div>
 
@@ -310,12 +309,12 @@
 
                             {{-- Detail --}}
                             <div
-                                class="flex items-center gap-1.5 text-[13px] font-normal text-gray-400 transition-all duration-300
+                                class="flex items-center gap-1.5 text-[13px] font-normal text-gray-500 transition-all duration-300
                                 group-hover:text-yellow-700">
                                 <span>
                                     Detail
                                 </span>
-                                <span class="material-symbols-outlined !text-[14px]">
+                                <span class="material-symbols-outlined !text-[15px]">
                                     open_in_new
                                 </span>
                             </div>
@@ -351,12 +350,12 @@
         </div>
     </section>
 
-    {{-- Benefits Section --}}
+    {{-- Keunggulan Section --}}
     <section
         class="relative overflow-hidden shadow-amber-100 bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-y border-yellow-100">
 
         {{-- Soft Decoration --}}
-        <div class="absolute -top-32 -left-32 w-80 h-80 bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -top-32 -left-32 w-80 h-80 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
 
         <div
             class="absolute bottom-0 right-0 w-[280px] h-[280px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none">
@@ -494,66 +493,60 @@
 
     {{-- CTA Section --}}
     <section class="max-w-[78rem] mx-auto px-6 py-20">
-
-        <div class="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-yellow-50 via-amber-50 to-white
+        <div class="relative overflow-hidden rounded-2xl border border-amber-200  bg-gradient-to-br from-yellow-50 via-amber-50 to-white
             px-8 py-14 lg:px-14 lg:py-16">
 
             {{-- Soft Blur --}}
-            <div class="absolute -top-24 -right-24 w-72 h-72 bg-yellow-200/40 rounded-full blur-3xl pointer-events-none">
-            </div>
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-yellow-200/40 rounded-full blur-3xl pointer-events-none"></div>
 
-            <div class="absolute bottom-0 left-0 w-60 h-60 bg-amber-100/50 rounded-full blur-3xl pointer-events-none">
-            </div>
+            <div class="absolute bottom-0 left-0 w-60 h-60 bg-amber-100/50 rounded-full blur-3xl pointer-events-none"></div>
 
             {{-- Content --}}
             <div class="relative max-w-3xl">
-
                 {{-- Badge --}}
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-yellow-200
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full  bg-white/80 backdrop-blur-sm border border-yellow-200
                     text-yellow-700 text-sm font-medium shadow-sm mb-5">
                     <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
-                    Akses Repository Penuh
+                    Unggah Repository Akademik
                 </div>
 
                 {{-- Heading --}}
                 <h2 class="text-4xl lg:text-4xl font-bold tracking-tight leading-relaxed text-gray-950">
-                    Login untuk Mengakses
+                    Bagikan Dokumen Akademik
                     <span class="text-yellow-700">
-                        Seluruh Fitur Repository
+                        dengan Mudah & Terstruktur
                     </span>
                 </h2>
 
                 {{-- Description --}}
                 <p class="mt-5 text-[15px] leading-relaxed text-gray-600 max-w-2xl">
-                    Masuk ke sistem untuk melakukan download dokumen,
-                    preview file lengkap, upload repository,
-                    dan mengakses seluruh dashboard akademik.
+                    Upload skripsi, jurnal, laporan, maupun dokumen akademik lainnya
+                    ke dalam repository kampus agar lebih mudah diakses,
+                    dikelola, dan didokumentasikan secara digital.
                 </p>
 
-                {{-- Action buttons--}}
+                {{-- Action buttons --}}
                 <div class="mt-10 flex flex-wrap items-center gap-4">
-                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-950 
+                    <a href="{{ route('dosen.documents.create') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-950 
                         text-white text-[13px] font-medium transition-all duration-300 hover:bg-black hover:-translate-y-0.5">
                         <span class="material-symbols-outlined !text-[18px]">
-                            login
+                            upload_file
                         </span>
-                        Login ke Sistem
+                        Upload Dokumen
                     </a>
 
-                    <a href="{{ route('repository') }}" 
-                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-300 bg-white backdrop-blur-sm 
-                        text-gray-700 text-[13px] font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300">
+                    <a href="{{ route('dosen.katalog.global') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 
+                        text-gray-800 text-[13px] font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
-                        Lihat Repository
+                        Jelajahi Repository
                     </a>
                 </div>
 
             </div>
 
         </div>
-
     </section>
 
 @endsection

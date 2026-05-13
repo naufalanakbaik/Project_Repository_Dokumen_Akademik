@@ -15,7 +15,7 @@
                     flex items-center justify-center
                     text-gray-300 cursor-not-allowed">
 
-                    <span class="material-icons-outlined text-[18px]">
+                    <span class="material-symbols-outlined text-[18px]">
                         chevron_left
                     </span>
 
@@ -29,7 +29,7 @@
                     text-gray-500 transition-all duration-200
                     hover:bg-amber-50 hover:text-amber-700">
 
-                    <span class="material-icons-outlined text-[18px]">
+                    <span class="material-symbols-outlined text-[18px]">
                         chevron_left
                     </span>
 
@@ -96,7 +96,7 @@
                     text-gray-500 transition-all duration-200
                     hover:bg-amber-50 hover:text-amber-700">
 
-                    <span class="material-icons-outlined text-[18px]">
+                    <span class="material-symbols-outlined text-[18px]">
                         chevron_right
                     </span>
 
@@ -109,7 +109,7 @@
                     flex items-center justify-center
                     text-gray-300 cursor-not-allowed">
 
-                    <span class="material-icons-outlined text-[18px]">
+                    <span class="material-symbols-outlined text-[18px]">
                         chevron_right
                     </span>
 

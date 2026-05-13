@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <div class="max-w-full mx-auto space-y-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
         <div class="flex items-center justify-between">
@@ -26,7 +26,7 @@
 
             {{-- Avatar --}}
             <div
-                class="w-16 h-16 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-lg font-semibold font-serif text-gray-700">
+                class="w-16 h-16 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-lg font-semibold text-gray-700">
                 {{ strtoupper(substr($user->name, 0, 1)) }}
             </div>
 
@@ -112,12 +112,17 @@
 
                         {{-- Status --}}
                         <span
-                            class="text-[11px] px-3 py-1 rounded-2xl border font-medium
+                            class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border text-[11px] font-medium
                                 {{ $doc->status === 'approved'
-                                ? 'bg-green-50 text-green-700 border-green-200'
+                                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                                 : ($doc->status === 'pending'
-                                ? 'bg-yellow-50 text-yellow-700 border-yellow-200'
+                                ? 'bg-amber-50 text-amber-600 border-amber-200'
                                 : 'bg-red-50 text-red-700 border-red-200') }}">
+
+                            <span class="material-symbols-outlined !text-[12px]">
+                                {{ $doc->status === 'approved' ? 'check_circle' : ($doc->status === 'pending' ? 'schedule' : 'cancel') }}
+                            </span>
+
                             {{ ucfirst($doc->status) }}
                         </span>
                     </div>

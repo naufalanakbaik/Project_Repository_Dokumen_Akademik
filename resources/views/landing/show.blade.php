@@ -12,8 +12,7 @@
         {{-- Soft Decoration --}}
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/40 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-100/50 rounded-full blur-3xl pointer-events-none">
-        </div>
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-100/50 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="flex items-start justify-between gap-6">
@@ -230,11 +229,9 @@
         <div class="relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
 
             {{-- Overlay --}}
-            <div
-                class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/75 backdrop-blur-[2px] text-center px-6">
+            <div class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/75 backdrop-blur-[2px] text-center px-6">
                 {{-- Icon --}}
-                <div
-                    class="flex items-center justify-center w-20 h-20 rounded-2xl border border-yellow-200 bg-yellow-50 text-yellow-700 mb-6">
+                <div class="flex items-center justify-center w-20 h-20 rounded-2xl border border-red-300 bg-red-50 text-red-700 mb-6">
                     <span class="material-symbols-outlined !text-[38px]">
                         lock
                     </span>
@@ -254,8 +251,8 @@
 
                 {{-- Button --}}
                 <a href="{{ route('login') }}"
-                    class="inline-flex items-center gap-2 mt-7 px-4 py-3 rounded-xl bg-gray-950 hover:bg-black
-                    text-white text-[13px] font-medium transition">
+                    class="inline-flex items-center gap-2 mt-7 px-4 py-3 rounded-xl bg-gray-100 hover:bg-gray-200
+                    shadow-sm border border-black text-black text-[13px] font-medium transition">
                     <span class="material-symbols-outlined !text-[18px]">
                         login
                     </span>

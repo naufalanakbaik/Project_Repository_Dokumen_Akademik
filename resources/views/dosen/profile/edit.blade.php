@@ -2,8 +2,7 @@
 @section('title', 'Edit Profile')
 
 @section('content')
-
-    <div class="max-w-full mx-auto grid grid-cols-12 gap-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 grid grid-cols-12 gap-6">
 
         {{-- Left: Profile Summary --}}
         <div class="col-span-12 lg:col-span-4">
@@ -13,7 +12,7 @@
 
                     {{-- Avatar --}}
                     <div
-                        class="w-16 h-16 rounded-full bg-yellow-100 border border-yellow-300 flex items-center justify-center text-lg font-semibold font-serif text-yellow-600">
+                        class="w-16 h-16 rounded-full bg-yellow-100 border border-yellow-300 flex items-center justify-center text-lg font-semibold text-yellow-600">
                         {{ strtoupper(substr($user->name, 0, 1)) }}
                     </div>
 

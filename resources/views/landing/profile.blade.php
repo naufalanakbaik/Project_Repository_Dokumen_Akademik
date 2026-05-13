@@ -129,7 +129,7 @@
                         <div class="flex gap-4 p-5 rounded-2xl border border-gray-200 bg-white shadow-sm">
                             <div class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center
                                 text-yellow-700 shrink-0">
-                                <span class="material-icons-outlined text-[28px]">
+                                <span class="material-symbols-outlined !text-[28px]">
                                     security
                                 </span>
                             </div>
@@ -148,7 +148,7 @@
                         {{-- Item --}}
                         <div class="flex gap-4 p-5 rounded-2xl border border-gray-200 bg-white shadow-sm">
                             <div class="w-14 h-14 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700 shrink-0">
-                                <span class="material-icons-outlined text-[28px]">
+                                <span class="material-symbols-outlined !text-[28px]">
                                     manage_search
                                 </span>
                             </div>
@@ -169,7 +169,7 @@
 
                             <div class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center
                                 text-yellow-700 shrink-0">
-                                <span class="material-icons-outlined text-[28px]">
+                                <span class="material-symbols-outlined !text-[28px]">
                                     cloud_done
                                 </span>
                             </div>
@@ -218,7 +218,7 @@
                 {{-- Vision --}}
                 <div class="rounded-3xl border border-yellow-200 bg-white/80 backdrop-blur-sm p-8 shadow-sm">
                     <div class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center text-yellow-700 mb-5">
-                        <span class="material-icons-outlined text-[28px]">
+                        <span class="material-symbols-outlined !text-[28px]">
                             visibility
                         </span>
                     </div>
@@ -238,7 +238,7 @@
                 {{-- Mission --}}
                 <div class="rounded-3xl border border-amber-200 bg-white/80 backdrop-blur-sm p-8 shadow-sm">
                     <div class="w-14 h-14 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700 mb-5">
-                        <span class="material-icons-outlined text-[28px]">
+                        <span class="material-symbols-outlined !text-[28px]">
                             flag
                         </span>
                     </div>

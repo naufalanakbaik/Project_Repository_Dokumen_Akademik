@@ -12,7 +12,7 @@
         <div class="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-md px-3 py-2">
 
             <div class="flex items-center gap-2 text-sm text-gray-600">
-                <span class="material-icons !text-[18px] text-gray-500">
+                <span class="material-symbols-outlined !text-[18px] text-gray-500">
                     description
                 </span>
                 <span class="truncate">
@@ -38,7 +38,7 @@
 
             <div class="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200
                 group-hover:scale-105 transition">
-                <span class="material-icons text-gray-400 text-[22px] group-hover:text-blue-500">
+                <span class="material-symbols-outlined text-gray-400 text-[22px] group-hover:text-blue-500">
                     upload_file
                 </span>
             </div>

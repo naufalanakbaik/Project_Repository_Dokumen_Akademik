@@ -2,7 +2,7 @@
 @section('title', 'Detail Dokumen')
 
 @section('content')
-    <div class="max-w-full mx-auto space-y-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
         <div class="flex items-start justify-between">
@@ -33,18 +33,13 @@
                         <span class="material-symbols-outlined !text-[15px]">folder</span>
                         {{ $document->category->name }}
                     </span>
-
-                    {{-- <span class="flex items-center gap-1">
-                        <span class="material-symbols-outlined !text-[15px]">calendar_check</span>
-                        {{ $document->created_at->format('d M Y') }}
-                    </span> --}}
                 </div>
             </div>
 
             <a href="{{ route('dosen.documents.index') }}"
                 class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-1">
                 Back
-                <span class="material-icons !text-[18px]">low_priority</span>
+                <span class="material-symbols-outlined !text-[18px]">low_priority</span>
             </a>
         </div>
 
@@ -61,7 +56,7 @@
                         <div
                             class="w-10 h-10 flex items-center justify-center rounded-lg
                             bg-red-50 border border-red-200 text-red-600">
-                            <span class="material-icons !text-[22px]">picture_as_pdf</span>
+                            <span class="material-symbols-outlined !text-[22px]">picture_as_pdf</span>
                         </div>
 
                         <div class="leading-tight">
@@ -78,7 +73,7 @@
                     </div>
 
                     <span
-                        class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-xl
+                        class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-xl border
                         {{ $document->status === 'approved'
                         ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
                         : ($document->status === 'pending'
@@ -177,14 +172,14 @@
                     <a href="{{ route('dosen.documents.download', $document->id) }}"
                         class="w-full flex items-center justify-center gap-2 px-3 py-2 text-[13px] font-medium
                         border border-red-300 bg-red-50 text-red-700 rounded-md hover:bg-red-100 transition">
-                        <span class="material-icons !text-[16px]">download</span>
+                        <span class="material-symbols-outlined !text-[16px]">download</span>
                         Download
                     </a>
 
                     <a href="{{ route('dosen.documents.preview', $document->id) }}" target="_blank"
                         class="w-full flex items-center justify-center gap-2 px-3 py-2 text-[13px] font-medium
                         border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition">
-                        <span class="material-icons !text-[16px]">open_in_new</span>
+                        <span class="material-symbols-outlined !text-[16px]">open_in_new</span>
                         Buka di Tab Baru
                     </a>
 

@@ -85,7 +85,7 @@
     <section class="w-full max-w-[78rem] mx-auto px-6 py-12">
 
         {{-- Header --}}
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-10">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-7">
             {{-- Left --}}
             <div class="max-w-2xl">
                 {{-- Badge --}}
@@ -114,7 +114,7 @@
 
             @forelse ($documents as $document)
                 <a href="{{ route('repository.show', $document->id) }}" 
-                    class="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-amber-200 bg-white shadow-sm
+                    class="group relative flex flex-col h-full overflow-hidden rounded-xl border border-amber-200 bg-white shadow-sm
                     transition-all duration-300 hover:-translate-y-1 hover:border-yellow-300 hover:shadow-lg hover:shadow-yellow-100/40">
 
                     {{-- Glow Effect --}}
@@ -147,35 +147,41 @@
                         </div>
 
                         {{-- Title --}}
-                        <h3 class="text-[20px] leading-snug font-semibold text-gray-900 line-clamp-2 transition duration-300 uppercase
+                        <h3 class="text-[18px] leading-snug font-semibold text-gray-900 line-clamp-2 transition duration-300 uppercase
                             group-hover:text-yellow-700">
                             {{ $document->title }}
                         </h3>
 
                         {{-- Description --}}
-                        <p class="mt-4 text-[13px] leading-relaxed text-gray-500 line-clamp-3">
+                        <p class="mt-4 text-[12px] leading-relaxed text-gray-500 line-clamp-3">
                             Dokumen akademik yang telah dipublikasikan
                             dalam repository sistem dan tersedia
                             untuk ditinjau lebih lanjut oleh pengguna.
                         </p>
 
                         {{-- Meta --}}
-                        <div class="mt-4 flex flex-wrap items-center gap-3">
+                        <div class="mt-4 flex flex-wrap items-center gap-3 text-[12px] text-gray-500">
                             {{-- Year --}}
-                            <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-gray-50 border border-gray-200
-                                text-gray-600 text-[11px] font-medium">
-                                <span class="material-symbols-outlined !text-[15px]">
+                            <div class="inline-flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[15px]">
                                     calendar_check
                                 </span>
-                                Tahun terbit {{ $document->tahun_terbit ?? '-' }}
-                            </div>
-                            {{-- Role --}}
-                            <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-gray-50 border border-gray-200
-                                text-gray-600 text-[11px] font-medium">
-                                <span class="material-symbols-outlined !text-[15px]">
-                                    article_person
+                                <span>
+                                    Tahun terbit {{ $document->tahun_terbit ?? '-' }}
                                 </span>
-                                {{ ucfirst($document->user->role) }}
+                            </div>
+
+                            {{-- Dot --}}
+                            <span class="text-gray-400">•</span>
+
+                            {{-- Role --}}
+                            <div class="inline-flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[15px]">
+                                    person
+                                </span>
+                                <span>
+                                    Penerbit {{ ucfirst($document->user->role) }}
+                                </span>
                             </div>
                         </div>
 
@@ -186,28 +192,29 @@
                         <div class="mt-3 flex items-center justify-between gap-4">
                             {{-- User info --}}
                             <div class="flex items-center gap-3 min-w-0">
-                                <div class="w-11 h-11 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center
-                                    text-gray-700 text-sm font-semibold shrink-0 shadow-sm">
-                                    {{ strtoupper(substr($document->user->name, 0, 1)) }}
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full
+                                    border border-indigo-300 bg-indigo-50 text-xs font-semibold tracking-wide text-indigo-600">
+                                    {{ strtoupper(substr($document->user->name, 0, 2)) }}
                                 </div>
 
                                 <div class="min-w-0">
-                                    <p class="text-sm font-semibold text-gray-700 truncate">
+                                    <p class="text-[13px] font-semibold text-gray-700 truncate">
                                         {{ $document->user->name }}
                                     </p>
-                                    <p class="text-xs text-gray-500 capitalize">
+                                    <p class="text-[11.5px] text-gray-500 capitalize">
                                         {{ $document->user->role }}
                                     </p>
                                 </div>
                             </div>
 
                             {{-- Detail --}}
-                            <div class="flex items-center gap-1.5 text-[13px] font-medium text-gray-400 transition-all duration-300
+                            <div class="flex items-center gap-1.5 text-[13px] font-normal text-gray-400 transition-all duration-300
                                 group-hover:text-yellow-700">
                                 <span>
                                     Detail
                                 </span>
-                                <span class="material-symbols-outlined !text-[15px]">
+                                <span class="material-symbols-outlined !text-[14px]">
                                     open_in_new
                                 </span>
                             </div>
@@ -289,8 +296,8 @@
 
                 {{-- Action buttons--}}
                 <div class="mt-10 flex flex-wrap items-center gap-4">
-                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-950 text-white text-sm 
-                    font-semibold transition-all duration-300 hover:bg-black hover:-translate-y-0.5">
+                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-950 
+                        text-white text-[13px] font-medium transition-all duration-300 hover:bg-black hover:-translate-y-0.5">
                         <span class="material-symbols-outlined !text-[18px]">
                             login
                         </span>
@@ -298,8 +305,8 @@
                     </a>
 
                     <a href="{{ route('landing') }}" 
-                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 
-                        text-gray-800 text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300">
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-300 bg-white backdrop-blur-sm 
+                        text-gray-700 text-[13px] font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>

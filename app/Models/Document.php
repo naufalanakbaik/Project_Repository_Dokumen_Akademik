@@ -49,8 +49,23 @@ class Document extends Model
         return $this->hasMany(DocumentLog::class);
     }
 
+    /**
+     * Relasi penolakan dokumen
+     */
     public function rejectedBy()
     {
         return $this->belongsTo(User::class, 'rejected_by');
+    }
+
+    /**
+     * Relasi dokumen favorit
+     */
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'favorite_documents'
+
+        )->withTimestamps();
     }
 }

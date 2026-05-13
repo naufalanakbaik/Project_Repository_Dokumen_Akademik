@@ -2,16 +2,16 @@
 @section('title', 'Dokumen Saya')
 
 @section('content')
-    <div class="max-w-full mx-auto space-y-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
         <div class="flex items-start justify-between">
             <div>
-                <h1 class="text-xl font-semibold text-gray-800">
+                <h1 class="text-xl font-semibold text-gray-900">
                     Daftar Dokumen Saya
                 </h1>
                 <p class="text-sm text-gray-500 mt-1">
-                    Upload dan kelola dokumen kamu dengan mudah.
+                    Upload dan kelola dokumen kamu dalam satu sistem yang terintegrasi
                 </p>
             </div>
 

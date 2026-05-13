@@ -2,23 +2,23 @@
 @section('title', 'Edit Dokumen')
 
 @section('content')
-    <div class="max-w-full mx-auto space-y-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
         <div class="flex items-start justify-between">
             <div>
                 <h1 class="text-xl font-semibold text-gray-800">
-                    Edit Dokumen
+                    Perbarui Data Dokumen 
                 </h1>
                 <p class="text-sm text-gray-500">
-                    Perbarui informasi dokumen Anda dengan detail yang benar.
+                    Perbarui informasi dokumen Anda dengan detail yang benar
                 </p>
             </div>
 
             <a href="{{ route('mahasiswa.documents.index') }}"
                 class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-0.5">
                 Back
-                <span class="material-icons !text-[18px]">low_priority</span>
+                <span class="material-symbols-outlined !text-[18px]">low_priority</span>
             </a>
         </div>
 
@@ -53,7 +53,7 @@
         {{-- Info card --}}
         <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-4 flex items-start gap-4">
 
-            <span class="material-icons text-blue-600 !text-[20px]">info</span>
+            <span class="material-symbols-outlined text-blue-600 !text-[20px]">info</span>
 
             <div class="text-sm text-gray-600 font-medium leading-relaxed">
                 Pastikan data yang Anda ubah sudah benar. Mengganti file akan otomatis memperbarui dokumen yang tersimpan.
@@ -132,7 +132,7 @@
 
                         {{-- Custom Arrow --}}
                         <span
-                            class="material-icons absolute right-2 top-1/2 -translate-y-1/2 text-[19px] text-gray-400 pointer-events-none">
+                            class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-[19px] text-gray-400 pointer-events-none">
                             arrow_drop_down
                         </span>
 

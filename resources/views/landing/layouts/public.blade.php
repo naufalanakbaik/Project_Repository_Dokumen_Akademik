@@ -4,46 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    {{-- Title --}}
     <title>Public - @yield('title')</title>
 
-    <meta name="description" content="@yield(
-        'meta_description',
-        'Repository dokumen akademik digital untuk akses laporan, jurnal, penelitian, dan dokumen kampus secara modern.'
-    )">
+    {{-- SEO --}}
+    <meta name="description"
+        content="@yield(
+            'meta_description',
+            'Repository dokumen akademik digital untuk akses laporan, jurnal, penelitian, dan dokumen kampus secara modern.'
+        )">
 
-    <meta name="keywords" content="repository akademik, jurnal mahasiswa, laporan tugas akhir, repository kampus, dokumen akademik">
+    <meta name="keywords"
+        content="repository akademik, jurnal mahasiswa, laporan tugas akhir, repository kampus, dokumen akademik">
 
     <meta name="author" content="Repository Akademik">
 
-    <meta property="og:title" content="@yield('title', 'Repository Dokumen Akademik')">
+    {{-- Open Graph --}}
+    <meta property="og:title"
+        content="@yield('title', 'Repository Dokumen Akademik')">
 
-    <meta property="og:description" content="@yield('meta_description', 'Repository dokumen akademik digital modern.')">
+    <meta property="og:description"
+        content="@yield('meta_description', 'Repository dokumen akademik digital modern.')">
 
     <meta property="og:type" content="website">
 
-    {{-- Img web browser --}}
-    <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
+    {{-- Preconnect --> agar icon tidak 2x relaod --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     {{-- Google Font --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"rel="stylesheet">
 
-    {{-- Material Icons --}}
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    {{-- Material Symbols --}}
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"rel="stylesheet">
 
-    {{-- Custom Styles GGlobal --}}
+    {{-- Favicon --}}
+    <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
+
+    {{-- Vite Assets --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Custom Styles Global --}}
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
 
+        .material-symbols-outlined {
+            line-height: 1;
+        }
+
         .hero-gradient {
             background:
-                radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 35%),
-                radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.12), transparent 35%);
+                radial-gradient(circle at top left,
+                    rgba(59, 130, 246, 0.12),
+                    transparent 35%),
+                radial-gradient(circle at bottom right,
+                    rgba(168, 85, 247, 0.12),
+                    transparent 35%);
         }
     </style>
 </head>
@@ -87,14 +106,11 @@
                 {{-- Left Section --}}
                 <div class="flex items-center gap-20">
 
-                    {{-- Logo --}}
+                    {{-- Logo unsri --}}
                     <a href="{{ route('landing') }}" class="flex items-center gap-2.5 min-w-0 group">
-                        {{-- Logo --}}
                         <div class="shrink-0">
                             <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="w-9 h-9 object-contain">
                         </div>
-
-                        {{-- Text --}}
                         <div class="leading-tight min-w-0">
                             <h1 class="text-[13px] sm:text-sm font-semibold text-gray-900 truncate">
                                 Program Studi Manajemen Informatika

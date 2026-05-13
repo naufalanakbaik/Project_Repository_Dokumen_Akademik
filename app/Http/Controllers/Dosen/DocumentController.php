@@ -12,32 +12,6 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    // --- List daftar dokumen saya (pribadi)
-    // public function index(Request $request)
-    // {
-    //     $query = Document::with('category')
-    //         ->where('user_id', Auth::id());
-
-    //     // Search
-    //     if ($request->search) {
-    //         $query->where('title', 'like', '%' . $request->search . '%');
-    //     }
-
-    //     // Filter Category
-    //     if ($request->category) {
-    //         $query->where('category_id', $request->category);
-    //     }
-
-    //     $documents = $query->latest()
-    //         ->paginate(5)
-    //         ->withQueryString();
-
-    //     // ambil category untuk dropdown
-    //     $categories = Category::all();
-
-    //     return view('dosen.documents.index', compact('documents', 'categories'));
-    // }
-
     // --- List daftar dokumen saya (pribadi) dengan AJAX
     public function index(Request $request)
     {
@@ -66,39 +40,107 @@ class DocumentController extends Controller
     }
 
 
-    // --- Daftar dokumen (seluruh pengguna)
+    // --- Daftar dokumen global seluruh pengguna
     public function global(Request $request)
     {
-        $query = Document::with(['user', 'category']);
+            /*
+        |--------------------------------------------------------------------------
+        | Query Dasar
+        |--------------------------------------------------------------------------
+        */
+        $query = Document::with(['user', 'category'])
+            ->where('status', 'approved');
 
-        // Search
-        if ($request->search) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+        /*
+        |--------------------------------------------------------------------------
+        | Search Judul / Nama User
+        |--------------------------------------------------------------------------
+        */
+        if ($request->filled('search')) {
+
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+
+                // Search judul dokumen
+                $q->where('title', 'like', '%' . $search . '%')
+
+                    // Search nama user
+                    ->orWhereHas('user', function ($userQuery) use ($search) {
+
+                        $userQuery->where('name', 'like', '%' . $search . '%');
+                    });
+            });
         }
 
-        // Filter Category
-        if ($request->category_id) {
-            $query->where('category_id', $request->category_id);
+        /*
+        |--------------------------------------------------------------------------
+        | Filter Category
+        |--------------------------------------------------------------------------
+        */
+        if ($request->filled('category')) {
+
+            $query->where('category_id', $request->category);
         }
 
-        // Rule wajib (SECURITY)
-        $query->where(function ($q) {
-            $q->where('status', 'approved')
-                ->orWhere('user_id', auth()->id());
-        });
+        /*
+        |--------------------------------------------------------------------------
+        | Filter Tahun Terbit
+        |--------------------------------------------------------------------------
+        */
+        if ($request->filled('tahun')) {
 
+            $query->where('tahun_terbit', $request->tahun);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Data Dokumen
+        |--------------------------------------------------------------------------
+        */
         $documents = $query->latest()
-            ->paginate(9)
+            ->paginate(12)
             ->withQueryString();
 
-        // Kirim categories ke view
-        $categories = Category::all();
+        /*
+        |--------------------------------------------------------------------------
+        | Data Category Filter
+        |--------------------------------------------------------------------------
+        */
+        $categories = Category::orderBy('name')
+            ->get();
 
-        return view('dosen.katalog.global', compact('documents', 'categories'));
+        /*
+        |--------------------------------------------------------------------------
+        | Data Tahun Filter
+        |--------------------------------------------------------------------------
+        */
+        $years = Document::where('status', 'approved')
+            ->whereNotNull('tahun_terbit')
+            ->distinct()
+            ->orderByDesc('tahun_terbit')
+            ->pluck('tahun_terbit');
+        
+        $favorites = auth()->user()
+            ->favoriteDocuments()
+            ->pluck('documents.id')
+            ->toArray();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Return View
+        |--------------------------------------------------------------------------
+        */
+        return view('dosen.katalog.global', compact(
+            'documents',
+            'categories',
+            'years',
+            'favorites'
+        ));
     }
 
 
-    // --- Detail dokumen khusus (seluruh pengguna)
+    // --- Detail dokumen khusus (seluruh pengguna global)
     public function showGlobal($id)
     {
         $document = Document::with(['user', 'category'])->findOrFail($id);
@@ -111,20 +153,16 @@ class DocumentController extends Controller
         return view('dosen.katalog.show-global', compact('document'));
     }
 
-    /**
-     * Form upload
-     */
+
+    // -- Form unggah dokumen
     public function create()
     {
         $categories = Category::all();
-
         return view('dosen.documents.create', compact('categories'));
     }
 
 
-    /**
-     * Simpan dokumen (langsung approved)
-     */
+    // -- Proses simpan dokumen (Dosen -> Approved)
     public function store(Request $request)
     {
         $request->validate([
@@ -164,6 +202,8 @@ class DocumentController extends Controller
             ->with('success', 'Dokumen berhasil diupload.');
     }
 
+
+    // -- Form edit dokumen
     public function edit($id)
     {
         $document = Document::findOrFail($id);
@@ -179,9 +219,7 @@ class DocumentController extends Controller
     }
 
 
-    /**
-     * Update dokumen
-     */
+    // -- Proses perbarui dokumen
     public function update(Request $request, $id)
     {
         $document = Document::findOrFail($id);
@@ -233,9 +271,8 @@ class DocumentController extends Controller
             ->with('success', 'Dokumen berhasil diperbarui.');
     }
 
-    /**
-     * Detail dokumen
-     */
+
+    // -- Detail dokumen saya
     public function show($id)
     {
         $document = Document::with(['user', 'category'])->findOrFail($id);
@@ -247,9 +284,8 @@ class DocumentController extends Controller
         return view('dosen.documents.show', compact('document'));
     }
 
-    /**
-     * Preview dokumen
-     */
+
+    // -- Preview dokumen
     public function preview($id)
     {
         $document = Document::findOrFail($id);
@@ -269,9 +305,8 @@ class DocumentController extends Controller
         );
     }
 
-    /**
-     * Download dokumen
-     */
+
+    // -- Download dokumen
     public function download($id)
     {
         $document = Document::findOrFail($id);
@@ -287,5 +322,49 @@ class DocumentController extends Controller
         ]);
 
         return Storage::disk('public')->download($document->file);
+    }
+
+
+    // -- Tambah dokumen ke favorit
+    public function favorite($id)
+    {
+        auth()->user()
+            ->favoriteDocuments()
+            ->syncWithoutDetaching([$id]);
+
+        return back()->with(
+            'success',
+            'Dokumen berhasil ditambahkan ke favorit.'
+        );
+    }
+
+
+    // -- Hapus dokumen dari favorit
+    public function unfavorite($id)
+    {
+        auth()->user()
+            ->favoriteDocuments()
+            ->detach($id);
+
+        return back()->with(
+            'success',
+            'Dokumen berhasil dihapus dari favorit.'
+        );
+    }
+
+
+    // -- Halaman daftar dokumen favorit
+    public function favorites()
+    {
+        $documents = auth()->user()
+            ->favoriteDocuments()
+            ->with(['user', 'category'])
+            ->latest()
+            ->paginate(9);
+
+        return view(
+            'dosen.katalog.favorites',
+            compact('documents')
+        );
     }
 }

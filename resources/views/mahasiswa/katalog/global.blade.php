@@ -2,147 +2,302 @@
 @section('title', 'Katalog Dokumen')
 
 @section('content')
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6">
 
-    {{-- Header --}}
-    <div class="mb-7">
-        <h1 class="text-xl font-semibold text-gray-900 tracking-tight">
-            Semua Daftar Dokumen
-        </h1>
-        <p class="text-sm text-gray-500 mt-1">
-            Jelajahi seluruh dokumen yang tersedia di repository.
-        </p>
-    </div>
-
-    {{-- Grid Dokumen --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        @forelse($documents as $doc)
-            <div
-                class="bg-white border border-gray-200 rounded-xl shadow-sm hover:border-gray-300 transition-all duration-200 flex flex-col h-full group">
-
-                {{-- Header --}}
-                <div class="p-5 border-b border-gray-100 min-h-[76px]">
-
-                    <div class="flex items-start gap-3.5">
-
-                        {{-- Icon documents --}}
-                        <div
-                            class="w-10 h-10 grid place-items-center rounded-lg bg-red-50 text-red-600 border border-red-200 leading-none">
-                            <span class="material-symbols-outlined block !text-[20px]">
-                                description
-                            </span>
-                        </div>
-
-                        <div class="flex-1">
-
-                            {{-- Title --}}
-                            <a href="{{ route('mahasiswa.katalog.showGlobal', $doc->id) }}"
-                                class="text-[15px] font-semibold text-gray-800 hover:text-blue-600 transition line-clamp-2 min-h-[44px] 
-                                uppercase leading-snug">
-                                {{ $doc->title }}
-                            </a>
-
-                            {{-- Category and Status --}}
-                            <div class="flex items-center gap-2 mt-1 flex-wrap">
-
-                                {{-- Category --}}
-                                <span class="text-xs text-gray-500">
-                                    {{ $doc->category->name ?? 'Dokumen' }}
-                                </span>
-
-                                {{-- Divider --}}
-                                <span class="text-gray-300 text-xs">•</span>
-
-                                {{-- Tahun Terbit --}}
-                                <span class="text-xs text-gray-500">
-                                    Tahun Terbit
-                                    {{ $doc->tahun_terbit }}
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
+        {{-- Header --}}
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-5">
+            <div class="max-w-2xl">
+                {{-- Badge --}}
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm 
+                    text-yellow-700 text-sm font-medium shadow-md mb-3">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    Repository Digital
                 </div>
 
-                {{-- Body --}}
-                <div class="px-5 py-4 flex items-center justify-between flex-1">
+                {{-- Heading --}}
+                <h2 class="text-3xl md:text-[36px] font-semibold tracking-tight leading-tight text-gray-900">
+                    Koleksi Semua Dokumen Akademik
+                </h2>
 
-                    {{-- User Info --}}
-                    <div class="flex items-center gap-3 min-w-0">
-                        @php
-                            $initials = collect(explode(' ', $doc->user->name))
-                                ->map(fn($w) => strtoupper(substr($w, 0, 1)))
-                                ->take(2)
-                                ->join('');
-                        @endphp
+                {{-- Description --}}
+                <p class="mt-1.5 text-[14px] leading-relaxed text-gray-600 max-w-2xl">
+                    Menampilkan {{ $documents->total() }} dokumen publik
+                    yang tersedia di dalam sistem repository digital
+                    secara modern, cepat, dan terstruktur.
+                </p>
+            </div>
+        </div>
 
-                        {{-- Avatar --}}
-                        <div
-                            class="w-10 h-10 rounded-full bg-indigo-100 text-blue-600 flex items-center justify-center
-                            border border-indigo-300 font-semibold text-xs tracking-wider shrink-0">
-                            {{ $initials }}
-                        </div>
-
-                        {{-- User info --}}
-                        <div class="flex flex-col leading-tight min-w-0">
-                            <span class="text-[13px] font-medium text-gray-700 truncate">
-                                {{ $doc->user->name }}
-                            </span>
-
-                            <span class="text-[11px] text-gray-500 flex items-center gap-1 mt-0.5">
-                                {{ $doc->created_at->format('d M Y') }}
-                            </span>
-                        </div>
+        {{-- Search / Pencarian --}}
+        <form method="GET" action="{{ route('mahasiswa.katalog.global') }}"
+            class="bg-white border border-gray-200 rounded-xl p-5 mb-5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                {{-- Search --}}
+                <div class="lg:col-span-5">
+                    <label class="text-[13px] font-medium text-gray-600 ml-2 mb-1 block">
+                        Search
+                    </label>
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 !text-[19px] text-gray-400">
+                            search
+                        </span>
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            placeholder="Cari judul atau nama user..."
+                            class="w-full h-10 rounded-lg border border-gray-300 pl-12 pr-4 text-[13px] text-gray-700
+                            placeholder:text-gray-400 focus:border-yellow-400 focus:ring-4 focus:ring-yellow-100
+                            outline-none transition">
                     </div>
+                </div>
 
-                    {{-- Status --}}
-                    <div
-                        class="flex items-center gap-1.5 px-2.5 py-1 rounded-2xl border border-emerald-200
-                        bg-emerald-50 text-emerald-700 text-[11px] font-medium shrink-0">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                        Published
+                {{-- Category --}}
+                <div class="lg:col-span-3">
+                    <label class="text-[13px] font-medium text-gray-600 ml-2 mb-1 block">
+                        Kategori
+                    </label>
+                    <div class="relative">
+                        <select name="category"
+                            class="appearance-none w-full h-10 rounded-lg border border-gray-300 px-5 pr-11 text-[13px] text-gray-600
+                            focus:border-yellow-400 focus:ring-4 focus:ring-yellow-100 outline-none transition cursor-pointer">
+                            <option value="">
+                                Semua Kategori
+                            </option>
+
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ request('category') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        {{-- Arrow --}}
+                        <span
+                            class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 !text-[18px] text-gray-500 pointer-events-none">
+                            keyboard_arrow_down
+                        </span>
                     </div>
+                </div>
 
+                {{-- Tahun --}}
+                <div class="lg:col-span-2">
+                    <label class="text-[13px] font-medium text-gray-600 ml-2 mb-1 block">
+                        Tahun Terbit
+                    </label>
+                    <div class="relative">
+                        <select name="tahun"
+                            class="appearance-none w-full h-10 rounded-lg border border-gray-300 px-4 pr-11 text-[13px] text-gray-600 bg-white
+                            focus:border-yellow-400 focus:ring-4 focus:ring-yellow-100 outline-none transition cursor-pointer">
+                            {{-- Default --}}
+                            <option value="" {{ request('tahun') == '' ? 'selected' : '' }}>
+                                Semua Tahun
+                            </option>
+                            @foreach ($years as $year)
+                                <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
+                                    {{ $year }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        {{-- Arrow --}}
+                        <span
+                            class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 !text-[18px] text-gray-500 pointer-events-none">
+                            keyboard_arrow_down
+                        </span>
+                    </div>
                 </div>
 
                 {{-- Action --}}
-                <div class="px-6 py-2 border-t border-gray-100 flex items-center justify-between">
+                <div class="lg:col-span-2 flex items-end gap-2.5">
+                    {{-- Filter --}}
+                    <button type="submit"
+                        class="h-10 w-10 shrink-0 inline-flex items-center justify-center border border-amber-300
+                        rounded-lg bg-amber-100 text-amber-700 hover:bg-yellow-200 transition">
+                        <span class="material-symbols-outlined !text-[20px]">
+                            filter_alt
+                        </span>
+                    </button>
 
-                    {{-- Left: Detail --}}
-                    <a href="{{ route('mahasiswa.katalog.showGlobal', $doc->id) }}"
-                        class="text-gray-600 hover:text-blue-600 text-[13px] font-medium transition-colors duration-200">
-                        Lihat Detail
-                    </a>
-
-                    {{-- Right: Icon --}}
-                    <a href="{{ asset('storage/' . $doc->file) }}" target="_blank"
-                        class="group w-9 h-9 flex items-center justify-center rounded-lg text-gray-500 
-                        hover:text-blue-600 hover:bg-blue-50 transition-all duration-200">
-                        <span
-                            class="material-symbols-outlined !text-[18px] transition-transform duration-200 group-hover:scale-110">
-                            open_in_new
+                    {{-- Reset --}}
+                    <a href="{{ route('mahasiswa.katalog.global') }}"
+                        class="h-10 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-300 bg-gray-50
+                        px-4 text-gray-600 hover:bg-gray-100 transition">
+                        <span class="material-symbols-outlined !text-[17px]">
+                            refresh
+                        </span>
+                        <span class="text-[13px] font-medium whitespace-nowrap">
+                            Reset
                         </span>
                     </a>
-
                 </div>
 
             </div>
-        @empty
-            <div class="col-span-3 text-center py-16 text-gray-500">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="material-symbols-outlined text-4xl text-gray-300">folder_open</span>
-                    <p class="text-sm">Belum ada dokumen tersedia</p>
+        </form>
+
+        {{-- Main cards --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+            @forelse ($documents as $document)
+                <a href="{{ route('mahasiswa.katalog.showGlobal', $document->id) }}"
+                    class="group relative flex flex-col h-full overflow-hidden rounded-xl border border-amber-200 bg-white shadow-sm 
+                    transition-all duration-300 hover:-translate-y-1 hover:border-yellow-300 hover:shadow-lg hover:shadow-yellow-100/40">
+
+                    {{-- Glow Effect --}}
+                    <div class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-yellow-100/40 via-transparent to-amber-50/40
+                        group-hover:opacity-100">
+                    </div>
+
+                    {{-- Favorite Button --}}
+                    <div class="absolute top-4 right-4 z-20">
+                        @php
+                            $isFavorite = in_array($document->id, $favorites);
+                        @endphp
+                        @if ($isFavorite)
+                            {{-- Hapus dari favorite --}}
+                            <form action="{{ route('mahasiswa.documents.unfavorite', $document->id) }}" method="POST"
+                                onclick="event.stopPropagation();">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="event.preventDefault(); this.closest('form').submit();"
+                                    class="flex items-center justify-center w-10 h-10 rounded-full border border-red-200 bg-white/90 backdrop-blur-sm
+                                    text-red-600 shadow-sm transition-all duration-300 hover:bg-red-50 hover:scale-105">
+                                    <span class="material-symbols-outlined !text-[20px]">
+                                        bookmark_added
+                                    </span>
+                                </button>
+                            </form>
+                        @else
+                            {{-- Tambahkan ke favorite --}}
+                            <form action="{{ route('mahasiswa.documents.favorite', $document->id) }}" method="POST"
+                                onclick="event.stopPropagation();">
+                                @csrf
+                                <button type="submit" onclick="event.preventDefault(); this.closest('form').submit();"
+                                    class="flex items-center justify-center w-10 h-10 rounded-full border border-yellow-200 bg-white/90 backdrop-blur-sm
+                                    text-gray-400 shadow-sm transition-all duration-300 hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105">
+                                    <span class="material-symbols-outlined !text-[20px]">
+                                        bookmark
+                                    </span>
+                                </button>
+                            </form>
+                        @endif
+                    </div>
+
+                    {{-- Content --}}
+                    <div class="relative p-6 flex flex-col h-full">
+                        {{-- Category --}}
+                        <div class="mb-5">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200
+                                text-amber-700 text-[11px] font-medium">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                {{ $document->category->name }}
+                            </span>
+                        </div>
+
+                        {{-- Title --}}
+                        <h3 class="text-[18px] leading-snug font-semibold uppercase text-gray-800 line-clamp-2 transition duration-300 
+                            group-hover:text-yellow-700">
+                            {{ $document->title }}
+                        </h3>
+
+                        {{-- Description --}}
+                        <p class="mt-4 text-[12px] leading-relaxed text-gray-500 line-clamp-3">
+                            Dokumen akademik yang telah dipublikasikan
+                            dalam repository sistem dan tersedia
+                            untuk ditinjau lebih lanjut oleh pengguna.
+                        </p>
+
+                        {{-- Meta --}}
+                        <div class="mt-4 flex flex-wrap items-center gap-3 text-[12px] text-gray-500">
+                            {{-- Year --}}
+                            <div class="inline-flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[15px]">
+                                    calendar_check
+                                </span>
+                                <span>
+                                    Tahun terbit {{ $document->tahun_terbit ?? '-' }}
+                                </span>
+                            </div>
+
+                            {{-- Dot --}}
+                            <span class="text-gray-400">•</span>
+
+                            {{-- Role --}}
+                            <div class="inline-flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[15px]">
+                                    person
+                                </span>
+                                <span>
+                                    Penerbit {{ ucfirst($document->user->role) }}
+                                </span>
+                            </div>
+                        </div>
+
+                        {{-- Divider --}}
+                        <div class="mt-5 border-t border-dashed border-gray-300"></div>
+
+                        {{-- Footer avatar profile dan button detail --}}
+                        <div class="mt-3 flex items-center justify-between gap-4">
+                            {{-- User info --}}
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full
+                                    border border-indigo-300 bg-indigo-50 text-xs font-semibold tracking-wide text-indigo-600">
+                                    {{ strtoupper(substr($document->user->name, 0, 1)) }}
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[13px] font-semibold text-gray-700 truncate">
+                                        {{ $document->user->name }}
+                                    </p>
+                                    <p class="text-[11.5px] text-gray-500 capitalize">
+                                        {{ $document->user->role }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {{-- Detail --}}
+                            <div
+                                class="flex items-center gap-1.5 text-[13px] font-normal text-gray-400 transition-all duration-300
+                                group-hover:text-yellow-700">
+                                <span>
+                                    Detail
+                                </span>
+                                <span class="material-symbols-outlined !text-[14px]">
+                                    open_in_new
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @empty
+                {{-- Empty State --}}
+                <div class="col-span-full rounded-xl border border-dashed border-yellow-200 bg-gradient-to-br from-white to-yellow-50/40
+                    p-16 text-center shadow-sm">
+                    {{-- Icon --}}
+                    <div class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-yellow-50 to-amber-50 border border-yellow-100 
+                        flex items-center justify-center text-yellow-600 shadow-inner">
+                        <span class="material-symbols-outlined text-[40px]">
+                            folder_off
+                        </span>
+                    </div>
+                    {{-- Text --}}
+                    <h3 class="mt-7 text-2xl font-semibold text-gray-800">
+                        Dokumen Tidak Ditemukan
+                    </h3>
+                    <p class="mt-3 text-[13px] leading-relaxed text-gray-500 max-w-md mx-auto">
+                        Tidak ada dokumen yang sesuai dengan pencarian
+                        atau filter yang digunakan saat ini.
+                    </p>
                 </div>
+            @endforelse
+        </div>
+
+        {{-- Pagination --}}
+        @if ($documents->hasPages())
+            <div class="mt-10">
+                {{ $documents->links('vendor.pagination.tailwind-darkmode') }}
             </div>
-        @endforelse
+        @endif
 
-    </div>
-
-    {{-- Pagination --}}
-    <div class="mt-10">
-        {{ $documents->links('vendor.pagination.tailwind-darkmode') }}
     </div>
 
 @endsection

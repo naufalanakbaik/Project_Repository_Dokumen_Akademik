@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <div class="max-w-full mx-auto space-y-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
         <div class="flex items-start justify-between mb-5">
@@ -46,10 +46,10 @@
 
 
         {{-- Main card --}}
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="bg-white border border-amber-200 rounded-xl shadow-sm overflow-hidden">
 
             {{-- Header bar --}}
-            <div class="flex items-center justify-between p-5 border-b border-gray-100 bg-gray-50">
+            <div class="flex items-center justify-between p-5 border-b border-amber-100 bg-amber-50">
 
                 <div class="flex items-center gap-4">
                     <div
@@ -62,16 +62,17 @@
                             {{ $document->title }}
                         </p>
                         <p class="text-xs text-gray-500 mt-0.5">
-                            PDF Document • Ready To Open
+                            PDF Document • Siap dibuka
                         </p>
                     </div>
                 </div>
 
-                {{-- Status  --}}
-                <span
-                    class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-xl uppercase bg-green-50 text-green-700 border border-green-200">
+                {{-- Status published --}}
+                <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-2xl border border-emerald-200
+                    bg-emerald-50 text-emerald-700 text-[11px] font-medium shrink-0">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                     Published
-                </span>
+                </div>
 
             </div>
 
@@ -103,13 +104,13 @@
                     <div class="flex items-center gap-2">
                         <a href="{{ route('mahasiswa.documents.preview', $document->id) }}" target="_blank"
                             class="px-3 py-1.5 text-[11px] border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition flex items-center gap-1">
-                            <span class="material-icons !text-[14px]">open_in_new</span>
+                            <span class="material-symbols-outlined !text-[14px]">open_in_new</span>
                             Preview
                         </a>
 
                         <a href="{{ route('mahasiswa.documents.download', $document->id) }}"
                             class="px-3 py-1.5 text-[11px] border border-red-300 bg-red-50 text-red-700 rounded-md hover:bg-red-100 transition flex items-center gap-1">
-                            <span class="material-icons !text-[14px]">download</span>
+                            <span class="material-symbols-outlined !text-[14px]">download</span>
                             Download
                         </a>
                     </div>
@@ -128,21 +129,21 @@
                     </div>
 
                     <div>
-                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Category</p>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Kategori</p>
                         <p class="text-sm font-medium text-gray-600">
                             {{ $document->category->name }}
                         </p>
                     </div>
 
                     <div>
-                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Upload Date</p>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Tanggal Upload</p>
                         <p class="text-sm font-medium text-gray-600">
                             {{ $document->created_at->format('d F Y') }}
                         </p>
                     </div>
 
                     <div>
-                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">File Type</p>
+                        <p class="text-[11.5px] font-medium text-gray-500 mb-1">Tipe File</p>
                         <p class="text-sm font-medium text-gray-600">
                             PDF Document
                         </p>

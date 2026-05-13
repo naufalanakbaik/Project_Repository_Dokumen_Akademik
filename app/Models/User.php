@@ -59,4 +59,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(DocumentLog::class);
     }
+
+    /**
+     * Relasi ke dokumen favorit.
+     * Mencatat aktivitas dokumen favorit.
+     */
+    public function favoriteDocuments()
+    {
+        return $this->belongsToMany(
+            Document::class,
+            'favorite_documents'
+        )->withTimestamps();
+    }
 }

@@ -8,8 +8,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Mahasiswa\DocumentController as MahasiswaDocumentController;
+use App\Http\Controllers\Mahasiswa\HomeController as MahasiswaHomeController;
 use App\Http\Controllers\Mahasiswa\ProfileController as MahasiswaProfileController;
 use App\Http\Controllers\Dosen\DocumentController as DosenDocumentController;
+use App\Http\Controllers\Dosen\HomeController as DosenHomeController;
 use App\Http\Controllers\Dosen\ProfileController as DosenProfileController;
 use App\Http\Controllers\Kaprodi\DocumentController as KaprodiDocumentController;
 
@@ -51,6 +53,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('dashboard');
 
+            // -- Home / Beranda
+            Route::get('/home', [MahasiswaHomeController::class, 'index'])
+                ->name('home');
+
             // -- Akses global dokumen (seluruh dokumen yang diunggah setiap role) -> mahasiswa
             Route::get('/documents/global', [MahasiswaDocumentController::class, 'global'])
                 ->name('katalog.global');
@@ -90,6 +96,19 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/profile', [MahasiswaProfileController::class, 'update'])->name('profile.update');
 
 
+            // -- Tambah dokumen ke favorit
+            Route::post('/documents/{id}/favorite', [MahasiswaDocumentController::class, 'favorite'])
+                ->name('documents.favorite');
+
+            // -- Hapus dokumen dari favorit
+            Route::delete('/documents/{id}/unfavorite', [MahasiswaDocumentController::class, 'unfavorite'])
+                ->name('documents.unfavorite');
+
+            // -- Halaman dokumen favorit -> mahasiswa
+            Route::get('/katalog/favorite', [MahasiswaDocumentController::class, 'favorites'])
+                ->name('katalog.favorites');
+
+
             // -- Preview (lihat) pdf dokumen -> mahasiswa
             Route::get('/documents/{id}/preview', [MahasiswaDocumentController::class, 'preview'])
                 ->name('documents.preview');
@@ -111,6 +130,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('dashboard');
 
+            // -- Home / Beranda
+            Route::get('/home', [DosenHomeController::class, 'index'])
+                ->name('home');
+
             // -- Dashboard monitoring mahasiswa -> dosen
             Route::get('/monitoring', [DashboardController::class, 'index'])
                 ->name('monitoring');
@@ -122,6 +145,18 @@ Route::middleware(['auth'])->group(function () {
             // -- Detail global dokumen akses
             Route::get('/documents/global/{id}', [DosenDocumentController::class, 'showGlobal'])
                 ->name('katalog.showGlobal');
+
+            // -- Tambah dokumen ke favorit
+            Route::post('/documents/{id}/favorite', [DosenDocumentController::class, 'favorite'])
+                ->name('documents.favorite');
+
+            // -- Hapus dokumen dari favorit
+            Route::delete('/documents/{id}/unfavorite', [DosenDocumentController::class, 'unfavorite'])
+                ->name('documents.unfavorite');
+
+            // -- Halaman dokumen favorit -> dosen
+            Route::get('/katalog/favorite', [DosenDocumentController::class, 'favorites'])
+                ->name('katalog.favorites');
 
             // -- Dokumen akses saya (dokumen pribadi) -> dosen
             Route::get('/documents', [DosenDocumentController::class, 'index'])

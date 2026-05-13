@@ -2,16 +2,16 @@
 @section('title', 'Unggah Dokumen Baru')
 
 @section('content')
-    <div class="max-w-full mx-auto space-y-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-3">
 
         {{-- Header --}}
         <div class="flex items-start justify-between pb-2">
             <div>
-                <h1 class="text-xl font-semibold text-gray-800">
-                    Upload Dokumen
+                <h1 class="text-xl font-semibold text-gray-900">
+                    Unggah Dokumen Baru
                 </h1>
                 <p class="text-sm text-gray-500 mt-0.5">
-                    Unggah dokumen akademik dengan informasi yang jelas dan terstruktur
+                    Unggah dokumen akademik untuk memastikan data tersimpan dengan valid
                 </p>
             </div>
             
@@ -19,7 +19,7 @@
             <a href="{{ route('dosen.documents.index') }}"
                 class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-0.5">
                 Back
-                <span class="material-icons !text-[18px]">low_priority</span>
+                <span class="material-symbols-outlined !text-[18px]">low_priority</span>
             </a>
         </div>
 
@@ -31,7 +31,7 @@
         <div
             class="flex items-center justify-between bg-white border border-gray-300 rounded-lg shadow-sm px-4 py-2.5 text-sm text-gray-600">
             <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-gray-400 !text-[18px]">
+                <span class="material-symbols-outlined text-gray-400 !text-[16px]">
                     calendar_today
                 </span>
                 <span>
@@ -112,7 +112,7 @@
                             </select>
 
                             <span
-                                class="material-icons absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 !text-[20px] pointer-events-none">
+                                class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 !text-[20px] pointer-events-none">
                                 arrow_drop_down
                             </span>
                         </div>

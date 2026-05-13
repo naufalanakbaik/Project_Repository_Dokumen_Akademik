@@ -17,7 +17,7 @@ class AuthController extends Controller
 
             // Mahasiswa & dosen -> katalog global
             if (in_array($role, ['mahasiswa', 'dosen'])) {
-                return redirect()->route($role . '.katalog.global');
+                return redirect()->route($role . '.home');
             }
 
             // Role lain -> dashboard
@@ -44,7 +44,7 @@ class AuthController extends Controller
 
             // Mahasiswa & dosen
             if (in_array($role, ['mahasiswa', 'dosen'])) {
-                return redirect()->route($role . '.katalog.global');
+                return redirect()->route($role . '.home');
             }
 
             // Admin & kaprodi

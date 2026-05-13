@@ -5,109 +5,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Js darkmode Agar tidak relad 2x -->
-    <script>
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-        }
-    </script>
-
-    <!-- Tailwind CSS via Vite -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <!-- Title -->
+    {{-- Title --}}
     <title>Dosen - @yield('title')</title>
 
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    {{-- Preconnect --> agar icon tidak 2x relaod --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Icon web browser -->
+    {{-- Google Font --}}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"rel="stylesheet">
+
+    {{-- Material Symbols --}}
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"rel="stylesheet">
+
+    {{-- Favicon --}}
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
 
-    <!-- Material icon -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    {{-- Tailwind CSS + JS --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Global style -->
+    {{-- Global Style --}}
     <style>
         body {
             font-family: 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            line-height: 1;
         }
     </style>
 
     @stack('styles')
 </head>
 
-<body class="dark:bg-gray-900">
+<body>
 
     {{-- Top Head Information --}}
-    <div class="text-xs bg-yellow-400 dark:bg-gray-200">
+    <div class="text-xs bg-yellow-400">
         <div class="max-w-7xl mx-auto px-8 py-2 flex justify-between items-center">
 
             <div class="flex items-center gap-6">
-                <span class="flex items-center text-[11px] gap-2 text-gray-800 dark:text-gray-500">
+                <span class="flex items-center text-[11px] gap-2 text-gray-800">
                     Repository Akademik System
-                    <span class="text-gray-800 dark:text-gray-500">v1.0</span>
+                    <span class="text-gray-800">v1.0</span>
                 </span>
-                <span class="hidden md:block text-[11px] text-gray-600 dark:text-gray-500">
+
+                <span class="hidden md:block text-[11px] text-gray-600">
                     Sistem pengelolaan dokumen akademik dan repositori digital
                 </span>
             </div>
 
-            <div class="flex items-center gap-5">
-                {{-- <a href="{{ route('publisher.documentation') }}"
-                    class="transition duration-200 font-normal {{ request()->routeIs('publisher.documentation')
-                        ? 'text-red-500 dark:text-red-500'
-                        : 'hover:text-blue-500 dark:hover:text-blue-400' }}">
-                    Dokumentasi
-                </a>
+            {{-- Right --}}
+            <div class="hidden md:flex items-center gap-2 text-[11px] text-gray-600">
+                <span class="font-medium">
+                    {{ now()->translatedFormat('l') }},
+                </span>
 
-                <a href="{{ route('publisher.help') }}"
-                    class="transition duration-200 font-normal {{ request()->routeIs('publisher.help')
-                        ? 'text-red-500 dark:text-red-500'
-                        : 'hover:text-blue-500 dark:hover:text-blue-400' }}">
-                    Bantuan
-                </a> --}}
+                <span>
+                    {{ now()->translatedFormat('d F Y') }}
+                </span>
             </div>
+
         </div>
     </div>
 
     {{-- Navbar --}}
-    <nav class="sticky top-0 z-50 bg-white/50 dark:bg-gray-900 backdrop-blur-md  dark:border-gray-700">
-        <div class="max-w-7xl mx-auto px-8">
+    <nav class="sticky top-0 z-50 bg-white/50 backdrop-blur-md ">
+        <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center h-16">
 
                 {{-- Left Section --}}
-                <div class="flex items-center gap-10">
+                <div class="flex items-center gap-20">
 
-                    {{-- Logo + Brand --}}
-                    <a href="{{ route('dosen.dashboard') }}" class="flex items-center gap-2.5 group">
-                        <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-9 w-9 object-contain">
-                        <div class="flex flex-col leading-tight">
-                            <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                    {{-- Logo unsri --}}
+                    <a href="{{ route('dosen.katalog.global') }}" class="flex items-center gap-2.5 min-w-0 group">
+                        <div class="shrink-0">
+                            <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="w-9 h-9 object-contain">
+                        </div>
+                        <div class="leading-tight min-w-0">
+                            <h1 class="text-[13px] sm:text-sm font-semibold text-gray-900 truncate">
                                 Program Studi Manajemen Informatika
-                            </span>
-                            <span class="text-[11px] text-gray-500 dark:text-gray-200">
-                                Fakultas Ilmu Komputer
-                            </span>
+                            </h1>
+                            <p class="text-[11px] text-gray-500 truncate">
+                                Fakultas Ilmu Komputer · Universitas Sriwijaya
+                            </p>
                         </div>
                     </a>
 
                     {{-- Menu --}}
-                    <div class="hidden md:flex items-center gap-8 text-[14px] font-medium">
+                    <div class="hidden md:flex items-center gap-9 text-[14px] font-medium">
                         @php
                             function navClass($isActive)
                             {
                                 return 'relative inline-block px-1 py-2 text-sm font-medium transition duration-200 ' .
-                                    ($isActive
-                                        ? 'text-amber-600'
-                                        : 'text-gray-600 hover:text-amber-600 dark:text-gray-300 dark:hover:text-amber-300') .
+                                    ($isActive ? 'text-amber-600' : 'text-gray-600 hover:text-amber-600') .
                                         " after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
                                         after:-bottom-1 after:h-[2.5px] after:rounded-full
                                         after:bg-amber-600 after:transition-all after:duration-300 " .
                                     ($isActive ? 'after:w-6' : 'after:w-0 hover:after:w-6');
                             }
                         @endphp
+
+                        {{-- Beranda --}}
+                        <a href="{{ route('dosen.home') }}"
+                            class="{{ navClass(request()->routeIs('dosen.home')) }}">
+                            Beranda
+                        </a>
 
                         {{-- Repositori --}}
                         <a href="{{ route('dosen.katalog.global') }}"
@@ -118,7 +121,7 @@
                         {{-- Dashboard --}}
                         <a href="{{ route('dosen.dashboard') }}"
                             class="{{ navClass(request()->routeIs('dosen.dashboard')) }}">
-                            Dashboard
+                            Aktivitas Saya
                         </a>
 
                         {{-- Dokumen Saya --}}
@@ -132,36 +135,26 @@
                 {{-- Right section --}}
                 <div class="relative inline-block text-left">
 
-                    {{-- User Menu Button --}}
+                    {{-- Fitur profile dropdown --}}
                     <button id="userMenuButton"
-                        class="flex items-center gap-1 text-sm transition text-gray-700 dark:text-gray-200
-                        hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none">
-
-                        {{-- Avatar --}}
-                        {{-- <div class="h-8 w-8 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-white flex items-center justify-center font-semibold text-xs shadow-sm ring-2 ring-white dark:ring-gray-900">
-                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                        </div>  --}}
-
+                        class="flex items-center gap-1 text-sm transition text-gray-700 hover:text-blue-600 focus:outline-none">
                         <span class="font-normal ml-2">
                             {{ auth()->user()->name }}
                         </span>
 
                         {{-- Dropdown Icon --}}
                         <span id="dropdownIcon"
-                            class="material-icons !text-base text-gray-400 dark:text-gray-500 transition-transform duration-200">
+                            class="material-symbols-outlined !text-base text-gray-400 transition-transform duration-200">
                             arrow_drop_down
                         </span>
                     </button>
 
                     {{-- Dropdwon --}}
                     <div id="userDropdown"
-                        class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700
-                        rounded-lg shadow-sm opacity-0 invisible transition">
+                        class="absolute right-0 mt-2 w-64 bg-white border border-gray-300 rounded-lg shadow-sm opacity-0 invisible transition">
 
                         {{-- User Header --}}
-                        <div
-                            class="px-6 py-3 bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 rounded-tl-lg rounded-tr-lg">
-
+                        <div class="px-6 py-3 bg-white border-b border-gray-300 rounded-tl-lg rounded-tr-lg">
                             <div class="flex items-center gap-3">
                                 {{-- Avatar --}}
                                 @php
@@ -172,37 +165,18 @@
                                         ->join('');
                                 @endphp
 
-                                <div class="h-10 w-10 rounded-full overflow-hidden shadow-sm ring-1 ring-yellow-200 dark:ring-gray-900">
-                                    <div
-                                        class="w-full h-full flex items-center justify-center
-                                        bg-yellow-100 text-yellow-600 font-serif font-semibold text-sm">
+                                <div class="h-10 w-10 rounded-full overflow-hidden shadow-sm ring-1 ring-yellow-200">
+                                    <div class="w-full h-full flex items-center justify-center bg-yellow-100 text-yellow-600 font-semibold text-[15px]">
                                         {{ $initials }}
                                     </div>
                                 </div>
 
-                                {{-- <div
-                                    class="h-10 w-10 rounded-full overflo w-hidden shadow-sm ring-2 ring-white dark:ring-gray-900">
-
-                                    @if (auth()->user()->photo)
-                                        <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Avatar"
-                                            class="w-full h-full rounded-full border-gray-200 dark:border-gray-100 object-cover">
-                                    @else
-                                        <div
-                                            class="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center 
-                                            border border-yellow-300 dark:bg-gray-800 dark:border-gray-700">
-                                            <span class="material-icons text-yellow-400 !text-[20px]">
-                                                person
-                                            </span>
-                                        </div>
-                                    @endif
-                                </div> --}}
-
                                 {{-- User info --}}
                                 <div class="flex flex-col leading-tight">
-                                    <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                                    <p class="text-sm font-medium text-gray-700">
                                         {{ auth()->user()->name }}
                                     </p>
-                                    <p class="text-[11px] text-gray-600 dark:text-gray-400 truncate max-w-[160px]">
+                                    <p class="text-[11px] text-gray-600 truncate max-w-[160px]">
                                         {{ auth()->user()->email }}
                                     </p>
                                 </div>
@@ -213,50 +187,229 @@
                         <div class="py-2">
                             {{-- Profile --}}
                             <a href="{{ route('dosen.profile.show') }}"
-                                class="block px-5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                class="block px-5 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                 Profil Saya
+                            </a>
+
+                            <a href="{{ route('dosen.katalog.favorites') }}"
+                                class="block px-5 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                Dokumen Tersimpan
                             </a>
 
                             {{-- Divider --}}
                             <div class="border-t border-gray-200 my-1"></div>
 
-                            {{-- Button dark mode --}}
-                            <button id="darkToggle"
-                                class="flex items-center gap-3 w-full px-5 py-2 text-sm text-gray-700 dark:text-gray-200
-                                hover:bg-gray-100 dark:hover:bg-gray-700 transition">
-                                <span id="darkIcon" class="material-icons text-gray-600 dark:text-gray-300">
-                                    dark_mode
-                                </span>
-                                Toggle Dark Mode
-                            </button>
-
-
                             {{-- Logout --}}
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button
-                                    class="w-full text-left px-5 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20">
+                                <button class="w-full text-left px-5 py-2 text-sm text-red-600 hover:bg-red-50">
                                     Logout
                                 </button>
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </nav>
 
     {{-- Content --}}
-    <main class="max-w-7xl mx-auto px-8 py-5">
+    <main>
+        {{-- Message succes --}}
         @if (session('success'))
-            <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg">
-                {{ session('success') }}
+            <div class="max-w-[77rem] mx-auto mt-2.5 mb-1">
+                <div
+                    class="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50/80 px-4 py-3 text-emerald-700 shadow-sm">
+                    {{-- Icon --}}
+                    <span class="material-symbols-outlined !text-[19px] text-emerald-600 shrink-0">
+                        check_circle
+                    </span>
+                    {{-- Message --}}
+                    <p class="text-[13px] font-medium leading-relaxed">
+                        {{ session('success') }}
+                    </p>
+                </div>
             </div>
         @endif
 
         @yield('content')
     </main>
+
+    {{-- Footer --}}
+    <footer class="relative border-t border-gray-200 bg-gradient-to-b from-white to-amber-50/30">
+        {{-- Top --}}
+        <div class="max-w-[77rem] mx-auto px-6 py-14">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+                {{-- Brand --}}
+                <div class="lg:col-span-5">
+
+                    {{-- Logo --}}
+                    <div class="flex items-center gap-3">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-amber-50 text-amber-700 shadow-sm">
+                            <span class="material-symbols-outlined !text-[24px]">
+                                library_books
+                            </span>
+                        </div>
+                        <div>
+                            <h2 class="text-[17px] font-semibold text-gray-900 leading-tight">
+                                Repository Dokumen Akademik
+                            </h2>
+                            <p class="text-[13px] text-gray-500">
+                                Sistem Repository Digital
+                            </p>
+                        </div>
+                    </div>
+
+                    {{-- Description --}}
+                    <p class="mt-5 text-[14px] leading-relaxed text-gray-600 max-w-xl">
+                        Platform digital modern untuk pengelolaan, penyimpanan,
+                        pencarian, dan distribusi dokumen akademik secara
+                        terpusat di lingkungan Program Studi Manajemen Informatika
+                        Fakultas Ilmu Komputer Universitas Sriwijaya.
+                    </p>
+
+                    {{-- Info --}}
+                    <div class="mt-6 flex flex-wrap items-center gap-3">
+                        <div class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
+                            <span class="material-symbols-outlined !text-[16px] text-amber-600">
+                                verified
+                            </span>
+                            Repository Terverifikasi
+                        </div>
+
+                        <div class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
+                            <span class="material-symbols-outlined !text-[16px] text-amber-600">
+                                security
+                            </span>
+                            Akses Aman & Terstruktur
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Navigation --}}
+                <div class="lg:col-span-2">
+                    <h3 class="text-[14px] font-semibold text-gray-900 mb-4">
+                        Navigasi
+                    </h3>
+                    <div class="space-y-3">
+                        <a href="#" class="block text-[13px] text-gray-500 transition hover:text-amber-700">
+                            Beranda
+                        </a>
+                        <a href="#" class="block text-[13px] text-gray-500 transition hover:text-amber-700">
+                            Repository
+                        </a>
+                        <a href="#" class="block text-[13px] text-gray-500 transition hover:text-amber-700">
+                            Dokumen Favorit
+                        </a>
+                        <a href="#" class="block text-[13px] text-gray-500 transition hover:text-amber-700">
+                            Tentang Sistem
+                        </a>
+                    </div>
+                </div>
+
+                {{-- Category --}}
+                <div class="lg:col-span-2">
+                    <h3 class="text-[14px] font-semibold text-gray-900 mb-4">
+                        Kategori
+                    </h3>
+                    <div class="space-y-3">
+                        <p class="text-[13px] text-gray-500">
+                            Laporan Tugas Akhir
+                        </p>
+                        <p class="text-[13px] text-gray-500">
+                            Laporan Kerja Praktik
+                        </p>
+                        <p class="text-[13px] text-gray-500">
+                            Jurnal Mahasiswa
+                        </p>
+                        <p class="text-[13px] text-gray-500">
+                            Modul Praktikum
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Contact --}}
+                <div class="lg:col-span-3">
+                    <h3 class="text-[14px] font-semibold text-gray-900 mb-4">
+                        Informasi
+                    </h3>
+                    <div class="space-y-4">
+
+                        {{-- Fakultas --}}
+                        <div class="flex items-start gap-3">
+                            <span class="material-symbols-outlined !text-[18px] text-amber-600 mt-0.5">
+                                school
+                            </span>
+                            <div>
+                                <p class="text-[13px] font-medium text-gray-700">
+                                    Fakultas Ilmu Komputer
+                                </p>
+                                <p class="text-[12px] leading-relaxed text-gray-500">
+                                    Universitas Sriwijaya
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- Program Studi --}}
+                        <div class="flex items-start gap-3">
+                            <span class="material-symbols-outlined !text-[18px] text-amber-600 mt-0.5">
+                                account_balance
+                            </span>
+                            <div>
+                                <p class="text-[13px] font-medium text-gray-700">
+                                    Manajemen Informatika
+                                </p>
+                                <p class="text-[12px] leading-relaxed text-gray-500">
+                                    Program Studi Digital Repository
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- Email --}}
+                        <div class="flex items-start gap-3">
+                            <span class="material-symbols-outlined !text-[18px] text-amber-600 mt-0.5">
+                                mail
+                            </span>
+                            <div>
+                                <p class="text-[13px] font-medium text-gray-700">
+                                    repository@unsri.ac.id
+                                </p>
+                                <p class="text-[12px] leading-relaxed text-gray-500">
+                                    Kontak & Bantuan Sistem
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Bottom --}}
+        <div class="border-t border-gray-200 bg-white/70 backdrop-blur-sm">
+            <div class="max-w-[77rem] mx-auto px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+                {{-- Copyright --}}
+                <p class="text-[12px] text-gray-500 leading-relaxed">
+                    © 2025 - {{ date('Y') }} Repository Dokumen Akademik.
+                    Seluruh hak cipta dilindungi.
+                </p>
+
+                {{-- Bottom Links --}}
+                <div class="flex items-center gap-5">
+                    <a href="#" class="text-[12px] text-gray-500 transition hover:text-amber-700">
+                        Kebijakan Privasi
+                    </a>
+                    <a href="#" class="text-[12px] text-gray-500 transition hover:text-amber-700">
+                        Panduan Pengguna
+                    </a>
+                    <a href="#" class="text-[12px] text-gray-500 transition hover:text-amber-700">
+                        Bantuan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     {{-- Js Dropdown Toogle profile --}}
     <script>
@@ -279,23 +432,6 @@
                 dropdown.classList.add('opacity-0', 'scale-95', 'invisible');
                 icon.classList.remove('rotate-180');
             }
-        });
-    </script>
-
-    {{-- Js Dark Mode --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const toggle = document.getElementById("darkToggle");
-            if (!toggle) return;
-            toggle.addEventListener("click", function() {
-                const html = document.documentElement;
-                html.classList.toggle("dark");
-                if (html.classList.contains("dark")) {
-                    localStorage.setItem("theme", "dark");
-                } else {
-                    localStorage.setItem("theme", "light");
-                }
-            });
         });
     </script>
 
