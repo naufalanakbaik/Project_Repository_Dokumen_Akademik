@@ -22,7 +22,7 @@
                 </h2>
 
                 {{-- Description --}}
-                <p class="mt-1.5 text-[14px] leading-relaxed text-gray-600 max-w-2xl">
+                <p class="mt-1 text-[14px] leading-relaxed text-gray-600 max-w-2xl">
                     Menampilkan {{ $documents->total() }} dokumen
                     yang telah Anda simpan ke dalam daftar favorit
                     untuk akses yang lebih cepat dan mudah.

@@ -5,7 +5,40 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6">
 
         {{-- Header --}}
-        <div class="flex justify-between items-center mb-5">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-6">
+            {{-- Left --}}
+            <div class="max-w-3xl">
+                {{-- Badge --}}
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm
+                    text-yellow-700 text-sm font-medium shadow-md mb-3">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    Tabel Dokumen
+                </div>
+                {{-- Heading --}}
+                <h1 class="text-3xl md:text-[36px] font-semibold tracking-tight leading-tight text-gray-900">
+                    Daftar Dokumen Saya
+                </h1>
+                {{-- Description --}}
+                <p class="mt-1 text-[14px] leading-relaxed text-gray-600 max-w-2xl">
+                    Upload dan kelola dokumen akademik Anda
+                    dalam satu sistem repository digital yang
+                    modern, cepat, dan terintegrasi.
+                </p>
+            </div>
+
+            {{-- Right Button --}}
+            <div class="flex lg:justify-end">
+                <a href="{{ route('mahasiswa.documents.create') }}"
+                    class="inline-flex items-center gap-1.5 px-3.5 py-2 text-[13px] font-medium text-blue-700 bg-blue-50 border border-blue-300 rounded-lg
+                    hover:bg-blue-100 hover:border-blue-400 transition-all duration-300">
+                    <span class="material-symbols-outlined !text-[17px]">
+                        upload
+                    </span>
+                    Upload Dokumen
+                </a>
+            </div>
+        </div>
+        {{-- <div class="flex justify-between items-center mb-5">
             <div>
                 <h1 class="text-xl font-semibold text-gray-900">
                     Daftar Dokumen Saya
@@ -17,13 +50,13 @@
 
             <a href="{{ route('mahasiswa.documents.create') }}"
                 class="inline-flex items-center gap-1.5 px-3.5 py-2 text-[13px] text-blue-700 font-medium bg-blue-50 border border-blue-400 
-            rounded-lg hover:bg-blue-100 transition">
+                rounded-lg hover:bg-blue-100 transition">
                 <span class="material-symbols-outlined !text-[17px]">
                     upload
                 </span>
                 Upload Dokumen
             </a>
-        </div>
+        </div> --}}
 
         {{-- Filter dan search --}}
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
@@ -34,7 +67,7 @@
                     Semua Dokumen Saya
                 </h2>
 
-                <span class="text-xs font-medium text-gray-600 bg-gray-100 px-2 py-0.5 border rounded-md">
+                <span class="text-[13px] font-medium text-gray-600 bg-gray-100 px-2 py-0.5 border border-gray-300 rounded-md">
                     {{ $documents->total() }} items
                 </span>
             </div>
@@ -50,17 +83,15 @@
                     </span>
 
                     <input type="text" id="searchInput" placeholder="Cari judul dokumen..."
-                        class="w-full h-9 pl-9 pr-3 text-[13px] border border-gray-300 rounded-md
-                bg-white text-gray-800 placeholder:text-gray-400
-                focus:outline-none focus:ring-1 focus:ring-gray-300 focus:border-gray-400">
+                        class="w-full h-9 pl-9 pr-3 text-[13px] border border-gray-300 rounded-md bg-white text-gray-800 placeholder:text-gray-400
+                        focus:outline-none focus:ring-1 focus:ring-gray-300 focus:border-gray-400">
                 </div>
 
                 {{-- Status --}}
                 <div class="relative">
                     <select id="filterStatus"
-                        class="h-9 pl-3 pr-8 text-sm border border-gray-300 rounded-md
-                bg-white text-gray-700 appearance-none
-                focus:outline-none focus:ring-1 focus:ring-gray-300 focus:border-gray-400">
+                        class="h-9 pl-3 pr-8 text-sm border border-gray-300 rounded-md bg-white text-gray-600 appearance-none
+                        focus:outline-none focus:ring-1 focus:ring-gray-300 focus:border-gray-400">
                         <option value="">Status</option>
                         <option value="approved">Approved</option>
                         <option value="pending">Pending</option>
@@ -76,9 +107,8 @@
                 {{-- Category --}}
                 <div class="relative">
                     <select id="filterCategory"
-                        class="h-9 pl-3 pr-8 text-sm border border-gray-300 rounded-md
-                    bg-white text-gray-700 appearance-none
-                    focus:outline-none focus:ring-1 focus:ring-gray-300 focus:border-gray-400">
+                        class="h-9 pl-3 pr-8 text-sm border border-gray-300 rounded-md bg-white text-gray-600 appearance-none
+                        focus:outline-none focus:ring-1 focus:ring-gray-300 focus:border-gray-400">
                         <option value="">Semua Kategori</option>
                         @foreach ($categories as $cat)
                             <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -97,11 +127,9 @@
 
         {{-- Table dokumen saya --}}
         <div class="bg-white border border-[#b6c1c9] rounded-md shadow-sm overflow-hidden">
-
             <div id="documentsTable">
                 @include('mahasiswa.documents.partials.table', ['documents' => $documents])
             </div>
-
         </div>
 
     </div>

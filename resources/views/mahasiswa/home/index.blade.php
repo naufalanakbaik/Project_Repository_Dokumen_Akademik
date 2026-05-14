@@ -9,10 +9,9 @@
 
         {{-- Soft Decoration --}}
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none">
-        </div>
-
+        {{-- Content Head --}}
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
 
@@ -531,7 +530,7 @@
                         <span class="material-symbols-outlined !text-[18px]">
                             upload_file
                         </span>
-                        Upload Dokumen
+                        Unggah Dokumen
                     </a>
 
                     <a href="{{ route('mahasiswa.katalog.global') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 

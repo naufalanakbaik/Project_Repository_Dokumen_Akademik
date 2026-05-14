@@ -1,27 +1,40 @@
 @extends('landing.layouts.public')
 
 @section('title', 'Beranda Dokumen Akademik')
-@section('meta_description',
-    'Platform repository akademik digital untuk mengakses jurnal, laporan tugas akhir, dan dokumen penelitian.')
+@section('meta_description', 'Platform repository akademik digital untuk mengakses jurnal, laporan tugas akhir, dan
+    dokumen penelitian.')
 
 @section('content')
 
     {{-- Header Section --}}
-    <section
-        class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100">
+    {{-- <section class="relative overflow-hidden border-b border-yellow-100"> --}}
+    <section class="relative overflow-hidden border-b border-yellow-100 bg-cover bg-center bg-no-repeat"
+        style="background-image: url('{{ asset('img/pp.webp') }}');">
 
-        {{-- Soft Decoration --}}
-        <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        {{-- Background Image --}}
+        {{-- <div class="absolute inset-0">
+            <img src="{{ asset('img/pp.jpg') }}" alt="Background Repository"
+                class="w-full h-full object-cover object-center scale-105">
+        </div> --}}
 
-        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        {{-- Overlay agar teks tetap terbaca --}}
+        <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-white/40"></div>
 
+        {{-- Soft Warm Overlay --}}
+        <div class="absolute inset-0 bg-gradient-to-br from-yellow-200 via-amber-50/20 to-transparent"></div>
+
+        {{-- Decoration --}}
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/40 rounded-full blur-3xl pointer-events-none"></div>
+
+        {{-- Content --}}
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
 
                 {{-- Badge --}}
                 <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm 
-                    text-yellow-700 text-sm font-medium shadow-sm mb-6">
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300/80 
+                    bg-white/75 backdrop-blur-md text-yellow-700 text-sm font-medium shadow-md mb-6">
                     <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                         auto_stories
                     </span>
@@ -46,11 +59,10 @@
 
                 {{-- Action Buttons --}}
                 <div class="mt-10 flex flex-wrap items-center gap-4">
-
                     {{-- Primary --}}
                     <a href="{{ route('repository') }}"
-                        class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium
-                        shadow-lg shadow-yellow-200/50 transition-all duration-300">
+                        class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-yellow-600 hover:bg-yellow-700 
+                        text-white text-sm font-medium shadow-xl shadow-yellow-200/50 transition-all duration-300">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
@@ -59,36 +71,31 @@
 
                     {{-- Secondary --}}
                     <a href="{{ route('login') }}"
-                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-yellow-300 bg-white/90 hover:bg-yellow-50
-                        text-gray-700 text-sm font-medium shadow-sm transition-all duration-300">
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-yellow-300 
+                        bg-white/80 backdrop-blur-sm hover:bg-yellow-50
+                        text-gray-700 text-sm font-medium shadow-sm hover:-translate-y-1 transition-all duration-300">
                         <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                             login
                         </span>
                         Login Sistem
                     </a>
-
                 </div>
 
                 {{-- Bottom Info --}}
-                <div class="mt-10 flex flex-wrap items-center gap-6 text-sm text-gray-500">
-
+                <div class="mt-10 flex flex-wrap items-center gap-6 text-sm text-gray-700">
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-green-400"></span>
                         Akses Cepat
                     </div>
-
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
                         Repository Terpusat
                     </div>
-
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-blue-400"></span>
                         Tampilan Modern
                     </div>
-
                 </div>
-
             </div>
         </div>
     </section>
@@ -495,7 +502,8 @@
     {{-- CTA Section --}}
     <section class="max-w-[78rem] mx-auto px-6 py-20">
 
-        <div class="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-yellow-50 via-amber-50 to-white
+        <div
+            class="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-yellow-50 via-amber-50 to-white
             px-8 py-14 lg:px-14 lg:py-16">
 
             {{-- Soft Blur --}}
@@ -509,7 +517,8 @@
             <div class="relative max-w-3xl">
 
                 {{-- Badge --}}
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-yellow-200
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-yellow-200
                     text-yellow-700 text-sm font-medium shadow-sm mb-5">
                     <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                     Akses Repository Penuh
@@ -530,9 +539,10 @@
                     dan mengakses seluruh dashboard akademik.
                 </p>
 
-                {{-- Action buttons--}}
+                {{-- Action buttons --}}
                 <div class="mt-10 flex flex-wrap items-center gap-4">
-                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-950 
+                    <a href="{{ route('login') }}"
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-950 
                         text-white text-[13px] font-medium transition-all duration-300 hover:bg-black hover:-translate-y-0.5">
                         <span class="material-symbols-outlined !text-[18px]">
                             login
@@ -540,7 +550,7 @@
                         Login ke Sistem
                     </a>
 
-                    <a href="{{ route('repository') }}" 
+                    <a href="{{ route('repository') }}"
                         class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-300 bg-white backdrop-blur-sm 
                         text-gray-700 text-[13px] font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300">
                         <span class="material-symbols-outlined !text-[18px]">

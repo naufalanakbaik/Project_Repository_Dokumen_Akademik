@@ -21,7 +21,7 @@
                 </h2>
 
                 {{-- Description --}}
-                <p class="mt-1.5 text-[14px] leading-relaxed text-gray-600 max-w-2xl">
+                <p class="mt-1 text-[14px] leading-relaxed text-gray-600 max-w-2xl">
                     Menampilkan {{ $documents->total() }} dokumen publik
                     yang tersedia di dalam sistem repository digital
                     secara modern, cepat, dan terstruktur.

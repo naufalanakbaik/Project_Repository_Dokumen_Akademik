@@ -7,12 +7,20 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DocumentController;
+
+// Mahasiswa
+use App\Http\Controllers\Mahasiswa\DashboardController as MahasiswaDashboardController;
 use App\Http\Controllers\Mahasiswa\DocumentController as MahasiswaDocumentController;
 use App\Http\Controllers\Mahasiswa\HomeController as MahasiswaHomeController;
 use App\Http\Controllers\Mahasiswa\ProfileController as MahasiswaProfileController;
+
+// Dosen
+use App\Http\Controllers\Dosen\DashboardController as DosenDashboardController;
 use App\Http\Controllers\Dosen\DocumentController as DosenDocumentController;
 use App\Http\Controllers\Dosen\HomeController as DosenHomeController;
 use App\Http\Controllers\Dosen\ProfileController as DosenProfileController;
+
+// Kaprodi
 use App\Http\Controllers\Kaprodi\DocumentController as KaprodiDocumentController;
 
 
@@ -50,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('mahasiswa.')
         ->group(function () {
             // -- Dashboard statistik -> mahasiswa 
-            Route::get('/dashboard', [DashboardController::class, 'index'])
+            Route::get('/dashboard', [MahasiswaDashboardController::class, 'index'])
                 ->name('dashboard');
 
             // -- Home / Beranda
@@ -127,7 +135,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('dosen.')
         ->group(function () {
             // -- Dashboard statistik -> dosen
-            Route::get('/dashboard', [DashboardController::class, 'index'])
+            Route::get('/dashboard', [DosenDashboardController::class, 'index'])
                 ->name('dashboard');
 
             // -- Home / Beranda

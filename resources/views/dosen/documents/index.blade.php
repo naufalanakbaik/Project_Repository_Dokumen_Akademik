@@ -5,24 +5,38 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
-        <div class="flex items-start justify-between">
-            <div>
-                <h1 class="text-xl font-semibold text-gray-900">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-6">
+            {{-- Left --}}
+            <div class="max-w-3xl">
+                {{-- Badge --}}
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm
+                    text-yellow-700 text-sm font-medium shadow-md mb-3">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    Tabel Dokumen
+                </div>
+                {{-- Heading --}}
+                <h1 class="text-3xl md:text-[36px] font-semibold tracking-tight leading-tight text-gray-900">
                     Daftar Dokumen Saya
                 </h1>
-                <p class="text-sm text-gray-500 mt-1">
-                    Upload dan kelola dokumen kamu dalam satu sistem yang terintegrasi
+                {{-- Description --}}
+                <p class="mt-1 text-[14px] leading-relaxed text-gray-600 max-w-2xl">
+                    Upload dan kelola dokumen akademik Anda
+                    dalam satu sistem repository digital yang
+                    modern, cepat, dan terintegrasi.
                 </p>
             </div>
 
-            <a href="{{ route('dosen.documents.create') }}"
-                class="inline-flex items-center gap-1.5 px-3.5 py-2 text-[13px] text-blue-700 font-medium bg-blue-50 border border-blue-400 
-                rounded-lg hover:bg-blue-100 transition">
-                <span class="material-symbols-outlined !text-[17px]">
-                    upload
-                </span>
-                Upload Dokumen
-            </a>
+            {{-- Right Button --}}
+            <div class="flex lg:justify-end">
+                <a href="{{ route('dosen.documents.create') }}"
+                    class="inline-flex items-center gap-1.5 px-3.5 py-2 text-[13px] font-medium text-blue-700 bg-blue-50 border border-blue-300 rounded-lg
+                    hover:bg-blue-100 hover:border-blue-400 transition-all duration-300">
+                    <span class="material-symbols-outlined !text-[17px]">
+                        upload
+                    </span>
+                    Upload Dokumen
+                </a>
+            </div>
         </div>
 
         {{-- Filter & Search --}}

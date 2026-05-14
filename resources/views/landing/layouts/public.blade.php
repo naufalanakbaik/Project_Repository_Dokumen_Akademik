@@ -45,6 +45,8 @@
     {{-- Vite Assets --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <link rel="preload" as="image" href="{{ asset('img/pp.webp') }}">
+
     {{-- Custom Styles Global --}}
     <style>
         body {
@@ -67,7 +69,7 @@
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 antialiased scroll-smooth">
+<body class="bg-white text-gray-800 antialiased scroll-smooth">
 
     {{-- Top Head Information --}}
     <div class="text-xs bg-yellow-400 dark:bg-gray-200">
@@ -122,7 +124,7 @@
                     </a>
 
                     {{-- Menu --}}
-                    <div class="hidden md:flex items-center gap-8 text-[14px] font-medium">
+                    <div class="hidden md:flex items-center gap-9 text-[14px] font-medium">
                         @php
                             function navClass($isActive)
                             {

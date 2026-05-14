@@ -253,7 +253,7 @@
     </main>
 
     {{-- Footer --}}
-    <footer class="relative border-t border-gray-200 bg-gradient-to-b from-white to-amber-50/30">
+    <footer class="relative mt-10 border-t border-gray-200 bg-gradient-to-b from-white to-amber-50/30">
         {{-- Top --}}
         <div class="max-w-[77rem] mx-auto px-6 py-14">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -428,7 +428,7 @@
         </div>
     </footer>
 
-    {{-- Js Dropdown Toogle profile --}}
+    {{-- Js Dropdown arrow profile --}}
     <script>
         const button = document.getElementById('userMenuButton');
         const dropdown = document.getElementById('userDropdown');
@@ -451,6 +451,9 @@
             }
         });
     </script>
+
+    {{-- Chart Js --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     @stack('scripts')
 </body>
