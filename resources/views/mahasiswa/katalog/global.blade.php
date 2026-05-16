@@ -148,14 +148,14 @@
                         group-hover:opacity-100">
                     </div>
 
-                    {{-- Favorite Button --}}
-                    <div class="absolute top-4 right-4 z-20">
+                    {{-- Favorite Button + Count --}}
+                    <div class="absolute top-4 right-4 z-20 flex items-center gap-2">
                         @php
-                            $isFavorite = in_array($document->id, $favorites);
+                            $isFavorite = $document->is_favorited;
                         @endphp
                         @if ($isFavorite)
                             {{-- Hapus dari favorite --}}
-                            <form action="{{ route('mahasiswa.documents.unfavorite', $document->id) }}" method="POST"
+                            <form action="{{ route('dosen.documents.unfavorite', $document->id) }}" method="POST"
                                 onclick="event.stopPropagation();">
                                 @csrf
                                 @method('DELETE')
@@ -169,7 +169,7 @@
                             </form>
                         @else
                             {{-- Tambahkan ke favorite --}}
-                            <form action="{{ route('mahasiswa.documents.favorite', $document->id) }}" method="POST"
+                            <form action="{{ route('dosen.documents.favorite', $document->id) }}" method="POST"
                                 onclick="event.stopPropagation();">
                                 @csrf
                                 <button type="submit" onclick="event.preventDefault(); this.closest('form').submit();"
@@ -181,6 +181,12 @@
                                 </button>
                             </form>
                         @endif
+
+                        {{-- Favorite Count --}}
+                        <span class="text-[12px] font-semibold
+                            {{ $document->favorited_by_count > 0 ? 'text-red-600' : 'text-gray-400' }}">
+                            {{ $document->favorited_by_count }}
+                        </span>
                     </div>
 
                     {{-- Content --}}

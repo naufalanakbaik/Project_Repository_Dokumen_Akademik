@@ -9,11 +9,7 @@
     <title>Public - @yield('title')</title>
 
     {{-- SEO --}}
-    <meta name="description"
-        content="@yield(
-            'meta_description',
-            'Repository dokumen akademik digital untuk akses laporan, jurnal, penelitian, dan dokumen kampus secara modern.'
-        )">
+    <meta name="description" content="@yield('meta_description', 'Repository dokumen akademik digital untuk akses laporan, jurnal, penelitian, dan dokumen kampus secara modern.')">
 
     <meta name="keywords"
         content="repository akademik, jurnal mahasiswa, laporan tugas akhir, repository kampus, dokumen akademik">
@@ -21,11 +17,9 @@
     <meta name="author" content="Repository Akademik">
 
     {{-- Open Graph --}}
-    <meta property="og:title"
-        content="@yield('title', 'Repository Dokumen Akademik')">
+    <meta property="og:title" content="@yield('title', 'Repository Dokumen Akademik')">
 
-    <meta property="og:description"
-        content="@yield('meta_description', 'Repository dokumen akademik digital modern.')">
+    <meta property="og:description" content="@yield('meta_description', 'Repository dokumen akademik digital modern.')">
 
     <meta property="og:type" content="website">
 
@@ -166,8 +160,11 @@
                             Masuk
                         </a>
                         <a href="{{ route('login') }}"
-                            class="px-4 py-2 rounded-lg bg-white text-amber-600 border border-amber-300 text-[12px] font-medium shadow-sm 
-                            transition hover:bg-amber-50 hover:shadow-md">
+                            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white text-gray-600 border border-amber-300 text-[12px] 
+                            font-medium shadow-sm transition hover:bg-amber-50 hover:shadow-md">
+                            <span class="material-symbols-outlined text-amber-600 !text-[16px]">
+                                login
+                            </span>
                             Login Sistem
                         </a>
                         {{-- <a href="{{ route('login') }}"

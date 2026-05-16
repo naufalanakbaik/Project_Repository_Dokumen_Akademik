@@ -212,7 +212,7 @@
                     {{-- Register --}}
                     <p class="text-center text-xs text-gray-500">
                         Belum punya akun?
-                        <a href="/"
+                        <a href="{{ route('register') }}"
                             class="text-amber-600 font-medium hover:underline">
                             Daftar Sekarang
                         </a>

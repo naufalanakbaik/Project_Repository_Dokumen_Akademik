@@ -50,31 +50,31 @@
 
                 <ul class="text-xs text-gray-600 space-y-2 leading-relaxed">
                     <li>
-                        • Pengguna akan langsung aktif setelah dibuat dan dapat segera mengakses sistem serta meggunggah dokumen sesuai dengan role yang dibuat.
+                        • Pengguna akan langsung aktif setelah dibuat dan dapat segera mengakses sistem serta meggunggah
+                        dokumen sesuai dengan role yang dibuat.
                     </li>
                 </ul>
             </div>
 
         </div>
 
+        {{-- Error message --}}
+        @if ($errors->any())
+            <div class="mb-5 p-4 rounded-lg bg-red-50 border border-red-200">
+                <div class="flex items-center gap-2 mb-2 text-red-700">
+                    <span class="material-icons !text-[18px]">error</span>
+                    <p class="text-sm font-medium">Terjadi kesalahan</p>
+                </div>
+                <ul class="text-xs text-red-600 list-disc list-inside space-y-1">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- Form tambah pengguna --}}
         <div class="bg-white border border-gray-300 rounded-lg shadow-sm py-2 px-7">
-
-            {{-- Error message --}}
-            @if ($errors->any())
-                <div class="mb-5 p-4 rounded-lg bg-red-50 border border-red-200">
-                    <div class="flex items-center gap-2 mb-2 text-red-700">
-                        <span class="material-icons !text-[18px]">error</span>
-                        <p class="text-sm font-medium">Terjadi kesalahan</p>
-                    </div>
-                    <ul class="text-xs text-red-600 list-disc list-inside space-y-1">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <form action="{{ route('admin.users.store') }}" method="POST" class="space-y-6">
                 @csrf
                 <div>

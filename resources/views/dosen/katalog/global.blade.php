@@ -147,10 +147,10 @@
                         group-hover:opacity-100">
                     </div>
 
-                    {{-- Favorite Button --}}
-                    <div class="absolute top-4 right-4 z-20">
+                    {{-- Favorite Button + Count --}}
+                    <div class="absolute top-4 right-4 z-20 flex items-center gap-2">
                         @php
-                            $isFavorite = in_array($document->id, $favorites);
+                            $isFavorite = $document->is_favorited;
                         @endphp
                         @if ($isFavorite)
                             {{-- Hapus dari favorite --}}
@@ -180,19 +180,25 @@
                                 </button>
                             </form>
                         @endif
+
+                        {{-- Favorite Count --}}
+                        <span class="text-[12px] font-semibold
+                            {{ $document->favorited_by_count > 0 ? 'text-red-600' : 'text-gray-400' }}">
+                            {{ $document->favorited_by_count }}
+                        </span>
                     </div>
 
                     {{-- Content --}}
                     <div class="relative p-6 flex flex-col h-full">
                         {{-- Category --}}
                         <div class="mb-5">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200
+                            <span
+                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200
                                 text-amber-700 text-[11px] font-medium">
                                 <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                                 {{ $document->category->name }}
                             </span>
                         </div>
-
 
                         {{-- Title --}}
                         <h3

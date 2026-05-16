@@ -43,12 +43,23 @@ class DocumentController extends Controller
     // --- Daftar dokumen global seluruh pengguna
     public function global(Request $request)
     {
-            /*
+        /*
         |--------------------------------------------------------------------------
         | Query Dasar
         |--------------------------------------------------------------------------
         */
-        $query = Document::with(['user', 'category'])
+        // $query = Document::with(['user', 'category'])
+        //     ->where('status', 'approved');
+        $query = Document::with([
+            'user',
+            'category'
+        ])
+            ->withCount('favoritedBy')
+            ->withExists([
+                'favoritedBy as is_favorited' => function ($query) {
+                    $query->where('user_id', auth()->id());
+                }
+            ])
             ->where('status', 'approved');
 
         /*
@@ -57,17 +68,13 @@ class DocumentController extends Controller
         |--------------------------------------------------------------------------
         */
         if ($request->filled('search')) {
-
             $search = $request->search;
 
             $query->where(function ($q) use ($search) {
-
                 // Search judul dokumen
                 $q->where('title', 'like', '%' . $search . '%')
-
                     // Search nama user
                     ->orWhereHas('user', function ($userQuery) use ($search) {
-
                         $userQuery->where('name', 'like', '%' . $search . '%');
                     });
             });
@@ -120,11 +127,11 @@ class DocumentController extends Controller
             ->distinct()
             ->orderByDesc('tahun_terbit')
             ->pluck('tahun_terbit');
-        
-        $favorites = auth()->user()
-            ->favoriteDocuments()
-            ->pluck('documents.id')
-            ->toArray();
+
+        // $favorites = auth()->user()
+        //     ->favoriteDocuments()
+        //     ->pluck('documents.id')
+        //     ->toArray();
 
         /*
         |--------------------------------------------------------------------------
@@ -135,7 +142,7 @@ class DocumentController extends Controller
             'documents',
             'categories',
             'years',
-            'favorites'
+            // 'favorites'
         ));
     }
 
@@ -358,7 +365,11 @@ class DocumentController extends Controller
     {
         $documents = auth()->user()
             ->favoriteDocuments()
-            ->with(['user', 'category'])
+            ->with([
+                'user',
+                'category'
+            ])
+            ->withCount('favoritedBy')
             ->latest()
             ->paginate(9);
 

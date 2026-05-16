@@ -43,6 +43,12 @@ Route::view('/profile', 'landing.profile')->name('profile');
 // -- Autentikasi (login/logout)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 // -- Proses login
+// Register mahasiswa
+Route::get('/register', [AuthController::class, 'showRegister'])
+    ->name('register');
+
+Route::post('/register', [AuthController::class, 'register'])
+    ->name('register.store');
 Route::post('/login', [AuthController::class, 'login']);
 // -- Proses logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

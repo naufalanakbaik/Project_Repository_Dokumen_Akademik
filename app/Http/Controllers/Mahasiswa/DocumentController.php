@@ -60,7 +60,16 @@ class DocumentController extends Controller
         | Query Dasar
         |--------------------------------------------------------------------------
         */
-        $query = Document::with(['user', 'category'])
+        $query = Document::with([
+            'user',
+            'category'
+        ])
+            ->withCount('favoritedBy')
+            ->withExists([
+                'favoritedBy as is_favorited' => function ($query) {
+                    $query->where('user_id', auth()->id());
+                }
+            ])
             ->where('status', 'approved');
 
         /*
@@ -127,10 +136,6 @@ class DocumentController extends Controller
             ->orderByDesc('tahun_terbit')
             ->pluck('tahun_terbit');
 
-        $favorites = auth()->user()
-            ->favoriteDocuments()
-            ->pluck('documents.id')
-            ->toArray();
 
         /*
         |--------------------------------------------------------------------------
@@ -141,7 +146,7 @@ class DocumentController extends Controller
             'documents',
             'categories',
             'years',
-            'favorites'
+            // 'favorites'
         ));
     }
 
@@ -416,12 +421,16 @@ class DocumentController extends Controller
     {
         $documents = auth()->user()
             ->favoriteDocuments()
-            ->with(['user', 'category'])
+            ->with([
+                'user',
+                'category'
+            ])
+            ->withCount('favoritedBy')
             ->latest()
             ->paginate(9);
 
         return view(
-            'mahasiswa.katalog.favorites',
+            'dosen.katalog.favorites',
             compact('documents')
         );
     }
