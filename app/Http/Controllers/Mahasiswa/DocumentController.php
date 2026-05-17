@@ -430,7 +430,7 @@ class DocumentController extends Controller
             ->paginate(9);
 
         return view(
-            'dosen.katalog.favorites',
+            'mahasiswa.katalog.favorites',
             compact('documents')
         );
     }
