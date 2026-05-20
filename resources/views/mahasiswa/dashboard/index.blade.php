@@ -4,13 +4,17 @@
 @section('content')
 
     {{-- Header + Quick Action --}}
-    <section
-        class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100 mb-6">
+    <section class="relative overflow-hidden border-b border-yellow-100 bg-cover bg-center bg-no-repeat"
+        style="background-image: url('{{ asset('img/fiks.webp') }}');">
 
         {{-- Soft Decoration --}}
-        <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-white/50 via-white/30 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-yellow-200 via-amber-50/20 to-transparent"></div>
+
+        {{-- Soft Decoration --}}
+        {{-- <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none">
-        </div>
+        </div> --}}
 
         {{-- Content --}}
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-14">
@@ -29,7 +33,7 @@
                     </div>
 
                     {{-- Heading --}}
-                    <h1 class="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight tracking-tight text-gray-900">
+                    <h1 class="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight tracking-tight text-gray-950">
 
                         @php
                             $hour = now('Asia/Jakarta')->format('H');
@@ -51,7 +55,7 @@
                     </h1>
 
                     {{-- Description --}}
-                    <p class="mt-4 text-xs lg:text-sm leading-relaxed text-gray-600 max-w-2xl">
+                    <p class="mt-4 text-xs lg:text-sm leading-relaxed text-gray-800 max-w-2xl">
                         Kelola, upload, dan pantau aktivitas dokumen akademik Anda
                         melalui dashboard repository Program Studi Manajemen Informatika
                         Fakultas Ilmu Komputer Universitas Sriwijaya.
@@ -68,7 +72,7 @@
                             </div>
 
                             <div>
-                                <p class="text-xs text-gray-500">
+                                <p class="text-xs text-gray-800">
                                     Total Dokumen
                                 </p>
                                 <h4 class="text-sm font-semibold text-gray-700">
@@ -86,7 +90,7 @@
                             </div>
 
                             <div>
-                                <p class="text-xs text-gray-500">
+                                <p class="text-xs text-gray-800">
                                     Disetujui
                                 </p>
                                 <h4 class="text-sm font-semibold text-gray-700">

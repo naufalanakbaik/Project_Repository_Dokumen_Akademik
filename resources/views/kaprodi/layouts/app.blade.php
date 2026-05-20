@@ -162,11 +162,8 @@
 
                     <!-- Toggle -->
                     <button id="toggleSidebar"
-                        class="group w-10 h-10 flex items-center justify-center
-                        rounded-full border border-gray-200 bg-white
-                        shadow-sm hover:bg-gray-50
-                        transition-all duration-300">
-
+                        class="group w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 bg-white
+                        shadow-sm hover:bg-gray-50 transition-all duration-300">
                         <span id="toggleIcon"
                             class="material-symbols-outlined text-gray-700 !text-[20px]
                             transition-transform duration-300 group-hover:scale-110">
@@ -180,7 +177,7 @@
             <nav class="flex-1 overflow-y-auto">
                 <ul class="space-y-2 py-3 px-5 font-[400] font-sans text-sm">
                     <h4 class="sidebar-heading text-xs font-semibold text-gray-800 uppercase mb-2">
-                        <span class="full-text">Fitur Kaprodi</span>
+                        <span class="full-text">Dashboard Kaprodi</span>
                         <span class="short-text hidden">Fitur</span>
                     </h4>
 
@@ -212,13 +209,39 @@
                     </li>
 
                     <li>
-                        <a href="{{ route('admin.users.index') }}"
+                        <a href="{{ route('kaprodi.monitoring.mahasiswa') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('admin.users.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            {{ request()->routeIs('kaprodi.monitoring.mahasiswa') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
                             <img src="{{ asset('img/icon-sidebar/anggota.png') }}"
                                 class="w-5 h-5 object-contain
-                            {{ request()->routeIs('admin.users.*') ? 'brightness-0 invert' : '' }}">
+                            {{ request()->routeIs('kaprodi.monitoring.mahasiswa') ? 'brightness-0 invert' : '' }}">
                             <span class="ml-2.5 menu-text">Daftar Pengguna</span>
+                        </a>
+                    </li>
+
+                    <h4 class="sidebar-heading text-xs font-semibold text-gray-800 uppercase mb-2">
+                        <span class="full-text">Aktivitas Kaprodi</span>
+                        <span class="short-text hidden">Daftar</span>
+                    </h4>
+
+                    <li>
+                        <a href="{{ route('kaprodi.activity') }}"
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('kaprodi.activity') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            <img src="{{ asset('img/icon-sidebar/akun.png') }}"
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('kaprodi.activity') ? 'brightness-0 invert' : '' }}">
+                            <span class="ml-2.5 menu-text">Aktivitas Pengguna</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('kaprodi.report.export') }}"
+                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
+                            {{ request()->routeIs('kaprodi.report.export') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}"
+                                class="w-5 h-5 object-contain
+                            {{ request()->routeIs('kaprodi.report.export') ? 'brightness-0 invert' : '' }}">
+                            <span class="ml-2.5 menu-text">Export Excel</span>
                         </a>
                     </li>
                 </ul>
@@ -291,12 +314,12 @@
                             <div class="py-1 text-sm text-gray-700">
 
                                 {{-- Edit Profile --}}
-                                <a href="{{ route('admin.users.edit', Auth::id()) }}"
+                                <a href="{{ route('kaprodi.profile.show', Auth::id()) }}"
                                     class="block px-4 py-2 hover:bg-gray-100 transition">
                                     Edit profile
                                 </a>
 
-                                <a href="{{ route('admin.users.edit', Auth::id()) }}"
+                                {{-- <a href="{{ route('admin.users.edit', Auth::id()) }}"
                                     class="block px-4 py-2 hover:bg-gray-100 transition">
                                     Dokumen masuk
                                 </a>
@@ -304,7 +327,7 @@
                                 <a href="{{ route('admin.users.edit', Auth::id()) }}"
                                     class="block px-4 py-2 hover:bg-gray-100 transition">
                                     Pesan masuk
-                                </a>
+                                </a> --}}
 
                                 <!-- Divider -->
                                 <div class="border-t border-gray-200 my-1"></div>

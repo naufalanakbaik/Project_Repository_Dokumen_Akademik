@@ -185,28 +185,178 @@
     </main>
 
     {{-- Footer --}}
-    <footer class="border-t border-gray-200 bg-white">
-        <div class="max-w-7xl mx-auto px-6 py-10">
+    <footer class="relative mt-10 border-t border-gray-200 bg-gradient-to-b from-white to-amber-50/30">
+        {{-- Top --}}
+        <div class="max-w-[77rem] mx-auto px-6 py-14">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                {{-- Brand --}}
+                <div class="lg:col-span-5">
 
-                <div>
-                    <h2 class="font-semibold text-gray-900">
-                        Repository Dokumen Akademik
-                    </h2>
+                    {{-- Logo --}}
+                    <div class="flex items-center gap-3">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-amber-50 text-amber-700 shadow-sm">
+                            <span class="material-symbols-outlined !text-[24px]">
+                                library_books
+                            </span>
+                        </div>
+                        <div>
+                            <h2 class="text-[17px] font-semibold text-gray-900 leading-tight">
+                                Repository Dokumen Akademik
+                            </h2>
+                            <p class="text-[13px] text-gray-500">
+                                Sistem Repository Digital
+                            </p>
+                        </div>
+                    </div>
 
-                    <p class="text-sm text-gray-500 mt-2 max-w-md leading-relaxed">
-                        Platform digital untuk penyimpanan, pencarian, dan pengelolaan dokumen akademik secara
-                        terpusat dan modern.
+                    {{-- Description --}}
+                    <p class="mt-5 text-[14px] leading-relaxed text-gray-600 max-w-xl">
+                        Platform digital modern untuk pengelolaan, penyimpanan,
+                        pencarian, dan distribusi dokumen akademik secara
+                        terpusat di lingkungan Program Studi Manajemen Informatika
+                        Fakultas Ilmu Komputer Universitas Sriwijaya.
                     </p>
+
+                    {{-- Info --}}
+                    <div class="mt-6 flex flex-wrap items-center gap-3">
+                        <div class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
+                            <span class="material-symbols-outlined !text-[16px] text-amber-600">
+                                verified
+                            </span>
+                            Repository Terverifikasi
+                        </div>
+
+                        <div class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
+                            <span class="material-symbols-outlined !text-[16px] text-amber-600">
+                                security
+                            </span>
+                            Akses Aman & Terstruktur
+                        </div>
+                    </div>
                 </div>
 
-                <div class="text-sm text-gray-500">
-                    © 2025 - {{ date('Y') }} Repository Akademik.
+                {{-- Navigation --}}
+                <div class="lg:col-span-2">
+                    <h3 class="text-[14px] font-semibold text-gray-900 mb-4">
+                        Navigasi
+                    </h3>
+                    <div class="space-y-3">
+                        <a href="#" class="block text-[13px] text-gray-500 transition hover:text-amber-700">
+                            Beranda
+                        </a>
+                        <a href="#" class="block text-[13px] text-gray-500 transition hover:text-amber-700">
+                            Repository
+                        </a>
+                        <a href="#" class="block text-[13px] text-gray-500 transition hover:text-amber-700">
+                            Dokumen Favorit
+                        </a>
+                        <a href="#" class="block text-[13px] text-gray-500 transition hover:text-amber-700">
+                            Tentang Sistem
+                        </a>
+                    </div>
                 </div>
 
+                {{-- Category --}}
+                <div class="lg:col-span-2">
+                    <h3 class="text-[14px] font-semibold text-gray-900 mb-4">
+                        Kategori
+                    </h3>
+                    <div class="space-y-3">
+                        <p class="text-[13px] text-gray-500">
+                            Laporan Tugas Akhir
+                        </p>
+                        <p class="text-[13px] text-gray-500">
+                            Laporan Kerja Praktik
+                        </p>
+                        <p class="text-[13px] text-gray-500">
+                            Jurnal Mahasiswa
+                        </p>
+                        <p class="text-[13px] text-gray-500">
+                            Modul Praktikum
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Contact --}}
+                <div class="lg:col-span-3">
+                    <h3 class="text-[14px] font-semibold text-gray-900 mb-4">
+                        Informasi
+                    </h3>
+                    <div class="space-y-4">
+
+                        {{-- Fakultas --}}
+                        <div class="flex items-start gap-3">
+                            <span class="material-symbols-outlined !text-[18px] text-amber-600 mt-0.5">
+                                school
+                            </span>
+                            <div>
+                                <p class="text-[13px] font-medium text-gray-700">
+                                    Fakultas Ilmu Komputer
+                                </p>
+                                <p class="text-[12px] leading-relaxed text-gray-500">
+                                    Universitas Sriwijaya
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- Program Studi --}}
+                        <div class="flex items-start gap-3">
+                            <span class="material-symbols-outlined !text-[18px] text-amber-600 mt-0.5">
+                                account_balance
+                            </span>
+                            <div>
+                                <p class="text-[13px] font-medium text-gray-700">
+                                    Manajemen Informatika
+                                </p>
+                                <p class="text-[12px] leading-relaxed text-gray-500">
+                                    Program Studi Digital Repository
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- Email --}}
+                        <div class="flex items-start gap-3">
+                            <span class="material-symbols-outlined !text-[18px] text-amber-600 mt-0.5">
+                                mail
+                            </span>
+                            <div>
+                                <p class="text-[13px] font-medium text-gray-700">
+                                    repository@unsri.ac.id
+                                </p>
+                                <p class="text-[12px] leading-relaxed text-gray-500">
+                                    Kontak & Bantuan Sistem
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
 
+        {{-- Bottom --}}
+        <div class="border-t border-gray-200 bg-white/70 backdrop-blur-sm">
+            <div class="max-w-[77rem] mx-auto px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+                {{-- Copyright --}}
+                <p class="text-[12px] text-gray-500 leading-relaxed">
+                    © 2025 - {{ date('Y') }} Repository Dokumen Akademik.
+                    Seluruh hak cipta dilindungi.
+                </p>
+
+                {{-- Bottom Links --}}
+                <div class="flex items-center gap-5">
+                    <a href="#" class="text-[12px] text-gray-500 transition hover:text-amber-700">
+                        Kebijakan Privasi
+                    </a>
+                    <a href="#" class="text-[12px] text-gray-500 transition hover:text-amber-700">
+                        Panduan Pengguna
+                    </a>
+                    <a href="#" class="text-[12px] text-gray-500 transition hover:text-amber-700">
+                        Bantuan
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
 

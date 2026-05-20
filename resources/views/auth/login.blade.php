@@ -69,11 +69,11 @@
 
     {{-- Main Container --}}
     <div
-        class="w-full max-w-4xl sm:min-h-[470px] bg-white border border-amber-200
+        class="w-full max-w-4xl sm:min-h-[470px] bg-white border border-amber-300
         rounded-2xl shadow-[0_10px_40px_rgba(251,191,36,0.10)] flex flex-col md:flex-row overflow-hidden">
 
         {{-- Left Content --}}
-        <div class="hidden md:flex w-[50%] bg-gradient-to-br from-amber-50 to-yellow-50 border-r border-amber-200 p-6 lg:p-8">
+        <div class="hidden md:flex w-[50%] bg-gradient-to-br from-amber-100 to-yellow-100 border-r border-amber-300 p-6 lg:p-8">
 
             <div class="flex flex-col justify-between w-full">
                 {{-- Top --}}

@@ -4,21 +4,24 @@
 @section('content')
 
     {{-- Header Section --}}
-    <section
-        class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100">
+    {{-- <section
+        class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100"> --}}
+    <section class="relative overflow-hidden border-b border-yellow-100 bg-cover bg-center bg-no-repeat"
+        style="background-image: url('{{ asset('img/fiks.webp') }}');">
 
         {{-- Soft Decoration --}}
-        <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-white/50 via-white/30 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-yellow-200 via-amber-50/20 to-transparent"></div>
+        {{-- <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div> --}}
 
         {{-- Content Head --}}
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
 
                 {{-- Badge --}}
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm 
-                    text-yellow-700 text-sm font-medium shadow-sm mb-6">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 
+                    bg-white text-yellow-700 text-sm font-medium shadow-md mb-6">
                     <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                         auto_stories
                     </span>
@@ -26,16 +29,16 @@
                 </div>
 
                 {{-- Heading --}}
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-gray-900">
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-gray-950">
                     Akses Dokumen Akademik
-                    <span class="text-yellow-600">
+                    <span class="text-yellow-500">
                         Lebih Modern
                     </span>
                     dan Terstruktur
                 </h1>
 
                 {{-- Description --}}
-                <p class="mt-6 text-sm leading-relaxed text-gray-600 max-w-2xl">
+                <p class="mt-6 text-sm leading-relaxed text-gray-900 max-w-2xl">
                     Platform repository digital untuk menyimpan, mencari,
                     dan mengelola dokumen akademik secara terpusat dengan
                     tampilan yang modern, sederhana, dan mudah digunakan.
@@ -46,8 +49,8 @@
 
                     {{-- Primary --}}
                     <a href="{{ route('mahasiswa.katalog.global') }}"
-                        class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium
-                        shadow-lg shadow-yellow-200/50 transition-all duration-300">
+                        class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-yellow-600 hover:bg-yellow-700 
+                        text-white text-sm font-medium shadow-md transition-all duration-300">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
@@ -56,7 +59,7 @@
 
                     {{-- Secondary --}}
                     <a href="{{ route('mahasiswa.documents.create') }}"
-                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-400 bg-white/90 hover:bg-amber-50
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-amber-400 bg-white/90 hover:bg-amber-50
                         text-gray-700 text-sm font-medium shadow-sm transition-all duration-300">
                         <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                             upload_file
@@ -67,20 +70,20 @@
                 </div>
 
                 {{-- Bottom Info --}}
-                <div class="mt-10 flex flex-wrap items-center gap-6 text-sm text-gray-500">
+                <div class="mt-10 flex flex-wrap items-center gap-6 text-xs text-gray-800">
 
                     <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
                         Akses Cepat
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+                        <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                         Repository Terpusat
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
                         Tampilan Modern
                     </div>
 

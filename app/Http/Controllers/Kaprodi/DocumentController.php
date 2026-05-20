@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Kaprodi;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Document;
+use App\Models\Category;
 use App\Models\DocumentLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,18 +17,48 @@ class DocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Document::with(['user', 'category']);
+        $search = trim($request->search);
+        $status = $request->status;
+        $categoryId = $request->category_id;
 
-        if ($request->search) {
-            $query->where('title', 'like', '%' . $request->search . '%');
-        }
+        $documents = Document::query()
+            ->with([
+                'user:id,name',
+                'category:id,name'
+            ])
 
-        // 🔥 Kaprodi lihat SEMUA (termasuk pending & rejected)
-        $documents = $query->latest()->paginate(10);
+            // Default status yang ditampilkan
+            ->whereIn('status', ['approved', 'rejected'])
 
-        return view('kaprodi.documents.index', compact('documents'));
+            // Search title
+            ->when($search, function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%');
+            })
+
+            // Filter kategori
+            ->when($categoryId, function ($query) use ($categoryId) {
+                $query->where('category_id', $categoryId);
+            })
+
+            // Filter status
+            ->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        // Ambil kategori seperlunya saja
+        $categories = Category::select('id', 'name')
+            ->orderBy('name')
+            ->get();
+
+        return view('kaprodi.documents.index', compact(
+            'documents',
+            'categories'
+        ));
     }
-
     /**
      * Preview dokumen
      */
@@ -60,5 +92,4 @@ class DocumentController extends Controller
 
         return Storage::disk('public')->download($document->file);
     }
-
 }

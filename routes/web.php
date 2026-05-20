@@ -21,6 +21,8 @@ use App\Http\Controllers\Dosen\HomeController as DosenHomeController;
 use App\Http\Controllers\Dosen\ProfileController as DosenProfileController;
 
 // Kaprodi
+use App\Http\Controllers\Kaprodi\ProfileController as KaprodiProfileController;
+use App\Http\Controllers\Kaprodi\DashboardController as KaprodiDashboardController;
 use App\Http\Controllers\Kaprodi\DocumentController as KaprodiDocumentController;
 
 
@@ -42,13 +44,11 @@ Route::view('/profile', 'landing.profile')->name('profile');
 |--------------------------------------------------------------------------*/
 // -- Autentikasi (login/logout)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+// -- Form Register mahasiswa
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+// -- Proses Regis
+Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 // -- Proses login
-// Register mahasiswa
-Route::get('/register', [AuthController::class, 'showRegister'])
-    ->name('register');
-
-Route::post('/register', [AuthController::class, 'register'])
-    ->name('register.store');
 Route::post('/login', [AuthController::class, 'login']);
 // -- Proses logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -83,9 +83,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/documents', [MahasiswaDocumentController::class, 'index'])
                 ->name('documents.index');
 
-            // Route::get('/documents/filter', [MahasiswaDocumentController::class, 'filter'])
-            //     ->name('documents.filter');
-
             // -- Menampilkan form tambah dokumen -> mahasiswa
             Route::get('/documents/create', [MahasiswaDocumentController::class, 'create'])
                 ->name('documents.create');
@@ -109,7 +106,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/profile/edit', [MahasiswaProfileController::class, 'edit'])->name('profile.edit');
             Route::put('/profile', [MahasiswaProfileController::class, 'update'])->name('profile.update');
 
-
             // -- Tambah dokumen ke favorit
             Route::post('/documents/{id}/favorite', [MahasiswaDocumentController::class, 'favorite'])
                 ->name('documents.favorite');
@@ -121,7 +117,6 @@ Route::middleware(['auth'])->group(function () {
             // -- Halaman dokumen favorit -> mahasiswa
             Route::get('/katalog/favorite', [MahasiswaDocumentController::class, 'favorites'])
                 ->name('katalog.favorites');
-
 
             // -- Preview (lihat) pdf dokumen -> mahasiswa
             Route::get('/documents/{id}/preview', [MahasiswaDocumentController::class, 'preview'])
@@ -200,25 +195,39 @@ Route::middleware(['auth'])->group(function () {
         });
 
 
-    /*|------------------------------------------------------------------------|
-    |                                 KAPRODI                                  |
-    |--------------------------------------------------------------------------*/
+    /*|--------------------------------------------------------------------------
+    |                                 KAPRODI
+    |--------------------------------------------------------------------------
+    */
     Route::middleware(['role:kaprodi'])
         ->prefix('kaprodi')
         ->name('kaprodi.')
         ->group(function () {
             // -- Dashboard statistik -> kaprodi
-            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+            Route::get('/dashboard',[KaprodiDashboardController::class, 'index'])->name('dashboard');
 
             // -- Dashboard monitoring mahasiswa -> kaprodi
-            Route::get('/monitoring', [DashboardController::class, 'index'])->name('monitoring');
+            Route::get('/monitoring-mahasiswa',[KaprodiDashboardController::class, 'monitoringMahasiswa'])->name('monitoring.mahasiswa');
 
-            // -- Documents akses -> kaprodi
-            Route::get('/documents', [KaprodiDocumentController::class, 'index'])->name('documents.index');
+            // Monitoring aktivitas
+            Route::get('/activity',[KaprodiDashboardController::class, 'activity'])->name('activity');
+
+            // Export laporan
+            Route::get('/report/export',[KaprodiDashboardController::class, 'exportReport'])->name('report.export');
+
+             // -- Documents akses -> kaprodi
+            Route::get('/documents',[KaprodiDocumentController::class, 'index'])->name('documents.index');
+
+            // -- Menampilkan detail data pribadi
+            Route::get('/profile', [kaprodiProfileController::class, 'show'])->name('profile.show');
+
+            // -- Menampilkan form edit dan proses update data -> kaprodi
+            Route::get('/profile/edit', [KaprodiProfileController::class, 'edit'])->name('profile.edit');
+            Route::put('/profile', [KaprodiProfileController::class, 'update'])->name('profile.update');
 
             // -- Proses downlaod dokumen dan preview (lihat) pdf dokumen -> kaprodi
-            Route::get('/documents/{id}/download', [KaprodiDocumentController::class, 'download'])->name('documents.download');
-            Route::get('/documents/{id}/preview', [KaprodiDocumentController::class, 'preview'])->name('documents.preview');
+            Route::get('/documents/{id}/download',[KaprodiDocumentController::class, 'download'])->name('documents.download');
+            Route::get('/documents/{id}/preview',[KaprodiDocumentController::class, 'preview'])->name('documents.preview');
         });
 
 

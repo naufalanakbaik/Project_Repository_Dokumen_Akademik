@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Daftar Akun')
+@section('title', 'Daftar Data Pengguna')
 
 @section('content')
 
@@ -16,13 +16,13 @@
                 <div class="inline-flex items-center gap-2 px-3 py-1 mb-3 rounded-full border border-sky-200 bg-sky-50">
                     <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
                     <span class="text-[11px] font-semibold tracking-wide text-sky-700 uppercase">
-                        Manajemen Pengguna
+                        Manajemen Data Pengguna
                     </span>
                 </div>
 
                 {{-- Title --}}
                 <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 leading-tight">
-                    Daftar & Kelola User
+                    Daftar & Kelola Data Pengguna
                 </h1>
 
                 {{-- Description --}}
@@ -91,7 +91,7 @@
                     search
                 </span>
 
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search users..."
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search name..."
                     class="w-full h-9 pl-9 pr-3 text-sm text-gray-700 bg-white border border-gray-300 rounded-md
                     placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200
                     focus:border-gray-400 transition">

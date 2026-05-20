@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 @section('title', 'Manajemen Dokumen')
 
-
 @section('content')
 
     {{-- Header --}}

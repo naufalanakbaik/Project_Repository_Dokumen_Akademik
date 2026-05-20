@@ -18,15 +18,8 @@
         </div> --}}
 
         {{-- Overlay agar teks tetap terbaca --}}
-        {{-- <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-white/40"></div> --}}
         <div class="absolute inset-0 bg-gradient-to-r from-white/50 via-white/30 to-transparent"></div>
-
-        {{-- Soft Warm Overlay --}}
         <div class="absolute inset-0 bg-gradient-to-br from-yellow-200 via-amber-50/20 to-transparent"></div>
-
-        {{-- Decoration --}}
-        {{-- <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-100/40 rounded-full blur-3xl pointer-events-none"></div> --}}
-        {{-- <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-100/40 rounded-full blur-3xl pointer-events-none"></div> --}}
 
         {{-- Content --}}
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
