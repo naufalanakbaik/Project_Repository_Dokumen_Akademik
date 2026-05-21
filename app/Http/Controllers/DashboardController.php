@@ -46,18 +46,20 @@ class DashboardController extends Controller
             ->orderByDesc('documents_count')
             ->get();
 
-        // -----------------------------------------------------
-        // Table total download dokumen
-        // -----------------------------------------------------
-        $latestDocuments = \App\Models\Document::latest()->take(7)->get();
-
 
         // -----------------------------------------------------
         // Table Aktivitas Terbaru
         // -----------------------------------------------------
         $recentActivities = DocumentLog::with(['user', 'document'])
             ->latest()
-            ->limit(10)
+            ->limit(7)
+            ->get();
+
+        // -----------------------------------------------------
+        // Table total download dokumen
+        // -----------------------------------------------------
+        $latestDocuments = \App\Models\Document::latest()
+            ->take(7)
             ->get();
 
         // -----------------------------------------------------

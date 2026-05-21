@@ -35,7 +35,10 @@
                 <p class="text-[14px] font-semibold text-gray-800">
                     {{ $user->name }}
                 </p>
-                <p class="text-[12px] text-gray-500">
+                <p class="text-[12px] text-gray-600">
+                    {{ $user->nim ?? '-' }} 
+                </p>
+                <p class="text-[12px] text-gray-600">
                     {{ $user->email }}
                 </p>
 

@@ -423,7 +423,7 @@
         </div>
     </div>
 
-    <!-- Analytics-->
+    <!-- Analytics -->
     <div class="mb-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Distribusi Kategori -->
         <div class="bg-white border border-gray-300 rounded-lg p-5 shadow-sm">
@@ -515,7 +515,7 @@
                     Aktivitas Terbaru
                 </h3>
                 <span class="text-xs text-gray-400">
-                    5 aktivitas terakhir
+                    7 aktivitas terakhir
                 </span>
             </div>
 
@@ -529,7 +529,7 @@
                                     {{ $act->user->name ?? 'System' }}
                                 </span>
                                 <span class="pl-1 text-[13px] text-gray-600 capitalize">
-                                    &RightArrowBar; {{ $act->action }}
+                                    ->  {{ $act->action }}
                                 </span>
                             </span>
                             <span class="text-[11px] text-gray-400 mt-0.5 uppercase">

@@ -38,7 +38,12 @@
                 <p class="text-[14px] font-semibold text-gray-800">
                     {{ $user->name }}
                 </p>
-                <p class="text-[12px] text-gray-500">
+
+                <p class="text-[12px] text-gray-600">
+                    {{ $user->nip ?? '-' }} 
+                </p>
+
+                <p class="text-[12px] text-gray-600">
                     {{ $user->email }}
                 </p>
 
@@ -117,10 +122,10 @@
                         <span
                             class="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium rounded-full border
                             {{ $doc->status === 'approved'
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
-                            : ($doc->status === 'pending'
-                            ? 'bg-amber-50 text-amber-600 border-amber-300'
-                            : 'bg-red-50 text-red-700 border-red-300') }}">
+                                ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                                : ($doc->status === 'pending'
+                                    ? 'bg-amber-50 text-amber-600 border-amber-300'
+                                    : 'bg-red-50 text-red-700 border-red-300') }}">
 
                             <span class="material-symbols-outlined !text-[12px]">
                                 {{ $doc->status === 'approved' ? 'check_circle' : ($doc->status === 'pending' ? 'schedule' : 'cancel') }}

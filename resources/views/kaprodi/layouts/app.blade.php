@@ -234,7 +234,7 @@
                             <span class="ml-2.5 menu-text">Aktivitas Pengguna</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('kaprodi.report.export') }}"
                             class="flex items-center py-[0.470rem] px-3 rounded-lg transition
                             {{ request()->routeIs('kaprodi.report.export') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
@@ -243,7 +243,7 @@
                             {{ request()->routeIs('kaprodi.report.export') ? 'brightness-0 invert' : '' }}">
                             <span class="ml-2.5 menu-text">Export Excel</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </nav>
 

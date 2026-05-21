@@ -62,6 +62,20 @@
                     </div>
 
                     <div class="p-5 space-y-4">
+                        {{-- NIM --}}
+                        <div>
+                            <label class="text-xs font-medium text-gray-700">
+                                NIM
+                            </label>
+                            <input type="text" name="nim" value="{{ old('nim', $user->nim) }}"
+                                class="w-full mt-1 px-3 py-2 text-sm border border-gray-300 text-gray-600 rounded-md
+                            focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
+                            @error('nim')
+                                <p class="text-red-500 text-sm mt-1">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
 
                         {{-- Name --}}
                         <div>

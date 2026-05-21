@@ -22,12 +22,14 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $request->validate([
+            'nim' => 'required|string|max:30|unique:users,nim,' . $user->id,
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:6|confirmed',
         ]);
 
         $data = [
+            'nim' => $request->nim,
             'name' => $request->name,
             'email' => $request->email,
         ];
@@ -39,7 +41,10 @@ class ProfileController extends Controller
 
         $user->update($data);
 
-        return back()->with('success', 'Profile berhasil diperbarui.');
+        return back()->with(
+            'success',
+            'Profile berhasil diperbarui.'
+        );
     }
 
     // --- Detail data profile mahasiswa

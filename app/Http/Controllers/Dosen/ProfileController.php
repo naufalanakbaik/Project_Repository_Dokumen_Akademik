@@ -22,12 +22,14 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $request->validate([
+            'nip' => 'required|string|max:30|unique:users,nip,' . $user->id,
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:6|confirmed',
         ]);
 
         $data = [
+            'nip' => $request->nip,
             'name' => $request->name,
             'email' => $request->email,
         ];

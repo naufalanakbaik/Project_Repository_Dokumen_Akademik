@@ -121,7 +121,7 @@
                         {{-- Dashboard --}}
                         <a href="{{ route('dosen.dashboard') }}"
                             class="{{ navClass(request()->routeIs('dosen.dashboard')) }}">
-                            Aktivitas Saya
+                            Aktivitas
                         </a>
 
                         {{-- Dokumen Saya --}}
