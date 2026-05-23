@@ -69,15 +69,15 @@
                 <p class="text-[13px] text-gray-500">Kelola seluruh daftar dokumen di sistem repository</p>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-3">
                 <a href="{{ route('admin.validation-documents.validation') }}"
-                    class="inline-flex items-center gap-1.5 px-4 h-9 text-[13px] text-gray-700 font-medium tracking-wide bg-white border 
+                    class="inline-flex items-center gap-1.5 px-4 h-10 text-[13px] text-gray-700 font-medium tracking-wide bg-white border 
                     border-gray-400  rounded-lg hover:bg-gray-100 transition">
                     <span class="material-icons !text-[18px]">rule</span>
                     Validasi Dokumen
                 </a>
                 <a href="{{ route('admin.documents.create') }}"
-                    class="inline-flex items-center gap-1.5 px-5 h-9 text-[13px] text-blue-700 font-medium tracking-wide bg-blue-50 border 
+                    class="inline-flex items-center gap-1.5 px-5 h-10 text-[13px] text-blue-700 font-medium tracking-wide bg-blue-50 border 
                     border-blue-400 rounded-lg hover:bg-blue-100 transition">
                     <span class="material-symbols-outlined !text-[17px]">upload_file</span>
                     Unggah Dokumen
@@ -177,12 +177,12 @@
             <table class="min-w-full text-sm table-auto">
                 <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9] tracking-wide">
                     <tr>
-                        <th class="px-4 py-2 text-center font-medium ">No</th>
-                        <th class="px-4 py-2 text-left font-medium">Judul</th>
-                        <th class="px-4 py-2 text-left font-medium whitespace-nowrap">Kategori</th>
-                        <th class="px-4 py-2 text-left font-medium whitespace-nowrap">Pengguna</th>
-                        <th class="px-4 py-2 text-left font-medium whitespace-nowrap">Status</th>
-                        <th class="px-4 py-2 text-left font-medium whitespace-nowrap">Aksi</th>
+                        <th class="px-4 py-3 text-center font-medium ">No</th>
+                        <th class="px-4 py-3 text-left font-medium">Judul</th>
+                        <th class="px-4 py-3 text-left font-medium whitespace-nowrap">Kategori</th>
+                        <th class="px-4 py-3 text-left font-medium whitespace-nowrap">Pengguna</th>
+                        <th class="px-4 py-3 text-left font-medium whitespace-nowrap">Status</th>
+                        <th class="px-4 py-3 text-left font-medium whitespace-nowrap">Aksi</th>
                     </tr>
                 </thead>
 
@@ -223,18 +223,17 @@
 
                             <!-- Actions -->
                             <td class="px-4 py-3 whitespace-nowrap">
-                                <div class="flex justify-end items-center gap-5 text-gray-600">
+                                <div class="flex items-center gap-6 text-gray-600">
+                                    <!-- Preview -->
+                                    <a href="{{ route('admin.documents.preview', $doc->id) }}" target="_blank"
+                                        class="hover:text-gray-800 transition">
+                                        <span class="material-symbols-outlined !text-[18px]">picture_as_pdf</span>
+                                    </a>
 
                                     <!-- Detail -->
                                     <a href="{{ route('admin.documents.show', $doc->id) }}"
                                         class="hover:text-gray-800 transition">
                                         <span class="material-symbols-outlined !text-[18px]">file_open</span>
-                                    </a>
-
-                                    <!-- Preview -->
-                                    <a href="{{ route('admin.documents.preview', $doc->id) }}" target="_blank"
-                                        class="hover:text-gray-800 transition">
-                                        <span class="material-symbols-outlined !text-[18px]">picture_as_pdf</span>
                                     </a>
 
                                     <!-- Download -->

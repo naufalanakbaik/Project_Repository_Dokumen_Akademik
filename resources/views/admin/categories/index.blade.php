@@ -12,7 +12,8 @@
         <div class="relative flex items-start justify-between gap-5">
             <div class="max-w-3xl">
                 {{-- Badge --}}
-                <div class="inline-flex items-center gap-2 px-3 py-1 mb-3 rounded-full border border-violet-200 bg-violet-50">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 mb-3 rounded-full border border-violet-200 bg-violet-50">
                     <span class="w-2 h-2 rounded-full bg-violet-500 animate-pulse"></span>
                     <span class="text-[11px] font-semibold tracking-wide text-violet-700 uppercase">
                         Manajemen Kategori
@@ -33,7 +34,8 @@
             </div>
 
             {{-- Right Icon --}}
-            <div class="hidden sm:flex items-center justify-center w-12 h-12 rounded-xl border border-violet-200 bg-violet-50 shrink-0">
+            <div
+                class="hidden sm:flex items-center justify-center w-12 h-12 rounded-xl border border-violet-200 bg-violet-50 shrink-0">
                 <span class="material-symbols-outlined text-violet-600 !text-[24px]">
                     folder_open
                 </span>
@@ -41,7 +43,8 @@
         </div>
 
         {{-- Footer Section --}}
-        <div class="mt-5 pt-4 border-t border-dashed border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div
+            class="mt-5 pt-4 border-t border-dashed border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             {{-- Left Info --}}
             <div class="flex items-center gap-2 text-xs text-gray-500">
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -128,104 +131,104 @@
 
     {{-- Table data kategori --}}
     <div class="bg-white border border-[#b6c1c9] rounded-md shadow-md overflow-hidden">
-        <table class="w-full">
-
-            {{-- Table Head --}}
-            <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9]">
-                <tr>
-                    <th class="px-4 py-3 font-medium text-center">No</th>
-                    <th class="px-6 py-3 font-medium text-left">Nama</th>
-                    <th class="px-6 py-3 font-medium text-left">Total Dokumen</th>
-                    <th class="px-6 py-3 font-medium text-left">Tanggal dibuat</th>
-                    <th class="px-6 py-3 font-medium text-left">Aksi</th>
-                </tr>
-            </thead>
-
-            {{-- Table Body --}}
-            <tbody class="divide-y text-[13px] divide-gray-200">
-                @forelse ($categories as $key => $category)
-                    <tr class="hover:bg-gray-50 transition">
-
-                        {{-- No --}}
-                        <td class="px-4 py-3 text-center text-gray-500">
-                            {{ $categories->firstItem() + $key }}
-                        </td>
-
-                        {{-- Nama --}}
-                        <td class="px-6 py-3">
-                            <p class="font-normal text-gray-900 truncate max-w-[420px]">
-                                {{ $category->name }}
-                            </p>
-                        </td>
-
-                        {{-- Total Dokumen --}}
-                        <td class="px-6 py-3 text-gray-600">
-                            <span class="font-medium text-gray-700">
-                                {{ $category->documents_count }}
-                            </span> Dokumen
-                        </td>
-
-                        {{-- Waktu --}}
-                        <td class="px-6 py-3 text-gray-500">
-                            {{ $category->created_at->format('d M Y - H:i') }}
-                        </td>
-
-                        {{-- Aksi --}}
-                        <td class="px-6 py-3">
-                            <div class="flex items-center gap-5 text-[12.5px]">
-
-                                {{-- Detail --}}
-                                <a href="{{ route('admin.categories.show', $category->id) }}"
-                                    class="font-medium text-gray-700 hover:text-black transition">
-                                    Lihat
-                                </a>
-
-                                {{-- Edit --}}
-                                <a href="{{ route('admin.categories.edit', $category->id) }}"
-                                    class="font-medium text-gray-700 hover:text-black transition">
-                                    Edit
-                                </a>
-
-                                {{-- Hapus --}}
-                                <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST"
-                                    onsubmit="return confirm('Yakin ingin hapus kategori ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="font-medium text-red-600 hover:text-red-700 transition">
-                                        Hapus
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @empty
-                    {{-- Empty State --}}
+        <div class="w-full overflow-x-auto">
+            <table class="min-w-full text-sm table-auto">
+                <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9] tracking-wide">
                     <tr>
-                        <td colspan="5" class="px-6 py-16">
-                            <div class="flex flex-col items-center justify-center text-center">
-                                {{-- Icon --}}
-                                <div class="flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 border border-gray-200 mb-4">
-                                    <span class="material-symbols-outlined text-gray-600 !text-[30px]">
-                                        folder_open
-                                    </span>
-                                </div>
-
-                                {{-- Title --}}
-                                <h3 class="text-[15px] font-medium text-gray-800">
-                                    Kategori Tidak Ditemukan
-                                </h3>
-
-                                {{-- Description --}}
-                                <p class="mt-1 text-[13px] text-gray-500 max-w-sm leading-relaxed">
-                                    Belum ada kategori yang tersedia atau hasil pencarian
-                                    tidak ditemukan.
-                                </p>
-                            </div>
-                        </td>
+                        <th class="px-2 py-3 font-medium text-center">No</th>
+                        <th class="px-4 py-3 font-medium text-left">Nama</th>
+                        <th class="px-4 py-3 font-medium text-left">Total Dokumen</th>
+                        <th class="px-4 py-3 font-medium text-left">Tanggal dibuat</th>
+                        <th class="px-4 py-3 font-medium text-left">Aksi</th>
                     </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+
+                {{-- Table Body --}}
+                <tbody class="divide-y text-[13px] divide-gray-200">
+                    @forelse ($categories as $key => $category)
+                        <tr class="hover:bg-gray-50 transition">
+
+                            {{-- No --}}
+                            <td class="px-4 py-3 text-center text-gray-500">
+                                {{ $categories->firstItem() + $key }}
+                            </td>
+
+                            {{-- Nama --}}
+                            <td class="px-4 py-3">
+                                <p class="font-normal text-gray-900 truncate max-w-[420px]">
+                                    {{ $category->name }}
+                                </p>
+                            </td>
+
+                            {{-- Total Dokumen --}}
+                            <td class="px-4 py-3 text-gray-600">
+                                <span class="font-medium text-gray-700">
+                                    {{ $category->documents_count }}
+                                </span> Dokumen
+                            </td>
+
+                            {{-- Waktu --}}
+                            <td class="px-4 py-3 text-gray-500">
+                                {{ $category->created_at->format('d M Y - H:i') }}
+                            </td>
+
+                            {{-- Aksi --}}
+                            <td class="px-4 py-3 ">
+                                <div class="flex items-center gap-8 text-gray-600">
+                                    {{-- Detai --}}
+                                    <a href="{{ route('admin.categories.show', $category->id) }}"
+                                        class="hover:text-gray-800 transition">
+                                        <span class="material-symbols-outlined !text-[19px]">folder_open</span>
+                                    </a>
+
+                                    {{-- Edit --}}
+                                    <a href="{{ route('admin.categories.edit', $category->id) }}" target="_blank"
+                                        class="hover:text-gray-800 transition">
+                                        <span class="material-symbols-outlined !text-[19px]">bookmark_manager</span>
+                                    </a>
+
+                                    {{-- Delete --}}
+                                    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST"
+                                        onsubmit="return confirm('Yakin ingin hapus kategori ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="hover:text-red-600 text-gray-600 transition">
+                                            <span class="material-symbols-outlined !text-[19px]">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        {{-- Empty State --}}
+                        <tr>
+                            <td colspan="5" class="px-6 py-16">
+                                <div class="flex flex-col items-center justify-center text-center">
+                                    {{-- Icon --}}
+                                    <div
+                                        class="flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 border border-gray-200 mb-4">
+                                        <span class="material-symbols-outlined text-gray-600 !text-[30px]">
+                                            folder_open
+                                        </span>
+                                    </div>
+
+                                    {{-- Title --}}
+                                    <h3 class="text-[15px] font-medium text-gray-800">
+                                        Kategori Tidak Ditemukan
+                                    </h3>
+
+                                    {{-- Description --}}
+                                    <p class="mt-1 text-[13px] text-gray-500 max-w-sm leading-relaxed">
+                                        Belum ada kategori yang tersedia atau hasil pencarian
+                                        tidak ditemukan.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 
 @endsection

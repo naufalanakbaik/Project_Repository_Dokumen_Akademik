@@ -1,5 +1,4 @@
 @extends('admin.layouts.app')
-
 @section('title', 'Daftar Data Pengguna')
 
 @section('content')
@@ -34,7 +33,8 @@
             </div>
 
             {{-- Right Icon --}}
-            <div class="hidden sm:flex items-center justify-center w-12 h-12 rounded-xl border border-sky-200 bg-sky-50 shrink-0">
+            <div
+                class="hidden sm:flex items-center justify-center w-12 h-12 rounded-xl border border-sky-200 bg-sky-50 shrink-0">
                 <span class="material-symbols-outlined text-sky-600 !text-[24px]">
                     groups
                 </span>
@@ -42,7 +42,8 @@
         </div>
 
         {{-- Footer section --}}
-        <div class="mt-5 pt-4 border-t border-dashed border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div
+            class="mt-5 pt-4 border-t border-dashed border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             {{-- Left Info --}}
             <div class="flex items-center gap-2 text-xs text-gray-500">
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -148,91 +149,94 @@
 
     {{-- Table data pengguna --}}
     <div class="bg-white border border-[#b6c1c9] rounded-md shadow-md overflow-hidden">
-        <table class="w-full">
-            <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9]">
-                <tr>
-                    <th class="px-4 py-3 font-medium text-center">No</th>
-                    <th class="px-6 py-3 font-medium text-left">Nama</th>
-                    <th class="px-6 py-3 font-medium text-left">Email</th>
-                    <th class="px-6 py-3 font-medium text-left">Role</th>
-                    <th class="px-6 py-3 font-medium text-left">Tanggal dibuat</th>
-                    <th class="px-6 py-3 font-medium text-left">Aksi</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y text-[13px] divide-gray-200">
-                @foreach ($users as $user)
-                    <tr class="hover:bg-gray-50 transition">
-                        {{-- No --}}
-                        <td class="px-4 py-3 text-center text-gray-500">
-                            {{ $loop->iteration }}
-                        </td>
-
-                        {{-- nama --}}
-                        <td class="px-6 py-3">
-                            <p class="font-normal text-gray-900 truncate max-w-[420px]">
-                                {{ $user->name }}
-                            </p>
-                        </td>
-
-                        {{-- Email --}}
-                        <td class="px-6 py-3">
-                            <p class="font-normal text-gray-800 truncate max-w-[420px]">
-                                {{ $user->email }}
-                            </p>
-                        </td>
-
-                        {{-- Role --}}
-                        @php
-                            $roleStyles = [
-                                'admin' => 'bg-red-50 text-red-700 border border-red-300',
-                                'dosen' => 'bg-green-50 text-green-700 border border-green-300',
-                                'mahasiswa' => 'bg-blue-50 text-blue-700 border border-blue-300',
-                                // 'kaprodi' => 'bg-yellow-100 text-yellow-700',
-                            ];
-                            $style =
-                                $roleStyles[$user->role] ?? 'bg-yellow-50 text-yellow-700 border border-yellow-300';
-                        @endphp
-                        <td class="px-6 py-3">
-                            <span
-                                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $style }}">
-                                {{ ucfirst($user->role) }}
-                            </span>
-                        </td>
-
-                        {{-- Waktu --}}
-                        <td class="px-6 py-3 text-gray-500">
-                            {{ $user->created_at->format('d M Y - H:i') }}
-                        </td>
-
-                        {{-- Aksi --}}
-                        <td class="px-6 py-3">
-                            <div class="flex text-[12.5px] gap-4 h-full">
-                                {{-- Detail --}}
-                                <a href="{{ route('admin.users.show', $user->id) }}"
-                                    class="text-[#3f3f3f] hover:-translate-y-0.5 hover:text-gray-800 font-medium transition">
-                                    Lihat
-                                </a>
-                                {{-- Edit --}}
-                                <a href="{{ route('admin.users.edit', $user->id) }}"
-                                    class="text-[#3f3f3f] hover:-translate-y-0.5 hover:text-gray-800 font-medium transition">
-                                    Edit
-                                </a>
-                                {{-- Hapus --}}
-                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="m-0"
-                                    onsubmit="return confirm('Yakin ingin hapus pengguna ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="text-[#3f3f3f] hover:-translate-y-0.5 hover:text-gray-800 font-medium transition">
-                                        Hapus
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
+        <div class="w-full overflow-x-auto">
+            <table class="min-w-full text-sm table-auto">
+                <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9] tracking-wide">
+                    <tr>
+                        <th class="px-4 py-3 font-medium text-center">No</th>
+                        <th class="px-6 py-3 font-medium text-left">Nama</th>
+                        <th class="px-6 py-3 font-medium text-left">Email</th>
+                        <th class="px-6 py-3 font-medium text-left">Role</th>
+                        <th class="px-6 py-3 font-medium text-left">Tanggal dibuat</th>
+                        <th class="px-6 py-3 font-medium text-left">Aksi</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="divide-y text-[13px] divide-gray-200">
+                    @foreach ($users as $user)
+                        <tr class="hover:bg-gray-50 transition">
+                            {{-- No --}}
+                            <td class="px-4 py-3 text-center text-gray-500">
+                                {{ $loop->iteration }}
+                            </td>
+
+                            {{-- nama --}}
+                            <td class="px-6 py-3">
+                                <p class="font-normal text-gray-900 truncate max-w-[420px]">
+                                    {{ $user->name }}
+                                </p>
+                            </td>
+
+                            {{-- Email --}}
+                            <td class="px-6 py-3">
+                                <p class="font-normal text-gray-800 truncate max-w-[420px]">
+                                    {{ $user->email }}
+                                </p>
+                            </td>
+
+                            {{-- Role --}}
+                            @php
+                                $roleStyles = [
+                                    'admin' => 'bg-red-50 text-red-700 border border-red-300',
+                                    'dosen' => 'bg-green-50 text-green-700 border border-green-300',
+                                    'mahasiswa' => 'bg-blue-50 text-blue-700 border border-blue-300',
+                                    // 'kaprodi' => 'bg-yellow-100 text-yellow-700',
+                                ];
+                                $style =
+                                    $roleStyles[$user->role] ?? 'bg-yellow-50 text-yellow-700 border border-yellow-300';
+                            @endphp
+                            <td class="px-6 py-3">
+                                <span
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $style }}">
+                                    {{ ucfirst($user->role) }}
+                                </span>
+                            </td>
+
+                            {{-- Waktu --}}
+                            <td class="px-6 py-3 text-gray-500">
+                                {{ $user->created_at->format('d M Y - H:i') }}
+                            </td>
+
+                            {{-- Aksi --}}
+                            <td class="px-6 py-3 ">
+                                <div class="flex items-center gap-6 text-gray-600">
+                                    {{-- Detai --}}
+                                    <a href="{{ route('admin.users.show', $user->id) }}"
+                                        class="hover:text-gray-800 transition">
+                                        <span class="material-symbols-outlined !text-[19px]">person_shield</span>
+                                    </a>
+
+                                    {{-- Edit --}}
+                                    <a href="{{ route('admin.users.edit', $user->id) }}" target="_blank"
+                                        class="hover:text-gray-800 transition">
+                                        <span class="material-symbols-outlined !text-[19px]">person_edit</span>
+                                    </a>
+
+                                    {{-- Delete --}}
+                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
+                                        lass="m-0" onsubmit="return confirm('Yakin ingin hapus pengguna ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="hover:text-red-600 text-gray-600 transition">
+                                            <span class="material-symbols-outlined !text-[18px]">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
 
