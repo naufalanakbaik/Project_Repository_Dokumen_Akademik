@@ -38,25 +38,6 @@
                 </a>
             </div>
         </div>
-        {{-- <div class="flex justify-between items-center mb-5">
-            <div>
-                <h1 class="text-xl font-semibold text-gray-900">
-                    Daftar Dokumen Saya
-                </h1>
-                <p class="text-sm text-gray-500 mt-1">
-                    Upload dan kelola dokumen kamu dalam satu sistem yang terintegrasi
-                </p>
-            </div>
-
-            <a href="{{ route('mahasiswa.documents.create') }}"
-                class="inline-flex items-center gap-1.5 px-3.5 py-2 text-[13px] text-blue-700 font-medium bg-blue-50 border border-blue-400 
-                rounded-lg hover:bg-blue-100 transition">
-                <span class="material-symbols-outlined !text-[17px]">
-                    upload
-                </span>
-                Upload Dokumen
-            </a>
-        </div> --}}
 
         {{-- Filter dan search --}}
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">

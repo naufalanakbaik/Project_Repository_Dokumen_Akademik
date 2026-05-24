@@ -153,7 +153,7 @@
             <table class="min-w-full text-sm table-auto">
                 <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9] tracking-wide">
                     <tr>
-                        <th class="px-4 py-3 font-medium text-center">No</th>
+                        <th class="px-6 py-3 font-medium text-center">No</th>
                         <th class="px-6 py-3 font-medium text-left">Nama</th>
                         <th class="px-6 py-3 font-medium text-left">Email</th>
                         <th class="px-6 py-3 font-medium text-left">Role</th>
@@ -165,7 +165,7 @@
                     @foreach ($users as $user)
                         <tr class="hover:bg-gray-50 transition">
                             {{-- No --}}
-                            <td class="px-4 py-3 text-center text-gray-500">
+                            <td class="px-6 py-3 text-center text-gray-500">
                                 {{ $loop->iteration }}
                             </td>
 
@@ -208,11 +208,11 @@
 
                             {{-- Aksi --}}
                             <td class="px-6 py-3 ">
-                                <div class="flex items-center gap-6 text-gray-600">
+                                <div class="flex items-center gap-8 text-gray-600">
                                     {{-- Detai --}}
                                     <a href="{{ route('admin.users.show', $user->id) }}"
                                         class="hover:text-gray-800 transition">
-                                        <span class="material-symbols-outlined !text-[19px]">person_shield</span>
+                                        <span class="material-symbols-outlined !text-[19px]">person_search</span>
                                     </a>
 
                                     {{-- Edit --}}

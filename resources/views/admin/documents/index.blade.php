@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 @section('title', 'Manajemen Dokumen')
 
+
 @section('content')
 
     {{-- Header --}}
@@ -34,7 +35,8 @@
             </div>
 
             {{-- Right Icon --}}
-            <div class="hidden sm:flex items-center justify-center w-12 h-12 rounded-xl border border-blue-200 bg-blue-50 shrink-0">
+            <div
+                class="hidden sm:flex items-center justify-center w-12 h-12 rounded-xl border border-blue-200 bg-blue-50 shrink-0">
                 <span class="material-symbols-outlined text-blue-600 !text-[24px]">
                     description
                 </span>
@@ -42,7 +44,8 @@
         </div>
 
         {{-- Footer Section --}}
-        <div class="mt-5 pt-4 border-t border-dashed border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div
+            class="mt-5 pt-4 border-t border-dashed border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             {{-- Left Info --}}
             <div class="flex items-center gap-2 text-xs text-gray-500">
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -213,10 +216,15 @@
                             <!-- Status -->
                             <td class="px-4 py-3 text-center whitespace-nowrap">
                                 <span
-                                    class="inline-flex items-center px-2.5 py-0.5 text-[10px] font-medium uppercase rounded-xl border
+                                    class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-[11px] font-medium
                                     {{ $doc->status === 'approved'
-                                        ? 'bg-green-50 text-green-700 border-green-300'
-                                        : 'bg-red-50 text-red-700 border-red-300' }}">
+                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                    : 'bg-red-50 text-red-600 border-red-200' }}">
+
+                                    <span class="material-symbols-outlined !text-[12px]">
+                                        {{ $doc->status === 'approved' ? 'check_circle' : 'cancel' }}
+                                    </span>
+
                                     {{ ucfirst($doc->status) }}
                                 </span>
                             </td>
@@ -239,7 +247,7 @@
                                     <!-- Download -->
                                     <a href="{{ route('admin.documents.download', $doc->id) }}"
                                         class="hover:text-gray-800 transition">
-                                        <span class="material-symbols-outlined !text-[18px]">file_save</span>
+                                        <span class="material-symbols-outlined !text-[18px]">download</span>
                                     </a>
 
                                     <!-- Delete -->

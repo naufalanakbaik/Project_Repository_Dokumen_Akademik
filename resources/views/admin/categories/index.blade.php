@@ -135,7 +135,7 @@
             <table class="min-w-full text-sm table-auto">
                 <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9] tracking-wide">
                     <tr>
-                        <th class="px-2 py-3 font-medium text-center">No</th>
+                        <th class="px-4 py-3 font-medium text-center">No</th>
                         <th class="px-4 py-3 font-medium text-left">Nama</th>
                         <th class="px-4 py-3 font-medium text-left">Total Dokumen</th>
                         <th class="px-4 py-3 font-medium text-left">Tanggal dibuat</th>
@@ -174,17 +174,17 @@
 
                             {{-- Aksi --}}
                             <td class="px-4 py-3 ">
-                                <div class="flex items-center gap-8 text-gray-600">
+                                <div class="flex items-center gap-10 text-gray-600">
                                     {{-- Detai --}}
                                     <a href="{{ route('admin.categories.show', $category->id) }}"
                                         class="hover:text-gray-800 transition">
-                                        <span class="material-symbols-outlined !text-[19px]">folder_open</span>
+                                        <span class="material-symbols-outlined !text-[19px]">document_search</span>
                                     </a>
 
                                     {{-- Edit --}}
                                     <a href="{{ route('admin.categories.edit', $category->id) }}" target="_blank"
                                         class="hover:text-gray-800 transition">
-                                        <span class="material-symbols-outlined !text-[19px]">bookmark_manager</span>
+                                        <span class="material-symbols-outlined !text-[19px]">edit_document</span>
                                     </a>
 
                                     {{-- Delete --}}

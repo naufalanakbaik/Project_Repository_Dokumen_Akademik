@@ -112,7 +112,7 @@
                 <div class="divide-y text-sm">
 
                     <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
-                        <span class="text-xs text-gray-500 font-medium">Uploader</span>
+                        <span class="text-xs text-gray-500 font-medium">Pengunggah</span>
                         <span class="font-medium text-gray-600">
                             {{ $document->user->name }}
                         </span>

@@ -15,10 +15,10 @@
         </div>
 
         <a href="{{ route('admin.documents.index') }}"
-            class="inline-flex items-center text-gray-800 text-sm font-normal px-2 py-1 hover:text-blue-700 transition">
+            class="inline-flex items-center text-gray-800 text-sm font-normal px-2 py-1 hover:text-blue-700 transition-all duration-300">
             <span
                 class="material-icons mr-2 px-1.5 py-1.5 text-white rounded-full border border-blue-600  
-                    bg-blue-600 hover:bg-white hover:text-blue-600 !text-[18px] transition">
+                    bg-blue-600 hover:bg-white hover:text-blue-600 !text-[18px] transition-all duration-300">
                 east
             </span>
         </a>
@@ -49,7 +49,7 @@
 
                     <!-- Title -->
                     <div class="space-y-1.5">
-                        <label class="text-xs font-medium text-gray-700">
+                        <label class="text-[13px] font-medium text-gray-700">
                             Judul Dokumen
                         </label>
                         <input type="text" name="title" value="{{ old('title', $document->title) }}"
@@ -71,7 +71,7 @@
 
                     <!-- Tahun Terbit -->
                     <div class="space-y-1.5">
-                        <label class="text-xs font-medium text-gray-700">
+                        <label class="text-[13px] font-medium text-gray-700">
                             Tahun Terbit
                         </label>
                         <input type="number" name="tahun_terbit" value="{{ old('tahun_terbit', $document->tahun_terbit) }}"
@@ -93,7 +93,7 @@
 
                     <!-- Category -->
                     <div class="space-y-1.5">
-                        <label class="text-xs font-medium text-gray-600">
+                        <label class="text-[13px] font-medium text-gray-600">
                             Kategori
                         </label>
                         <div class="relative">
@@ -124,8 +124,8 @@
 
                     <!-- File -->
                     <div class="space-y-2">
-                        <label class="text-xs font-medium text-gray-700">
-                            Ganti File <span class="text-gray-400">(Opsional)</span>
+                        <label class="text-[13px] font-medium text-gray-700">
+                            Ganti File <span class="text-gray-500 text-xs font-normal">(Opsional)</span>
                         </label>
 
                         <!-- Current File -->
@@ -200,36 +200,37 @@
                 </form>
 
             </div>
-
         </div>
 
         {{-- Left information --}}
         <div class="col-span-12 lg:col-span-4 space-y-4">
-
             {{-- Informasi Dokumen --}}
             <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-5">
-                <h2 class="text-sm font-semibold text-gray-800 mb-4">
+                <h2 class="text-sm font-medium text-gray-800 mb-3">
                     Informasi Dokumen
                 </h2>
-                <div class="space-y-4 text-sm">
+                <div class="space-y-2 text-sm">
                     <!-- Status -->
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center font-medium justify-between">
                         <p class="text-xs text-gray-500">Status</p>
                         <span
-                            class="px-3 py-0.5 text-[10px] rounded-full border font-medium uppercase
-                            {{ $document->status === 'approved'
-                                ? 'bg-green-50 text-green-700 border-green-300'
-                                : ($document->status === 'pending'
-                                    ? 'bg-yellow-50 text-yellow-700 border-yellow-300'
-                                    : 'bg-red-50 text-red-700 border-red-300') }}">
-                            {{ $document->status }}
+                            class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-[11px] font-medium
+                                    {{ $document->status === 'approved'
+                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                    : 'bg-red-50 text-red-600 border-red-200' }}">
+
+                            <span class="material-symbols-outlined !text-[12px]">
+                                {{ $document->status === 'approved' ? 'check_circle' : 'cancel' }}
+                            </span>
+
+                            {{ ucfirst($document->status) }}
                         </span>
                     </div>
                     <!-- Tanggal -->
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center font-medium justify-between">
                         <p class="text-xs text-gray-500">Tanggal Upload</p>
-                        <p class="text-sm text-gray-800">
-                            {{ $document->created_at->translatedFormat('l, d M Y') }}
+                        <p class="text-[13px] text-gray-700">
+                            {{ $document->created_at->translatedFormat('d M Y') }}
                         </p>
                     </div>
                 </div>
@@ -237,28 +238,27 @@
 
             {{-- Panduan --}}
             <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-5">
-                <h2 class="text-sm font-semibold text-gray-800">
+                <h2 class="text-sm font-medium text-gray-800">
                     Panduan
                 </h2>
-                <p class="text-xs text-gray-600 leading-relaxed mt-0.5">
+                <p class="text-[11px] text-gray-600 leading-relaxed mt-1 mb-3">
                     Perbarui informasi dokumen dengan benar agar data tetap konsisten dan mudah dikelola.
                 </p>
-                <!-- List -->
                 <div class="space-y-2 text-xs text-gray-700 mt-2">
                     <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-gray-400 !text-[18px] leading-none">
+                        <span class="material-symbols-outlined text-gray-500 !text-[15px] leading-none">
                             check_circle
                         </span>
                         <p>Sesuaikan judul dengan isi dokumen</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-gray-400 !text-[18px] leading-none">
+                        <span class="material-symbols-outlined text-gray-500 !text-[15px] leading-none">
                             check_circle
                         </span>
                         <p>Pilih kategori yang tepat</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-gray-400 !text-[18px] leading-none">
+                        <span class="material-symbols-outlined text-gray-500 !text-[15px] leading-none">
                             check_circle
                         </span>
                         <p>Upload ulang file jika ada revisi</p>
@@ -277,7 +277,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 @endsection
