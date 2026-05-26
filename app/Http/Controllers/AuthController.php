@@ -15,10 +15,12 @@ class AuthController extends Controller
         // Jika sudah login
         if (Auth::check()) {
             $role = auth()->user()->role;
+
             // Mahasiswa & dosen -> katalog global
             if (in_array($role, ['mahasiswa', 'dosen'])) {
                 return redirect()->route($role . '.home');
             }
+
             // Role lain -> dashboard
             return redirect()->route($role . '.dashboard');
         }
@@ -128,6 +130,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('landing');
+        return redirect()->route('login');
     }
 }

@@ -27,7 +27,7 @@ use App\Http\Controllers\Kaprodi\DocumentController as KaprodiDocumentController
 
 
 /*|------------------------------------------------------------------------|
-|                                 PUBLIK PAGE                              |
+|                                 LANDING PAGE                              |
 |--------------------------------------------------------------------------*/
 // -- Landing page (halaman utama) -> publik
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
@@ -40,7 +40,7 @@ Route::view('/profile', 'landing.profile')->name('profile');
 
 
 /*|------------------------------------------------------------------------|
-|                                 AUTHTENTIKASI                            |
+|                                AUTHTENTIKASI                             |
 |--------------------------------------------------------------------------*/
 // -- Autentikasi (login/logout)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

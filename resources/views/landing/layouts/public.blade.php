@@ -155,25 +155,19 @@
 
                     {{-- Login --}}
                     <div class="flex items-center gap-0.5">
-                        <a href="{{ route('login') }}"
+                        <a href="{{ route('register') }}"
                             class="px-4 py-2 text-[13px] font-medium text-gray-500 hover:text-gray-600 transition">
-                            Masuk
+                        Register
                         </a>
                         <a href="{{ route('login') }}"
-                            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white text-gray-600 border border-amber-300 text-[12px] 
-                            font-medium shadow-sm transition hover:bg-amber-50 hover:shadow-md">
-                            <span class="material-symbols-outlined text-amber-600 !text-[16px]">
+                            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-amber-400 text-white border border-amber-300 text-[12px] 
+                            font-medium shadow-sm transition hover:bg-amber-500 hover:shadow-md">
+                            <span class="material-symbols-outlined text-white !text-[16px]">
                                 login
                             </span>
                             Login Sistem
                         </a>
-                        {{-- <a href="{{ route('login') }}"
-                            class="px-4 py-2 rounded-lg bg-amber-400 text-white text-[12px] font-medium shadow-sm 
-                            transition hover:bg-amber-500 hover:shadow-md">
-                            Login Sistem
-                        </a> --}}
                     </div>
-
                 </div>
             </div>
         </div>
@@ -249,9 +243,6 @@
                             Repository
                         </a>
                         <a href="#" class="block text-[13px] text-gray-500 transition hover:text-amber-700">
-                            Dokumen Favorit
-                        </a>
-                        <a href="#" class="block text-[13px] text-gray-500 transition hover:text-amber-700">
                             Tentang Sistem
                         </a>
                     </div>
@@ -268,9 +259,6 @@
                         </p>
                         <p class="text-[13px] text-gray-500">
                             Laporan Kerja Praktik
-                        </p>
-                        <p class="text-[13px] text-gray-500">
-                            Jurnal Mahasiswa
                         </p>
                         <p class="text-[13px] text-gray-500">
                             Modul Praktikum
