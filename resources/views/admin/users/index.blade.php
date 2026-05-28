@@ -147,97 +147,224 @@
         </form>
     </div>
 
+
     {{-- Table data pengguna --}}
-    <div class="bg-white border border-[#b6c1c9] rounded-md shadow-md overflow-hidden">
+    <div class="bg-white border border-[#b6c1c9] rounded-xl shadow-sm overflow-hidden">
         <div class="w-full overflow-x-auto">
             <table class="min-w-full text-sm table-auto">
-                <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9] tracking-wide">
+
+                {{-- Head --}}
+                <thead class="bg-[#f8fafc] text-[12.5px] text-gray-700 border-b border-[#d7dee3] tracking-wide">
                     <tr>
-                        <th class="px-6 py-3 font-medium text-center">No</th>
-                        <th class="px-6 py-3 font-medium text-left">Nama</th>
-                        <th class="px-6 py-3 font-medium text-left">Email</th>
-                        <th class="px-6 py-3 font-medium text-left">Role</th>
-                        <th class="px-6 py-3 font-medium text-left">Tanggal dibuat</th>
-                        <th class="px-6 py-3 font-medium text-left">Aksi</th>
+                        <th class="px-6 py-4 font-medium text-center w-16">
+                            No
+                        </th>
+                        <th class="px-6 py-4 font-medium text-left min-w-[320px]">
+                            Pengguna
+                        </th>
+                        <th class="px-6 py-4 font-medium text-left">
+                            Role
+                        </th>
+                        <th class="px-6 py-4 font-medium text-left">
+                            Total Dokumen
+                        </th>
+                        <th class="px-6 py-4 font-medium text-left">
+                            Tanggal Dibuat
+                        </th>
+                        <th class="px-6 py-4 font-medium text-left w-32">
+                            Aksi
+                        </th>
                     </tr>
                 </thead>
-                <tbody class="divide-y text-[13px] divide-gray-200">
-                    @foreach ($users as $user)
-                        <tr class="hover:bg-gray-50 transition">
+
+                {{-- Body --}}
+                <tbody class="divide-y divide-gray-100 text-[13px]">
+                    @forelse ($users as $user)
+                        <tr class="hover:bg-gray-50/70 transition duration-150">
+
                             {{-- No --}}
-                            <td class="px-6 py-3 text-center text-gray-500">
-                                {{ $loop->iteration }}
+                            <td class="px-6 py-4 text-center text-gray-500">
+                                {{ $users->firstItem() + $loop->index }}
                             </td>
 
-                            {{-- nama --}}
-                            <td class="px-6 py-3">
-                                <p class="font-normal text-gray-900 truncate max-w-[420px]">
-                                    {{ $user->name }}
-                                </p>
-                            </td>
+                            {{-- User Info --}}
+                            <td class="px-6 py-4">
+                                <div class="flex items-start gap-4">
 
-                            {{-- Email --}}
-                            <td class="px-6 py-3">
-                                <p class="font-normal text-gray-800 truncate max-w-[420px]">
-                                    {{ $user->email }}
-                                </p>
+
+                                    {{-- Avatar --}}
+                                    <div class="flex-shrink-0">
+
+                                        @if ($user->foto_profile)
+                                            <img src="{{ $user->photo_url }}" alt="{{ $user->name }}"
+                                                class="w-12 h-12 rounded-full object-cover border border-gray-200 shadow-sm">
+                                        @else
+                                            {{-- Initial Profile --}}
+                                            <div
+                                                class="w-12 h-12 rounded-full bg-gray-200 border border-gray-300 flex items-center justify-center shadow-sm">
+
+                                                <span class="text-sm font-semibold text-gray-700 uppercase">
+                                                    {{ Str::substr($user->name, 0, 1) }}
+                                                </span>
+
+                                            </div>
+                                        @endif
+
+                                    </div>
+
+
+                                    {{-- Info --}}
+                                    <div class="min-w-0 space-y-1">
+
+                                        {{-- Nama --}}
+                                        <h3 class="font-medium text-gray-900 truncate">
+                                            {{ $user->name }}
+                                        </h3>
+
+                                        {{-- Email --}}
+                                        <p class="text-gray-500 truncate">
+                                            {{ $user->email }}
+                                        </p>
+
+                                        {{-- NIM / NIP --}}
+                                        @if ($user->role === 'mahasiswa')
+                                            <div class="flex flex-wrap items-center gap-2 text-[12px]">
+                                                <span
+                                                    class="inline-flex items-center px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200">
+                                                    NIM :
+                                                    {{ $user->nim ?? '-' }}
+                                                </span>
+                                                <span class="text-gray-400">
+                                                    •
+                                                </span>
+                                                <span class="text-gray-600">
+                                                    {{ $user->jurusan ?? '-' }}
+                                                </span>
+                                                <span class="text-gray-400">
+                                                    •
+                                                </span>
+                                                <span class="text-gray-600">
+                                                    Angkatan
+                                                    {{ $user->tahun_angkatan ?? '-' }}
+                                                </span>
+                                            </div>
+                                        @else
+                                            <div class="flex flex-wrap items-center gap-2 text-[12px]">
+                                                <span
+                                                    class="inline-flex items-center px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 border border-gray-200">
+                                                    NIP :
+                                                    {{ $user->nip ?? '-' }}
+                                                </span>
+                                                @if ($user->jabatan)
+                                                    <span class="text-gray-400">
+                                                        •
+                                                    </span>
+                                                    <span class="text-gray-600">
+                                                        {{ $user->jabatan }}
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
                             </td>
 
                             {{-- Role --}}
-                            @php
-                                $roleStyles = [
-                                    'admin' => 'bg-red-50 text-red-700 border border-red-300',
-                                    'dosen' => 'bg-green-50 text-green-700 border border-green-300',
-                                    'mahasiswa' => 'bg-blue-50 text-blue-700 border border-blue-300',
-                                    // 'kaprodi' => 'bg-yellow-100 text-yellow-700',
-                                ];
-                                $style =
-                                    $roleStyles[$user->role] ?? 'bg-yellow-50 text-yellow-700 border border-yellow-300';
-                            @endphp
-                            <td class="px-6 py-3">
+                            <td class="px-6 py-4">
+                                @php
+                                    $roleStyles = [
+                                        'admin' => 'bg-red-50 text-red-700 border border-red-200',
+                                        'dosen' => 'bg-green-50 text-green-700 border border-green-200',
+                                        'mahasiswa' => 'bg-blue-50 text-blue-700 border border-blue-200',
+                                        'kaprodi' => 'bg-yellow-50 text-yellow-700 border border-yellow-200',
+                                    ];
+                                    $style =
+                                        $roleStyles[$user->role] ?? 'bg-gray-50 text-gray-700 border border-gray-200';
+                                @endphp
                                 <span
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $style }}">
-                                    {{ ucfirst($user->role) }}
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium capitalize {{ $style }}">
+                                    {{ $user->role }}
                                 </span>
                             </td>
 
-                            {{-- Waktu --}}
-                            <td class="px-6 py-3 text-gray-500">
-                                {{ $user->created_at->format('d M Y - H:i') }}
+                            {{-- Total Dokumen --}}
+                            <td class="px-6 py-4 text-gray-600">
+                                <div class="flex items-center gap-2">
+                                    <span
+                                        class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+                                        {{ $user->documents_count }}
+                                    </span>
+                                    <span class="text-gray-500">
+                                        Dokumen
+                                    </span>
+                                </div>
+                            </td>
+
+                            {{-- Tanggal --}}
+                            <td class="px-6 py-4 text-gray-500 whitespace-nowrap">
+                                {{ $user->created_at->format('d M Y') }}
+                                <div class="text-[12px] text-gray-400 mt-0.5">
+                                    {{ $user->created_at->format('H:i') }} WIB
+                                </div>
                             </td>
 
                             {{-- Aksi --}}
-                            <td class="px-6 py-3 ">
-                                <div class="flex items-center gap-8 text-gray-600">
-                                    {{-- Detai --}}
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    {{-- Detail --}}
                                     <a href="{{ route('admin.users.show', $user->id) }}"
-                                        class="hover:text-gray-800 transition">
-                                        <span class="material-symbols-outlined !text-[19px]">person_search</span>
+                                        class="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition">
+                                        <span class="material-symbols-outlined !text-[19px]">
+                                            person_search
+                                        </span>
                                     </a>
 
                                     {{-- Edit --}}
-                                    <a href="{{ route('admin.users.edit', $user->id) }}" target="_blank"
-                                        class="hover:text-gray-800 transition">
-                                        <span class="material-symbols-outlined !text-[19px]">person_edit</span>
+                                    <a href="{{ route('admin.users.edit', $user->id) }}"
+                                        class="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition">
+                                        <span class="material-symbols-outlined !text-[19px]">
+                                            person_edit
+                                        </span>
                                     </a>
 
                                     {{-- Delete --}}
                                     <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
-                                        lass="m-0" onsubmit="return confirm('Yakin ingin hapus pengguna ini?')">
+                                        onsubmit="return confirm('Yakin ingin menghapus pengguna ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="hover:text-red-600 text-gray-600 transition">
-                                            <span class="material-symbols-outlined !text-[18px]">delete</span>
+                                        <button type="submit"
+                                            class="w-9 h-9 flex items-center justify-center rounded-lg border border-red-200 text-red-500 hover:bg-red-50 transition">
+                                            <span class="material-symbols-outlined !text-[18px]">
+                                                delete
+                                            </span>
                                         </button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="6" class="px-6 py-14 text-center">
+                                <div class="flex flex-col items-center justify-center">
+                                    <span class="material-symbols-outlined text-gray-300 !text-[52px] mb-3">
+                                        group_off
+                                    </span>
+                                    <h3 class="text-sm font-medium text-gray-700">
+                                        Data pengguna tidak ditemukan
+                                    </h3>
+                                    <p class="text-xs text-gray-400 mt-1">
+                                        Belum ada pengguna yang tersedia saat ini.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
+
+
 
 
 @endsection

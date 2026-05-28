@@ -23,6 +23,11 @@ class User extends Authenticatable
         'email',
         'password',
         'role', // admin, mahasiswa, dosen, kaprodi
+
+        'tahun_angkatan',
+        'jurusan',
+        'jabatan',
+        'foto_profile',
     ];
 
     /**
@@ -72,5 +77,12 @@ class User extends Authenticatable
             Document::class,
             'favorite_documents'
         )->withTimestamps();
+    }
+
+    public function getPhotoUrlAttribute()
+    {
+        return $this->foto_profile
+            ? asset('storage/' . $this->foto_profile)
+            : asset('images/default-profile.png');
     }
 }

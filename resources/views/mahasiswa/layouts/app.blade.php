@@ -170,23 +170,20 @@
 
                         {{-- User Header --}}
                         <div class="px-6 py-3 bg-white border-b border-gray-300 rounded-tl-lg rounded-tr-lg">
-
                             <div class="flex items-center gap-3">
                                 {{-- Avatar --}}
-                                @php
-                                    $name = auth()->user()->name;
-                                    $initials = collect(explode(' ', $name))
-                                        ->map(fn($word) => strtoupper(substr($word, 0, 1)))
-                                        ->take(1)
-                                        ->join('');
-                                @endphp
-
-                                <div class="h-10 w-10 rounded-full overflow-hidden shadow-sm ring-1 ring-gray-200 ">
-                                    <div
-                                        class="w-full h-full flex items-center justify-center
-                                        bg-gray-100 text-gray-600 font-semibold text-[14px]">
-                                        {{ $initials }}
-                                    </div>
+                                <div class="flex-shrink-0">
+                                    @if (auth()->user()->foto_profile)
+                                        <img src="{{ auth()->user()->photo_url }}" alt="{{ auth()->user()->name }}"
+                                            class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-md ring-1 ring-gray-200">
+                                    @else
+                                        <div
+                                            class="w-14 h-14 rounded-full bg-blue-100 border-2 border-blue-200 flex items-center justify-center shadow-sm">
+                                            <span class="text-lg font-semibold text-blue-700 uppercase">
+                                                {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
+                                            </span>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 {{-- User info --}}
@@ -263,7 +260,8 @@
 
                     {{-- Logo --}}
                     <div class="flex items-center gap-3">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-amber-50 text-amber-700 shadow-sm">
+                        <div
+                            class="flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-amber-50 text-amber-700 shadow-sm">
                             <span class="material-symbols-outlined !text-[24px]">
                                 library_books
                             </span>
@@ -288,14 +286,16 @@
 
                     {{-- Info --}}
                     <div class="mt-6 flex flex-wrap items-center gap-3">
-                        <div class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
+                        <div
+                            class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
                             <span class="material-symbols-outlined !text-[16px] text-amber-600">
                                 verified
                             </span>
                             Repository Terverifikasi
                         </div>
 
-                        <div class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
+                        <div
+                            class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
                             <span class="material-symbols-outlined !text-[16px] text-amber-600">
                                 security
                             </span>
@@ -404,7 +404,8 @@
 
         {{-- Bottom --}}
         <div class="border-t border-gray-200 bg-white/70 backdrop-blur-sm">
-            <div class="max-w-[77rem] mx-auto px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div
+                class="max-w-[77rem] mx-auto px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
                 {{-- Copyright --}}
                 <p class="text-[12px] text-gray-500 leading-relaxed">

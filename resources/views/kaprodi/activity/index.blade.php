@@ -190,7 +190,7 @@
 
             {{-- Pagination --}}
             <div class="px-5 py-3 border-t border-gray-100 bg-gray-50/50">
-                {{ $logs->links() }}
+                {{ $logs->links('vendor.pagination.tailwind-darkmode') }}
             </div>
         </div>
     </div>

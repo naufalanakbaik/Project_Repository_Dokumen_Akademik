@@ -2,7 +2,6 @@
 @section('title', 'Profil Saya')
 
 @section('content')
-
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
@@ -16,37 +15,111 @@
                 </p>
             </div>
             <a href="{{ route('mahasiswa.profile.edit') }}"
-                class="text-[12px] font-medium text-gray-500 hover:text-gray-600 border border-gray-300 px-3.5 py-1.5 rounded-lg bg-white hover:bg-gray-50 transition">
+                class="inline-flex items-center gap-1.5 text-[12px] font-medium text-gray-500 hover:text-gray-700 border border-gray-300 px-4 py-1.5 rounded-lg bg-white hover:bg-gray-50 transition">
+                <span class="material-symbols-outlined text-[16px]">
+                    manage_accounts
+                </span>
                 Edit Profile
             </a>
         </div>
 
-        {{-- Profile user --}}
-        <div class="bg-white border border-gray-200 rounded-lg p-6 flex items-center gap-5">
+        {{-- Profile User --}}
+        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
 
-            {{-- Avatar --}}
-            <div
-                class="w-16 h-16 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-lg font-semibold text-gray-700">
-                {{ strtoupper(substr($user->name, 0, 1)) }}
+            {{-- Header --}}
+            <div class="px-7 py-6 border-b border-gray-100 bg-gradient-to-r from-yellow-100 to-white">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+
+                    {{-- Left --}}
+                    <div class="flex items-center gap-4">
+                        {{-- Avatar --}}
+                        <div class="flex-shrink-0">
+                            @if ($user->foto_profile)
+                                <img src="{{ $user->photo_url }}" alt="{{ $user->name }}"
+                                    class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md">
+                            @else
+                                <div
+                                    class="w-24 h-24 rounded-full bg-blue-100 border-4 border-blue-200 flex items-center justify-center shadow-sm">
+                                    <span class="text-2xl font-semibold text-blue-700 uppercase">
+                                        {{ \Illuminate\Support\Str::substr($user->name, 0, 1) }}
+                                    </span>
+                                </div>
+                            @endif
+                        </div>
+
+                        {{-- Identity --}}
+                        <div>
+                            <h1 class="text-xl font-semibold text-gray-800">
+                                {{ $user->name }}
+                            </h1>
+                            <div class="flex flex-wrap items-center gap-3 mt-2 text-sm text-gray-600">
+                                {{-- Role --}}
+                                <span class="font-medium text-gray-600">
+                                    Mahasiswa
+                                </span>
+
+                                {{-- Separator --}}
+                                @if ($user->tahun_angkatan)
+                                    <span class="text-gray-600">•</span>
+
+                                    {{-- Angkatan --}}
+                                    <span>
+                                        Angkatan {{ $user->tahun_angkatan }}
+                                    </span>
+                                @endif
+                            </div>
+
+                            <p class="text-[12px] text-gray-500 mt-2">
+                                Bergabung pada
+                                {{ $user->created_at->format('d M Y - H:i') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {{-- Info --}}
-            <div class="flex-1">
-                <p class="text-[14px] font-semibold text-gray-800">
-                    {{ $user->name }}
-                </p>
-                <p class="text-[12px] text-gray-600">
-                    {{ $user->nim ?? '-' }} 
-                </p>
-                <p class="text-[12px] text-gray-600">
-                    {{ $user->email }}
-                </p>
+            {{-- Body --}}
+            <div class="p-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    {{-- NIM --}}
+                    <div>
+                        <p class="text-[11px] font-medium text-gray-500 uppercase tracking-wide mb-1.5">
+                            NIM
+                        </p>
+                        <p class="text-sm font-medium text-gray-700">
+                            {{ $user->nim ?? '-' }}
+                        </p>
+                    </div>
 
-                {{-- subtle meta --}}
-                <div class="flex items-center gap-3 mt-1.5 text-xs text-gray-400">
-                    <span>Mahasiswa</span>
-                    <span>•</span>
-                    <span>Bergabung pada {{ $user->created_at->format('d M Y - H:i') }}</span>
+                    {{-- Email --}}
+                    <div>
+                        <p class="text-[11px] font-medium text-gray-500 uppercase tracking-wide mb-1.5">
+                            Email
+                        </p>
+                        <p class="text-sm font-medium text-gray-700 break-all">
+                            {{ $user->email }}
+                        </p>
+                    </div>
+
+                    {{-- Jurusan --}}
+                    <div>
+                        <p class="text-[11px] font-medium text-gray-500 uppercase tracking-wide mb-1.5">
+                            Jurusan
+                        </p>
+                        <p class="text-sm font-medium text-gray-700">
+                            {{ $user->jurusan ?? '-' }}
+                        </p>
+                    </div>
+
+                    {{-- Tahun Angkatan --}}
+                    <div>
+                        <p class="text-[11px] font-medium text-gray-500 uppercase tracking-wide mb-1.5">
+                            Tahun Angkatan
+                        </p>
+                        <p class="text-sm font-medium text-gray-700">
+                            {{ $user->tahun_angkatan ?? '-' }}
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -56,7 +129,7 @@
         <div class="grid grid-cols-3 gap-4">
 
             <div class="bg-white border border-gray-200 rounded-lg p-4 text-center hover:shadow-sm transition">
-                <p class="text-lg font-semibold text-gray-900">
+                <p class="text-lg font-semibold text-gray-700">
                     {{ $totalDocuments }}
                 </p>
                 <p class="text-xs text-gray-500 mt-1">
@@ -117,10 +190,10 @@
                         <span
                             class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border text-[11px] font-medium
                                 {{ $doc->status === 'approved'
-                                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                : ($doc->status === 'pending'
-                                ? 'bg-amber-50 text-amber-600 border-amber-200'
-                                : 'bg-red-50 text-red-700 border-red-200') }}">
+                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                    : ($doc->status === 'pending'
+                                        ? 'bg-amber-50 text-amber-600 border-amber-200'
+                                        : 'bg-red-50 text-red-700 border-red-200') }}">
 
                             <span class="material-symbols-outlined !text-[12px]">
                                 {{ $doc->status === 'approved' ? 'check_circle' : ($doc->status === 'pending' ? 'schedule' : 'cancel') }}
