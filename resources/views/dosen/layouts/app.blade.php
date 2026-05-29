@@ -157,18 +157,18 @@
                         <div class="px-6 py-3 bg-white border-b border-gray-300 rounded-tl-lg rounded-tr-lg">
                             <div class="flex items-center gap-3">
                                 {{-- Avatar --}}
-                                @php
-                                    $name = auth()->user()->name;
-                                    $initials = collect(explode(' ', $name))
-                                        ->map(fn($word) => strtoupper(substr($word, 0, 1)))
-                                        ->take(1)
-                                        ->join('');
-                                @endphp
-
-                                <div class="h-10 w-10 rounded-full overflow-hidden shadow-sm ring-1 ring-yellow-200">
-                                    <div class="w-full h-full flex items-center justify-center bg-yellow-100 text-yellow-600 font-semibold text-[15px]">
-                                        {{ $initials }}
-                                    </div>
+                                <div class="flex-shrink-0">
+                                    @if (auth()->user()->foto_profile)
+                                        <img src="{{ auth()->user()->photo_url }}" alt="{{ auth()->user()->name }}"
+                                            class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md ring-1 ring-gray-200">
+                                    @else
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-blue-100 border-2 border-blue-200 flex items-center justify-center shadow-sm">
+                                            <span class="text-lg font-semibold text-blue-700 uppercase">
+                                                {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
+                                            </span>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 {{-- User info --}}
@@ -410,6 +410,8 @@
             </div>
         </div>
     </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     {{-- Chart Js --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

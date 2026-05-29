@@ -62,14 +62,14 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:mahasiswa'])
         ->prefix('mahasiswa')
         ->name('mahasiswa.')
-        ->group(function () {
-            // -- Dashboard statistik -> mahasiswa 
-            Route::get('/dashboard', [MahasiswaDashboardController::class, 'index'])
-                ->name('dashboard');
-
+        ->group(function () {            
             // -- Home / Beranda
             Route::get('/home', [MahasiswaHomeController::class, 'index'])
                 ->name('home');
+
+            // -- Dashboard statistik -> mahasiswa 
+            Route::get('/dashboard', [MahasiswaDashboardController::class, 'index'])
+                ->name('dashboard');
 
             // -- Akses global dokumen (seluruh dokumen yang diunggah setiap role) -> mahasiswa
             Route::get('/documents/global', [MahasiswaDocumentController::class, 'global'])
@@ -135,16 +135,16 @@ Route::middleware(['auth'])->group(function () {
         ->prefix('dosen')
         ->name('dosen.')
         ->group(function () {
-            // -- Dashboard statistik -> dosen
-            Route::get('/dashboard', [DosenDashboardController::class, 'index'])
-                ->name('dashboard');
-
             // -- Home / Beranda
             Route::get('/home', [DosenHomeController::class, 'index'])
                 ->name('home');
 
+             // -- Dashboard statistik -> dosen
+            Route::get('/dashboard', [DosenDashboardController::class, 'index'])
+                ->name('dashboard');
+
             // -- Dashboard monitoring mahasiswa -> dosen
-            Route::get('/monitoring', [DashboardController::class, 'index'])
+            Route::get('/monitoring', [DosenDashboardController::class, 'index'])
                 ->name('monitoring');
 
             // -- Global dokumen akses (seluruh dokumen -> user)

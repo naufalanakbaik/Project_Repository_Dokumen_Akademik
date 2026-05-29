@@ -9,29 +9,22 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    // =========================================================
-    // Form edit profile
-    // =========================================================
+    // --> Form edit profile
     public function edit()
     {
         $user = auth()->user();
 
-        return view(
-            'mahasiswa.profile.edit',
-            compact('user')
-        );
+        return view('mahasiswa.profile.edit',compact('user'));
     }
 
-    // =========================================================
-    // Update profile
-    // =========================================================
+    // --> Update profile
     public function update(Request $request)
     {
         $user = auth()->user();
 
         $validated = $request->validate([
 
-            // Mahasiswa
+            // Mahasiswa (Only Mahasiswa)
             'nim' => [
                 'required',
                 'string',
@@ -53,7 +46,7 @@ class ProfileController extends Controller
                 'max:' . date('Y'),
             ],
 
-            // General
+            // General (All User)
             'name' => [
                 'required',
                 'string',
@@ -67,7 +60,6 @@ class ProfileController extends Controller
                 'unique:users,email,' . $user->id,
             ],
 
-            // Photo Profile
             'foto_profile' => [
                 'nullable',
                 'image',
@@ -75,35 +67,24 @@ class ProfileController extends Controller
                 'max:3072', // 3MB
             ],
 
-            // Password
             'password' => [
                 'nullable',
                 'string',
                 'min:8',
                 'confirmed',
             ],
-
         ]);
 
-        // =========================================
         // Data update
-        // =========================================
         $data = [
-
             'nim' => trim($validated['nim']),
-
             'jurusan' => $validated['jurusan'] ?? null,
-
             'tahun_angkatan' => $validated['tahun_angkatan'] ?? null,
-
             'name' => trim($validated['name']),
-
             'email' => trim($validated['email']),
         ];
 
-        // =========================================
         // Upload foto profile
-        // =========================================
         if ($request->hasFile('foto_profile')) {
 
             // Hapus foto lama
@@ -127,29 +108,21 @@ class ProfileController extends Controller
                     );
         }
 
-        // =========================================
         // Update password jika diisi
-        // =========================================
         if (!empty($validated['password'])) {
-
             $data['password'] =
                 Hash::make($validated['password']);
         }
 
-        // =========================================
         // Update user
-        // =========================================
         $user->update($data);
-
         return back()->with(
             'success',
             'Profile berhasil diperbarui.'
         );
     }
 
-    // =========================================================
-    // Detail profile mahasiswa
-    // =========================================================
+    // --> Detail profile mahasiswa
     public function show()
     {
         $user = auth()->user();

@@ -587,446 +587,226 @@
 
     </section>
 
-    {{-- Activity Workspace --}}
-    <section 
-        x-data="{
-            tab: localStorage.getItem('dashboardTab') || 'mine',
-        
-            changeTab(value) {
-                this.tab = value;
-                localStorage.setItem('dashboardTab', value);
-            }
-        }" 
-        class="w-full max-w-[78rem] mx-auto px-6 mt-8 mb-10">
+    {{-- Popular Documents --}}
+    <section class="w-full max-w-[78rem] mx-auto px-6 mt-8 mb-10">
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
 
-        {{-- --> Header Button --}}
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
-            <div>
-                <h2 class="text-[20px] font-semibold tracking-tight text-gray-800">
-                    Repository Activity Workspace
-                </h2>
-                <p class="text-[13px] text-gray-500 mt-1">
-                    Pantau aktivitas repository dosen dan mahasiswa secara real-time.
-                </p>
+            {{-- Header --}}
+            <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                    <h3 class="text-[15px] font-semibold text-gray-800">
+                        Dokumen Terpopuler
+                    </h3>
+                    <p class="text-[12px] text-gray-500">
+                        Dokumen yang paling sering diakses mahasiswa.
+                    </p>
+                </div>
+                <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs font-medium text-gray-600">
+                    <span class="material-symbols-outlined !text-[16px]">
+                        monitoring
+                    </span>
+                    Popular
+                </span>
             </div>
 
-            {{-- Toggle Button --}}
-            <div class="flex items-center gap-3">
-                {{-- Aktivitas Saya --}}
-                <button @click="changeTab('mine')"
-                    :class="tab === 'mine'?
-                        'bg-amber-600 text-white border-amber-200 shadow-sm' :
-                        'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border text-[14px] font-medium transition-all duration-200">
-                    <span class="material-symbols-outlined !text-[18px]">
-                        person
-                    </span>
-                    Aktivitas Saya
-                </button>
-
-                {{-- Aktivitas Mahasiswa --}}
-                <button @click="changeTab('students')"
-                    :class="tab === 'students'?
-                        'bg-amber-600 text-white border-amber-200 shadow-sm' :
-                        'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border text-[14px] font-medium transition-all duration-200">
-                    <span class="material-symbols-outlined !text-[18px]">
-                        groups
-                    </span>
-                    Aktivitas Mahasiswa
-                </button>
-            </div>
-        </div>
-
-        {{-- --> Aktivitas Saya --}}
-        <div x-show="tab === 'mine'" x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
-            <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-
-                {{-- Header --}}
-                <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800">
-                            Aktivitas Repository Saya
-                        </h3>
-                        <p class="text-sm text-gray-500 mt-1">
-                            Ringkasan aktivitas upload dan dokumen repository Anda.
-                        </p>
-                    </div>
-
+            {{-- Content --}}
+            <div class="divide-y divide-gray-100">
+                @forelse($popularDocuments as $document)
                     <div
-                        class="w-11 h-11 rounded-xl bg-amber-50 border border-amber-100 text-amber-700
-                        flex items-center justify-center">
-                        <span class="material-symbols-outlined">
-                            timeline
-                        </span>
-                    </div>
-                </div>
+                        class="px-6 py-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 hover:bg-gray-50 transition">
 
-                {{-- Content --}}
-                <div class="divide-y divide-gray-100">
-                    @forelse($recentUploads as $document)
-                        <div class="px-6 py-5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 hover:bg-gray-50 transition">
-
-                            {{-- Left --}}
-                            <div class="flex items-start gap-4 min-w-0">
-                                <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-100 
-                                    shrink-0">
-                                    <span class="material-symbols-outlined !text-[20px]">
-                                        upload_file
-                                    </span>
-                                </div>
-
-                                <div class="min-w-0">
-                                    <h4 class="text-sm font-semibold text-gray-800 truncate">
-                                        {{ $document->title }}
-                                    </h4>
-                                    <div class="flex flex-wrap items-center gap-2 mt-1 text-xs text-gray-500">
-                                        <span>
-                                            {{ $document->category->name ?? 'Kategori' }}
-                                        </span>
-                                        <span class="w-1 h-1 rounded-full bg-gray-300"></span>
-                                        <span>
-                                            {{ $document->created_at->format('d M Y') }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- Right --}}
-                            <div class="flex items-center gap-2 shrink-0">
-                                {{-- Status --}}
-                                @if ($document->status === 'approved')
-                                    <div class="inline-flex items-center gap-2 px-3 py-2 rounded-xl
-                                        bg-green-50 border border-green-100 text-green-700 text-xs font-medium">
-                                        <span class="material-symbols-outlined !text-[16px]">
-                                            verified
-                                        </span>
-                                        Disetujui
-                                    </div>
-                                @elseif ($document->status === 'pending')
-                                    <div class="inline-flex items-center gap-2 px-3 py-2 rounded-xl
-                                        bg-yellow-50 border border-yellow-100 text-yellow-700 text-xs font-medium">
-                                        <span class="material-symbols-outlined !text-[16px]">
-                                            schedule
-                                        </span>
-                                        Pending
-                                    </div>
-                                @else
-                                    <div class="inline-flex items-center gap-2 px-3 py-2 rounded-xl
-                                        bg-red-50 border border-red-100 text-red-700 text-xs font-medium">
-                                        <span class="material-symbols-outlined !text-[16px]">
-                                            cancel
-                                        </span>
-                                        Ditolak
-                                    </div>
-                                @endif
-
-                                {{-- Download --}}
-                                <div class="inline-flex items-center gap-2 px-3 py-2 rounded-xl
-                                    bg-blue-50 border border-blue-100 text-blue-700 text-xs font-medium">
-                                    <span class="material-symbols-outlined !text-[16px]">
-                                        download
-                                    </span>
-                                    {{ $document->download_count ?? 0 }}
-                                </div>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="px-6 py-16">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                    <span class="material-symbols-outlined text-gray-400 !text-[30px]">
-                                        inbox
-                                    </span>
-                                </div>
-                                <h3 class="text-sm font-semibold text-gray-800">
-                                    Belum Ada Aktivitas
-                                </h3>
-                                <p class="text-sm text-gray-500 mt-1 max-w-sm">
-                                    Aktivitas repository Anda akan muncul setelah dokumen mulai diunggah.
-                                </p>
-                            </div>
-                        </div>
-                    @endforelse
-                </div>
-            </div>
-        </div>
-
-        {{-- --> Aktivitas Mahasiswa --}}
-        <div x-show="tab === 'students'" x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-
-                {{-- Top Stundents --}}
-                <div class="xl:col-span-1 bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-
-                    {{-- Header --}}
-                    <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-800">
-                                Mahasiswa Aktif
-                            </h3>
-                            <p class="text-sm text-gray-500 mt-1">
-                                Mahasiswa dengan aktivitas repository tertinggi.
-                            </p>
-                        </div>
-
-                        <div class="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-blue-700 flex items-center justify-center">
-                            <span class="material-symbols-outlined">
-                                groups
-                            </span>
-                        </div>
-                    </div>
-
-                    {{-- Content --}}
-                    <div class="divide-y divide-gray-100">
-                        @forelse($topStudents as $student)
-                            <div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition">
-                                <div class="flex items-center gap-3 min-w-0">
-                                    {{-- Avatar --}}
-                                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center 
-                                        justify-center font-semibold shrink-0">
-                                        {{ strtoupper(substr($student->name, 0, 1)) }}
-                                    </div>
-
-                                    {{-- Info --}}
-                                    <div class="min-w-0">
-                                        <h4 class="text-sm font-semibold text-gray-800 truncate">
-                                            {{ $student->name }}
-                                        </h4>
-                                        <p class="text-xs text-gray-500 mt-0.5">
-                                            {{ $student->documents_count }} Dokumen
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {{-- Score --}}
-                                <div class="text-right">
-                                    <p class="text-[11px] text-gray-500">
-                                        Score
-                                    </p>
-                                    <h3 class="text-sm font-semibold text-gray-800">
-                                        {{ $student->logs_count * 10 }}
-                                    </h3>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="px-6 py-14 text-center">
-                                <p class="text-sm text-gray-500">
-                                    Belum ada mahasiswa aktif.
-                                </p>
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
-
-                {{-- Latest Student Uploads --}}
-                <div class="xl:col-span-2 bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-                    {{-- Header --}}
-                    <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-800">
-                                Upload Terbaru Mahasiswa
-                            </h3>
-                            <p class="text-sm text-gray-500 mt-1">
-                                Dokumen terbaru yang diunggah mahasiswa.
-                            </p>
-                        </div>
-                        <div
-                            class="w-11 h-11 rounded-xl bg-amber-50 border border-amber-100 text-amber-700 flex items-center justify-center">
-                            <span class="material-symbols-outlined">
-                                upload
-                            </span>
-                        </div>
-                    </div>
-
-                    {{-- Content --}}
-                    <div class="divide-y divide-gray-100">
-                        @forelse($latestStudentUploads as $document)
-                            <div class="px-6 py-5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 hover:bg-gray-50 transition">
-
-                                {{-- Left --}}
-                                <div class="flex items-start gap-4 min-w-0">
-                                    <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center 
-                                        border border-amber-100 shrink-0">
-                                        <span class="material-symbols-outlined !text-[20px]">
-                                            description
-                                        </span>
-                                    </div>
-
-                                    <div class="min-w-0">
-                                        <h4 class="text-sm font-semibold text-gray-800 truncate">
-                                            {{ $document->title }}
-                                        </h4>
-                                        <div class="flex flex-wrap items-center gap-2 mt-1 text-xs text-gray-500">
-                                            <span>
-                                                {{ $document->user->name }}
-                                            </span>
-                                            <span class="w-1 h-1 rounded-full bg-gray-300"></span>
-                                            <span>
-                                                {{ $document->category->name ?? 'Kategori' }}
-                                            </span>
-                                            <span class="w-1 h-1 rounded-full bg-gray-300"></span>
-                                            <span>
-                                                {{ $document->created_at->format('d M Y') }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{-- Status --}}
-                                @php
-                                    $statusConfig = match ($document->status) {
-                                        'approved' => [
-                                            'bg' => 'bg-green-50 border-green-200 text-green-700',
-                                            'icon' => 'verified',
-                                            'label' => 'Disetujui',
-                                        ],
-
-                                        'pending' => [
-                                            'bg' => 'bg-yellow-50 border-yellow-200 text-yellow-700',
-                                            'icon' => 'schedule',
-                                            'label' => 'Pending',
-                                        ],
-
-                                        'rejected' => [
-                                            'bg' => 'bg-red-50 border-red-200 text-red-700',
-                                            'icon' => 'cancel',
-                                            'label' => 'Ditolak',
-                                        ],
-
-                                        default => [
-                                            'bg' => 'bg-gray-50 border-gray-200 text-gray-700',
-                                            'icon' => 'help',
-                                            'label' => ucfirst($document->status),
-                                        ],
-                                    };
-                                @endphp
-
-                                <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border text-xs font-medium
-                                    {{ $statusConfig['bg'] }}">
-                                    <span class="material-symbols-outlined !text-[15px]">
-                                        {{ $statusConfig['icon'] }}
-                                    </span>
-                                    {{ $statusConfig['label'] }}
-                                </div>
-                            </div>
-                        @empty
-                            <div class="px-6 py-14 text-center">
-                                <p class="text-sm text-gray-500">
-                                    Belum ada upload mahasiswa.
-                                </p>
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
-
-            </div>
-
-
-            {{-- Timeline + Inactive Students --}}
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-6">
-
-                {{-- Timeline --}}
-                <div class="xl:col-span-2 bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-                    {{-- Header --}}
-                    <div class="px-6 py-5 border-b border-gray-100">
-                        <h3 class="text-lg font-semibold text-gray-800">
-                            Timeline Aktivitas Mahasiswa
-                        </h3>
-                        <p class="text-sm text-gray-500 mt-1">
-                            Aktivitas terbaru mahasiswa pada repository.
-                        </p>
-                    </div>
-
-                    {{-- Content --}}
-                    <div class="divide-y divide-gray-100">
-                        @forelse($studentRecentActivities as $activity)
-                            <div class="px-6 py-4 flex items-start gap-4 hover:bg-gray-50 transition">
-
-                                {{-- Icon --}}
-                                <div class="w-10 h-10 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined !text-[18px]">
-                                        history
-                                    </span>
-                                </div>
-
-                                {{-- Info --}}
-                                <div class="min-w-0">
-                                    <h4 class="text-sm font-medium text-gray-800">
-                                        {{ $activity->user->name }}
-                                        melakukan
-                                        <span class="font-semibold text-blue-700">
-                                            {{ $activity->action }}
-                                        </span>
-                                    </h4>
-                                    <p class="text-xs text-gray-500 mt-1">
-                                        {{ $activity->document->title ?? '-' }}
-                                    </p>
-                                    <p class="text-[11px] text-gray-400 mt-1">
-                                        {{ $activity->created_at->diffForHumans() }}
-                                    </p>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="px-6 py-14 text-center">
-                                <p class="text-sm text-gray-500">
-                                    Belum ada aktivitas mahasiswa.
-                                </p>
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
-
-                {{-- Inactive Students --}}
-                <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-                    {{-- Header --}}
-                    <div class="px-6 py-5 border-b border-gray-100">
-                        <h3 class="text-lg font-semibold text-gray-800">
-                            Mahasiswa Tidak Aktif
-                        </h3>
-                        <p class="text-sm text-gray-500 mt-1">
-                            Belum memiliki aktivitas repository.
-                        </p>
-                    </div>
-
-                    {{-- Content --}}
-                    <div class="divide-y divide-gray-100">
-                        @forelse($inactiveStudents as $student)
-                            <div class="px-6 py-4 flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center font-semibold">
-                                        {{ strtoupper(substr($student->name, 0, 1)) }}
-                                    </div>
-                                    <div>
-                                        <h4 class="text-sm font-medium text-gray-800">
-                                            {{ $student->name }}
-                                        </h4>
-                                        <p class="text-xs text-gray-500">
-                                            Belum ada aktivitas
-                                        </p>
-                                    </div>
-                                </div>
-                                <span class="px-2 py-1 rounded-full bg-red-50 border border-red-100 text-red-600 text-[10px] font-medium">
-                                    Inactive
+                        {{-- Left --}}
+                        <div class="flex items-start gap-3 min-w-0">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined !text-[20px]">
+                                    description
                                 </span>
                             </div>
-                        @empty
-                            <div class="px-6 py-14 text-center">
-                                <p class="text-sm text-gray-500">
-                                    Semua mahasiswa aktif.
-                                </p>
+                            <div class="min-w-0">
+                                <h4 class="text-sm font-medium text-gray-900 truncate">
+                                    {{ $document->title }}
+                                </h4>
+                                <div class="flex flex-wrap items-center gap-2 mt-1 text-xs text-gray-500">
+                                    <span>
+                                        {{ $document->category->name ?? 'Kategori' }}
+                                    </span>
+                                    <span class="w-1 h-1 rounded-full bg-gray-300"></span>
+                                    <span>
+                                        {{ $document->created_at->format('d M Y') }}
+                                    </span>
+                                </div>
                             </div>
-                        @endforelse
-                    </div>
-                </div>
+                        </div>
 
+                        {{-- Right --}}
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-blue-100 bg-blue-50 text-xs font-medium 
+                            text-blue-700 shrink-0">
+                            <span class="material-symbols-outlined !text-[16px]">
+                                download
+                            </span>
+                            {{ $document->downloads_count }}
+                        </div>
+                    </div>
+                @empty
+                    <div class="px-6 py-14">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center mb-3">
+                                <span class="material-symbols-outlined text-gray-400">
+                                    inbox
+                                </span>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-800">
+                                Belum Ada Data
+                            </h3>
+                            <p class="text-sm text-gray-500 mt-1 max-w-sm">
+                                Dokumen populer akan tampil setelah repository mulai aktif digunakan.
+                            </p>
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
-@endsection
 
+    {{-- Monitoring Mahasiswa --}}
+    <section class="w-full max-w-[78rem] mx-auto px-6 mt-8 mb-10">
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+
+            {{-- Header --}}
+            <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+
+                <div>
+                    <h3 class="text-[15px] font-semibold text-gray-800">
+                        Monitoring Mahasiswa
+                    </h3>
+
+                    <p class="text-[12px] text-gray-500">
+                        Aktivitas dan perkembangan mahasiswa dalam repository akademik.
+                    </p>
+                </div>
+
+                <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs font-medium text-gray-600">
+
+                    <span class="material-symbols-outlined !text-[16px]">
+                        school
+                    </span>
+
+                    Mahasiswa
+                </span>
+
+            </div>
+
+            {{-- Content --}}
+            <div class="divide-y divide-gray-100">
+
+                @forelse($studentActivities as $student)
+
+                    <div
+                        class="px-6 py-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 hover:bg-gray-50 transition">
+
+                        {{-- Left --}}
+                        <div class="flex items-center gap-3 min-w-0">
+
+                            {{-- Avatar --}}
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center text-sm font-semibold shrink-0">
+
+                                {{ strtoupper(substr($student->name, 0, 1)) }}
+
+                            </div>
+
+                            {{-- Info --}}
+                            <div class="min-w-0">
+
+                                <h4 class="text-sm font-medium text-gray-900 truncate">
+                                    {{ $student->name }}
+                                </h4>
+
+                                <div class="flex flex-wrap items-center gap-2 mt-1 text-xs text-gray-500">
+
+                                    <span>
+                                        Mahasiswa Repository
+                                    </span>
+
+                                    <span class="w-1 h-1 rounded-full bg-gray-300"></span>
+
+                                    <span>
+                                        {{ $student->documents_count }} Dokumen
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {{-- Right --}}
+                        <div class="flex items-center gap-2 shrink-0">
+
+                            {{-- Dokumen --}}
+                            <div
+                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs font-medium text-gray-700">
+
+                                <span class="material-symbols-outlined !text-[16px]">
+                                    description
+                                </span>
+
+                                {{ $student->documents_count }}
+
+                            </div>
+
+                            {{-- Aktivitas --}}
+                            <div
+                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-blue-100 bg-blue-50 text-xs font-medium text-blue-700">
+
+                                <span class="material-symbols-outlined !text-[16px]">
+                                    monitoring
+                                </span>
+
+                                {{ $student->logs_count }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                @empty
+
+                    <div class="px-6 py-14">
+
+                        <div class="flex flex-col items-center text-center">
+
+                            <div class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center mb-3">
+
+                                <span class="material-symbols-outlined text-gray-400">
+                                    group_off
+                                </span>
+
+                            </div>
+
+                            <h3 class="text-sm font-semibold text-gray-800">
+                                Belum Ada Data Mahasiswa
+                            </h3>
+
+                            <p class="text-sm text-gray-500 mt-1 max-w-sm">
+                                Aktivitas mahasiswa akan tampil setelah repository mulai digunakan.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                @endforelse
+
+            </div>
+
+        </div>
+    </section>
+@endsection
 
 @push('scripts')
     <script>

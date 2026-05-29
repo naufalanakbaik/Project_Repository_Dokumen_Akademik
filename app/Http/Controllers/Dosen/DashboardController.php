@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
 use App\Models\Document;
-// use App\Models\User;
 use App\Models\DocumentLog;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -14,45 +14,71 @@ class DashboardController extends Controller
     public function index()
     {
         $userId = Auth::id();
+        $currentYear = now()->year;
 
         /*
         |--------------------------------------------------------------------------
-        | Statistik
+        | Base Query Dokumen Dosen
         |--------------------------------------------------------------------------
         */
-        $myDocuments = Document::where('user_id', $userId)->count();
-
-        $approved = Document::where('user_id', $userId)
-            ->where('status', 'approved')
-            ->count();
-
-        $pending = Document::where('user_id', $userId)
-            ->where('status', 'pending')
-            ->count();
-
-        $rejected = Document::where('user_id', $userId)
-            ->where('status', 'rejected')
-            ->count();
+        $documentQuery = Document::query()
+            ->where('user_id', $userId);
 
         /*
         |--------------------------------------------------------------------------
-        | Total Downloads
+        | Statistik Dashboard Dosen
+        |--------------------------------------------------------------------------
+        | Berisi:
+        | - Total dokumen dosen
+        | - Dokumen approved
+        | - Dokumen pending
+        | - Dokumen rejected
         |--------------------------------------------------------------------------
         */
-        $totalDownloads = DocumentLog::whereHas('document', function ($q) use ($userId) {
-            $q->where('user_id', $userId);
-        })
+        $stats = [
+            'my_documents' => (clone $documentQuery)->count(),
+
+            'approved' => (clone $documentQuery)
+                ->where('status', 'approved')
+                ->count(),
+
+            'pending' => (clone $documentQuery)
+                ->where('status', 'pending')
+                ->count(),
+
+            'rejected' => (clone $documentQuery)
+                ->where('status', 'rejected')
+                ->count(),
+        ];
+
+        /*
+        |--------------------------------------------------------------------------
+        | Total Download Dokumen Dosen
+        |--------------------------------------------------------------------------
+        | Menghitung total download dari seluruh dokumen milik dosen
+        |--------------------------------------------------------------------------
+        */
+        $stats['downloads'] = DocumentLog::query()
             ->where('action', 'download')
+            ->whereHas('document', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
             ->count();
 
         /*
         |--------------------------------------------------------------------------
-        | Recent Activities
+        | Aktivitas Saya (Recent Activities)
+        |--------------------------------------------------------------------------
+        | Menampilkan aktivitas terbaru dosen:
+        | - upload
+        | - download
+        | - view dokumen
         |--------------------------------------------------------------------------
         */
-        $recentActivities = DocumentLog::with([
-            'document.category'
-        ])
+        $recentActivities = DocumentLog::query()
+            ->with([
+                'document.category'
+            ])
             ->where('user_id', $userId)
             ->latest()
             ->take(7)
@@ -60,69 +86,67 @@ class DashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Upload Activity Chart
+        | Grafik Upload Dokumen Dosen
+        |--------------------------------------------------------------------------
+        | Data upload dokumen per bulan
         |--------------------------------------------------------------------------
         */
-        $monthlyUploads = Document::select(
-            DB::raw('MONTH(created_at) as month'),
-            DB::raw('COUNT(*) as total')
-        )
+        $monthlyUploads = Document::query()
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
             ->where('user_id', $userId)
-            ->whereYear('created_at', now()->year)
+            ->whereYear('created_at', $currentYear)
             ->groupBy('month')
             ->pluck('total', 'month');
 
-        $uploadChartData = [];
-
-        for ($i = 1; $i <= 12; $i++) {
-            $uploadChartData[] = $monthlyUploads[$i] ?? 0;
-        }
+        $uploadChartData = $this->generateMonthlyChart($monthlyUploads);
 
         /*
         |--------------------------------------------------------------------------
-        | Download Activity Chart
+        | Grafik Download Dokumen Dosen
+        |--------------------------------------------------------------------------
+        | Data download dokumen per bulan
         |--------------------------------------------------------------------------
         */
-        $monthlyDownloads = DocumentLog::select(
-            DB::raw('MONTH(created_at) as month'),
-            DB::raw('COUNT(*) as total')
-        )
+        $monthlyDownloads = DocumentLog::query()
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
             ->where('action', 'download')
-            ->whereHas('document', function ($q) use ($userId) {
-                $q->where('user_id', $userId);
+            ->whereHas('document', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
             })
-            ->whereYear('created_at', now()->year)
+            ->whereYear('created_at', $currentYear)
             ->groupBy('month')
             ->pluck('total', 'month');
 
-        $downloadChartData = [];
-
-        for ($i = 1; $i <= 12; $i++) {
-            $downloadChartData[] = $monthlyDownloads[$i] ?? 0;
-        }
+        $downloadChartData = $this->generateMonthlyChart($monthlyDownloads);
 
         /*
         |--------------------------------------------------------------------------
-        | Status Chart
+        | Data Status Dokumen Dosen
+        |--------------------------------------------------------------------------
+        | Digunakan untuk doughnut chart:
+        | - approved
+        | - pending
+        | - rejected
         |--------------------------------------------------------------------------
         */
         $statusChartData = [
-            $approved,
-            $pending,
-            $rejected
+            $stats['approved'],
+            $stats['pending'],
+            $stats['rejected'],
         ];
 
         /*
         |--------------------------------------------------------------------------
-        | Popular Documents
+        | Dokumen Terpopuler Dosen
+        |--------------------------------------------------------------------------
+        | Dokumen dengan total download terbanyak
         |--------------------------------------------------------------------------
         */
-        $popularDocuments = Document::with([
-            'category'
-        ])
+        $popularDocuments = Document::query()
+            ->with('category')
             ->withCount([
-                'logs as downloads_count' => function ($q) {
-                    $q->where('action', 'download');
+                'logs as downloads_count' => function ($query) {
+                    $query->where('action', 'download');
                 }
             ])
             ->where('user_id', $userId)
@@ -132,68 +156,200 @@ class DashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Quick Insights
+        | Quick Insights Dashboard Dosen
+        |--------------------------------------------------------------------------
+        | Berisi:
+        | - dokumen paling populer
+        | - upload terbaru
+        | - kategori paling aktif
         |--------------------------------------------------------------------------
         */
         $mostDownloaded = $popularDocuments->first();
 
-        $latestUpload = Document::where('user_id', $userId)
+        $latestUpload = Document::query()
+            ->where('user_id', $userId)
             ->latest()
             ->first();
 
-        $topCategory = Document::select('category_id', DB::raw('COUNT(*) as total'))
+        $topCategory = Document::query()
+            ->select('category_id', DB::raw('COUNT(*) as total'))
+            ->with('category')
             ->where('user_id', $userId)
             ->groupBy('category_id')
-            ->with('category')
             ->orderByDesc('total')
             ->first();
 
         /*
-|--------------------------------------------------------------------------
-| Monitoring Mahasiswa
-|--------------------------------------------------------------------------
-*/
-
-        $studentActivities = \App\Models\User::withCount([
-            'documents',
-            'logs'
-        ])
+        |--------------------------------------------------------------------------
+        | Monitoring Mahasiswa
+        |--------------------------------------------------------------------------
+        | Menampilkan daftar mahasiswa beserta:
+        | - total dokumen
+        | - total aktivitas/log
+        |--------------------------------------------------------------------------
+        */
+        $studentActivities = User::query()
             ->where('role', 'mahasiswa')
+            ->withCount([
+                'documents',
+                'logs'
+            ])
             ->latest()
             ->take(5)
             ->get();
 
         /*
         |--------------------------------------------------------------------------
-        | Return View
+        | Aktivitas Saya - Upload Terbaru
+        |--------------------------------------------------------------------------
+        | Digunakan pada tab:
+        | "Aktivitas Saya"
         |--------------------------------------------------------------------------
         */
-        return view('dosen.dashboard.index', [
-            'stats' => [
-                'my_documents' => $myDocuments,
-                'approved' => $approved,
-                'pending' => $pending,
-                'rejected' => $rejected,
-                'downloads' => $totalDownloads,
-            ],
+        $recentUploads = Document::query()
+            ->with('category')
+            ->withCount([
+                'logs as downloads_count' => function ($query) {
+                    $query->where('action', 'download');
+                }
+            ])
+            ->where('user_id', $userId)
+            ->latest()
+            ->take(5)
+            ->get();
 
-            'recentActivities' => $recentActivities,
+        /*
+        |--------------------------------------------------------------------------
+        | Aktivitas Saya - Status Validasi Dokumen
+        |--------------------------------------------------------------------------
+        | Menampilkan status validasi dokumen terbaru dosen
+        |--------------------------------------------------------------------------
+        */
+        $latestValidationDocuments = Document::query()
+            ->where('user_id', $userId)
+            ->latest()
+            ->take(5)
+            ->get();
 
-            'uploadChartData' => $uploadChartData,
+        /*
+        |--------------------------------------------------------------------------
+        | Aktivitas Mahasiswa - Mahasiswa Paling Aktif
+        |--------------------------------------------------------------------------
+        | Diurutkan berdasarkan jumlah aktivitas/log terbanyak
+        |--------------------------------------------------------------------------
+        */
+        $topStudents = User::query()
+            ->where('role', 'mahasiswa')
+            ->withCount([
+                'documents',
+                'logs'
+            ])
+            ->orderByDesc('logs_count')
+            ->take(5)
+            ->get();
 
-            'downloadChartData' => $downloadChartData,
+        /*
+        |--------------------------------------------------------------------------
+        | Aktivitas Mahasiswa - Upload Terbaru Mahasiswa
+        |--------------------------------------------------------------------------
+        | Menampilkan dokumen terbaru yang diupload mahasiswa
+        |--------------------------------------------------------------------------
+        */
+        $latestStudentUploads = Document::query()
+            ->with([
+                'user',
+                'category'
+            ])
+            ->whereHas('user', function ($query) {
+                $query->where('role', 'mahasiswa');
+            })
+            ->latest()
+            ->take(5)
+            ->get();
 
-            'statusChartData' => $statusChartData,
+        /*
+        |--------------------------------------------------------------------------
+        | Aktivitas Mahasiswa - Mahasiswa Tidak Aktif
+        |--------------------------------------------------------------------------
+        | Mahasiswa yang belum memiliki aktivitas/log
+        |--------------------------------------------------------------------------
+        */
+        $inactiveStudents = User::query()
+            ->where('role', 'mahasiswa')
+            ->withCount([
+                'documents',
+                'logs'
+            ])
+            ->having('logs_count', '=', 0)
+            ->take(5)
+            ->get();
 
-            'popularDocuments' => $popularDocuments,
+        /*
+        |--------------------------------------------------------------------------
+        | Aktivitas Mahasiswa - Timeline Aktivitas
+        |--------------------------------------------------------------------------
+        | Menampilkan aktivitas terbaru mahasiswa:
+        | - upload
+        | - download
+        | - view dokumen
+        |--------------------------------------------------------------------------
+        */
+        $studentRecentActivities = DocumentLog::query()
+            ->with([
+                'user',
+                'document'
+            ])
+            ->whereHas('user', function ($query) {
+                $query->where('role', 'mahasiswa');
+            })
+            ->latest()
+            ->take(8)
+            ->get();
 
-            'mostDownloaded' => $mostDownloaded,
+        /*
+        |--------------------------------------------------------------------------
+        | Return View Dashboard
+        |--------------------------------------------------------------------------
+        */
+        return view('dosen.dashboard.index', compact(
+            'stats',
+            'recentActivities',
+            'uploadChartData',
+            'downloadChartData',
+            'statusChartData',
+            'popularDocuments',
+            'mostDownloaded',
+            'latestUpload',
+            'topCategory',
+            'studentActivities',
 
-            'latestUpload' => $latestUpload,
+            // Aktivitas Saya
+            'recentUploads',
+            'latestValidationDocuments',
 
-            'topCategory' => $topCategory,
+            // Aktivitas Mahasiswa
+            'topStudents',
+            'latestStudentUploads',
+            'inactiveStudents',
+            'studentRecentActivities',
+        ));
+    }
 
-            'studentActivities' => $studentActivities,
-        ]);
+    /*
+    |--------------------------------------------------------------------------
+    | Generate Monthly Chart
+    |--------------------------------------------------------------------------
+    | Helper untuk generate data chart bulanan
+    |--------------------------------------------------------------------------
+    */
+    private function generateMonthlyChart($data): array
+    {
+        $chart = [];
+
+        for ($month = 1; $month <= 12; $month++) {
+            $chart[] = $data[$month] ?? 0;
+        }
+
+        return $chart;
     }
 }

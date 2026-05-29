@@ -24,34 +24,93 @@
             </a>
         </div>
 
-        {{-- Profile user --}}
-        <div class="bg-white border border-gray-200 rounded-lg p-6 flex items-center gap-5">
+        {{-- Profile User --}}
+        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
 
-            {{-- Avatar --}}
-            <div
-                class="w-16 h-16 rounded-full bg-yellow-100 border border-yellow-400 flex items-center justify-center text-lg font-semibold text-yellow-600">
-                {{ strtoupper(substr($user->name, 0, 1)) }}
+            {{-- Header --}}
+            <div class="px-7 py-6 border-b border-gray-100 bg-gradient-to-r from-yellow-100 to-white">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+
+                    {{-- Left --}}
+                    <div class="flex items-center gap-4">
+                        {{-- Avatar --}}
+                        <div class="flex-shrink-0">
+                            @if ($user->foto_profile)
+                                <img src="{{ $user->photo_url }}" alt="{{ $user->name }}"
+                                    class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md">
+                            @else
+                                <div
+                                    class="w-24 h-24 rounded-full bg-blue-100 border-4 border-white flex items-center justify-center shadow-sm">
+                                    <span class="text-2xl font-semibold text-blue-700 uppercase">
+                                        {{ \Illuminate\Support\Str::substr($user->name, 0, 1) }}
+                                    </span>
+                                </div>
+                            @endif
+                        </div>
+
+                        {{-- Identity --}}
+                        <div>
+                            <h1 class="text-xl font-semibold text-gray-800">
+                                {{ $user->name }}
+                            </h1>
+                            <div class="flex flex-wrap items-center gap-3 mt-2 text-sm text-gray-600">
+                                {{-- Role --}}
+                                <span class="font-medium text-gray-600 capitalize">
+                                    {{ $user->role }}
+                                </span>
+
+                                {{-- Separator --}}
+                                @if ($user->jabatan)
+                                    <span class="text-gray-600">•</span>
+
+                                    {{-- Jabatan --}}
+                                    <span>
+                                        {{ $user->jabatan }}
+                                    </span>
+                                @endif
+                            </div>
+
+                            <p class="text-[12px] text-gray-500 mt-2">
+                                Bergabung pada
+                                {{ $user->created_at->format('d M Y - H:i') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {{-- Info --}}
-            <div class="flex-1">
-                <p class="text-[14px] font-semibold text-gray-800">
-                    {{ $user->name }}
-                </p>
+            {{-- Body --}}
+            <div class="p-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    {{-- NIP --}}
+                    <div>
+                        <p class="text-[12px] font-medium text-gray-500 tracking-wide mb-1.5">
+                            NIP
+                        </p>
+                        <p class="text-sm font-medium text-gray-700">
+                            {{ $user->nip ?? '-' }}
+                        </p>
+                    </div>
 
-                <p class="text-[12px] text-gray-600">
-                    {{ $user->nip ?? '-' }} 
-                </p>
+                    {{-- Email --}}
+                    <div>
+                        <p class="text-[12px] font-medium text-gray-500 tracking-wide mb-1.5">
+                            Email
+                        </p>
+                        <p class="text-sm font-medium text-gray-700 break-all">
+                            {{ $user->email }}
+                        </p>
+                    </div>
 
-                <p class="text-[12px] text-gray-600">
-                    {{ $user->email }}
-                </p>
-
-                {{-- subtle meta --}}
-                <div class="flex items-center gap-3 mt-1.5 text-xs text-gray-400">
-                    <span>Dosen</span>
-                    <span>•</span>
-                    <span>Bergabung pada {{ $user->created_at->format('d M Y - H:i') }}</span>
+                    {{-- Jabatan --}}
+                    <div>
+                        <p class="text-[12px] font-medium text-gray-500 tracking-wide mb-1.5">
+                            Jabatan
+                        </p>
+                        <p class="text-sm font-medium text-gray-700">
+                            {{ $user->jabatan ?? '-' }}
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -70,7 +129,7 @@
             </div>
 
             <div class="bg-white border border-gray-200 rounded-lg p-4 text-center hover:shadow-sm transition">
-                <p class="text-lg font-semibold text-green-700">
+                <p class="text-lg font-semibold text-green-600">
                     {{ $approved }}
                 </p>
                 <p class="text-xs text-gray-500 mt-1">

@@ -135,6 +135,7 @@
                 {{-- Right section --}}
                 <div class="relative inline-block text-left">
 
+                    {{-- Notifikasi --}}
                     {{-- <div class="relative">
                         <a href="{{ route('publisher.notifications.index') }}">
                             <span class="material-symbols-outlined text-gray-700">
