@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 
-
 class DashboardController extends Controller
 {
     public function index()
@@ -59,6 +58,11 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        // Statistik Status Dokumen
+        $statusCounts = Document::select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status');
+
         return view(
             'kaprodi.dashboard.index',
             compact(
@@ -68,134 +72,9 @@ class DashboardController extends Controller
                 'totalDownloads',
                 'monthlyUploads',
                 'categories',
-                'latestDocuments'
+                'latestDocuments',
+                'statusCounts'
             )
-        );
-    }
-
-
-    public function monitoringMahasiswa(Request $request)
-    {
-        $query = User::query()
-            ->where('role', 'mahasiswa')
-
-            // Hitung jumlah dokumen
-            ->withCount('documents')
-
-            // Ambil dokumen terbaru saja
-            ->with([
-                'documents' => function ($q) {
-                    $q->latest()
-                        ->select(
-                            'id',
-                            'user_id',
-                            'created_at'
-                        );
-                }
-            ]);
-
-        // Search nama/email
-        if ($request->filled('search')) {
-
-            $query->where(function ($q) use ($request) {
-
-                $q->where(
-                    'name',
-                    'like',
-                    '%' . $request->search . '%'
-                )
-
-                    ->orWhere(
-                        'email',
-                        'like',
-                        '%' . $request->search . '%'
-                    );
-            });
-        }
-
-        // Filter angkatan (opsional)
-        if ($request->filled('angkatan')) {
-
-            $query->where(
-                'angkatan',
-                $request->angkatan
-            );
-        }
-
-        $mahasiswa = $query
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view(
-            'kaprodi.monitoring.mahasiswa',
-            compact('mahasiswa')
-        );
-    }
-
-
-    public function activity(Request $request)
-    {
-        $query = DocumentLog::query()
-
-            ->with([
-
-                'user:id,name',
-                'document:id,title'
-
-            ]);
-
-        // Search user / dokumen
-        if ($request->filled('search')) {
-
-            $query->where(function ($q)
-            use ($request) {
-
-                $q->whereHas(
-                    'user',
-                    function ($user)
-                    use ($request) {
-
-                        $user->where(
-                            'name',
-                            'like',
-                            '%' . $request->search . '%'
-                        );
-                    }
-                )
-
-                    ->orWhereHas(
-                        'document',
-                        function ($doc)
-                        use ($request) {
-
-                            $doc->where(
-                                'title',
-                                'like',
-                                '%' . $request->search . '%'
-                            );
-                        }
-                    );
-            });
-        }
-
-        // Filter action
-        if ($request->filled('action')) {
-
-            $query->where(
-                'action',
-                $request->action
-            );
-        }
-
-        $logs = $query
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view(
-            'kaprodi.activity.index',
-            compact('logs')
         );
     }
 

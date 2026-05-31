@@ -1,5 +1,5 @@
 @extends('kaprodi.layouts.app')
-@section('title', 'Aktivitas Pengguna')
+@section('title', 'Daftar Kategori')
 
 @push('styles')
 <style>
@@ -60,19 +60,29 @@
         padding: 2.5px 9px; border-radius: 6px;
         font-size: 11.5px; font-weight: 500; border: 1px solid;
     }
-    .badge-blue    { background:#eff6ff; color:#2563eb; border-color:#bfdbfe; }
-    .badge-green   { background:#f0fdf4; color:#15803d; border-color:#bbf7d0; }
-    .badge-gray    { background:#f9fafb; color:#4b5563; border-color:#e5e7eb; }
+    .badge-blue   { background:#eff6ff; color:#2563eb; border-color:#bfdbfe; }
+    .badge-gray   { background:#f9fafb; color:#4b5563; border-color:#e5e7eb; }
     .stat-pill {
         display: inline-flex; align-items: center; gap: 5px;
         font-size: 12px; font-weight: 500; color: var(--text-secondary);
         background: var(--surface-subtle); border: 1px solid var(--border);
         border-radius: 99px; padding: 4px 12px;
     }
-
-    /* Action type color dots */
-    .action-dot-download { background: #10b981; }
-    .action-dot-preview  { background: #3b82f6; }
+    .detail-btn {
+        display: inline-flex; align-items: center; gap: 4px;
+        padding: 5px 12px; border-radius: 7px;
+        font-size: 12px; font-weight: 500;
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        background: var(--surface);
+        transition: var(--transition);
+        text-decoration: none;
+    }
+    .detail-btn:hover {
+        background: #f9fafb;
+        border-color: var(--border-hover);
+        color: var(--text-primary);
+    }
 </style>
 @endpush
 
@@ -86,53 +96,42 @@
                 <span class="material-symbols-outlined !text-[13px]">grid_view</span>
                 <span>Kaprodi</span>
                 <span class="material-symbols-outlined !text-[13px]">chevron_right</span>
-                <span class="text-gray-600 font-medium">Aktivitas Pengguna</span>
+                <span class="text-gray-600 font-medium">Daftar Kategori</span>
             </div>
-            <h1 class="text-xl font-semibold text-gray-900 tracking-tight">Log Aktivitas Pengguna</h1>
-            <p class="text-sm text-gray-400 mt-0.5">Riwayat lengkap aktivitas pengguna dalam sistem repositori</p>
+            <h1 class="text-xl font-semibold text-gray-900 tracking-tight">Daftar Kategori Dokumen</h1>
+            <p class="text-sm text-gray-400 mt-0.5">Kelola dan pantau seluruh kategori dokumen akademik</p>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
             <span class="stat-pill">
-                <span class="material-symbols-outlined !text-[14px] text-emerald-400">timeline</span>
-                {{ $logs->total() }} log
+                <span class="material-symbols-outlined !text-[14px] text-violet-400">category</span>
+                {{ $categories->total() }} kategori
             </span>
-            <span class="text-xs text-gray-400 bg-white border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-1.5 shadow-sm">
-                <span class="material-symbols-outlined !text-[14px] text-gray-400">event</span>
-                {{ now()->translatedFormat('d F Y') }}
+            <span class="stat-pill">
+                <span class="material-symbols-outlined !text-[14px] text-amber-400">folder_open</span>
+                {{ $totalDocuments }} dokumen
             </span>
         </div>
     </div>
 
     {{-- ═══ FILTER BAR ═══ --}}
     <div class="card px-5 py-4">
-        <form method="GET" action="{{ route('kaprodi.activity.index') }}" class="flex flex-col md:flex-row items-stretch md:items-center gap-3">
+        <form method="GET" action="{{ route('kaprodi.categories.index') }}"
+            class="flex flex-col md:flex-row items-stretch md:items-center gap-3">
 
-            {{-- Search --}}
             <div class="relative flex-1">
                 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 !text-[16px]">search</span>
                 <input type="text" name="search" value="{{ request('search') }}"
-                    placeholder="Cari nama pengguna atau judul dokumen..."
+                    placeholder="Cari nama kategori..."
                     class="input-field pl-9">
             </div>
 
-            {{-- Action Filter --}}
-            <div class="relative w-full md:w-48">
-                <select name="action" class="input-field appearance-none pl-3 pr-9 text-gray-600">
-                    <option value="">Semua Aktivitas</option>
-                    <option value="preview"  {{ request('action') == 'preview'  ? 'selected' : '' }}>Preview</option>
-                    <option value="download" {{ request('action') == 'download' ? 'selected' : '' }}>Download</option>
-                </select>
-                <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none !text-[16px]">expand_more</span>
-            </div>
-
-            {{-- Actions --}}
             <div class="flex items-center gap-2 flex-shrink-0">
                 <button type="submit"
                     class="inline-flex items-center gap-1.5 h-[38px] px-4 rounded-lg bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition shadow-sm">
-                    <span class="material-symbols-outlined !text-[15px]">filter_alt</span>
-                    Filter
+                    <span class="material-symbols-outlined !text-[15px]">search</span>
+                    Cari
                 </button>
-                <a href="{{ route('kaprodi.activity.index') }}"
+                <a href="{{ route('kaprodi.categories.index') }}"
                     class="inline-flex items-center gap-1.5 h-[38px] px-4 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition">
                     <span class="material-symbols-outlined !text-[15px]">refresh</span>
                     Reset
@@ -140,33 +139,24 @@
             </div>
         </form>
 
-        @if(request('search') || request('action'))
+        @if(request('search'))
             <div class="mt-3 pt-3 border-t border-gray-100 flex items-center gap-2 text-xs text-gray-500">
                 <span class="material-symbols-outlined !text-[13px]">filter_alt</span>
                 Filter aktif:
-                @if(request('search'))
-                    <span class="badge badge-blue">Pencarian: "{{ request('search') }}"</span>
-                @endif
-                @if(request('action'))
-                    <span class="badge badge-blue">Tipe: {{ ucfirst(request('action')) }}</span>
-                @endif
+                <span class="badge badge-blue">Nama: "{{ request('search') }}"</span>
             </div>
         @endif
     </div>
 
-    {{-- ═══ ACTIVITY TABLE ═══ --}}
+    {{-- ═══ TABLE ═══ --}}
     <div class="card overflow-hidden">
 
         <div class="px-5 py-3.5 border-b border-gray-100 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined !text-[16px] text-gray-400">history</span>
-                <span class="text-sm font-medium text-gray-700">Riwayat Aktivitas</span>
+                <span class="material-symbols-outlined !text-[16px] text-gray-400">category</span>
+                <span class="text-sm font-medium text-gray-700">Data Kategori</span>
             </div>
-            <div class="flex items-center gap-3 text-xs text-gray-400">
-                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full action-dot-download inline-block"></span>Download</span>
-                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full action-dot-preview inline-block"></span>Preview</span>
-                <span>Halaman {{ $logs->currentPage() }} / {{ $logs->lastPage() }}</span>
-            </div>
+            <span class="text-xs text-gray-400">Halaman {{ $categories->currentPage() }} / {{ $categories->lastPage() }}</span>
         </div>
 
         <div class="overflow-x-auto">
@@ -174,54 +164,45 @@
                 <thead>
                     <tr>
                         <th class="text-left w-8">#</th>
-                        <th class="text-left">Pengguna</th>
-                        <th class="text-left">Dokumen</th>
-                        <th class="text-center">Tipe Aktivitas</th>
-                        <th class="text-left">Waktu</th>
+                        <th class="text-left">Nama Kategori</th>
+                        <th class="text-center">Jumlah Dokumen</th>
+                        <th class="text-left">Dibuat</th>
+                        <th class="text-right">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($logs as $i => $log)
+                    @forelse($categories as $i => $category)
                         <tr>
-                            <td class="text-xs text-gray-300 font-mono">{{ str_pad($logs->firstItem() + $i, 2, '0', STR_PAD_LEFT) }}</td>
+                            <td class="text-xs text-gray-300 font-mono">{{ str_pad($categories->firstItem() + $i, 2, '0', STR_PAD_LEFT) }}</td>
                             <td>
                                 <div class="flex items-center gap-2.5">
-                                    <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0">
-                                        <span class="text-white text-[10px] font-bold leading-none">
-                                            {{ strtoupper(substr($log->user?->name ?? '?', 0, 1)) }}
-                                        </span>
+                                    <div class="w-8 h-8 rounded-lg bg-violet-50 border border-violet-100 flex items-center justify-center flex-shrink-0">
+                                        <span class="material-symbols-outlined text-violet-400 !text-[15px]">folder</span>
                                     </div>
-                                    <a href="{{ route('kaprodi.activity.show', $log->id) }}" class="font-medium text-gray-900 text-[13.5px]">{{ $log->user?->name ?? '—' }}</a>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="flex items-center gap-2">
-                                    <div class="w-6 h-6 rounded-md bg-amber-50 border border-amber-100 flex items-center justify-center flex-shrink-0">
-                                        <span class="material-symbols-outlined text-amber-400 !text-[12px]">article</span>
-                                    </div>
-                                    <span class="text-[13px] text-gray-600 line-clamp-1 max-w-[240px]" title="{{ $log->document?->title }}">
-                                        {{ $log->document?->title ?? '—' }}
-                                    </span>
+                                    <span class="font-medium text-gray-900">{{ $category->name }}</span>
                                 </div>
                             </td>
                             <td class="text-center">
-                                @if($log->action == 'download')
-                                    <span class="badge badge-green">
-                                        <span class="material-symbols-outlined !text-[11px]">download</span>
-                                        Download
+                                @if($category->documents_count > 0)
+                                    <span class="badge badge-blue">
+                                        <span class="material-symbols-outlined !text-[11px]">description</span>
+                                        {{ $category->documents_count }} dokumen
                                     </span>
                                 @else
-                                    <span class="badge badge-blue">
-                                        <span class="material-symbols-outlined !text-[11px]">visibility</span>
-                                        Preview
-                                    </span>
+                                    <span class="badge badge-gray">0 dokumen</span>
                                 @endif
                             </td>
                             <td>
-                                <div>
-                                    <p class="text-[13px] text-gray-600">{{ $log->created_at->format('d M Y') }}</p>
-                                    <p class="text-[11px] text-gray-400 mt-0.5">{{ $log->created_at->format('H:i') }} · {{ $log->created_at->diffForHumans() }}</p>
+                                <div class="flex items-center gap-1.5 text-[13px] text-gray-500">
+                                    <span class="material-symbols-outlined !text-[13px] text-gray-300">schedule</span>
+                                    {{ $category->created_at->format('d M Y') }}
                                 </div>
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ route('kaprodi.categories.show', $category->id) }}" class="detail-btn">
+                                    <span class="material-symbols-outlined !text-[14px]">visibility</span>
+                                    Lihat Detail
+                                </a>
                             </td>
                         </tr>
                     @empty
@@ -229,19 +210,19 @@
                             <td colspan="5" class="py-16 text-center">
                                 <div class="flex flex-col items-center gap-3">
                                     <div class="w-12 h-12 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center">
-                                        <span class="material-symbols-outlined text-gray-300 !text-[22px]">event_busy</span>
+                                        <span class="material-symbols-outlined text-gray-300 !text-[22px]">folder_off</span>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-400">Tidak ada log aktivitas</p>
-                                        @if(request('search') || request('action'))
+                                        <p class="text-sm font-medium text-gray-400">Kategori tidak ditemukan</p>
+                                        @if(request('search'))
                                             <p class="text-xs text-gray-300 mt-0.5">Coba ubah atau hapus filter pencarian</p>
-                                            <a href="{{ route('kaprodi.activity.index') }}"
+                                            <a href="{{ route('kaprodi.categories.index') }}"
                                                 class="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-700 mt-3 transition">
                                                 <span class="material-symbols-outlined !text-[13px]">refresh</span>
                                                 Reset filter
                                             </a>
                                         @else
-                                            <p class="text-xs text-gray-300 mt-0.5">Log aktivitas akan muncul setelah ada pengguna yang mengakses dokumen</p>
+                                            <p class="text-xs text-gray-300 mt-0.5">Belum ada kategori dalam sistem</p>
                                         @endif
                                     </div>
                                 </div>
@@ -252,10 +233,9 @@
             </table>
         </div>
 
-        {{-- Pagination --}}
-        @if($logs->hasPages())
+        @if($categories->hasPages())
         <div class="px-5 py-3 border-t border-gray-100 bg-gray-50/40">
-            {{ $logs->links('vendor.pagination.tailwind-darkmode') }}
+            {{ $categories->links() }}
         </div>
         @endif
     </div>

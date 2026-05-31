@@ -24,6 +24,9 @@ use App\Http\Controllers\Dosen\ProfileController as DosenProfileController;
 use App\Http\Controllers\Kaprodi\ProfileController as KaprodiProfileController;
 use App\Http\Controllers\Kaprodi\DashboardController as KaprodiDashboardController;
 use App\Http\Controllers\Kaprodi\DocumentController as KaprodiDocumentController;
+use App\Http\Controllers\Kaprodi\UserController as KaprodiUserController;
+use App\Http\Controllers\Kaprodi\CategoryController as KaprodiCategoryController;
+use App\Http\Controllers\Kaprodi\ActivityController as KaprodiActivityController;
 
 
 /*|------------------------------------------------------------------------|
@@ -204,30 +207,37 @@ Route::middleware(['auth'])->group(function () {
         ->name('kaprodi.')
         ->group(function () {
             // -- Dashboard statistik -> kaprodi
-            Route::get('/dashboard',[KaprodiDashboardController::class, 'index'])->name('dashboard');
+            Route::get('/dashboard', [KaprodiDashboardController::class, 'index'])->name('dashboard');
 
-            // -- Dashboard monitoring mahasiswa -> kaprodi
-            Route::get('/monitoring-mahasiswa',[KaprodiDashboardController::class, 'monitoringMahasiswa'])->name('monitoring.mahasiswa');
+            // -- Export laporan
+            Route::get('/report/export', [KaprodiDashboardController::class, 'exportReport'])->name('report.export');
 
-            // Monitoring aktivitas
-            Route::get('/activity',[KaprodiDashboardController::class, 'activity'])->name('activity');
+            // -- Daftar & Detail Dokumen -> kaprodi
+            Route::get('/documents', [KaprodiDocumentController::class, 'index'])->name('documents.index');
+            Route::get('/documents/{id}', [KaprodiDocumentController::class, 'show'])->name('documents.show');
+            Route::get('/documents/{id}/download', [KaprodiDocumentController::class, 'download'])->name('documents.download');
+            Route::get('/documents/{id}/preview', [KaprodiDocumentController::class, 'preview'])->name('documents.preview');
 
-            // Export laporan
-            Route::get('/report/export',[KaprodiDashboardController::class, 'exportReport'])->name('report.export');
+            // -- Daftar Kategori -> kaprodi
+            Route::get('/categories', [KaprodiCategoryController::class, 'index'])->name('categories.index');
+            Route::get('/categories/{id}', [KaprodiCategoryController::class, 'show'])->name('categories.show');
 
-             // -- Documents akses -> kaprodi
-            Route::get('/documents',[KaprodiDocumentController::class, 'index'])->name('documents.index');
+            // -- Daftar & Detail Mahasiswa -> kaprodi
+            Route::get('/mahasiswa', [KaprodiUserController::class, 'mahasiswa'])->name('users.mahasiswa');
+            Route::get('/mahasiswa/{id}', [KaprodiUserController::class, 'showMahasiswa'])->name('users.mahasiswa.show');
 
-            // -- Menampilkan detail data pribadi
-            Route::get('/profile', [kaprodiProfileController::class, 'show'])->name('profile.show');
+            // -- Daftar & Detail Dosen -> kaprodi
+            Route::get('/dosen', [KaprodiUserController::class, 'dosen'])->name('users.dosen');
+            Route::get('/dosen/{id}', [KaprodiUserController::class, 'showDosen'])->name('users.dosen.show');
 
-            // -- Menampilkan form edit dan proses update data -> kaprodi
+            // -- Aktivitas Pengguna -> kaprodi
+            Route::get('/activity', [KaprodiActivityController::class, 'index'])->name('activity.index');
+            Route::get('/activity/{id}', [KaprodiActivityController::class, 'show'])->name('activity.show');
+
+            // -- Profile -> kaprodi
+            Route::get('/profile', [KaprodiProfileController::class, 'show'])->name('profile.show');
             Route::get('/profile/edit', [KaprodiProfileController::class, 'edit'])->name('profile.edit');
             Route::put('/profile', [KaprodiProfileController::class, 'update'])->name('profile.update');
-
-            // -- Proses downlaod dokumen dan preview (lihat) pdf dokumen -> kaprodi
-            Route::get('/documents/{id}/download',[KaprodiDocumentController::class, 'download'])->name('documents.download');
-            Route::get('/documents/{id}/preview',[KaprodiDocumentController::class, 'preview'])->name('documents.preview');
         });
 
 

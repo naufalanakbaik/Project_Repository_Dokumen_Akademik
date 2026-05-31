@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class DocumentController extends Controller
 {
     /**
-     * List semua dokumen (monitoring)
+     * List semua dokumen
      */
     public function index(Request $request)
     {
@@ -59,6 +59,32 @@ class DocumentController extends Controller
             'categories'
         ));
     }
+
+    /**
+     * Detail dokumen lengkap
+     */
+    public function show($id)
+    {
+        $document = Document::with([
+            'user',
+            'category',
+            'logs' => function ($q) {
+                $q->with('user:id,name')
+                    ->latest()
+                    ->take(20);
+            }
+        ])->findOrFail($id);
+
+        $downloadCount = $document->logs()->where('action', 'download')->count();
+        $previewCount = $document->logs()->where('action', 'preview')->count();
+
+        return view('kaprodi.documents.show', compact(
+            'document',
+            'downloadCount',
+            'previewCount'
+        ));
+    }
+
     /**
      * Preview dokumen
      */

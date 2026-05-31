@@ -7,13 +7,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Title -->
-    <title>Admin - @yield('title')</title>
+    <title>Kaprodi - @yield('title')</title>
 
     <!-- Icon web browser -->
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
 
     <!-- Google Fonts: Inter & Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 
     <!--Material icon -->
@@ -143,30 +143,31 @@
 
         <!-- Sidebar -->
         <aside id="sidebar"
-            class="fixed top-0 left-0 h-screen w-64 bg-white 
-            flex flex-col border-r border-gray-200 transition-all duration-300 overflow-hidden">
+            class="fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950
+            flex flex-col border-r border-gray-800 transition-all duration-300 overflow-hidden">
 
-            <!-- Side head admin -> Tombol minimize -->
-            <div class="relative bg-white">
+            <!-- Side head admin -->
+            <div class="relative border-b border-gray-800/80 bg-gray-950/80 backdrop-blur-xl">
                 <div id="sidebarHeader" class="py-4 px-4 flex items-center justify-between transition-all duration-300">
 
                     <!-- Title -->
                     <div id="sidebarTitleWrapper" class="flex flex-col leading-tight transition-all duration-300">
-                        <span id="sidebar-title" class="text-sm font-semibold text-gray-800 tracking-wide">
-                            Kaprodi
+                        <span id="sidebar-title" class="text-sm font-semibold text-white tracking-wide">
+                            Kaprodi Panel
                         </span>
-                        <span class="text-[11px] text-gray-400">
+
+                        <span class="text-[11px] tracking-wide text-gray-400">
                             Dashboard Control
                         </span>
                     </div>
 
                     <!-- Toggle -->
                     <button id="toggleSidebar"
-                        class="group w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 bg-white
-                        shadow-sm hover:bg-gray-50 transition-all duration-300">
+                        class="group w-10 h-10 flex items-center justify-center rounded-full border border-gray-700 bg-gray-900
+                        hover:bg-gray-800 shadow-lg shadow-black/20 transition-all duration-300">
+
                         <span id="toggleIcon"
-                            class="material-symbols-outlined text-gray-700 !text-[20px]
-                            transition-transform duration-300 group-hover:scale-110">
+                            class="material-symbols-outlined text-white !text-[20px] transition-transform duration-300 group-hover:scale-110">
                             menu_open
                         </span>
                     </button>
@@ -174,85 +175,128 @@
             </div>
 
             <!-- Menu sidebar -->
-            <nav class="flex-1 overflow-y-auto">
-                <ul class="space-y-2 py-3 px-5 font-[400] font-sans text-sm">
-                    <h4 class="sidebar-heading text-xs font-semibold text-gray-800 uppercase mb-2">
-                        <span class="full-text">Dashboard Kaprodi</span>
+            <nav class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+                <ul class="space-y-1.5 px-4 py-4 text-[14px]">
+
+                    <!-- Heading -->
+                    <h4 class="sidebar-heading text-[11px] font-semibold text-gray-400 uppercase tracking-wide px-2 mb-2">
+                        <span class="full-text">Dashboard</span>
                         <span class="short-text hidden">Fitur</span>
                     </h4>
 
+                    <!-- Dashboard -->
                     <li>
                         <a href="{{ route('kaprodi.dashboard') }}"
-                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('kaprodi.dashboard') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
+                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
+
+                            {{ request()->routeIs('kaprodi.dashboard')
+                            ? 'bg-blue-500/25 text-gray-100 border-blue-500/50 shadow-lg shadow-blue-500/5'
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
+
                             <img src="{{ asset('img/icon-sidebar/dashboard.png') }}"
-                                class="w-5 h-5 object-contain
-                            {{ request()->routeIs('kaprodi.dashboard') ? 'brightness-0 invert' : '' }}">
-                            <span class="ml-2.5 menu-text">Dashboard</span>
+                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
+                            <span class="ml-2 menu-text tracking-wide">Dashboard</span>
                         </a>
                     </li>
 
-                    <h4 class="sidebar-heading text-xs font-semibold text-gray-800 uppercase mb-2">
-                        <span class="full-text">Daftar Kaprodi</span>
-                        <span class="short-text hidden">Daftar</span>
-                    </h4>
-
+                    <!-- Daftar Dokumen -->
                     <li>
                         <a href="{{ route('kaprodi.documents.index') }}"
-                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('kaprodi.documents.*') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
-                            <img src="{{ asset('img/icon-sidebar/journals.png') }}"
-                                class="w-5 h-5 object-contain
-                            {{ request()->routeIs('kaprodi.documents.*') ? 'brightness-0 invert' : '' }}">
-                            <span class="ml-2.5 menu-text">Daftar Dokumen</span>
+                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
+
+                            {{ request()->routeIs('kaprodi.documents.*')
+                            ? 'bg-blue-500/25 text-gray-100 border-blue-500/50 shadow-lg shadow-blue-500/5'
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
+
+                            <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}"
+                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
+                            <span class="ml-2 menu-text tracking-wide">Daftar Dokumen</span>
                         </a>
                     </li>
 
+                    <!-- Daftar Kategori -->
                     <li>
-                        <a href="{{ route('kaprodi.monitoring.mahasiswa') }}"
-                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('kaprodi.monitoring.mahasiswa') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
-                            <img src="{{ asset('img/icon-sidebar/anggota.png') }}"
-                                class="w-5 h-5 object-contain
-                            {{ request()->routeIs('kaprodi.monitoring.mahasiswa') ? 'brightness-0 invert' : '' }}">
-                            <span class="ml-2.5 menu-text">Daftar Pengguna</span>
+                        <a href="{{ route('kaprodi.categories.index') }}"
+                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
+
+                            {{ request()->routeIs('kaprodi.categories.*')
+                            ? 'bg-blue-500/25 text-gray-100 border-blue-500/50 shadow-lg shadow-blue-500/5'
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
+
+                            <img src="{{ asset('img/icon-sidebar/kategori.png') }}"
+                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
+                            <span class="ml-2 menu-text tracking-wide">Daftar Kategori</span>
                         </a>
                     </li>
 
-                    <h4 class="sidebar-heading text-xs font-semibold text-gray-800 uppercase mb-2">
-                        <span class="full-text">Aktivitas Kaprodi</span>
-                        <span class="short-text hidden">Daftar</span>
+                    <!-- Heading -->
+                    <h4
+                        class="sidebar-heading text-[11px] font-semibold text-gray-400 uppercase tracking-wide px-2 pt-4 mb-2">
+                        <span class="full-text">Aktivitas</span>
+                        <span class="short-text hidden">Fitur</span>
                     </h4>
 
+                    <!-- Aktivitas User -->
                     <li>
-                        <a href="{{ route('kaprodi.activity') }}"
-                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('kaprodi.activity') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
-                            <img src="{{ asset('img/icon-sidebar/akun.png') }}"
-                                class="w-5 h-5 object-contain
-                            {{ request()->routeIs('kaprodi.activity') ? 'brightness-0 invert' : '' }}">
-                            <span class="ml-2.5 menu-text">Aktivitas Pengguna</span>
+                        <a href="{{ route('kaprodi.activity.index') }}"
+                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
+
+                            {{ request()->routeIs('kaprodi.activity.*')
+                            ? 'bg-blue-500/25 text-gray-100 border-blue-500/50 shadow-lg shadow-blue-500/5'
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
+
+                            <img src="{{ asset('img/icon-sidebar/anggota.png') }}"
+                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
+                            <span class="ml-2 menu-text tracking-wide">Aktivitas Pengguna</span>
                         </a>
                     </li>
-                    {{-- <li>
-                        <a href="{{ route('kaprodi.report.export') }}"
-                            class="flex items-center py-[0.470rem] px-3 rounded-lg transition
-                            {{ request()->routeIs('kaprodi.report.export') ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-900' }}">
-                            <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}"
-                                class="w-5 h-5 object-contain
-                            {{ request()->routeIs('kaprodi.report.export') ? 'brightness-0 invert' : '' }}">
-                            <span class="ml-2.5 menu-text">Export Excel</span>
+
+                    <!-- Daftar Mahasiswa -->
+                    <li>
+                        <a href="{{ route('kaprodi.users.mahasiswa') }}"
+                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
+
+                            {{ request()->routeIs('kaprodi.users.mahasiswa*')
+                            ? 'bg-blue-500/25 text-gray-100 border-blue-500/50 shadow-lg shadow-blue-500/5'
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
+
+                            <img src="{{ asset('img/icon-sidebar/penerbit.png') }}"
+                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
+                            <span class="ml-2 menu-text tracking-wide">Daftar Mahasiswa</span>
                         </a>
-                    </li> --}}
+                    </li>
+
+                    <!-- Daftar Dosen -->
+                    <li>
+                        <a href="{{ route('kaprodi.users.dosen') }}"
+                            class="group flex items-center py-[0.60rem] px-4 rounded-lg transition-all duration-200 border
+
+                            {{ request()->routeIs('kaprodi.users.dosen*')
+                            ? 'bg-blue-500/25 text-gray-100 border-blue-500/50 shadow-lg shadow-blue-500/5'
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
+
+                            <img src="{{ asset('img/icon-sidebar/penerbit.png') }}"
+                                class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
+                            <span class="ml-2 menu-text tracking-wide">Daftar Dosen</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
 
             <!-- Footer Sidebar -->
-            <div class="bg-white border-t border-gray-200 p-4">
-                <p class="sidebar-heading text-xs text-gray-700 justify-center text-center">
-                    <span class="full-text font-medium text-gray-700">© {{ date('Y') }} Repositori Dokumen
-                        Akademik.</span>
-                    <span class="short-text hidden font-medium text-gray-800">© {{ date('Y') }}</span>
+            <div class="bg-gray-950/90 border-t border-gray-800 px-4 py-4 backdrop-blur-xl">
+                <p class="sidebar-heading text-xs text-center text-gray-400 leading-relaxed">
+                    <!-- Full text for larger screens -->
+                    <span class="full-text">
+                        © {{ date('Y') }}
+                        <span class="text-[11px] font-medium text-gray-300">
+                            Repositori Dokumen Akademik
+                        </span>
+                    </span>
+                    <!-- Short text for smaller screens -->
+                    <span class="short-text hidden font-medium text-gray-300">
+                        © {{ date('Y') }}
+                    </span>
                 </p>
             </div>
         </aside>
@@ -263,13 +307,13 @@
 
                 <!-- Header logo kiri -->
                 <div class="flex items-center gap-2 group">
-                    <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-10 w-10 object-contain">
+                    <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="h-9 w-9 object-contain">
                     <div class="flex flex-col leading-tight">
-                        <span class="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-100">
+                        <span class="text-[13px] sm:text-[14px] font-semibold text-gray-800 dark:text-gray-100">
                             Program Studi Manajemen Informatika
                         </span>
-                        <span class="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400">
-                            Fakultas Ilmu Komputer
+                        <span class="text-[10px] sm:text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                            Fakultas Ilmu Komputer - Universitas Sriwijaya
                         </span>
                     </div>
                 </div>
@@ -295,7 +339,6 @@
                             <!-- Header -->
                             <div class="px-4 py-3 border-b border-gray-200">
                                 <p class="text-[11px] text-gray-500 mb-0.5">Signed in as</p>
-
 
                                 <p class="text-sm font-semibold text-gray-900 truncate">
                                     {{ Auth::user()->name }}
@@ -439,7 +482,7 @@
                     </div>
                 @endif
 
-                <div class=" py-2.5 px-4 h-full">
+                <div class=" py-2 px-2.5 h-full">
                     @yield('content')
                 </div>
             </main>

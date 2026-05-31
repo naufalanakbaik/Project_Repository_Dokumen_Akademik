@@ -214,9 +214,12 @@
                                     <div class="w-7 h-7 rounded-md bg-amber-50 border border-amber-100 flex items-center justify-center flex-shrink-0">
                                         <span class="material-symbols-outlined text-amber-400 !text-[14px]">article</span>
                                     </div>
-                                    <span class="font-medium text-gray-900 line-clamp-1 max-w-[240px]" title="{{ $doc->title }}">
+                                    <!-- <span class="font-medium text-gray-900 line-clamp-1 max-w-[240px]" title="{{ $doc->title }}">
                                         {{ $doc->title }}
-                                    </span>
+                                    </span> -->
+                                    <a href="{{ route('kaprodi.documents.show', $doc->id) }}" class="font-medium text-gray-900 line-clamp-1 max-w-[240px]">
+                                        {{ $doc->title }}
+                                    </a>    
                                 </div>
                             </td>
                             <td>
