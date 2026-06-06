@@ -36,7 +36,7 @@ class ActivityController extends Controller
 
         $logs = $query
             ->latest()
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
 
         return view('kaprodi.activity.index', compact('logs'));

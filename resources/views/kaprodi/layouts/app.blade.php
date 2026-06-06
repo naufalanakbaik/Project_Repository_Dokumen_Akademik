@@ -208,7 +208,7 @@
                             ? 'bg-blue-500/25 text-gray-100 border-blue-500/50 shadow-lg shadow-blue-500/5'
                             : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
 
-                            <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}"
+                            <img src="{{ asset('img/icon-sidebar/journals.png') }}"
                                 class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
                             <span class="ml-2 menu-text tracking-wide">Daftar Dokumen</span>
                         </a>
@@ -223,7 +223,7 @@
                             ? 'bg-blue-500/25 text-gray-100 border-blue-500/50 shadow-lg shadow-blue-500/5'
                             : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
 
-                            <img src="{{ asset('img/icon-sidebar/kategori.png') }}"
+                            <img src="{{ asset('img/icon-sidebar/buku.png') }}"
                                 class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
                             <span class="ml-2 menu-text tracking-wide">Daftar Kategori</span>
                         </a>
@@ -245,7 +245,7 @@
                             ? 'bg-blue-500/25 text-gray-100 border-blue-500/50 shadow-lg shadow-blue-500/5'
                             : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
 
-                            <img src="{{ asset('img/icon-sidebar/anggota.png') }}"
+                            <img src="{{ asset('img/icon-sidebar/analitics.png') }}"
                                 class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
                             <span class="ml-2 menu-text tracking-wide">Aktivitas Pengguna</span>
                         </a>

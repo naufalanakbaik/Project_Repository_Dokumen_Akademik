@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DashboardController extends Controller
 {
+    // ---> Fungsi untuk menampilkan halaman dashboard
     public function index()
     {
         $totalDocuments = Document::count();
@@ -78,7 +79,7 @@ class DashboardController extends Controller
         );
     }
 
-
+    // ---> Fungsi untuk menampilkan halaman laporan
     public function exportReport()
     {
         // Card statistik
@@ -126,7 +127,6 @@ class DashboardController extends Controller
             ->latest()
             ->take(5)
             ->get();
-
 
         return view(
             'kaprodi.report.index',

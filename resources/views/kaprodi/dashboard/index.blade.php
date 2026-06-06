@@ -317,11 +317,11 @@
         {{-- ═══ Page Header ═══ --}}
         <div class="page-header">
             <div>
-                <div class="flex items-center gap-1.5 text-xs text-gray-400 mb-1.5">
+                <div class="flex items-center gap-1.5 text-xs text-gray-500 mb-1.5">
                     <span class="material-symbols-outlined !text-[13px]">grid_view</span>
                     <span>Kaprodi</span>
                     <span class="material-symbols-outlined !text-[13px]">chevron_right</span>
-                    <span class="text-gray-600 font-medium">Dashboard</span>
+                    <span class="text-gray-700 font-medium">Dashboard</span>
                 </div>
                 <h1 class="text-[22px] font-semibold text-gray-900 tracking-tight">Dashboard Monitoring</h1>
                 <p class="text-[13px] text-blue-500">Ringkasan statistik & aktivitas repositori dokumen akademik</p>
@@ -406,11 +406,11 @@
                         <span class="material-symbols-outlined">folder_open</span>
                         Daftar Dokumen
                     </a>
-                    <a href="/" class="quick-action-btn">
+                    <a href="{{ route('kaprodi.users.mahasiswa') }}" class="quick-action-btn">
                         <span class="material-symbols-outlined">manage_accounts</span>
                         Monitoring Mahasiswa
                     </a>
-                    <a href="/" class="quick-action-btn">
+                    <a href="{{ route('kaprodi.activity.index') }}" class="quick-action-btn">
                         <span class="material-symbols-outlined">history</span>
                         Log Aktivitas
                     </a>
@@ -422,11 +422,11 @@
             </div>
         </div>
 
-        {{-- ═══ Charts Section ═══--}}
+        {{-- ═══ Charts Section ═══ --}}
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
             {{-- Upload Trend --}}
-            <div class="lg:col-span-2 bg-white border border-gray-200 rounded-[9px] shadow-sm overflow-hidden">
+            <div class="lg:col-span-2 bg-white border border-gray-200 rounded-[9px] shadow-md overflow-hidden">
                 <div class="flex items-start justify-between px-6 py-5 border-b border-gray-100">
                     <div>
                         <h2 class="text-sm font-semibold text-gray-900">
@@ -436,7 +436,8 @@
                             Aktivitas unggahan dokumen selama tahun {{ date('Y') }}
                         </p>
                     </div>
-                    <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center border border-violet-100">
+                    <div
+                        class="w-10 h-10 rounded-full bg-violet-50 flex items-center justify-center border border-violet-100">
                         <span class="material-symbols-outlined text-violet-500 !text-[20px]">
                             monitoring
                         </span>
@@ -451,7 +452,7 @@
             </div>
 
             {{-- Category Distribution --}}
-            <div class="bg-white border border-gray-200 rounded-[9px] shadow-sm overflow-hidden">
+            <div class="bg-white border border-gray-200 rounded-[9px] shadow-md overflow-hidden">
                 <div class="flex items-start justify-between px-6 py-5 border-b border-gray-100">
                     <div>
                         <h2 class="text-sm font-semibold text-gray-900">
@@ -461,7 +462,8 @@
                             Distribusi berdasarkan kategori
                         </p>
                     </div>
-                    <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center border border-indigo-100">
+                    <div
+                        class="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center border border-indigo-100">
                         <span class="material-symbols-outlined text-indigo-500 !text-[20px]">
                             donut_large
                         </span>
@@ -484,7 +486,8 @@
                         </div>
                     @else
                         <div class="flex flex-col items-center justify-center py-14 text-center">
-                            <div class="w-14 h-14 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center">
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center">
                                 <span class="material-symbols-outlined text-gray-300">
                                     donut_large
                                 </span>
@@ -502,88 +505,142 @@
 
         </div>
 
-        {{-- ═══ BOTTOM ROW: Dokumen Terbaru + Activity Feed ═══ --}}
-        <div class="grid lg:grid-cols-3 gap-4">
+        {{-- ═══ Bottom Row: Dokumen Terbaru + Activity Feed ═══ --}}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            {{-- Dokumen Terbaru (2/3) --}}
-            <div class="chart-card lg:col-span-2">
-                <div class="chart-card-header flex items-center justify-between">
-                    <div class="flex items-center gap-2.5">
-                        <div class="icon-wrap bg-gray-100 border border-gray-200"
-                            style="width:34px;height:34px;border-radius:8px;">
-                            <span class="material-symbols-outlined text-gray-500 !text-[16px]">folder_open</span>
+            {{-- Dokumen Terbaru --}}
+            <div class="lg:col-span-2 bg-white border border-gray-200 rounded-[9px] shadow-md overflow-hidden">
+
+                {{-- Header --}}
+                <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full border border-blue-200 bg-blue-50 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-blue-600 !text-[18px]">
+                                description
+                            </span>
                         </div>
+
                         <div>
-                            <h2 class="text-[13.5px] font-semibold text-gray-800">Dokumen Terbaru</h2>
-                            <p class="text-[11.5px] text-gray-400">5 dokumen terakhir yang diunggah</p>
+                            <h2 class="text-sm font-semibold text-gray-900">
+                                Dokumen Terbaru
+                            </h2>
+                            <p class="text-xs text-gray-500 mt-0.5">
+                                5 dokumen terakhir yang diunggah
+                            </p>
                         </div>
                     </div>
+
                     <a href="{{ route('kaprodi.documents.index') }}"
-                        class="inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-700 transition bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg border border-blue-100">
+                        class="inline-flex items-center gap-1 px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition">
                         Lihat Semua
-                        <span class="material-symbols-outlined !text-[13px]">arrow_forward</span>
+                        <span class="material-symbols-outlined !text-[14px]">
+                            subdirectory_arrow_right
+                        </span>
                     </a>
                 </div>
 
                 @if ($latestDocuments->isEmpty())
-                    <div class="empty-state">
-                        <div class="empty-icon">
-                            <span class="material-symbols-outlined text-gray-300 !text-[24px]">folder_open</span>
+                    <div class="flex flex-col items-center justify-center py-20 px-6">
+                        <div class="w-14 h-14 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-gray-400">
+                                folder_open
+                            </span>
                         </div>
-                        <p class="text-sm font-medium text-gray-400">Belum ada dokumen</p>
-                        <p class="text-xs text-gray-300">Dokumen yang diunggah mahasiswa akan muncul di sini</p>
+                        <h3 class="text-sm font-medium text-gray-700">
+                            Belum ada dokumen
+                        </h3>
+                        <p class="text-xs text-gray-500 mt-1">
+                            Dokumen yang diunggah mahasiswa akan muncul di sini
+                        </p>
                     </div>
                 @else
                     <div class="overflow-x-auto">
-                        <table class="w-full data-table">
+                        <table class="w-full">
                             <thead>
-                                <tr>
-                                    <th class="text-left w-8">#</th>
-                                    <th class="text-left">Judul Dokumen</th>
-                                    <th class="text-left">Kategori</th>
-                                    <th class="text-left">Pemilik</th>
-                                    <th class="text-left">Tanggal</th>
+                                <tr class="border-b border-gray-100 bg-gray-50/50 text-[11px] uppercase tracking-wider text-gray-500">
+                                    <th class="px-6 py-3 text-left font-medium w-14">
+                                        No
+                                    </th>
+                                    <th class="px-6 py-3 text-left font-medium">
+                                        Dokumen
+                                    </th>
+                                    <th class="px-6 py-3 text-left font-medium">
+                                        Kategori
+                                    </th>
+                                    <th class="px-6 py-3 text-left font-medium">
+                                        Pemilik
+                                    </th>
+                                    <th class="px-6 py-3 text-left font-medium">
+                                        Tanggal
+                                    </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="divide-y divide-gray-100">
                                 @foreach ($latestDocuments as $i => $doc)
-                                    <tr>
-                                        <td class="text-xs text-gray-300 font-mono">
-                                            {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</td>
-                                        <td>
-                                            <div class="flex items-center gap-2.5">
+                                    <tr class="hover:bg-gray-50 transition-colors">
+                                        <td class="px-6 py-4">
+                                            <span class="text-xs text-gray-400 font-mono">
+                                                {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
                                                 <div
-                                                    class="flex items-center justify-center w-7 h-7 rounded-md bg-amber-50 border border-amber-100 flex-shrink-0">
-                                                    <span
-                                                        class="material-symbols-outlined text-amber-400 !text-[14px]">article</span>
+                                                    class="w-9 h-9 rounded-md border border-red-200 bg-red-50 flex items-center justify-center flex-shrink-0">
+                                                    <span class="material-symbols-outlined text-red-500 !text-[18px]">
+                                                        article
+                                                    </span>
                                                 </div>
-                                                <span class="font-medium text-gray-800 line-clamp-1 max-w-[220px]"
-                                                    title="{{ $doc->title }}">
-                                                    {{ $doc->title }}
-                                                </span>
+
+                                                <div class="min-w-0">
+                                                    <p class="text-sm font-medium text-gray-900 truncate"
+                                                        title="{{ $doc->title }}">
+                                                        {{ $doc->title }}
+                                                    </p>
+                                                    <p class="text-xs text-gray-500 mt-0.5">
+                                                        Dokumen Akademik
+                                                    </p>
+                                                </div>
                                             </div>
                                         </td>
-                                        <td>
+
+                                        <td class="px-6 py-4">
                                             @if ($doc->category)
-                                                <span class="badge badge-blue">{{ $doc->category->name }}</span>
+                                                <span
+                                                    class="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 text-xs font-medium">
+                                                    {{ $doc->category->name }}
+                                                </span>
                                             @else
-                                                <span class="badge badge-gray">—</span>
+                                                <span
+                                                    class="inline-flex items-center px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-400 text-xs">
+                                                    Tidak Ada
+                                                </span>
                                             @endif
                                         </td>
-                                        <td>
-                                            <div class="flex items-center gap-1.5">
-                                                <div
-                                                    class="w-5 h-5 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0">
-                                                    <span class="text-white text-[9px] font-bold leading-none">
+
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3 min-w-0">
+                                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-100 to-amber-200 text-amber-700 
+                                                    border border-amber-300 flex items-center justify-center flex-shrink-0">
+                                                    <span class="text-xs font-semibold">
                                                         {{ strtoupper(substr($doc->user?->name ?? '?', 0, 1)) }}
                                                     </span>
                                                 </div>
-                                                <span
-                                                    class="text-gray-600 text-[13px]">{{ $doc->user?->name ?? '—' }}</span>
+                                                <div class="min-w-0">
+                                                    <p class="text-sm font-medium text-gray-900 truncate">
+                                                        {{ $doc->user?->name ?? 'Unknown User' }}
+                                                    </p>
+                                                    <p class="text-xs text-gray-500">
+                                                        Pemilik Dokumen
+                                                    </p>
+                                                </div>
                                             </div>
                                         </td>
-                                        <td class="text-gray-400 text-xs whitespace-nowrap">
-                                            {{ $doc->created_at->format('d M Y') }}
+
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-[12.5px] text-gray-500">
+                                                {{ $doc->created_at->format('d M Y') }}
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -593,76 +650,86 @@
                 @endif
             </div>
 
-            {{-- Activity Feed (1/3) --}}
-            <div class="chart-card">
-                <div class="chart-card-header flex items-center justify-between">
-                    <div>
-                        <h2 class="text-[13.5px] font-semibold text-gray-800">Aktivitas Terbaru</h2>
-                        <p class="text-[11.5px] text-gray-400 mt-0.5">Dokumen yang baru diproses</p>
-                    </div>
-                    <div class="icon-wrap bg-emerald-50 border border-emerald-100"
-                        style="width:34px;height:34px;border-radius:8px;">
-                        <span class="material-symbols-outlined text-emerald-500 !text-[16px]">timeline</span>
+            {{-- Activity Feed --}}
+            <div class="bg-white border border-gray-200 rounded-[9px] shadow-md overflow-hidden">
+
+                {{-- Header --}}
+                <div class="px-6 py-5 border-b border-gray-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-sm font-semibold text-gray-900">
+                                Aktivitas Terbaru
+                            </h2>
+                            <p class="text-xs text-gray-500 mt-0.5">
+                                5 Dokumen yang baru diproses
+                            </p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-green-50 border border-green-200 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-green-600 !text-[18px]">
+                                timeline
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <div class="chart-card-body">
-                    @if ($latestDocuments->isEmpty())
-                        <div class="empty-state py-8">
-                            <div class="empty-icon">
-                                <span class="material-symbols-outlined text-gray-300 !text-[22px]">timeline</span>
-                            </div>
-                            <p class="text-sm text-gray-400 font-medium">Belum ada aktivitas</p>
-                            <p class="text-xs text-gray-300 mt-0.5">Feed akan muncul setelah ada dokumen</p>
+                @if ($latestDocuments->isEmpty())
+                    <div class="flex flex-col items-center justify-center py-16 px-6">
+                        <div class="w-12 h-12 rounded-full border border-green-200 bg-green-50 flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-green-600">
+                                timeline
+                            </span>
                         </div>
-                    @else
-                        <div class="space-y-0">
-                            @foreach ($latestDocuments as $doc)
-                                @php
-                                    $colors = [
-                                        'bg-blue-50 border border-blue-100',
-                                        'bg-amber-50 border border-amber-100',
-                                        'bg-emerald-50 border border-emerald-100',
-                                        'bg-violet-50 border border-violet-100',
-                                        'bg-rose-50 border border-rose-100',
-                                    ];
-                                    $iconColors = [
-                                        'text-blue-400',
-                                        'text-amber-400',
-                                        'text-emerald-400',
-                                        'text-violet-400',
-                                        'text-rose-400',
-                                    ];
-                                    $idx = $loop->index % 5;
-                                @endphp
-                                <div class="activity-item">
-                                    <div class="activity-dot {{ $colors[$idx] }}"
-                                        style="width:32px;height:32px;border-radius:8px;">
-                                        <span
-                                            class="material-symbols-outlined {{ $iconColors[$idx] }} !text-[15px]">upload_file</span>
+                        <p class="text-sm font-medium text-gray-700">
+                            Belum ada aktivitas
+                        </p>
+                        <p class="text-xs text-gray-500 mt-1">
+                            Aktivitas dokumen akan muncul di sini
+                        </p>
+                    </div>
+                @else
+                    <div class="divide-y divide-gray-100">
+                        @foreach ($latestDocuments as $doc)
+                            <div class="px-6 py-4 hover:bg-gray-50 transition">
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 rounded-md border border-gray-200 bg-gray-50 flex items-center justify-center flex-shrink-0">
+                                        <span class="material-symbols-outlined text-gray-500 !text-[16px]">
+                                            upload_file
+                                        </span>
                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-[12.5px] font-medium text-gray-700 truncate leading-tight">
-                                            {{ $doc->title }}</p>
-                                        <p class="text-[11px] text-gray-400 mt-0.5">
-                                            {{ $doc->user?->name ?? 'Unknown' }} &middot;
-                                            <span class="text-gray-300">{{ $doc->created_at->diffForHumans() }}</span>
+
+                                    <div class="min-w-0">
+                                        <p class="text-sm font-medium text-gray-800 truncate">
+                                            {{ $doc->title }}
+                                        </p>
+                                        <p class="text-xs text-gray-500 mt-1">
+                                            {{ $doc->user?->name ?? 'Unknown' }}
+                                            <span class="mx-1 text-gray-300">•</span>
+                                            {{ $doc->created_at->diffForHumans() }}
                                         </p>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="p-4 border-t border-gray-100">
 
                         <a href="/"
-                            class="mt-4 flex items-center justify-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition py-2 border border-gray-100 rounded-lg hover:bg-gray-50">
-                            <span class="material-symbols-outlined !text-[13px]">list</span>
-                            Lihat semua aktivitas
+                            class="flex items-center justify-center gap-2 w-full px-4 py-2.5 text-xs font-medium text-gray-700 border border-gray-200 rounded-xl hover:bg-gray-50 transition">
+
+                            <span class="material-symbols-outlined !text-[14px]">
+                                list
+                            </span>
+
+                            Lihat Semua Aktivitas
+
                         </a>
-                    @endif
-                </div>
+
+                    </div>
+
+                @endif
+
             </div>
 
         </div>
-
     </div>
 
     {{-- ═══ SCRIPTS ═══ --}}
@@ -670,8 +737,8 @@
 
     <script>
         /* ─────────────────────────────
-                    Pastel Palette (GitHub Style)
-                ───────────────────────────── */
+                        Pastel Palette (GitHub Style)
+                    ───────────────────────────── */
         const COLORS = [
             '#c4b5fd',
             '#ddd6fe',
