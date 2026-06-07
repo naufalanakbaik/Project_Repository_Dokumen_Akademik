@@ -42,7 +42,7 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, .1);
         }
 
-        .data-table thead th {
+        /* .data-table thead th {
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
@@ -51,12 +51,12 @@
             padding: 10px 16px;
             background: var(--surface-subtle);
             border-bottom: 1px solid var(--border);
-        }
+        } */
 
-        .data-table tbody tr {
+        /* .data-table tbody tr {
             border-bottom: 1px solid #f3f4f6;
             transition: background .12s ease;
-        }
+        } */
 
         .data-table tbody tr:last-child {
             border-bottom: none;
@@ -309,7 +309,7 @@
 
             {{-- Tabel --}}
             <div class="overflow-x-auto">
-                <table class="w-full ">
+                <table class="w-full data-table">
                     <thead>
                         <tr
                             class="bg-gray-50/70 border-t border-b border-gray-100 text-[11px] uppercase tracking-wider text-gray-600">

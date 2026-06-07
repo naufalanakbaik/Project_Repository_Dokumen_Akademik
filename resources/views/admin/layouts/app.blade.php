@@ -193,7 +193,7 @@
 
                             {{ request()->routeIs('admin.dashboard')
                             ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
 
                             <img src="{{ asset('img/icon-sidebar/dashboard.png') }}"
                                 class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
@@ -209,7 +209,7 @@
 
                             {{ request()->routeIs('admin.validation-documents.*')
                             ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
 
                             <img src="{{ asset('img/icon-sidebar/peminjaman.png') }}"
                                 class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
@@ -225,7 +225,7 @@
 
                             {{ request()->routeIs('admin.dashboard.monitoring-pengguna')
                             ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
 
                             <img src="{{ asset('img/icon-sidebar/penerbit.png') }}"
                                 class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
@@ -248,7 +248,7 @@
 
                             {{ request()->routeIs('admin.documents.*')
                             ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
 
                             <img src="{{ asset('img/icon-sidebar/journals.png') }}"
                                 class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
@@ -264,7 +264,7 @@
 
                             {{ request()->routeIs('admin.categories.*')
                             ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
 
                             <img src="{{ asset('img/icon-sidebar/kategori.png') }}"
                                 class="w-5 h-5 object-contain opacity-90 brightness-0 invert">
@@ -280,7 +280,7 @@
 
                             {{ request()->routeIs('admin.users.*')
                             ? 'bg-yellow-500/15 text-gray-100 border-yellow-500/50 shadow-lg shadow-yellow-500/5'
-                            : 'text-white border-transparent hover:bg-gray-800/80 hover:text-white' }}">
+                            : 'text-white border-transparent hover:bg-gray-800/80 hover:border-gray-600 hover:text-white' }}">
 
                             <img src="{{ asset('img/icon-sidebar/anggota.png') }}"
                                 class="w-5 h-5 object-contain opacity-90 brightness-0 invert">

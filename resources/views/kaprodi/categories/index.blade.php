@@ -42,7 +42,7 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, .1);
         }
 
-        .data-table thead th {
+        /* .data-table thead th {
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
@@ -51,7 +51,7 @@
             padding: 10px 16px;
             background: var(--surface-subtle);
             border-bottom: 1px solid var(--border);
-        }
+        } */
 
         .data-table tbody tr {
             border-bottom: 1px solid #f3f4f6;
@@ -112,10 +112,10 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            padding: 5px 12px;
-            border-radius: 7px;
+            padding: 7px 12px;
+            border-radius: 9px;
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 400;
             border: 1px solid var(--border);
             color: var(--text-secondary);
             background: var(--surface);
@@ -202,8 +202,8 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div
-                            class="w-10 h-10 rounded-md border border-violet-200 bg-violet-50 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-violet-600 !text-[19px]">
+                            class="w-10 h-10 rounded-md border border-blue-200 bg-blue-50 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-blue-600 !text-[19px]">
                                 folder
                             </span>
                         </div>
@@ -265,11 +265,11 @@
                                 <td>
                                     <div class="flex items-center gap-2.5">
                                         <div
-                                            class="w-8 h-8 rounded-lg bg-violet-50 border border-violet-100 flex items-center justify-center flex-shrink-0">
+                                            class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0">
                                             <span
-                                                class="material-symbols-outlined text-violet-400 !text-[15px]">folder</span>
+                                                class="material-symbols-outlined text-gray-600 !text-[15px]">folder</span>
                                         </div>
-                                        <span class="font-medium text-gray-900">{{ $category->name }}</span>
+                                        <span class="font-medium text-gray-800">{{ $category->name }}</span>
                                     </div>
                                 </td>
                                 <td class="text-center">
@@ -290,7 +290,7 @@
                                 </td>
                                 <td class="text-left">
                                     <a href="{{ route('kaprodi.categories.show', $category->id) }}" class="detail-btn">
-                                        <span class="material-symbols-outlined !text-[14px]">visibility</span>
+                                        <span class="material-symbols-outlined !text-[14px]">document_search</span>
                                         Lihat Detail
                                     </a>
                                 </td>

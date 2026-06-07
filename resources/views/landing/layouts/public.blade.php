@@ -160,9 +160,9 @@
                         Register
                         </a>
                         <a href="{{ route('login') }}"
-                            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-amber-400 text-white border border-amber-300 text-[12px] 
-                            font-medium shadow-sm transition hover:bg-amber-500 hover:shadow-md">
-                            <span class="material-symbols-outlined text-white !text-[16px]">
+                            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white text-gray-500 border border-amber-300 text-[12px] 
+                            font-medium shadow-sm transition hover:bg-amber-50 hover:shadow-md">
+                            <span class="material-symbols-outlined text-amber-400 !text-[16px]">
                                 login
                             </span>
                             Login Sistem
