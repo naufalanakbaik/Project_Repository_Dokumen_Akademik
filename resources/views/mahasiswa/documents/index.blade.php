@@ -108,7 +108,7 @@
 
         {{-- Table dokumen saya --}}
         <div class="bg-white border border-[#b6c1c9] rounded-md shadow-sm overflow-hidden">
-            <div id="documentsTable">
+            <div id="documentsTable" class="overflow-x-auto">
                 @include('mahasiswa.documents.partials.table', ['documents' => $documents])
             </div>
         </div>

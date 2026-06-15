@@ -150,9 +150,16 @@
                         </a>
                     </div> --}}
 
-                    {{-- Fitur profile dropdown --}}
+                    {{-- Mobile Hamburger --}}
+                    <button id="mobileMenuButton" class="flex md:hidden items-center p-2 text-gray-600 hover:text-amber-600 focus:outline-none">
+                        <span class="material-symbols-outlined !text-[26px]">
+                            menu
+                        </span>
+                    </button>
+
+                    {{-- Fitur profile dropdown (Desktop) --}}
                     <button id="userMenuButton"
-                        class="flex items-center gap-1 text-sm transition text-gray-700 hover:text-blue-600 focus:outline-none">
+                        class="hidden md:flex items-center gap-1 text-sm transition text-gray-700 hover:text-blue-600 focus:outline-none">
                         <span class="font-normal ml-2">
                             {{ auth()->user()->name }}
                         </span>
@@ -227,6 +234,78 @@
             </div>
         </div>
     </nav>
+
+    {{-- Mobile Sidebar --}}
+    <div id="mobileSidebarOverlay" class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 md:hidden"></div>
+    <div id="mobileSidebar" class="fixed top-0 left-0 bottom-0 z-[70] w-[280px] bg-white shadow-2xl -translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col">
+        {{-- Header --}}
+        <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="w-8 h-8 object-contain">
+                <span class="font-bold text-gray-900 text-sm">SIP Repository</span>
+            </div>
+            <button id="closeMobileMenu" class="p-1 text-gray-400 hover:text-gray-900 transition">
+                <span class="material-symbols-outlined !text-[22px]">close</span>
+            </button>
+        </div>
+
+        {{-- Profile Section --}}
+        <div class="p-5 bg-gradient-to-br from-yellow-50 to-white border-b border-gray-100">
+            <div class="flex items-center gap-3">
+                @if (auth()->user()->foto_profile)
+                    <img src="{{ auth()->user()->photo_url }}" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
+                @else
+                    <div class="w-12 h-12 rounded-full bg-blue-100 border-2 border-blue-200 flex items-center justify-center text-blue-700 font-bold uppercase">
+                        {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
+                    </div>
+                @endif
+                <div class="min-w-0">
+                    <p class="text-sm font-semibold text-gray-900 truncate">{{ auth()->user()->name }}</p>
+                    <p class="text-[11px] text-gray-500 truncate">{{ auth()->user()->email }}</p>
+                </div>
+            </div>
+        </div>
+
+        {{-- Nav Links --}}
+        <div class="flex-1 overflow-y-auto p-4 space-y-1">
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mb-2">Main Menu</p>
+            <a href="{{ route('mahasiswa.home') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('mahasiswa.home') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+                <span class="material-symbols-outlined !text-[20px]">home</span>
+                Beranda
+            </a>
+            <a href="{{ route('mahasiswa.katalog.global') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('mahasiswa.katalog.*') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+                <span class="material-symbols-outlined !text-[20px]">grid_view</span>
+                Repositori
+            </a>
+            <a href="{{ route('mahasiswa.dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('mahasiswa.dashboard') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+                <span class="material-symbols-outlined !text-[20px]">analytics</span>
+                Aktivitas Saya
+            </a>
+            <a href="{{ route('mahasiswa.documents.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('mahasiswa.documents.*') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+                <span class="material-symbols-outlined !text-[20px]">description</span>
+                Dokumen Saya
+            </a>
+
+            <div class="pt-4 mt-4 border-t border-gray-100">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mb-2">Akun & Lainnya</p>
+                <a href="{{ route('mahasiswa.profile.show') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+                    <span class="material-symbols-outlined !text-[20px]">person</span>
+                    Profil Saya
+                </a>
+                <a href="{{ route('mahasiswa.katalog.favorites') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+                    <span class="material-symbols-outlined !text-[20px]">bookmark</span>
+                    Dokumen Tersimpan
+                </a>
+                <form action="{{ route('logout') }}" method="POST" class="pt-2">
+                    @csrf
+                    <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-red-600 hover:bg-red-50">
+                        <span class="material-symbols-outlined !text-[20px]">logout</span>
+                        Sign Out
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     {{-- Content --}}
     <main>
@@ -430,26 +509,49 @@
         </div>
     </footer>
 
-    {{-- Js Dropdown arrow profile --}}
+    {{-- Js Dropdown & Mobile Menu --}}
     <script>
-        const button = document.getElementById('userMenuButton');
-        const dropdown = document.getElementById('userDropdown');
-        const icon = document.getElementById('dropdownIcon');
+        // Desktop Dropdown
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userDropdown = document.getElementById('userDropdown');
+        const dropdownIcon = document.getElementById('dropdownIcon');
 
-        button.addEventListener('click', function(e) {
-            e.stopPropagation();
+        if(userMenuButton) {
+            userMenuButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                userDropdown.classList.toggle('opacity-0');
+                userDropdown.classList.toggle('scale-95');
+                userDropdown.classList.toggle('invisible');
+                dropdownIcon.classList.toggle('rotate-180');
+            });
+        }
 
-            dropdown.classList.toggle('opacity-0');
-            dropdown.classList.toggle('scale-95');
-            dropdown.classList.toggle('invisible');
+        // Mobile Sidebar
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
 
-            icon.classList.toggle('rotate-180');
-        });
+        function openSidebar() {
+            mobileSidebar.classList.remove('-translate-x-full');
+            mobileSidebarOverlay.classList.remove('opacity-0', 'invisible');
+        }
 
+        function closeSidebar() {
+            mobileSidebar.classList.add('-translate-x-full');
+            mobileSidebarOverlay.classList.add('opacity-0', 'invisible');
+        }
+
+        if(mobileMenuButton) mobileMenuButton.addEventListener('click', openSidebar);
+        if(closeMobileMenu) closeMobileMenu.addEventListener('click', closeSidebar);
+        if(mobileSidebarOverlay) mobileSidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Global Click to Close
         document.addEventListener('click', function(e) {
-            if (!dropdown.contains(e.target) && !button.contains(e.target)) {
-                dropdown.classList.add('opacity-0', 'scale-95', 'invisible');
-                icon.classList.remove('rotate-180');
+            // Close desktop dropdown
+            if (userDropdown && !userDropdown.contains(e.target) && !userMenuButton.contains(e.target)) {
+                userDropdown.classList.add('opacity-0', 'scale-95', 'invisible');
+                if(dropdownIcon) dropdownIcon.classList.remove('rotate-180');
             }
         });
     </script>

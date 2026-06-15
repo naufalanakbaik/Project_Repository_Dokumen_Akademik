@@ -5,9 +5,9 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h1 class="text-xl font-semibold text-gray-900">
+                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">
                     Profil Saya
                 </h1>
                 <p class="text-sm text-gray-500">
@@ -15,7 +15,7 @@
                 </p>
             </div>
             <a href="{{ route('mahasiswa.profile.edit') }}"
-                class="inline-flex items-center gap-1.5 text-[12px] font-medium text-gray-500 hover:text-gray-700 border border-gray-300 px-4 py-1.5 rounded-lg bg-white hover:bg-gray-50 transition">
+                class="inline-flex items-center justify-center gap-1.5 text-[12px] font-medium text-gray-500 hover:text-gray-700 border border-gray-300 px-4 py-2 rounded-lg bg-white hover:bg-gray-50 transition w-full sm:w-auto">
                 <span class="material-symbols-outlined text-[16px]">
                     manage_accounts
                 </span>
@@ -27,51 +27,51 @@
         <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
 
             {{-- Header --}}
-            <div class="px-7 py-6 border-b border-gray-100 bg-gradient-to-r from-yellow-100 to-white">
+            <div class="px-5 sm:px-7 py-6 border-b border-gray-100 bg-gradient-to-r from-yellow-100 to-white">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-
+ 
                     {{-- Left --}}
-                    <div class="flex items-center gap-4">
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
                         {{-- Avatar --}}
                         <div class="flex-shrink-0">
                             @if ($user->foto_profile)
                                 <img src="{{ $user->photo_url }}" alt="{{ $user->name }}"
-                                    class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md">
+                                    class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-white shadow-md">
                             @else
                                 <div
-                                    class="w-24 h-24 rounded-full bg-blue-100 border-4 border-blue-200 flex items-center justify-center shadow-sm">
-                                    <span class="text-2xl font-semibold text-blue-700 uppercase">
+                                    class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-blue-100 border-4 border-blue-200 flex items-center justify-center shadow-sm">
+                                    <span class="text-xl sm:text-2xl font-semibold text-blue-700 uppercase">
                                         {{ \Illuminate\Support\Str::substr($user->name, 0, 1) }}
                                     </span>
                                 </div>
                             @endif
                         </div>
-
+ 
                         {{-- Identity --}}
-                        <div>
-                            <h1 class="text-xl font-semibold text-gray-800">
+                        <div class="flex-1">
+                            <h1 class="text-xl sm:text-2xl font-semibold text-gray-800">
                                 {{ $user->name }}
                             </h1>
-                            <div class="flex flex-wrap items-center gap-3 mt-2 text-sm text-gray-600">
+                            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3 mt-2 text-sm text-gray-600">
                                 {{-- Role --}}
                                 <span class="font-medium text-gray-600">
                                     Mahasiswa
                                 </span>
-
+ 
                                 {{-- Separator --}}
                                 @if ($user->tahun_angkatan)
-                                    <span class="text-gray-600">•</span>
-
+                                    <span class="text-gray-600 sm:inline">•</span>
+ 
                                     {{-- Angkatan --}}
                                     <span>
                                         Angkatan {{ $user->tahun_angkatan }}
                                     </span>
                                 @endif
                             </div>
-
+ 
                             <p class="text-[12px] text-gray-500 mt-2">
                                 Bergabung pada
-                                {{ $user->created_at->format('d M Y - H:i') }}
+                                {{ $user->created_at->translatedFormat('d M Y') }}
                             </p>
                         </div>
                     </div>
@@ -126,35 +126,35 @@
         </div>
 
         {{-- Card stats --}}
-        <div class="grid grid-cols-3 gap-4">
-
-            <div class="bg-white border border-gray-200 rounded-lg p-4 text-center hover:shadow-sm transition">
-                <p class="text-lg font-semibold text-gray-700">
-                    {{ $totalDocuments }}
-                </p>
-                <p class="text-xs text-gray-500 mt-1">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+ 
+            <div class="bg-white border border-gray-200 rounded-lg p-4 flex sm:flex-col items-center justify-between sm:justify-center text-left sm:text-center hover:shadow-sm transition">
+                <p class="text-xs text-gray-500 order-2 sm:order-1 sm:mb-1">
                     Total Dokumen
                 </p>
-            </div>
-
-            <div class="bg-white border border-gray-200 rounded-lg p-4 text-center hover:shadow-sm transition">
-                <p class="text-lg font-semibold text-green-700">
-                    {{ $approved }}
+                <p class="text-lg font-semibold text-gray-700 order-1 sm:order-2">
+                    {{ $totalDocuments }}
                 </p>
-                <p class="text-xs text-gray-500 mt-1">
+            </div>
+ 
+            <div class="bg-white border border-gray-200 rounded-lg p-4 flex sm:flex-col items-center justify-between sm:justify-center text-left sm:text-center hover:shadow-sm transition">
+                <p class="text-xs text-gray-500 order-2 sm:order-1 sm:mb-1">
                     Disetujui
                 </p>
-            </div>
-
-            <div class="bg-white border border-gray-200 rounded-lg p-4 text-center hover:shadow-sm transition">
-                <p class="text-lg font-semibold text-yellow-700">
-                    {{ $pending + $rejected }}
+                <p class="text-lg font-semibold text-emerald-700 order-1 sm:order-2">
+                    {{ $approved }}
                 </p>
-                <p class="text-xs text-gray-500 mt-1">
+            </div>
+ 
+            <div class="bg-white border border-gray-200 rounded-lg p-4 flex sm:flex-col items-center justify-between sm:justify-center text-left sm:text-center hover:shadow-sm transition">
+                <p class="text-xs text-gray-500 order-2 sm:order-1 sm:mb-1">
                     Pending / Ditolak
                 </p>
+                <p class="text-lg font-semibold text-amber-700 order-1 sm:order-2">
+                    {{ $pending + $rejected }}
+                </p>
             </div>
-
+ 
         </div>
 
         {{-- Statistik Document terkini --}}

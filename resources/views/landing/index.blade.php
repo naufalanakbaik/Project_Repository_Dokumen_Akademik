@@ -52,28 +52,29 @@
                 </p>
 
                 {{-- Action Buttons --}}
-                <div class="mt-10 flex flex-wrap items-center gap-4">
+                <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center gap-4">
                     {{-- Primary --}}
                     <a href="{{ route('repository') }}"
-                        class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-yellow-600 hover:bg-yellow-700 
-                        text-white text-sm font-medium shadow-md transition-all duration-300">
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-5 sm:py-3 rounded-lg bg-yellow-600 hover:bg-yellow-700 
+                        text-white text-sm font-medium shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
                         Jelajahi Repository
                     </a>
-
+ 
                     {{-- Secondary --}}
                     <a href="{{ route('login') }}"
-                        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-yellow-300 bg-white hover:bg-yellow-50
-                        text-gray-700 text-sm font-medium shadow-sm hover:-translate-y-1 transition-all duration-300">
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-yellow-300 bg-white hover:bg-yellow-50
+                        text-gray-700 text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                             login
                         </span>
                         Login Sistem
                     </a>
                 </div>
-
+                </div>
+ 
                 {{-- Bottom Info --}}
                 <div class="mt-10 flex flex-wrap items-center gap-6 text-[12px] text-gray-800">
                     <div class="flex items-center gap-2">
@@ -94,9 +95,9 @@
     </section>
 
     {{-- Statistics Section --}}
-    <section class="w-full max-w-[78rem] mx-auto px-6 -mt-10 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
-
+    <section class="w-full max-w-[78rem] mx-auto px-4 sm:px-6 -mt-8 sm:-mt-10 relative z-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-7">
+ Broadway
             {{-- Card total dokumen --}}
             <div
                 class="group h-full min-h-[210px] bg-white backdrop-blur-sm border border-red-200 rounded-xl p-8 flex flex-col 

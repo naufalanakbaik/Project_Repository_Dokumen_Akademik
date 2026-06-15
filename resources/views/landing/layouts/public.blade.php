@@ -151,10 +151,16 @@
                 </div>
 
                 {{-- Right section --}}
-                <div class="relative inline-block text-left">
+                <div class="relative flex items-center">
+                    {{-- Mobile Hamburger --}}
+                    <button id="mobileMenuButton" class="flex md:hidden items-center p-2 text-gray-600 hover:text-amber-600 focus:outline-none">
+                        <span class="material-symbols-outlined !text-[26px]">
+                            menu
+                        </span>
+                    </button>
 
-                    {{-- Login --}}
-                    <div class="flex items-center gap-0.5">
+                    {{-- Desktop Auth Buttons --}}
+                    <div class="hidden md:flex items-center gap-0.5">
                         <a href="{{ route('register') }}"
                             class="px-4 py-2 text-[13px] font-medium text-gray-500 hover:text-gray-600 transition">
                         Register
@@ -172,6 +178,56 @@
             </div>
         </div>
     </nav>
+
+    {{-- Mobile Sidebar --}}
+    <div id="mobileSidebarOverlay" class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 md:hidden"></div>
+    <div id="mobileSidebar" class="fixed top-0 left-0 bottom-0 z-[70] w-[280px] bg-white shadow-2xl -translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col">
+        {{-- Header --}}
+        <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="w-8 h-8 object-contain">
+                <span class="font-bold text-gray-900 text-sm">SIP Repository</span>
+            </div>
+            <button id="closeMobileMenu" class="p-1 text-gray-400 hover:text-gray-900 transition">
+                <span class="material-symbols-outlined !text-[22px]">close</span>
+            </button>
+        </div>
+
+        {{-- Nav Links --}}
+        <div class="flex-1 overflow-y-auto p-4 space-y-1">
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mb-2">Main Menu</p>
+            <a href="{{ route('landing') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('landing') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+                <span class="material-symbols-outlined !text-[20px]">home</span>
+                Beranda
+            </a>
+            <a href="{{ route('repository') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('repository*') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+                <span class="material-symbols-outlined !text-[20px]">grid_view</span>
+                Repositori
+            </a>
+            <a href="{{ route('profile') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('profile') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+                <span class="material-symbols-outlined !text-[20px]">group</span>
+                Profile Kami
+            </a>
+
+            <div class="pt-4 mt-4 border-t border-gray-100">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mb-2">Akses Sistem</p>
+                <div class="grid grid-cols-2 gap-2 px-1">
+                    <a href="{{ route('login') }}" class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-amber-500 text-white font-semibold text-xs shadow-sm shadow-amber-200">
+                        <span class="material-symbols-outlined !text-[16px]">login</span>
+                        Login
+                    </a>
+                    <a href="{{ route('register') }}" class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-gray-600 font-semibold text-xs transition hover:bg-gray-50">
+                        Register
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {{-- Footer Sidebar --}}
+        <div class="p-5 border-t border-gray-100 bg-gray-50/50">
+            <p class="text-[10px] text-gray-400 text-center">Repository Dokumen Akademik v1.0</p>
+        </div>
+    </div>
 
     {{-- Content --}}
     <main>
@@ -348,6 +404,29 @@
         </div>
     </footer>
 
+    {{-- Mobile Menu Script --}}
+    <script>
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
+
+        function openSidebar() {
+            mobileSidebar.classList.remove('-translate-x-full');
+            mobileSidebarOverlay.classList.remove('opacity-0', 'invisible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            mobileSidebar.classList.add('-translate-x-full');
+            mobileSidebarOverlay.classList.add('opacity-0', 'invisible');
+            document.body.style.overflow = '';
+        }
+
+        if(mobileMenuButton) mobileMenuButton.addEventListener('click', openSidebar);
+        if(closeMobileMenu) closeMobileMenu.addEventListener('click', closeSidebar);
+        if(mobileSidebarOverlay) mobileSidebarOverlay.addEventListener('click', closeSidebar);
+    </script>
 </body>
 
 </html>

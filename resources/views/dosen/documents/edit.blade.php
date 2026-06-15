@@ -6,22 +6,22 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
-        <div class="flex items-start justify-between">
-            <div>
-                <h1 class="text-xl font-semibold text-gray-800">
-                    Perbarui Data Dokumen 
-                </h1>
-                <p class="text-sm text-gray-500">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-2">
+            <div class="flex-1 min-w-0">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                    <h1 class="text-xl font-semibold text-gray-800 leading-tight">
+                        Perbarui Data Dokumen 
+                    </h1>
+                    {{-- Status --}}
+                    <span class="inline-flex items-center self-start gap-1 px-3 py-1 text-[11px] font-medium rounded-full bg-emerald-50 text-emerald-700 border border-emerald-300">
+                        <span class="material-symbols-outlined !text-[12px]">check_circle</span>
+                        Approved
+                    </span>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">
                     Perbarui informasi dokumen Anda dengan detail yang benar
                 </p>
             </div>
-
-            {{-- Status --}}
-            <span class="inline-flex items-center gap-1 px-3 py-1 text-[12px] font-medium rounded-full bg-emerald-50 text-emerald-700 border border-emerald-300">
-                <span class="material-symbols-outlined !text-[12px]">check_circle</span>
-                Approved
-            </span>
-            
         </div>
 
         {{-- Info card --}}
@@ -151,14 +151,15 @@
                 </div>
 
                 {{-- Action buttons --}}
-                <div class="flex items-center justify-between px-2 py-2 pt-5 border-t border-gray-300">
-                    <a href="{{ route('dosen.documents.index') }}" class="text-sm text-gray-600 hover:text-gray-800">
+                <div class="flex flex-col-reverse sm:flex-row items-center sm:justify-between gap-3 px-2 py-2 pt-5 border-t border-gray-300">
+                    <a href="{{ route('dosen.documents.index') }}" 
+                        class="h-10 flex items-center justify-center w-full sm:w-auto text-sm text-gray-500 hover:text-gray-700 border border-gray-200 sm:border-none rounded-lg sm:rounded-none transition">
                         Batal
                     </a>
-
+ 
                     <button type="submit"
-                        class="inline-flex items-center gap-1 px-3.5 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border 
-                        border-blue-400 rounded-lg hover:bg-blue-200 transition">
+                        class="h-10 inline-flex items-center justify-center gap-1 px-5 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border 
+                        border-blue-400 rounded-lg hover:bg-blue-200 transition w-full sm:w-auto shadow-sm">
                         <span class="material-symbols-outlined !text-[17px]">
                             forward
                         </span>

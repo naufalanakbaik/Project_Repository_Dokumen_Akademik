@@ -5,44 +5,44 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
-        <div class="flex items-start justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-2">
             <div>
-                <h1 class="text-xl font-semibold text-gray-800">
+                <h1 class="text-xl font-semibold text-gray-800 leading-tight">
                     Perbarui Data Dokumen 
                 </h1>
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-gray-500 mt-1">
                     Perbarui informasi dokumen Anda dengan detail yang benar
                 </p>
             </div>
-
+ 
             <a href="{{ route('mahasiswa.documents.index') }}"
-                class="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-0.5">
-                Back
+                class="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-700 bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition sm:border-none sm:bg-transparent sm:px-0 sm:py-0">
                 <span class="material-symbols-outlined !text-[18px]">low_priority</span>
+                Back
             </a>
         </div>
 
         {{-- Status badge --}}
         <div
-            class=" border rounded-lg shadow-sm p-4 flex items-start gap-4 text-sm
+            class=" border rounded-lg shadow-sm p-4 text-sm
                 {{ $document->status === 'rejected'
                     ? 'bg-red-50 border-red-200 text-red-600'
                     : 'bg-yellow-50 border-yellow-200 text-yellow-600' }}">
-
+ 
             <div class="flex items-start gap-3">
-                <span class="material-symbols-outlined !text-[20px]">
+                <span class="material-symbols-outlined !text-[22px] flex-shrink-0">
                     {{ $document->status === 'rejected' ? 'cancel' : 'schedule' }}
                 </span>
                 <div>
-                    <p class="font-medium">
+                    <p class="font-semibold text-sm">
                         Status: {{ ucfirst($document->status) }}
                     </p>
                     @if ($document->status === 'rejected')
-                        <p class="text-xs font-medium mt-1">
-                            Note: {{ $document->reject_note }}
+                        <p class="text-[12px] font-medium mt-1 leading-relaxed">
+                            Alasan: {{ $document->reject_note }}
                         </p>
                     @else
-                        <p class="text-xs font-medium mt-1">
+                        <p class="text-[12px] font-medium mt-1 leading-relaxed">
                             Dokumen akan divalidasi ulang setelah diperbarui
                         </p>
                     @endif
@@ -176,14 +176,15 @@
                 </div>
 
                 {{-- Action buttons --}}
-                <div class="flex items-center justify-between px-2 py-2 pt-5 border-t border-gray-300">
-                    <a href="{{ route('mahasiswa.documents.index') }}" class="text-sm text-gray-600 hover:text-gray-800">
+                <div class="flex flex-col-reverse sm:flex-row items-center sm:justify-between gap-3 px-2 py-2 pt-5 border-t border-gray-200">
+                    <a href="{{ route('mahasiswa.documents.index') }}" 
+                        class="h-10 flex items-center justify-center w-full sm:w-auto text-sm text-gray-500 hover:text-gray-700 border border-gray-200 sm:border-none rounded-lg sm:rounded-none transition">
                         Batal
                     </a>
-
+ 
                     <button type="submit"
-                        class="inline-flex items-center gap-1 px-3.5 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border 
-                        border-blue-400 rounded-lg hover:bg-blue-200 transition">
+                        class="h-10 inline-flex items-center justify-center gap-1 px-5 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border 
+                        border-blue-400 rounded-lg hover:bg-blue-200 transition w-full sm:w-auto shadow-sm">
                         <span class="material-symbols-outlined !text-[17px]">
                             forward
                         </span>

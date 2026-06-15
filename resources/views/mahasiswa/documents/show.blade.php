@@ -5,7 +5,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6 space-y-6">
 
         {{-- Header --}}
-        <div class="flex items-start justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div>
                 <h1 class="text-xl font-semibold text-gray-800 leading-tight">
                     Detail {{ $document->title }}
@@ -105,7 +105,7 @@
 
                     {{-- PDF Viewer --}}
                     {{-- <iframe src="{{ asset('storage/' . $document->file) }}" class="w-full h-[650px] bg-gray-100"></iframe> --}}
-                    <div class="w-full h-[650px] bg-gray-100">
+                    <div class="w-full h-[400px] sm:h-[650px] bg-gray-100">
                         <iframe src="{{ route('mahasiswa.documents.preview', $document->id) }}"
                             class="w-full h-full"></iframe>
                     </div>
@@ -135,9 +135,9 @@
 
                     <div class="divide-y text-sm">
 
-                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                        <div class="flex flex-wrap items-center justify-between px-4 py-3 hover:bg-gray-50 transition gap-2">
                             <span class="text-xs text-gray-500 font-medium">Uploader</span>
-                            <span class="font-medium text-gray-600">
+                            <span class="font-medium text-gray-600 text-right">
                                 {{ $document->user->name }}
                             </span>
                         </div>
@@ -149,9 +149,9 @@
                             </span>
                         </div>
 
-                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition">
+                        <div class="flex flex-wrap items-center justify-between px-4 py-3 hover:bg-gray-50 transition gap-2">
                             <span class="text-xs text-gray-500 font-medium">Kategori</span>
-                            <span class="font-medium text-gray-600">
+                            <span class="font-medium text-gray-600 text-right">
                                 {{ $document->category->name }}
                             </span>
                         </div>

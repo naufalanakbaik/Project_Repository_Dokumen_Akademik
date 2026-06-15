@@ -41,37 +41,37 @@
                 </p>
 
                 {{-- Info --}}
-                <div class="flex flex-wrap gap-4 mt-8">
-                    <div class="flex items-center gap-3 px-5 py-3 rounded-xl border border-gray-200 bg-white shadow-sm">
-                        <span class="material-symbols-outlined text-yellow-600">
+                <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8">
+                    <div class="flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-3 rounded-xl border border-gray-200 bg-white/80 shadow-sm grow sm:grow-0">
+                        <span class="material-symbols-outlined text-yellow-600 !text-[22px]">
                             school
                         </span>
                         <div>
-                            <p class="text-xs text-gray-500">
+                            <p class="text-[11px] text-gray-500 uppercase tracking-wider">
                                 Fakultas
                             </p>
-                            <h4 class="text-sm font-semibold text-gray-800">
+                            <h4 class="text-[13px] sm:text-sm font-semibold text-gray-800">
                                 Ilmu Komputer
                             </h4>
                         </div>
                     </div>
-
-                    <div class="flex items-center gap-3 px-5 py-3 rounded-xl border border-gray-200 bg-white shadow-sm">
-                        <span class="material-symbols-outlined text-amber-600">
+ 
+                    <div class="flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-3 rounded-xl border border-gray-200 bg-white/80 shadow-sm grow sm:grow-0">
+                        <span class="material-symbols-outlined text-amber-600 !text-[22px]">
                             account_balance
                         </span>
-
+ 
                         <div>
-                            <p class="text-xs text-gray-500">
+                            <p class="text-[11px] text-gray-500 uppercase tracking-wider">
                                 Universitas
                             </p>
-                            <h4 class="text-sm font-semibold text-gray-800">
+                            <h4 class="text-[13px] sm:text-sm font-semibold text-gray-800">
                                 Universitas Sriwijaya
                             </h4>
                         </div>
                     </div>
                 </div>
-
+ 
             </div>
 
         </div>
@@ -88,18 +88,22 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
                 {{-- Left --}}
-                <div>
+                <div class="space-y-6">
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-200
-                        bg-amber-50 text-amber-700 text-sm font-medium mb-5">
+                        bg-amber-50 text-amber-700 text-[13px] font-medium mb-2">
                         <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                         Profil Sistem
                     </div>
-
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-950 leading-tight">
+ 
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-950 leading-tight">
                         Sistem Penyimpanan
                         Dokumen Akademik Modern
                     </h2>
-
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-950 leading-tight">
+                        Sistem Penyimpanan
+                        Dokumen Akademik Modern
+                    </h2>
+ Broadway
                     <p class="mt-5 text-[15px] leading-relaxed text-gray-600">
                         Repository ini dirancang untuk membantu mahasiswa,
                         dosen, dan program studi dalam mengelola dokumen

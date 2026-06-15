@@ -113,16 +113,16 @@
                     {{-- Filter --}}
                     <button type="submit"
                         class="h-10 w-10 shrink-0 inline-flex items-center justify-center border border-amber-300
-                        rounded-lg bg-amber-100 text-amber-700 hover:bg-yellow-200 transition">
+                        rounded-lg bg-amber-100 text-amber-700 hover:bg-yellow-200 transition shadow-sm">
                         <span class="material-symbols-outlined !text-[20px]">
                             filter_alt
                         </span>
                     </button>
-
+ 
                     {{-- Reset --}}
                     <a href="{{ route('mahasiswa.katalog.global') }}"
-                        class="h-10 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-300 bg-gray-50
-                        px-4 text-gray-600 hover:bg-gray-100 transition">
+                        class="h-10 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-300 bg-white
+                        px-4 text-gray-600 hover:bg-gray-50 transition shadow-sm">
                         <span class="material-symbols-outlined !text-[17px]">
                             refresh
                         </span>

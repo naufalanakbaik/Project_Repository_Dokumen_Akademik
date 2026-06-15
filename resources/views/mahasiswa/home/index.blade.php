@@ -45,28 +45,28 @@
                 </p>
 
                 {{-- Action Buttons --}}
-                <div class="mt-10 flex flex-wrap items-center gap-4">
-
+                <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center gap-4">
+ 
                     {{-- Primary --}}
                     <a href="{{ route('mahasiswa.katalog.global') }}"
-                        class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-yellow-600 hover:bg-yellow-700 
-                        text-white text-sm font-medium shadow-md transition-all duration-300">
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-5 sm:py-3 rounded-lg bg-yellow-600 hover:bg-yellow-700 
+                        text-white text-sm font-medium shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
                         Jelajahi Repository
                     </a>
-
+ 
                     {{-- Secondary --}}
                     <a href="{{ route('mahasiswa.documents.create') }}"
-                        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-amber-400 bg-white/90 hover:bg-amber-50
-                        text-gray-700 text-sm font-medium shadow-sm transition-all duration-300">
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-amber-400 bg-white/90 hover:bg-amber-50
+                        text-gray-700 text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                             upload_file
                         </span>
                         Unggah Dokumen
                     </a>
-
+ 
                 </div>
 
                 {{-- Bottom Info --}}
@@ -192,35 +192,35 @@
     <section class="w-full max-w-[77rem] mx-auto px-6 py-20">
 
         {{-- Header --}}
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-6">
-
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 sm:gap-8 mb-8 sm:mb-6">
+ 
             {{-- Left --}}
             <div class="max-w-2xl">
                 {{-- Badge --}}
                 <div
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 backdrop-blur-sm border border-yellow-300
-                    text-yellow-700 text-[14px] font-medium shadow-md mb-4">
+                    text-yellow-700 text-[13px] sm:text-[14px] font-medium shadow-md mb-4">
                     <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                     Dokumen Terbaru
                 </div>
-
+ 
                 {{-- Heading --}}
-                <h2 class="text-2xl md:text-[35px] font-semibold leading-tight text-gray-900">
+                <h2 class="text-2xl sm:text-3xl lg:text-[35px] font-semibold leading-tight text-gray-900">
                     Koleksi Repository Akademik
                 </h2>
-
+ 
                 {{-- Description --}}
-                <p class="mt-3 text-[14px] leading-2 text-gray-600">
+                <p class="mt-3 text-[14px] leading-relaxed text-gray-600 max-w-2xl">
                     Jelajahi berbagai dokumen akademik yang telah dipublikasikan
                     dan tersedia untuk diakses seluruh pengguna repository digital
                     secara mudah, cepat, dan terstruktur.
                 </p>
             </div>
-
+ 
             {{-- Right --}}
-            <div class="flex items-center">
+            <div class="flex items-center sm:items-end">
                 <a href="{{ route('mahasiswa.katalog.global') }}"
-                    class="group inline-flex items-center gap-2 text-[14px] font-medium text-gray-600 transition-all duration-300">
+                    class="group inline-flex items-center gap-2 text-[14px] font-medium text-gray-600 transition-all duration-300 bg-white border border-gray-200 px-4 py-2 rounded-lg hover:border-yellow-400 sm:border-none sm:bg-transparent sm:px-0 sm:py-0">
                     <span>
                         Lihat Semua
                     </span>
@@ -230,7 +230,7 @@
                     </span>
                 </a>
             </div>
-
+ 
         </div>
 
         {{-- Cards --}}
@@ -527,17 +527,17 @@
                 </p>
 
                 {{-- Action buttons --}}
-                <div class="mt-10 flex flex-wrap items-center gap-4">
-                    <a href="{{ route('mahasiswa.documents.create') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-950 
-                        text-white text-[13px] font-medium transition-all duration-300 hover:bg-black hover:-translate-y-0.5">
+                <div class="mt-10 flex flex-col sm:flex-row items-center gap-4">
+                    <a href="{{ route('mahasiswa.documents.create') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gray-950 
+                        text-white text-[13px] font-medium transition-all duration-300 hover:bg-black hover:-translate-y-0.5 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             upload_file
                         </span>
                         Unggah Dokumen
                     </a>
-
-                    <a href="{{ route('mahasiswa.katalog.global') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 
-                        text-gray-800 text-[13px] font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300">
+ 
+                    <a href="{{ route('mahasiswa.katalog.global') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 
+                        text-gray-800 text-[13px] font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>

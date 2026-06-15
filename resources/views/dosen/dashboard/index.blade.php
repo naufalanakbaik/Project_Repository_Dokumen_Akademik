@@ -11,8 +11,8 @@
         <div class="absolute inset-0 bg-gradient-to-br from-yellow-200 via-amber-50/20 to-transparent"></div>
 
         {{-- Content --}}
-        <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
-            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10">
+        <div class="relative w-full max-w-[77rem] mx-auto px-4 sm:px-6 py-10 lg:py-16">
+            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-10">
 
                 {{-- Left --}}
                 <div class="w-full max-w-3xl pt-2">
@@ -56,7 +56,7 @@
                     </p>
 
                     {{-- Mini Stats --}}
-                    <div class="flex flex-wrap items-center gap-8 mt-6">
+                    <div class="flex flex-wrap items-center gap-4 sm:gap-8 mt-6">
                         <a href="{{ route('dosen.documents.create') }}"
                             class="flex items-center gap-1.5 hover:translate-x-2 transition-all duration-300">
                             <div
@@ -175,8 +175,8 @@
     </section>
 
     {{-- Grid Stats --}}
-    <section class="w-full max-w-[78rem] mx-auto px-6 -mt-10 relative z-10">
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+    <section class="w-full max-w-[78rem] mx-auto px-4 sm:px-6 -mt-10 lg:-mt-10 relative z-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
 
             {{-- Total Dokumen --}}
             <div
@@ -299,7 +299,7 @@
     </section>
 
     {{-- Charts --}}
-    <section class="w-full max-w-[78rem] mx-auto px-6 mt-8 mb-10">
+    <section class="w-full max-w-[78rem] mx-auto px-4 sm:px-6 mt-6 lg:mt-8 mb-10">
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
             {{-- Upload vs Download Chart --}}
@@ -353,8 +353,8 @@
                 </div>
 
                 {{-- Chart --}}
-                <div class="p-6 pt-4">
-                    <div class="h-[340px]">
+                <div class="p-4 sm:p-6 pt-4">
+                    <div class="h-[250px] sm:h-[340px]">
                         <canvas id="analyticsChart"></canvas>
                     </div>
                 </div>
@@ -382,7 +382,7 @@
 
                 {{-- Chart --}}
                 <div class="px-6 pt-8">
-                    <div class="h-[250px] flex items-center justify-center">
+                    <div class="h-[200px] sm:h-[250px] flex items-center justify-center">
                         <canvas id="statusChart"></canvas>
                     </div>
                 </div>
@@ -435,7 +435,7 @@
     </section>
 
     {{-- Quick Insights --}}
-    <section class="w-full max-w-[78rem] mx-auto px-6 mt-8 mb-10">
+    <section class="w-full max-w-[78rem] mx-auto px-4 sm:px-6 mt-6 lg:mt-8 mb-10">
 
         {{-- Section Header --}}
         <div class="flex items-center justify-between mb-3">
@@ -597,7 +597,7 @@
                 localStorage.setItem('dashboardTab', value);
             }
         }" 
-        class="w-full max-w-[78rem] mx-auto px-6 mt-8 mb-10">
+        class="w-full max-w-[78rem] mx-auto px-4 sm:px-6 mt-6 lg:mt-8 mb-10">
 
         {{-- --> Header Button --}}
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
@@ -611,13 +611,13 @@
             </div>
 
             {{-- Toggle Button --}}
-            <div class="flex items-center gap-3">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
                 {{-- Aktivitas Saya --}}
                 <button @click="changeTab('mine')"
                     :class="tab === 'mine'?
                         'bg-amber-600 text-white border-amber-200 shadow-sm' :
                         'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border text-[14px] font-medium transition-all duration-200">
+                    class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl border text-[13px] sm:text-[14px] font-medium transition-all duration-200">
                     <span class="material-symbols-outlined !text-[18px]">
                         person
                     </span>
@@ -629,7 +629,7 @@
                     :class="tab === 'students'?
                         'bg-amber-600 text-white border-amber-200 shadow-sm' :
                         'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border text-[14px] font-medium transition-all duration-200">
+                    class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl border text-[13px] sm:text-[14px] font-medium transition-all duration-200">
                     <span class="material-symbols-outlined !text-[18px]">
                         groups
                     </span>
@@ -644,20 +644,20 @@
             <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
 
                 {{-- Header --}}
-                <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+                <div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-gray-100 flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-800">
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-800">
                             Aktivitas Repository Saya
                         </h3>
-                        <p class="text-sm text-gray-500 mt-1">
+                        <p class="text-xs sm:text-sm text-gray-500 mt-1">
                             Ringkasan aktivitas upload dan dokumen repository Anda.
                         </p>
                     </div>
 
                     <div
-                        class="w-11 h-11 rounded-xl bg-amber-50 border border-amber-100 text-amber-700
-                        flex items-center justify-center">
-                        <span class="material-symbols-outlined">
+                        class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-50 border border-amber-100 text-amber-700
+                        flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined !text-[20px] sm:!text-[24px]">
                             timeline
                         </span>
                     </div>
@@ -666,7 +666,7 @@
                 {{-- Content --}}
                 <div class="divide-y divide-gray-100">
                     @forelse($recentUploads as $document)
-                        <div class="px-6 py-5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 hover:bg-gray-50 transition">
+                        <div class="px-5 sm:px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 hover:bg-gray-50 transition">
 
                             {{-- Left --}}
                             <div class="flex items-start gap-4 min-w-0">
@@ -824,7 +824,7 @@
                 {{-- Latest Student Uploads --}}
                 <div class="xl:col-span-2 bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
                     {{-- Header --}}
-                    <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+                    <div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-gray-100 flex items-center justify-between">
                         <div>
                             <h3 class="text-lg font-semibold text-gray-800">
                                 Upload Terbaru Mahasiswa
@@ -844,7 +844,7 @@
                     {{-- Content --}}
                     <div class="divide-y divide-gray-100">
                         @forelse($latestStudentUploads as $document)
-                            <div class="px-6 py-5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 hover:bg-gray-50 transition">
+                            <div class="px-5 sm:px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 hover:bg-gray-50 transition">
 
                                 {{-- Left --}}
                                 <div class="flex items-start gap-4 min-w-0">
@@ -931,8 +931,8 @@
                 {{-- Timeline --}}
                 <div class="xl:col-span-2 bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
                     {{-- Header --}}
-                    <div class="px-6 py-5 border-b border-gray-100">
-                        <h3 class="text-lg font-semibold text-gray-800">
+                    <div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-800">
                             Timeline Aktivitas Mahasiswa
                         </h3>
                         <p class="text-sm text-gray-500 mt-1">
@@ -982,8 +982,8 @@
                 {{-- Inactive Students --}}
                 <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
                     {{-- Header --}}
-                    <div class="px-6 py-5 border-b border-gray-100">
-                        <h3 class="text-lg font-semibold text-gray-800">
+                    <div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-800">
                             Mahasiswa Tidak Aktif
                         </h3>
                         <p class="text-sm text-gray-500 mt-1">

@@ -40,13 +40,13 @@
         </div>
 
         {{-- Filter & Search --}}
-        <div class="bg-white border border-gray-200 rounded-lg px-4 py-3 flex items-center justify-between gap-4">
+        <div class="bg-white border border-gray-200 rounded-lg px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
             {{-- Left: Filter Controls --}}
-            <div class="flex items-center gap-2 w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-2 w-full">
 
                 {{-- Search --}}
-                <div class="relative w-64">
+                <div class="relative w-full sm:w-64">
                     <span
                         class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 !text-[18px]">
                         search
@@ -57,9 +57,9 @@
                 </div>
 
                 {{-- Category --}}
-                <div class="relative">
+                <div class="relative w-full sm:w-auto">
                     <select id="category"
-                        class="appearance-none h-9 pl-3 pr-8 text-[13px] border border-gray-300 rounded-md text-gray-600
+                        class="appearance-none h-9 w-full pl-3 pr-8 text-[13px] border border-gray-300 rounded-md text-gray-600
                         bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-blue-400">
 
                         <option value="">Semua kategori</option>
@@ -78,7 +78,7 @@
 
                 {{-- Reset --}}
                 <button type="button" id="resetFilter"
-                    class="h-9 px-3 flex items-center gap-1 text-[12px] text-gray-700 border border-gray-300 rounded-md 
+                    class="h-9 w-full sm:w-auto px-3 flex items-center justify-center gap-1 text-[12px] text-gray-700 border border-gray-300 rounded-md 
                     bg-gray-50 hover:bg-gray-100 transition">
 
                     <span class="material-symbols-outlined !text-[14px]">cached</span>

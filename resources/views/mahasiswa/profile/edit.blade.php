@@ -9,32 +9,32 @@
             <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
 
                 {{-- Header --}}
-                <div class="px-6 py-7 bg-gradient-to-r from-yellow-100 to-white border-b border-gray-100">
+                <div class="px-5 sm:px-6 py-7 bg-gradient-to-r from-yellow-100 to-white border-b border-gray-100">
                     <div class="flex flex-col items-center text-center">
                         {{-- Avatar --}}
                         <div class="relative">
                             @if ($user->foto_profile)
                                 <img src="{{ $user->photo_url }}" alt="{{ $user->name }}"
-                                    class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md">
+                                    class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-white shadow-md">
                             @else
                                 <div
-                                    class="w-24 h-24 rounded-full bg-blue-100 border-4 border-blue-200 flex items-center justify-center shadow-sm">
-                                    <span class="text-3xl font-semibold text-blue-700 uppercase">
+                                    class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-blue-100 border-4 border-blue-200 flex items-center justify-center shadow-sm">
+                                    <span class="text-2xl sm:text-3xl font-semibold text-blue-700 uppercase">
                                         {{ \Illuminate\Support\Str::substr($user->name, 0, 1) }}
                                     </span>
                                 </div>
                             @endif
                         </div>
-
+ 
                         {{-- Identity --}}
                         <h2 class="mt-4 text-lg font-semibold text-gray-700">
                             {{ $user->name }}
                         </h2>
-
+ 
                         <p class="text-[13px] text-gray-600 mt-1">
                             {{ $user->email }}
                         </p>
-
+ 
                         {{-- Badge --}}
                         <div class="mt-1">
                             <span
@@ -295,13 +295,14 @@
                 </div>
 
                 {{-- Action --}}
-                <div class="flex items-center justify-between pt-2">
-                    <a href="{{ route('mahasiswa.profile.show') }}" class="text-[13px] text-gray-500 hover:text-gray-700">
+                <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 pt-2">
+                    <a href="{{ route('mahasiswa.profile.show') }}" 
+                        class="h-10 flex items-center justify-center text-[13px] text-gray-500 hover:text-gray-700 border border-gray-200 sm:border-none rounded-lg sm:rounded-none">
                         Batal
                     </a>
                     <button
-                        class="inline-flex items-center gap-1 px-4 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border border-blue-400 
-                        rounded-lg hover:bg-blue-200 transition">
+                        class="h-10 inline-flex items-center justify-center gap-1 px-5 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border border-blue-300 
+                        rounded-lg hover:bg-blue-200 transition w-full sm:w-auto shadow-sm">
                         <span class="material-symbols-outlined !text-[17px]">
                             forward
                         </span>

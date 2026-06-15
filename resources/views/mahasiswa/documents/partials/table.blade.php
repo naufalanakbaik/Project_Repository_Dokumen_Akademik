@@ -1,4 +1,4 @@
-<table class="w-full">
+<table class="w-full min-w-[850px]">
     <thead class="bg-[#f3f4f6] text-[12.5px] text-gray-800 border-b border-[#b6c1c9]">
         <tr>
             <th class="px-5 py-3 font-medium text-center w-[4%]">No</th>

@@ -46,30 +46,31 @@
                 </p>
 
                 {{-- Action Buttons --}}
-                <div class="mt-10 flex flex-wrap items-center gap-4">
-
+                <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center gap-4">
+ 
                     {{-- Primary --}}
                     <a href="{{ route('dosen.katalog.global') }}"
-                        class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-yellow-600 hover:bg-yellow-700 
-                        text-white text-sm font-medium shadow-md transition-all duration-300">
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-5 sm:py-3 rounded-lg bg-yellow-600 hover:bg-yellow-700 
+                        text-white text-sm font-medium shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
                         Jelajahi Repository
                     </a>
-
+ 
                     {{-- Secondary --}}
                     <a href="{{ route('dosen.documents.create') }}"
-                        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-amber-400 bg-white/90 hover:bg-amber-50
-                        text-gray-700 text-sm font-medium shadow-sm transition-all duration-300">
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-amber-400 bg-white/90 hover:bg-amber-50
+                        text-gray-700 text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                             upload_file
                         </span>
                         Unggah Dokumen
                     </a>
-
+ 
                 </div>
-
+                </div>
+ 
                 {{-- Bottom Info --}}
                 <div class="mt-10 flex flex-wrap items-center gap-6 text-xs text-gray-800">
 
@@ -528,26 +529,24 @@
                 </p>
 
                 {{-- Action buttons --}}
-                <div class="mt-10 flex flex-wrap items-center gap-4">
-                    <a href="{{ route('dosen.documents.create') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-950 
-                        text-white text-[13px] font-medium transition-all duration-300 hover:bg-black hover:-translate-y-0.5">
+                <div class="mt-10 flex flex-col sm:flex-row items-center gap-4">
+                    <a href="{{ route('dosen.documents.create') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gray-950 
+                        text-white text-[13px] font-medium transition-all duration-300 hover:bg-black hover:-translate-y-0.5 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             upload_file
                         </span>
-                        Upload Dokumen
+                        Unggah Dokumen
                     </a>
-
-                    <a href="{{ route('dosen.katalog.global') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 
-                        text-gray-800 text-[13px] font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300">
+ 
+                    <a href="{{ route('dosen.katalog.global') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 
+                        text-gray-800 text-[13px] font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
                         Jelajahi Repository
                     </a>
-                </div>
-
             </div>
-
+ 
         </div>
     </section>
 

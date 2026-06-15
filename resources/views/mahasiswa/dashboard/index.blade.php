@@ -17,8 +17,8 @@
         </div> --}}
 
         {{-- Content --}}
-        <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-14">
-            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10">
+        <div class="relative w-full max-w-[77rem] mx-auto px-4 sm:px-6 py-10 lg:py-14">
+            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-10">
 
                 {{-- Left --}}
                 <div class="w-full max-w-3xl pt-2">
@@ -62,7 +62,7 @@
                     </p>
 
                     {{-- Mini Stats --}}
-                    <div class="flex flex-wrap items-center gap-8 mt-6">
+                    <div class="flex flex-wrap items-center gap-4 sm:gap-8 mt-6">
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-11 h-11 rounded-full bg-white border border-blue-100 shadow-sm flex items-center justify-center text-blue-700">
@@ -158,7 +158,7 @@
             </div>
 
             {{-- Quick Actions --}}
-            <div class="mt-9">
+            <div class="mt-8 lg:mt-9">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="material-symbols-outlined text-amber-700">
                         left_click
@@ -248,8 +248,8 @@
     </section>
 
     {{-- Grid Stats --}}
-    <section class="w-full max-w-[78rem] mx-auto px-6 mt-10 relative z-10">
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+    <section class="w-full max-w-[78rem] mx-auto px-4 sm:px-6 mt-6 lg:mt-10 relative z-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
 
             {{-- Total Dokumen --}}
             <div
@@ -372,7 +372,7 @@
     </section>
 
     {{-- Charts --}}
-    <section class="w-full max-w-[78rem] mx-auto px-6 mt-8 mb-6">
+    <section class="w-full max-w-[78rem] mx-auto px-4 sm:px-6 mt-6 lg:mt-8 mb-6">
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
             {{-- Upload Activity --}}
@@ -399,7 +399,7 @@
                         </div>
                     </div>
                     {{-- Chart --}}
-                    <div class="h-[320px]">
+                    <div class="h-[250px] sm:h-[320px]">
                         <canvas id="uploadChart"></canvas>
                     </div>
                 </div>
@@ -428,7 +428,7 @@
                         </div>
                     </div>
                     {{-- Chart --}}
-                    <div class="h-[320px] flex items-center justify-center">
+                    <div class="h-[250px] sm:h-[320px] flex items-center justify-center">
                         <canvas id="statusChart"></canvas>
                     </div>
                 </div>
@@ -437,11 +437,11 @@
     </section>
 
     {{-- Table Activity --}}
-    <section class="w-full max-w-[78rem] mx-auto px-6 mb-6">
+    <section class="w-full max-w-[78rem] mx-auto px-4 sm:px-6 mb-10">
         <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
 
             {{-- Header --}}
-            <div class="px-6 py-5 border-b border-gray-100 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-gray-100 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <div class="flex items-center gap-1">
                         <span class="material-symbols-outlined !text-[18px] text-gray-500">
@@ -469,7 +469,7 @@
 
             {{-- Table --}}
             <div class="overflow-x-auto">
-                <table class="w-full">
+                <table class="w-full min-w-[700px]">
 
                     {{-- Table Head --}}
                     <thead class="bg-gray-50/70 border-b border-gray-100">

@@ -14,42 +14,42 @@
 
         <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-100/50 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
-            <div class="flex items-start justify-between gap-6">
-
+        <div class="relative w-full max-w-[77rem] mx-auto px-6 py-12 lg:py-16">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 sm:gap-8">
+ 
                 {{-- Left Content --}}
-                <div class="max-w-3xl">
+                <div class="max-w-3xl flex-1">
                     {{-- Category --}}
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm
-                        text-yellow-700 text-sm font-medium shadow-sm mb-6">
+                        text-yellow-700 text-[13px] sm:text-sm font-medium shadow-sm mb-6">
                         <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                             folder_open
                         </span>
                         {{ $document->category->name }}
                     </div>
-
+ 
                     {{-- Title --}}
-                    <h1 class="text-4xl md:text-4xl font-bold tracking-tight leading-tight text-gray-950">
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight leading-tight text-gray-950">
                         {{ $document->title }}
                     </h1>
-
+ 
                     {{-- Description --}}
-                    <p class="mt-6 text-base leading-relaxed text-gray-600 max-w-4xl">
+                    <p class="mt-4 sm:mt-6 text-[14px] sm:text-base leading-relaxed text-gray-600 max-w-4xl">
                         Dokumen akademik yang telah dipublikasikan
                         dalam sistem repository digital dan tersedia
                         untuk ditinjau oleh seluruh pengguna.
                     </p>
-
+ 
                     {{-- Meta --}}
-                    <div class="mt-8 flex flex-wrap items-center gap-5">
+                    <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
                         {{-- User --}}
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-3">
                             {{-- Avatar --}}
                             <div class="w-10 h-10 rounded-full bg-gray-50 border border-gray-300 flex items-center justify-center text-gray-700
-                                text-sm font-semibold">
+                                text-sm font-semibold shrink-0">
                                 {{ strtoupper(substr($document->user->name, 0, 1)) }}
                             </div>
-
+ 
                             {{-- Info --}}
                             <div class="leading-tight">
                                 <p class="text-sm font-medium text-gray-800">
@@ -59,14 +59,14 @@
                                     {{ $document->user->role }}
                                 </p>
                             </div>
-
+ 
                         </div>
-
+ 
                         {{-- Divider --}}
-                        <div class="hidden sm:block w-1 h-1 rounded-full bg-gray-500"></div>
-
+                        <div class="hidden md:block w-1 h-1 rounded-full bg-gray-500"></div>
+ 
                         {{-- Year --}}
-                        <div class="inline-flex items-center gap-2 text-sm text-gray-700">
+                        <div class="inline-flex items-center gap-2 text-[13px] sm:text-sm text-gray-700 bg-white/50 px-3 py-1.5 rounded-lg border border-gray-200 md:border-none md:bg-transparent md:px-0 md:py-0">
                             <span class="material-symbols-outlined !text-[17px] text-yellow-600">
                                 calendar_check
                             </span>
@@ -74,24 +74,25 @@
                             {{ $document->tahun_terbit ?? '-' }}
                         </div>
                     </div>
-
+ 
                 </div>
-
+ 
                 {{-- Right Action --}}
-                <div class="hidden md:block">
-                    <a href="{{ route('repository') }}" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-gray-300 bg-white/90 
-                        backdrop-blur-sm text-gray-700 text-[13.5px] font-medium shadow-sm hover:bg-gray-50 hover:border-gray-400 transition">
-                        Back
-                        <span class="material-symbols-outlined !text-[15px]">
+                <div class="flex md:block">
+                    <a href="{{ route('repository') }}" class="inline-flex items-center gap-1.5 px-4 py-2 sm:py-1.5 rounded-full border border-gray-300 bg-white/90 
+                        backdrop-blur-sm text-gray-700 text-[13.5px] font-medium shadow-sm hover:bg-gray-50 hover:border-gray-400 transition w-full justify-center md:w-auto">
+                        <span class="material-symbols-outlined !text-[15px] rotate-180 md:rotate-0">
                             low_priority
                         </span>
+                        Back
                     </a>
                 </div>
-
+ 
             </div>
-
+ 
         </div>
-
+        </div>
+ 
     </section>
 
     {{-- Content --}}

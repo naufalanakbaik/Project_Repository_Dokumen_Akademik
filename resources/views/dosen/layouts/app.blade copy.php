@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {{-- Title --}}
-    <title>Mahasiswa - @yield('title')</title>
+    <title>Dosen - @yield('title')</title>
 
     {{-- Preconnect --> agar icon tidak 2x relaod --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,7 +78,7 @@
                 <div class="flex items-center gap-20">
 
                     {{-- Logo unsri --}}
-                    <a href="{{ route('mahasiswa.katalog.global') }}" class="flex items-center gap-2.5 min-w-0 group">
+                    <a href="{{ route('dosen.katalog.global') }}" class="flex items-center gap-2.5 min-w-0 group">
                         <div class="shrink-0">
                             <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="w-9 h-9 object-contain">
                         </div>
@@ -99,7 +99,7 @@
                             {
                                 return 'relative inline-block px-1 py-2 text-sm font-medium transition duration-200 ' .
                                     ($isActive ? 'text-amber-600' : 'text-gray-600 hover:text-amber-600') .
-                                    " after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
+                                        " after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
                                         after:-bottom-1 after:h-[2.5px] after:rounded-full
                                         after:bg-amber-600 after:transition-all after:duration-300 " .
                                     ($isActive ? 'after:w-6' : 'after:w-0 hover:after:w-6');
@@ -107,26 +107,26 @@
                         @endphp
 
                         {{-- Beranda --}}
-                        <a href="{{ route('mahasiswa.home') }}"
-                            class="{{ navClass(request()->routeIs('mahasiswa.home')) }}">
+                        <a href="{{ route('dosen.home') }}"
+                            class="{{ navClass(request()->routeIs('dosen.home')) }}">
                             Beranda
                         </a>
 
                         {{-- Repositori --}}
-                        <a href="{{ route('mahasiswa.katalog.global') }}"
-                            class="{{ navClass(request()->routeIs('mahasiswa.katalog.*')) }}">
+                        <a href="{{ route('dosen.katalog.global') }}"
+                            class="{{ navClass(request()->routeIs('dosen.katalog.*')) }}">
                             Repositori
                         </a>
 
                         {{-- Dashboard --}}
-                        <a href="{{ route('mahasiswa.dashboard') }}"
-                            class="{{ navClass(request()->routeIs('mahasiswa.dashboard')) }}">
-                            Aktivitas Saya
+                        <a href="{{ route('dosen.dashboard') }}"
+                            class="{{ navClass(request()->routeIs('dosen.dashboard')) }}">
+                            Aktivitas
                         </a>
 
                         {{-- Dokumen Saya --}}
-                        <a href="{{ route('mahasiswa.documents.index') }}"
-                            class="{{ navClass(request()->routeIs('mahasiswa.documents.*')) }}">
+                        <a href="{{ route('dosen.documents.index') }}"
+                            class="{{ navClass(request()->routeIs('dosen.documents.*')) }}">
                             Dokumen Saya
                         </a>
                     </div>
@@ -134,21 +134,6 @@
 
                 {{-- Right section --}}
                 <div class="relative inline-block text-left">
-
-                    {{-- Notifikasi --}}
-                    {{-- <div class="relative">
-                        <a href="{{ route('publisher.notifications.index') }}">
-                            <span class="material-symbols-outlined text-gray-700">
-                                notifications
-                            </span>
-                            @if (auth()->user()->unreadNotifications->count())
-                                <span
-                                    class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5">
-                                    {{ auth()->user()->unreadNotifications->count() }}
-                                </span>
-                            @endif
-                        </a>
-                    </div> --}}
 
                     {{-- Fitur profile dropdown --}}
                     <button id="userMenuButton"
@@ -164,10 +149,9 @@
                         </span>
                     </button>
 
-                    {{-- Menu dropdown --}}
+                    {{-- Dropdwon --}}
                     <div id="userDropdown"
-                        class="absolute right-0 mt-2 w-64 bg-white border border-gray-300
-                        rounded-lg shadow-sm opacity-0 invisible transition">
+                        class="absolute right-0 mt-2 w-64 bg-white border border-gray-300 rounded-lg shadow-sm opacity-0 invisible transition">
 
                         {{-- User Header --}}
                         <div class="px-6 py-3 bg-white border-b border-gray-300 rounded-tl-lg rounded-tr-lg">
@@ -176,10 +160,10 @@
                                 <div class="flex-shrink-0">
                                     @if (auth()->user()->foto_profile)
                                         <img src="{{ auth()->user()->photo_url }}" alt="{{ auth()->user()->name }}"
-                                            class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-md ring-1 ring-gray-200">
+                                            class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md ring-1 ring-gray-200">
                                     @else
                                         <div
-                                            class="w-14 h-14 rounded-full bg-blue-100 border-2 border-blue-200 flex items-center justify-center shadow-sm">
+                                            class="w-12 h-12 rounded-full bg-blue-100 border-2 border-blue-200 flex items-center justify-center shadow-sm">
                                             <span class="text-lg font-semibold text-blue-700 uppercase">
                                                 {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
                                             </span>
@@ -202,11 +186,12 @@
                         {{-- Menu --}}
                         <div class="py-2">
                             {{-- Profile --}}
-                            <a href="{{ route('mahasiswa.profile.show') }}"
+                            <a href="{{ route('dosen.profile.show') }}"
                                 class="block px-5 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                 Profil Saya
                             </a>
-                            <a href="{{ route('mahasiswa.katalog.favorites') }}"
+
+                            <a href="{{ route('dosen.katalog.favorites') }}"
                                 class="block px-5 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                 Dokumen Tersimpan
                             </a>
@@ -261,8 +246,7 @@
 
                     {{-- Logo --}}
                     <div class="flex items-center gap-3">
-                        <div
-                            class="flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-amber-50 text-amber-700 shadow-sm">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-amber-50 text-amber-700 shadow-sm">
                             <span class="material-symbols-outlined !text-[24px]">
                                 library_books
                             </span>
@@ -287,16 +271,14 @@
 
                     {{-- Info --}}
                     <div class="mt-6 flex flex-wrap items-center gap-3">
-                        <div
-                            class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
+                        <div class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
                             <span class="material-symbols-outlined !text-[16px] text-amber-600">
                                 verified
                             </span>
                             Repository Terverifikasi
                         </div>
 
-                        <div
-                            class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
+                        <div class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-600 shadow-sm">
                             <span class="material-symbols-outlined !text-[16px] text-amber-600">
                                 security
                             </span>
@@ -405,8 +387,7 @@
 
         {{-- Bottom --}}
         <div class="border-t border-gray-200 bg-white/70 backdrop-blur-sm">
-            <div
-                class="max-w-[77rem] mx-auto px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="max-w-[77rem] mx-auto px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
                 {{-- Copyright --}}
                 <p class="text-[12px] text-gray-500 leading-relaxed">
@@ -430,7 +411,12 @@
         </div>
     </footer>
 
-    {{-- Js Dropdown arrow profile --}}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    {{-- Chart Js --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    {{-- Js Dropdown Toogle profile --}}
     <script>
         const button = document.getElementById('userMenuButton');
         const dropdown = document.getElementById('userDropdown');
@@ -453,9 +439,6 @@
             }
         });
     </script>
-
-    {{-- Chart Js --}}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     @stack('scripts')
 </body>

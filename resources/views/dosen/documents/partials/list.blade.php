@@ -27,7 +27,7 @@ Intinya AJAX =
 * pesan nasi goreng → dapur kirim hanya nasi goreng --}}
 
 @forelse ($documents as $index => $doc)
-    <div class="flex items-center gap-4 px-5 py-3 border-b last:border-none hover:bg-gray-50 transition group">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4 px-5 py-4 border-b last:border-none hover:bg-gray-50 transition group">
 
         {{-- Number --}}
         <div class="w-6 text-xs text-gray-400 font-medium text-center flex-shrink-0">
@@ -36,7 +36,7 @@ Intinya AJAX =
 
         {{-- Icon --}}
         <div
-            class="w-9 h-9 flex items-center justify-center rounded-lg bg-red-50 border border-red-200 text-red-500 flex-shrink-0">
+            class="hidden sm:flex w-9 h-9 items-center justify-center rounded-lg bg-red-50 border border-red-200 text-red-500 flex-shrink-0">
             <span class="material-symbols-outlined !text-[18px]">
                 picture_as_pdf
             </span>
@@ -44,15 +44,15 @@ Intinya AJAX =
 
         {{-- Content --}}
         <div class="flex-1 min-w-0">
-
+ 
             {{-- Title --}}
-            <p class="text-sm font-medium text-gray-900 truncate group-hover:text-gray-800">
+            <p class="text-sm font-semibold text-gray-900 group-hover:text-gray-800 leading-snug">
                 {{ $doc->title }}
             </p>
-
+ 
             {{-- Meta --}}
-            <div class="flex items-center flex-wrap gap-3 mt-1 text-xs text-gray-500">
-
+            <div class="flex items-center flex-wrap gap-x-3 gap-y-1.5 mt-2 text-[11px] text-gray-500">
+ 
                 {{-- Category --}}
                 <div class="flex items-center gap-1">
                     <span class="material-symbols-outlined !text-[14px]">
@@ -60,40 +60,40 @@ Intinya AJAX =
                     </span>
                     {{ $doc->category->name }}
                 </div>
-
-                <span>•</span>
-
+ 
+                <span class="hidden sm:inline text-gray-300">•</span>
+ 
                 {{-- Tahun Terbit --}}
                 <div class="flex items-center gap-1">
                     <span class="material-symbols-outlined !text-[14px]">
                         calendar_check
                     </span>
-                    Tahun Terbit {{ $doc->tahun_terbit }}
+                    Tahun {{ $doc->tahun_terbit }}
                 </div>
-
-                <span>•</span>
-
+ 
+                <span class="hidden sm:inline text-gray-300">•</span>
+ 
                 {{-- Status --}}
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl border text-[10px] font-medium
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-xl border text-[10px] font-medium
                     {{ $doc->status === 'approved'
                     ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                     : ($doc->status === 'pending'
                     ? 'bg-amber-50 text-amber-600 border-amber-200'
                     : 'bg-red-50 text-red-700 border-red-200') }}">
-
+ 
                     <span class="material-symbols-outlined !text-[12px]">
                         {{ $doc->status === 'approved' ? 'check_circle' : ($doc->status === 'pending' ? 'schedule' : 'cancel') }}
                     </span>
-
+ 
                     {{ ucfirst($doc->status) }}
                 </span>
-
+ 
             </div>
-
+ 
         </div>
 
         {{-- Actions buttons --}}
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1 mt-3 sm:mt-0 ml-auto sm:ml-0 border-t sm:border-none pt-2 sm:pt-0 w-full sm:w-auto">
 
             <a href="{{ route('dosen.documents.show', $doc->id) }}" class="p-2 hover:text-gray-700 transition"
                 title="Detail">
