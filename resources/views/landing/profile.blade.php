@@ -9,7 +9,8 @@
 
         {{-- Soft Decoration --}}
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none">
+        </div>
 
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
@@ -28,7 +29,7 @@
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-gray-900">
                     Repository Dokumen Akademik
                     <span class="text-yellow-600">
-                        Prodi Manajemen Informatika 
+                        Prodi Manajemen Informatika
                     </span>
                 </h1>
 
@@ -42,7 +43,8 @@
 
                 {{-- Info --}}
                 <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8">
-                    <div class="flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-3 rounded-xl border border-gray-200 bg-white/80 shadow-sm grow sm:grow-0">
+                    <div
+                        class="flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-3 rounded-xl border border-gray-200 bg-white/80 shadow-sm grow sm:grow-0">
                         <span class="material-symbols-outlined text-yellow-600 !text-[22px]">
                             school
                         </span>
@@ -55,12 +57,13 @@
                             </h4>
                         </div>
                     </div>
- 
-                    <div class="flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-3 rounded-xl border border-gray-200 bg-white/80 shadow-sm grow sm:grow-0">
+
+                    <div
+                        class="flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-3 rounded-xl border border-gray-200 bg-white/80 shadow-sm grow sm:grow-0">
                         <span class="material-symbols-outlined text-amber-600 !text-[22px]">
                             account_balance
                         </span>
- 
+
                         <div>
                             <p class="text-[11px] text-gray-500 uppercase tracking-wider">
                                 Universitas
@@ -71,7 +74,7 @@
                         </div>
                     </div>
                 </div>
- 
+
             </div>
 
         </div>
@@ -89,21 +92,18 @@
 
                 {{-- Left --}}
                 <div class="space-y-6">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-200
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-200
                         bg-amber-50 text-amber-700 text-[13px] font-medium mb-2">
                         <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                         Profil Sistem
                     </div>
- 
+
                     <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-950 leading-tight">
                         Sistem Penyimpanan
                         Dokumen Akademik Modern
                     </h2>
-                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-950 leading-tight">
-                        Sistem Penyimpanan
-                        Dokumen Akademik Modern
-                    </h2>
- Broadway
+
                     <p class="mt-5 text-[15px] leading-relaxed text-gray-600">
                         Repository ini dirancang untuk membantu mahasiswa,
                         dosen, dan program studi dalam mengelola dokumen
@@ -121,7 +121,8 @@
                 </div>
 
                 {{-- Right --}}
-                <div class="relative overflow-hidden rounded-3xl border border-yellow-100 bg-gradient-to-br from-yellow-50 via-white to-amber-50 p-8 shadow-sm">
+                <div
+                    class="relative overflow-hidden rounded-3xl border border-yellow-100 bg-gradient-to-br from-yellow-50 via-white to-amber-50 p-8 shadow-sm">
 
                     {{-- Glow --}}
                     <div class="absolute top-0 right-0 w-52 h-52 bg-yellow-300/30 rounded-full blur-3xl"> </div>
@@ -129,7 +130,8 @@
                     <div class="relative space-y-5">
                         {{-- Item --}}
                         <div class="flex gap-4 p-5 rounded-2xl border border-gray-200 bg-white shadow-sm">
-                            <div class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center
+                            <div
+                                class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center
                                 text-yellow-700 shrink-0">
                                 <span class="material-symbols-outlined !text-[28px]">
                                     security
@@ -149,7 +151,8 @@
 
                         {{-- Item --}}
                         <div class="flex gap-4 p-5 rounded-2xl border border-gray-200 bg-white shadow-sm">
-                            <div class="w-14 h-14 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700 shrink-0">
+                            <div
+                                class="w-14 h-14 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700 shrink-0">
                                 <span class="material-symbols-outlined !text-[28px]">
                                     manage_search
                                 </span>
@@ -166,10 +169,12 @@
                         </div>
 
                         {{-- Item --}}
-                        <div class="flex gap-4 p-5 rounded-2xl
+                        <div
+                            class="flex gap-4 p-5 rounded-2xl
                             border border-gray-200 bg-white shadow-sm">
 
-                            <div class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center
+                            <div
+                                class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center
                                 text-yellow-700 shrink-0">
                                 <span class="material-symbols-outlined !text-[28px]">
                                     cloud_done
@@ -197,14 +202,16 @@
     </section>
 
     {{-- Vision Mission --}}
-    <section class="relative overflow-hidden border-y border-yellow-10 bg-gradient-to-br from-yellow-50 via-amber-50 to-white">
+    <section
+        class="relative overflow-hidden border-y border-yellow-10 bg-gradient-to-br from-yellow-50 via-amber-50 to-white">
 
         {{-- Soft Decoration --}}
         <div class="absolute left-0 top-0 w-80 h-80 bg-yellow-200/30 rounded-full blur-3xl"></div>
 
         <div class="max-w-[78rem] mx-auto px-6 py-20">
             <div class="text-center max-w-3xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-200 bg-white/80 shadow-sm text-sm font-medium
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-200 bg-white/80 shadow-sm text-sm font-medium
                     text-yellow-700 mb-5">
                     <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                     Visi & Misi
@@ -219,7 +226,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-12">
                 {{-- Vision --}}
                 <div class="rounded-3xl border border-yellow-200 bg-white/80 backdrop-blur-sm p-8 shadow-sm">
-                    <div class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center text-yellow-700 mb-5">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center text-yellow-700 mb-5">
                         <span class="material-symbols-outlined !text-[28px]">
                             visibility
                         </span>
@@ -239,7 +247,8 @@
 
                 {{-- Mission --}}
                 <div class="rounded-3xl border border-amber-200 bg-white/80 backdrop-blur-sm p-8 shadow-sm">
-                    <div class="w-14 h-14 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700 mb-5">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700 mb-5">
                         <span class="material-symbols-outlined !text-[28px]">
                             flag
                         </span>

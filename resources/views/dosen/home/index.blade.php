@@ -5,8 +5,6 @@
 @section('content')
 
     {{-- Header Section --}}
-    {{-- <section
-        class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100"> --}}
     <section class="relative overflow-hidden border-b border-yellow-100 bg-cover bg-center bg-no-repeat"
         style="background-image: url('{{ asset('img/fiks.webp') }}');">
 
@@ -19,7 +17,6 @@
         {{-- Content Head --}}
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
-
                 {{-- Badge --}}
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 
                     bg-white text-yellow-700 text-sm font-medium shadow-md mb-6">
@@ -47,7 +44,6 @@
 
                 {{-- Action Buttons --}}
                 <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center gap-4">
- 
                     {{-- Primary --}}
                     <a href="{{ route('dosen.katalog.global') }}"
                         class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-5 sm:py-3 rounded-lg bg-yellow-600 hover:bg-yellow-700 
@@ -57,7 +53,7 @@
                         </span>
                         Jelajahi Repository
                     </a>
- 
+
                     {{-- Secondary --}}
                     <a href="{{ route('dosen.documents.create') }}"
                         class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-amber-400 bg-white/90 hover:bg-amber-50
@@ -67,30 +63,23 @@
                         </span>
                         Unggah Dokumen
                     </a>
- 
                 </div>
+            </div>
+
+            {{-- Bottom Info --}}
+            <div class="mt-10 flex flex-wrap items-center gap-6 text-xs text-gray-800">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    Akses Cepat
                 </div>
- 
-                {{-- Bottom Info --}}
-                <div class="mt-10 flex flex-wrap items-center gap-6 text-xs text-gray-800">
-
-                    <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                        Akses Cepat
-                    </div>
-
-                    <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
-                        Repository Terpusat
-                    </div>
-
-                    <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-                        Tampilan Modern
-                    </div>
-
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+                    Repository Terpusat
                 </div>
-
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                    Tampilan Modern
+                </div>
             </div>
         </div>
     </section>
@@ -103,7 +92,6 @@
             <div
                 class="group h-full min-h-[210px] bg-white backdrop-blur-sm border border-red-200 rounded-xl p-8 flex flex-col 
                 justify-between transition-all duration-300 hover:border-red-300 hover:shadow-red-300">
-
                 {{-- Top --}}
                 <div class="flex items-center justify-between">
                     <div class="w-12 h-12 rounded-xl bg-red-50 border border-red-300 flex items-center justify-center">
@@ -132,7 +120,6 @@
             <div
                 class="group h-full min-h-[210px] bg-white backdrop-blur-sm border border-amber-200 rounded-xl p-8 flex flex-col 
                 justify-between transition-all duration-300 hover:border-amber-300 hover:shadow-amber-300">
-
                 {{-- Top --}}
                 <div class="flex items-center justify-between">
                     <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-300 flex items-center justify-center">
@@ -161,7 +148,6 @@
             <div
                 class="group h-full min-h-[210px] bg-white backdrop-blur-sm border border-blue-200 rounded-xl p-8 flex flex-col 
                 justify-between transition-all duration-300 hover:border-blue-300 hover:shadow-blue-300">
-
                 {{-- Top --}}
                 <div class="flex items-center justify-between">
                     <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-300 flex items-center justify-center">
@@ -185,17 +171,13 @@
                     </p>
                 </div>
             </div>
-
         </div>
-
     </section>
 
     {{-- Documents Section --}}
     <section class="w-full max-w-[77rem] mx-auto px-6 py-20">
-
         {{-- Header --}}
         <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-6">
-
             {{-- Left --}}
             <div class="max-w-2xl">
                 {{-- Badge --}}
@@ -232,7 +214,6 @@
                     </span>
                 </a>
             </div>
-
         </div>
 
         {{-- Cards --}}
@@ -354,21 +335,15 @@
     </section>
 
     {{-- Keunggulan Section --}}
-    <section
-        class="relative overflow-hidden shadow-amber-100 bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-y border-yellow-100">
+    <section class="relative overflow-hidden shadow-amber-100 bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-y border-yellow-100">
 
         {{-- Soft Decoration --}}
         <div class="absolute -top-32 -left-32 w-80 h-80 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div
-            class="absolute bottom-0 right-0 w-[280px] h-[280px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none">
-        </div>
+        <div class="absolute bottom-0 right-0 w-[280px] h-[280px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative max-w-[78rem] mx-auto px-6 py-16">
-
             {{-- Heading --}}
             <div class="max-w-2xl mb-10">
-
                 {{-- Badge --}}
                 <div
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-amber-300
@@ -392,7 +367,6 @@
 
             {{-- Grid --}}
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
                 {{-- Card --}}
                 <div
                     class="group relative overflow-hidden rounded-xl border border-amber-200 bg-white/80 backdrop-blur-sm
@@ -421,7 +395,6 @@
                             melalui sistem pencarian modern.
                         </p>
                     </div>
-
                 </div>
 
                 {{-- Card --}}
@@ -483,31 +456,27 @@
                             Semua dokumen tersimpan dalam
                             satu sistem digital modern.
                         </p>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </section>
 
     {{-- CTA Section --}}
     <section class="max-w-[78rem] mx-auto px-6 py-20">
-        <div class="relative overflow-hidden rounded-2xl border border-amber-200  bg-gradient-to-br from-yellow-50 via-amber-50 to-white
+        <div
+            class="relative overflow-hidden rounded-2xl border border-amber-200  bg-gradient-to-br from-yellow-50 via-amber-50 to-white
             px-8 py-14 lg:px-14 lg:py-16">
 
             {{-- Soft Blur --}}
             <div class="absolute -top-24 -right-24 w-72 h-72 bg-yellow-200/40 rounded-full blur-3xl pointer-events-none"></div>
-
             <div class="absolute bottom-0 left-0 w-60 h-60 bg-amber-100/50 rounded-full blur-3xl pointer-events-none"></div>
 
             {{-- Content --}}
             <div class="relative max-w-3xl">
                 {{-- Badge --}}
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full  bg-white/80 backdrop-blur-sm border border-yellow-200
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full  bg-white/80 backdrop-blur-sm border border-yellow-200
                     text-yellow-700 text-sm font-medium shadow-sm mb-5">
                     <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                     Unggah Repository Akademik
@@ -530,24 +499,25 @@
 
                 {{-- Action buttons --}}
                 <div class="mt-10 flex flex-col sm:flex-row items-center gap-4">
-                    <a href="{{ route('dosen.documents.create') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gray-950 
+                    <a href="{{ route('dosen.documents.create') }}"
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gray-950 
                         text-white text-[13px] font-medium transition-all duration-300 hover:bg-black hover:-translate-y-0.5 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             upload_file
                         </span>
                         Unggah Dokumen
                     </a>
- 
-                    <a href="{{ route('dosen.katalog.global') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 
+
+                    <a href="{{ route('dosen.katalog.global') }}"
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-amber-200 bg-white backdrop-blur-sm 
                         text-gray-800 text-[13px] font-medium transition-all duration-300 hover:bg-amber-50 hover:border-amber-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
                         Jelajahi Repository
                     </a>
+                </div>
             </div>
- 
-        </div>
     </section>
 
 @endsection

@@ -51,10 +51,8 @@
 
                     {{-- Search Input --}}
                     <div class="flex-1 relative">
-
                         {{-- Icon --}}
-                        <span
-                            class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 !text-[20px]">
+                        <span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 !text-[20px]">
                             search
                         </span>
 
@@ -68,8 +66,8 @@
 
                     {{-- Button --}}
                     <button type="submit"
-                        class="h-14 px-6 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm font-medium inline-flex items-center 
-                        justify-center gap-2 shadow-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-300">
+                        class="h-14 px-6 rounded-xl border border-amber-200 bg-amber-50 text-amber-600 text-sm font-medium inline-flex items-center 
+                        justify-center gap-2 shadow-sm transition-all duration-200 hover:bg-amber-100 hover:border-amber-300">
                         <span class="material-symbols-outlined text-[19px]">
                             search
                         </span>

@@ -97,7 +97,6 @@
     {{-- Statistics Section --}}
     <section class="w-full max-w-[78rem] mx-auto px-4 sm:px-6 -mt-8 sm:-mt-10 relative z-10">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-7">
- Broadway
             {{-- Card total dokumen --}}
             <div
                 class="group h-full min-h-[210px] bg-white backdrop-blur-sm border border-red-200 rounded-xl p-8 flex flex-col 

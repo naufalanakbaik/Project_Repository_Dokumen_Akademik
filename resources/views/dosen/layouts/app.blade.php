@@ -18,7 +18,7 @@
     {{-- Material Symbols --}}
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"rel="stylesheet">
 
-    {{-- Favicon --}}
+    {{-- Web Icon --}}
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
 
     {{-- Tailwind CSS + JS --}}
@@ -135,7 +135,7 @@
                 {{-- Right section --}}
                 <div class="relative inline-block text-left">
 
-                    {{-- Mobile Hamburger --}}
+                    {{-- Mobile Hamburger Menu --}}
                     <button id="mobileMenuButton" class="flex md:hidden items-center p-2 text-gray-600 hover:text-amber-600 focus:outline-none">
                         <span class="material-symbols-outlined !text-[26px]">
                             menu
@@ -221,20 +221,25 @@
     </nav>
 
     {{-- Mobile Sidebar --}}
-    <div id="mobileSidebarOverlay" class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 md:hidden"></div>
-    <div id="mobileSidebar" class="fixed top-0 left-0 bottom-0 z-[70] w-[280px] bg-white shadow-2xl -translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col">
+    {{-- Sidebar Efek --}}
+    <div id="mobileSidebarOverlay" 
+        class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 md:hidden">
+    </div>
+    {{-- Sidebar Content --}}
+    <div id="mobileSidebar" class="fixed top-0 left-0 bottom-0 z-[70] w-[280px] bg-white shadow-2xl -translate-x-full transition-transform 
+        duration-300 ease-in-out md:hidden flex flex-col">
         {{-- Header --}}
         <div class="p-5 border-b border-gray-100 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <img src="{{ asset('img/logo-img/logo-unsri.png') }}" class="w-8 h-8 object-contain">
-                <span class="font-bold text-gray-900 text-sm">SIP Repository</span>
+                <span class="font-bold text-gray-900 text-sm">Sistem Repository</span>
             </div>
             <button id="closeMobileMenu" class="p-1 text-gray-400 hover:text-gray-900 transition">
                 <span class="material-symbols-outlined !text-[22px]">close</span>
             </button>
         </div>
 
-        {{-- Profile Section --}}
+        {{-- Profile section --}}
         <div class="p-5 bg-gradient-to-br from-yellow-50 to-white border-b border-gray-100">
             <div class="flex items-center gap-3">
                 @if (auth()->user()->foto_profile)
@@ -251,22 +256,30 @@
             </div>
         </div>
 
-        {{-- Nav Links --}}
+        {{-- Nav Menu --}}
         <div class="flex-1 overflow-y-auto p-4 space-y-1">
             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mb-2">Main Menu</p>
-            <a href="{{ route('dosen.home') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('dosen.home') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+            <a href="{{ route('dosen.home') }}" 
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('dosen.home') ? 
+                'bg-amber-50 text-amber-600 border border-amber-200 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
                 <span class="material-symbols-outlined !text-[20px]">home</span>
                 Beranda
             </a>
-            <a href="{{ route('dosen.katalog.global') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('dosen.katalog.*') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+            <a href="{{ route('dosen.katalog.global') }}" 
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('dosen.katalog.*') ? 
+                'bg-amber-50 text-amber-600 border border-amber-200 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
                 <span class="material-symbols-outlined !text-[20px]">grid_view</span>
                 Repositori
             </a>
-            <a href="{{ route('dosen.dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('dosen.dashboard') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+            <a href="{{ route('dosen.dashboard') }}" 
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('dosen.dashboard') ? 
+                'bg-amber-50 text-amber-600 border border-amber-200 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
                 <span class="material-symbols-outlined !text-[20px]">analytics</span>
                 Aktivitas
             </a>
-            <a href="{{ route('dosen.documents.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('dosen.documents.*') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+            <a href="{{ route('dosen.documents.index') }}" 
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('dosen.documents.*') ? 
+                'bg-amber-50 text-amber-600 border border-amber-200 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
                 <span class="material-symbols-outlined !text-[20px]">description</span>
                 Dokumen Saya
             </a>
@@ -311,6 +324,7 @@
             </div>
         @endif
 
+        {{-- Isi Content --}}
         @yield('content')
     </main>
 
@@ -319,10 +333,8 @@
         {{-- Top --}}
         <div class="max-w-[77rem] mx-auto px-6 py-14">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-
                 {{-- Brand --}}
                 <div class="lg:col-span-5">
-
                     {{-- Logo --}}
                     <div class="flex items-center gap-3">
                         <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-amber-50 text-amber-700 shadow-sm">
@@ -414,7 +426,6 @@
                         Informasi
                     </h3>
                     <div class="space-y-4">
-
                         {{-- Fakultas --}}
                         <div class="flex items-start gap-3">
                             <span class="material-symbols-outlined !text-[18px] text-amber-600 mt-0.5">
@@ -467,7 +478,6 @@
         {{-- Bottom --}}
         <div class="border-t border-gray-200 bg-white/70 backdrop-blur-sm">
             <div class="max-w-[77rem] mx-auto px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
                 {{-- Copyright --}}
                 <p class="text-[12px] text-gray-500 leading-relaxed">
                     © 2025 - {{ date('Y') }} Repository Dokumen Akademik.
@@ -490,6 +500,7 @@
         </div>
     </footer>
 
+    {{-- Alpine.js --}}
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     {{-- Chart Js --}}

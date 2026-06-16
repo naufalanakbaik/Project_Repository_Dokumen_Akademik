@@ -10,17 +10,12 @@
 
     {{-- SEO --}}
     <meta name="description" content="@yield('meta_description', 'Repository dokumen akademik digital untuk akses laporan, jurnal, penelitian, dan dokumen kampus secara modern.')">
-
-    <meta name="keywords"
-        content="repository akademik, jurnal mahasiswa, laporan tugas akhir, repository kampus, dokumen akademik">
-
+    <meta name="keywords" content="repository akademik, jurnal mahasiswa, laporan tugas akhir, repository kampus, dokumen akademik">
     <meta name="author" content="Repository Akademik">
 
     {{-- Open Graph --}}
     <meta property="og:title" content="@yield('title', 'Repository Dokumen Akademik')">
-
     <meta property="og:description" content="@yield('meta_description', 'Repository dokumen akademik digital modern.')">
-
     <meta property="og:type" content="website">
 
     {{-- Preconnect --> agar icon tidak 2x relaod --}}
@@ -33,7 +28,7 @@
     {{-- Material Symbols --}}
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"rel="stylesheet">
 
-    {{-- Favicon --}}
+    {{-- Web Icon --}}
     <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('img/logo-katalog_pustaka.png') }}">
 
     {{-- Vite Assets --}}
@@ -180,7 +175,11 @@
     </nav>
 
     {{-- Mobile Sidebar --}}
-    <div id="mobileSidebarOverlay" class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 md:hidden"></div>
+    {{-- Sidebar effect --}}
+    <div id="mobileSidebarOverlay" 
+        class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 md:hidden">
+    </div>
+    {{-- Sidebar Menu --}}
     <div id="mobileSidebar" class="fixed top-0 left-0 bottom-0 z-[70] w-[280px] bg-white shadow-2xl -translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col">
         {{-- Header --}}
         <div class="p-5 border-b border-gray-100 flex items-center justify-between">
@@ -196,15 +195,20 @@
         {{-- Nav Links --}}
         <div class="flex-1 overflow-y-auto p-4 space-y-1">
             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mb-2">Main Menu</p>
-            <a href="{{ route('landing') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('landing') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+            <a href="{{ route('landing') }}" 
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('landing') ? 
+                'bg-amber-50 text-amber-600 border border-amber-200 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
                 <span class="material-symbols-outlined !text-[20px]">home</span>
                 Beranda
             </a>
-            <a href="{{ route('repository') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('repository*') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+            <a href="{{ route('repository') }}" 
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('repository*') ? 
+                'bg-amber-50 text-amber-600 border border-amber-200 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
                 <span class="material-symbols-outlined !text-[20px]">grid_view</span>
                 Repositori
             </a>
-            <a href="{{ route('profile') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('profile') ? 'bg-amber-50 text-amber-600 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
+            <a href="{{ route('profile') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm {{ request()->routeIs('profile') ? 
+                'bg-amber-50 text-amber-600 border border-amber-200 font-semibold' : 'text-gray-600 hover:bg-gray-50' }}">
                 <span class="material-symbols-outlined !text-[20px]">group</span>
                 Profile Kami
             </a>
@@ -212,11 +216,13 @@
             <div class="pt-4 mt-4 border-t border-gray-100">
                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mb-2">Akses Sistem</p>
                 <div class="grid grid-cols-2 gap-2 px-1">
-                    <a href="{{ route('login') }}" class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-amber-500 text-white font-semibold text-xs shadow-sm shadow-amber-200">
+                    <a href="{{ route('login') }}" 
+                        class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-amber-500 text-white font-semibold text-xs shadow-sm shadow-amber-200">
                         <span class="material-symbols-outlined !text-[16px]">login</span>
                         Login
                     </a>
-                    <a href="{{ route('register') }}" class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-gray-600 font-semibold text-xs transition hover:bg-gray-50">
+                    <a href="{{ route('register') }}" 
+                        class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-gray-600 font-semibold text-xs transition hover:bg-gray-50">
                         Register
                     </a>
                 </div>
@@ -404,7 +410,7 @@
         </div>
     </footer>
 
-    {{-- Mobile Menu Script --}}
+    {{-- --> Mobile Menu Script --}}
     <script>
         const mobileMenuButton = document.getElementById('mobileMenuButton');
         const closeMobileMenu = document.getElementById('closeMobileMenu');
