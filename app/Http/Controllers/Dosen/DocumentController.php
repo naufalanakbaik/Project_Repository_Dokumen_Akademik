@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    // --- List daftar dokumen saya (pribadi) dengan AJAX
+    // --> List daftar dokumen saya (pribadi) dengan AJAX
     public function index(Request $request)
     {
         $query = Document::with('category')
@@ -40,7 +40,7 @@ class DocumentController extends Controller
     }
 
 
-    // --- Daftar dokumen global seluruh pengguna
+    // --> Daftar dokumen global seluruh pengguna
     public function global(Request $request)
     {
         /*
@@ -48,8 +48,6 @@ class DocumentController extends Controller
         | Query Dasar
         |--------------------------------------------------------------------------
         */
-        // $query = Document::with(['user', 'category'])
-        //     ->where('status', 'approved');
         $query = Document::with([
             'user',
             'category'
@@ -128,11 +126,6 @@ class DocumentController extends Controller
             ->orderByDesc('tahun_terbit')
             ->pluck('tahun_terbit');
 
-        // $favorites = auth()->user()
-        //     ->favoriteDocuments()
-        //     ->pluck('documents.id')
-        //     ->toArray();
-
         /*
         |--------------------------------------------------------------------------
         | Return View
@@ -147,7 +140,7 @@ class DocumentController extends Controller
     }
 
 
-    // --- Detail dokumen khusus (seluruh pengguna global)
+    // --> Detail dokumen khusus (seluruh pengguna global)
     public function showGlobal($id)
     {
         $document = Document::with(['user', 'category'])->findOrFail($id);
@@ -161,7 +154,7 @@ class DocumentController extends Controller
     }
 
 
-    // -- Form unggah dokumen
+    // --> Form unggah dokumen
     public function create()
     {
         $categories = Category::all();
@@ -169,7 +162,7 @@ class DocumentController extends Controller
     }
 
 
-    // -- Proses simpan dokumen (Dosen -> Approved)
+    // --> Proses simpan dokumen (Dosen -> Approved)
     public function store(Request $request)
     {
         $request->validate([
@@ -210,7 +203,7 @@ class DocumentController extends Controller
     }
 
 
-    // -- Form edit dokumen
+    // --> Form edit dokumen
     public function edit($id)
     {
         $document = Document::findOrFail($id);
@@ -226,7 +219,7 @@ class DocumentController extends Controller
     }
 
 
-    // -- Proses perbarui dokumen
+    // --> Proses perbarui dokumen
     public function update(Request $request, $id)
     {
         $document = Document::findOrFail($id);
@@ -279,7 +272,7 @@ class DocumentController extends Controller
     }
 
 
-    // -- Detail dokumen saya
+    // --> Detail dokumen saya
     public function show($id)
     {
         $document = Document::with(['user', 'category'])->findOrFail($id);
@@ -292,7 +285,7 @@ class DocumentController extends Controller
     }
 
 
-    // -- Preview dokumen
+    // --> Preview dokumen
     public function preview($id)
     {
         $document = Document::findOrFail($id);
@@ -313,7 +306,7 @@ class DocumentController extends Controller
     }
 
 
-    // -- Download dokumen
+    // --> Download dokumen
     public function download($id)
     {
         $document = Document::findOrFail($id);
@@ -332,7 +325,7 @@ class DocumentController extends Controller
     }
 
 
-    // -- Tambah dokumen ke favorit
+    // --> Tambah dokumen ke favorit
     public function favorite($id)
     {
         auth()->user()
@@ -346,7 +339,7 @@ class DocumentController extends Controller
     }
 
 
-    // -- Hapus dokumen dari favorit
+    // --> Hapus dokumen dari favorit
     public function unfavorite($id)
     {
         auth()->user()
@@ -360,9 +353,11 @@ class DocumentController extends Controller
     }
 
 
-    // -- Halaman daftar dokumen favorit
-    public function favorites()
+    // --> Halaman daftar dokumen favorit
+    public function favorites(Request $request)
     {
+        $search = $request->search;
+
         $documents = auth()->user()
             ->favoriteDocuments()
             ->with([
@@ -370,8 +365,17 @@ class DocumentController extends Controller
                 'category'
             ])
             ->withCount('favoritedBy')
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhereHas('user', function ($user) use ($search) {
+                            $user->where('name', 'like', "%{$search}%");
+                        });
+                });
+            })
             ->latest()
-            ->paginate(9);
+            ->paginate(9)
+            ->withQueryString();
 
         return view(
             'dosen.katalog.favorites',

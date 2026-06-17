@@ -30,6 +30,55 @@
             </div>
         </div>
 
+        {{-- Search / Pencarian --}}
+        <form method="GET" action="{{ route('mahasiswa.katalog.favorites') }}"
+            class="bg-white border border-gray-200 rounded-xl p-5 mb-5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+                {{-- Search --}}
+                <div class="lg:col-span-10">
+                    <label class="text-[13px] font-medium text-gray-500 ml-2 mb-1 block">
+                        Search
+                    </label>
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 !text-[19px] text-gray-400">
+                            search
+                        </span>
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            placeholder="Cari judul dokumen atau nama user..."
+                            class="w-full h-10 rounded-lg border border-gray-300 pl-12 pr-4 text-[13px] text-gray-700
+                            placeholder:text-gray-400 focus:border-yellow-400 focus:ring-4 focus:ring-yellow-100
+                            outline-none transition">
+                    </div>
+                </div>
+
+                {{-- Action --}}
+                <div class="lg:col-span-2 flex items-end gap-2.5">
+                    {{-- Search --}}
+                    <button type="submit"
+                        class="h-10 w-10 shrink-0 inline-flex items-center justify-center border border-amber-300 rounded-lg bg-amber-100 
+                        text-amber-700 hover:bg-yellow-200 transition shadow-sm">
+                        <span class="material-symbols-outlined !text-[20px]">
+                            search
+                        </span>
+                    </button>
+
+                    {{-- Reset --}}
+                    <a href="{{ route('mahasiswa.katalog.favorites') }}"
+                        class="h-10 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-300 bg-white px-4
+                        text-gray-600 hover:bg-gray-50 transition shadow-sm">
+                        <span class="material-symbols-outlined !text-[17px]">
+                            refresh
+                        </span>
+                        <span class="text-[13px] font-medium whitespace-nowrap">
+                            Reset
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </form>
+
         {{-- Main cards --}}
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 

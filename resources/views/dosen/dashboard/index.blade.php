@@ -2,6 +2,7 @@
 @section('title', 'Monitoring Dashboard')
 
 @section('content')
+
     {{-- Header + Quick Action --}}
     <section class="relative overflow-hidden border-b border-yellow-100 bg-cover bg-center bg-no-repeat"
         style="background-image: url('{{ asset('img/fiks.webp') }}');">

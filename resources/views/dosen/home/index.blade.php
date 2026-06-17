@@ -56,8 +56,8 @@
 
                     {{-- Secondary --}}
                     <a href="{{ route('dosen.documents.create') }}"
-                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-amber-400 bg-white/90 hover:bg-amber-50
-                        text-gray-700 text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-auto">
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-5 sm:py-3 rounded-lg border border-amber-400 bg-white/90 hover:bg-amber-50
+                        text-gray-700 text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                             upload_file
                         </span>

@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Mahasiswa;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Models\Document;
 use App\Models\Category;
 use App\Models\DocumentLog;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 class DocumentController extends Controller
 {
@@ -417,8 +418,10 @@ class DocumentController extends Controller
 
 
     // -- Halaman daftar dokumen favorit
-    public function favorites()
+    public function favorites(Request $request)
     {
+        $search = $request->search;
+
         $documents = auth()->user()
             ->favoriteDocuments()
             ->with([
@@ -426,12 +429,22 @@ class DocumentController extends Controller
                 'category'
             ])
             ->withCount('favoritedBy')
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhereHas('user', function ($user) use ($search) {
+                            $user->where('name', 'like', "%{$search}%");
+                        });
+                });
+            })
             ->latest()
-            ->paginate(9);
+            ->paginate(9)
+            ->withQueryString();
 
         return view(
             'mahasiswa.katalog.favorites',
             compact('documents')
         );
     }
+
 }

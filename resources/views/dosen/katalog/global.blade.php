@@ -117,7 +117,7 @@
                             filter_alt
                         </span>
                     </button>
- 
+
                     {{-- Reset --}}
                     <a href="{{ route('dosen.katalog.global') }}"
                         class="h-10 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-300 bg-white
@@ -130,7 +130,6 @@
                         </span>
                     </a>
                 </div>
- Broadway
             </div>
         </form>
 

@@ -14,6 +14,17 @@ class DashboardController extends Controller
     public function index()
     {
         $userId = Auth::id();
+        $user = Auth::user();
+
+        $hour = now('Asia/Jakarta')->hour;
+
+        $greeting = match (true) {
+            $hour >= 5 && $hour < 12 => 'Selamat Pagi',
+            $hour >= 12 && $hour < 15 => 'Selamat Siang',
+            $hour >= 15 && $hour < 18 => 'Selamat Sore',
+            default => 'Selamat Malam',
+        };
+
         $currentYear = now()->year;
 
         /*
@@ -312,6 +323,9 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
         return view('dosen.dashboard.index', compact(
+            'user',
+            'greeting',
+
             'stats',
             'recentActivities',
             'uploadChartData',

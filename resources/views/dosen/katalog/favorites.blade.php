@@ -30,6 +30,55 @@
             </div>
         </div>
 
+        {{-- Search / Pencarian --}}
+        <form method="GET" action="{{ route('dosen.katalog.favorites') }}"
+            class="bg-white border border-gray-200 rounded-xl p-5 mb-5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+                {{-- Search --}}
+                <div class="lg:col-span-10">
+                    <label class="text-[13px] font-medium text-gray-500 ml-2 mb-1 block">
+                        Search
+                    </label>
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 !text-[19px] text-gray-400">
+                            search
+                        </span>
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            placeholder="Cari judul dokumen atau nama user..."
+                            class="w-full h-10 rounded-lg border border-gray-300 pl-12 pr-4 text-[13px] text-gray-700
+                            placeholder:text-gray-400 focus:border-yellow-400 focus:ring-4 focus:ring-yellow-100
+                            outline-none transition">
+                    </div>
+                </div>
+
+                {{-- Action --}}
+                <div class="lg:col-span-2 flex items-end gap-2.5">
+                    {{-- Search --}}
+                    <button type="submit"
+                        class="h-10 w-10 shrink-0 inline-flex items-center justify-center border border-amber-300 rounded-lg bg-amber-100 
+                        text-amber-700 hover:bg-yellow-200 transition shadow-sm">
+                        <span class="material-symbols-outlined !text-[20px]">
+                            search
+                        </span>
+                    </button>
+
+                    {{-- Reset --}}
+                    <a href="{{ route('dosen.katalog.favorites') }}"
+                        class="h-10 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-300 bg-white px-4
+                        text-gray-600 hover:bg-gray-50 transition shadow-sm">
+                        <span class="material-symbols-outlined !text-[17px]">
+                            refresh
+                        </span>
+                        <span class="text-[13px] font-medium whitespace-nowrap">
+                            Reset
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </form>
+
         {{-- Main cards --}}
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
@@ -39,21 +88,20 @@
                     transition-all duration-300 hover:-translate-y-1 hover:border-red-300 hover:shadow-lg hover:shadow-red-100/40">
 
                     {{-- Glow Effect --}}
-                    <div class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-red-100/40 via-transparent to-rose-50/40
+                    <div
+                        class="absolute inset-0 opacity-0 transition duration-500 bg-gradient-to-br from-red-100/40 via-transparent to-rose-50/40
                         group-hover:opacity-100">
                     </div>
 
                     {{-- Unfavorite button (hapus dari favorite) --}}
                     <div class="absolute top-4 right-4 z-20">
-                        <form action="{{ route('dosen.documents.unfavorite', $document->id) }}"
-                            method="POST"
+                        <form action="{{ route('dosen.documents.unfavorite', $document->id) }}" method="POST"
                             onclick="event.stopPropagation();">
 
                             @csrf
                             @method('DELETE')
 
-                            <button type="submit"
-                                onclick="event.preventDefault(); this.closest('form').submit();"
+                            <button type="submit" onclick="event.preventDefault(); this.closest('form').submit();"
                                 class="flex items-center justify-center w-10 h-10 rounded-full border border-red-200 bg-white/90 backdrop-blur-sm
                                 text-red-600 shadow-sm transition-all duration-300 hover:bg-red-50 hover:scale-105">
                                 <span class="material-symbols-outlined text-[20px]">
@@ -67,7 +115,8 @@
                     <div class="relative p-6 flex flex-col h-full">
                         {{-- Category --}}
                         <div class="mb-5">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200
+                            <span
+                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200
                                 text-amber-700 text-[11px] font-medium">
                                 <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                                 {{ $document->category->name }}
@@ -120,7 +169,8 @@
                         <div class="mt-3 flex items-center justify-between gap-4">
                             {{-- User --}}
                             <div class="flex items-center gap-3 min-w-0">
-                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full
                                     border border-indigo-300 bg-indigo-50 text-xs font-semibold tracking-wide text-indigo-600">
                                     {{ strtoupper(substr($document->user->name, 0, 1)) }}
                                 </div>
@@ -136,7 +186,8 @@
                             </div>
 
                             {{-- Detail --}}
-                            <div class="flex items-center gap-1.5 text-[13px] font-normal text-gray-400 transition-all duration-300
+                            <div
+                                class="flex items-center gap-1.5 text-[13px] font-normal text-gray-400 transition-all duration-300
                                 group-hover:text-red-600">
                                 <span>
                                     Detail
@@ -150,10 +201,12 @@
                 </a>
             @empty
                 {{-- Empty State --}}
-                <div class="col-span-full rounded-xl border border-dashed border-red-200 bg-gradient-to-br from-white to-red-50/40
+                <div
+                    class="col-span-full rounded-xl border border-dashed border-red-200 bg-gradient-to-br from-white to-red-50/40
                     p-16 text-center shadow-sm">
                     {{-- Icon --}}
-                    <div class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-red-50 to-rose-50
+                    <div
+                        class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-red-50 to-rose-50
                         border border-red-100 flex items-center justify-center text-red-500 shadow-inner">
                         <span class="material-symbols-outlined text-[40px]">
                             bookmark_remove
