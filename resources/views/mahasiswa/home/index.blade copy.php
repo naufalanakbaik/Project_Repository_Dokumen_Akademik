@@ -4,16 +4,24 @@
 @section('content')
 
     {{-- Header Section --}}
+    {{-- <section class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100"> --}}
     <section class="relative overflow-hidden border-b border-yellow-100 bg-cover bg-center bg-no-repeat"
         style="background-image: url('{{ asset('img/fiks.webp') }}');">
 
         {{-- Soft Decoration --}}
-        <div class="absolute inset-0 bg-gradient-to-r from-yellow-100/70 via-white/50 to-white/10"></div>
-        <div class="absolute inset-0 bg-gradient-to-br from-yellow-300/70 via-transparent to-transparent"></div>
+        {{-- <div class="absolute inset-0 bg-gradient-to-r from-white/50 via-white/30 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-yellow-200 via-amber-50/20 to-transparent"></div> --}}
+        {{-- <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div> --}}
+
+        {{-- Soft Decoration --}}
+        <div class="absolute inset-0 bg-gradient-to-r from-yellow-200/70 via-white/50 to-white/10"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-yellow-200/70 via-transparent to-transparent"></div>
 
         {{-- Content Head --}}
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
+
                 {{-- Badge --}}
                 <div
                     class="inline-flex items-center gap-2 rounded-full border border-yellow-300 bg-white/90 backdrop-blur-md px-5 py-2 
@@ -23,17 +31,17 @@
                 </div>
 
                 {{-- Heading --}}
-                <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-gray-950 
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight text-gray-950 
                     drop-shadow-[0_2px_8px_rgba(255,255,255,0.4)]">
                     Akses Dokumen Akademik
                     <span
-                        class="block mt-1 bg-gradient-to-r from-yellow-600 via-amber-500 to-orange-600 bg-clip-text text-transparent">
+                        class="block mt-1 bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 bg-clip-text text-transparent">
                         Lebih Modern & Terstruktur
                     </span>
                 </h1>
 
                 {{-- Description --}}
-                <p class="mt-6 text-[15px] leading-relaxed text-gray-800 font-medium max-w-2xl">
+                <p class="mt-6 text-[14.5px] leading-relaxed text-gray-800 font-medium max-w-2xl">
                     Platform repository digital untuk menyimpan, mencari,
                     dan mengelola dokumen akademik secara terpusat dengan
                     tampilan yang modern, sederhana, dan mudah digunakan.
@@ -41,10 +49,11 @@
 
                 {{-- Action Buttons --}}
                 <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center gap-4">
+
                     {{-- Primary --}}
                     <a href="{{ route('mahasiswa.katalog.global') }}"
-                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-5 sm:py-3 rounded-lg bg-yellow-500 hover:bg-yellow-600 
-                        text-white text-[13px] font-semibold shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-5 sm:py-3 rounded-lg bg-yellow-600 hover:bg-yellow-700 
+                        text-white text-sm font-medium shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
@@ -53,32 +62,36 @@
 
                     {{-- Secondary --}}
                     <a href="{{ route('mahasiswa.documents.create') }}"
-                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-5 sm:py-3 rounded-lg border border-yellow-400 bg-white/90 hover:bg-amber-50
-                        text-gray-800 text-[13px] font-semibold shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
-                        <span class="material-symbols-outlined !text-[18px] text-yellow-700">
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-5 sm:py-3 rounded-lg border border-amber-400 bg-white/90 hover:bg-amber-50
+                        text-gray-700 text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
+                        <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                             upload_file
                         </span>
                         Unggah Dokumen
                     </a>
+
                 </div>
 
                 {{-- Bottom Info --}}
-                <div class="mt-10 flex flex-wrap items-center gap-6 text-xs text-gray-800 font-medium">
+                <div class="mt-10 flex flex-wrap items-center gap-6 text-xs text-gray-800">
+
                     <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full ring-1 ring-white bg-green-500 shadow-sm"></span>
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
                         Akses Cepat
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full ring-1 ring-white bg-yellow-500 shadow-sm"></span>
+                        <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                         Repository Terpusat
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full ring-1 ring-white bg-blue-500 shadow-sm"></span>
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
                         Tampilan Modern
                     </div>
+
                 </div>
+
             </div>
         </div>
     </section>
