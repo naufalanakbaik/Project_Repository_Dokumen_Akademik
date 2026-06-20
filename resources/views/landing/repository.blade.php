@@ -18,7 +18,7 @@
                 {{-- Badge --}}
                 <div
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm 
-                    text-yellow-700 text-sm font-medium shadow-sm mb-6">
+                    text-yellow-700 text-sm font-semibold shadow-sm mb-6">
                     <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                         auto_stories
                     </span>
@@ -26,15 +26,16 @@
                 </div>
 
                 {{-- Title --}}
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-gray-900">
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight text-gray-950 
+                    drop-shadow-[0_2px_8px_rgba(255,255,255,0.4)]">
                     Jelajahi Dokumen
-                    <span class="text-yellow-600">
+                    <span class="block mt-1 bg-gradient-to-r from-yellow-600 via-amber-500 to-orange-600 bg-clip-text text-transparent">
                         Akademik Publik
                     </span>
                 </h1>
 
                 {{-- Description --}}
-                <p class="mt-5 text-sm leading-relaxed text-gray-600 max-w-2xl">
+                <p class="mt-5 text-sm font-medium leading-relaxed text-gray-600 max-w-2xl">
                     Temukan berbagai dokumen akademik seperti laporan,
                     jurnal mahasiswa, dan dokumen penelitian
                     yang telah dipublikasikan dalam sistem repository.
@@ -87,7 +88,7 @@
             <div class="max-w-2xl">
                 {{-- Badge --}}
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 border border-amber-200
-                    text-amber-700 text-[13px] font-medium shadow-sm mb-3">
+                    text-amber-700 text-[13px] font-semibold shadow-sm mb-3">
                     <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                     Repository Digital
                 </div>
@@ -98,7 +99,7 @@
                 </h2>
 
                 {{-- Description --}}
-                <p class="mt-2 text-[14px] leading-relaxed text-gray-600 max-w-2xl">
+                <p class="mt-2 text-[13px] font-medium leading-relaxed text-gray-600 max-w-2xl">
                     Menampilkan {{ $documents->total() }} dokumen publik
                     yang tersedia di dalam sistem repository digital
                     secara modern, cepat, dan terstruktur.

@@ -60,10 +60,10 @@
                     <span
                         class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl border text-[11px] font-medium
                         {{ $doc->status === 'approved'
-                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                        : ($doc->status === 'pending'
-                            ? 'bg-amber-50 text-amber-600 border-amber-200'
-                            : 'bg-red-50 text-red-700 border-red-200') }}">
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            : ($doc->status === 'pending'
+                                ? 'bg-amber-50 text-amber-600 border-amber-200'
+                                : 'bg-red-50 text-red-700 border-red-200') }}">
 
                         <span class="material-symbols-outlined !text-[12px]">
                             {{ $doc->status === 'approved' ? 'check_circle' : ($doc->status === 'pending' ? 'schedule' : 'cancel') }}
@@ -86,7 +86,7 @@
                         </span>
                     @else
                         <span class="text-gray-500 text-[11px]">
-                            Menunggu
+                            Menunggu..
                         </span>
                     @endif
                 </td>
@@ -241,6 +241,7 @@
         animation: backdropFadeIn 0.15s ease-out;
     }
 </style>
+
 
 {{-- Js modal note rejected --}}
 <script>

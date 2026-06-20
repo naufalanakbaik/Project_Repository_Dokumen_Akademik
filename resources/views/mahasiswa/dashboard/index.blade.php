@@ -96,22 +96,22 @@
 
                 {{-- Right Info Card --}}
                 <div
-                    class="relative w-full lg:max-w-sm bg-white backdrop-blur-sm rounded-xl border border-yellow-300 shadow-md p-6">
+                    class="relative w-full lg:max-w-sm bg-white backdrop-blur-sm rounded-xl border border-yellow-300 shadow-md p-8">
                     <div class="flex items-start gap-4">
                         <div
-                            class="w-12 h-12 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                            class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 border border-amber-200 flex items-center justify-center shrink-0">
                             <span class="material-symbols-outlined !text-[22px]">
                                 timeline
                             </span>
                         </div>
                         <div>
-                            <p class="text-[10px] font-semibold uppercase tracking-wider text-gray-500">
-                                Aktivitas Repository Saya
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-gray-600">
+                                Aktivitas Saya
                             </p>
                             <h3 class="text-xl font-semibold text-gray-800">
                                 Dashboard Mahasiswa
                             </h3>
-                            <p class="text-[12.5px] text-gray-600 leading-relaxed mt-1.5">
+                            <p class="text-[12px] text-gray-600 font-medium leading-relaxed mt-1.5">
                                 Pantau seluruh aktivitas upload dan download dokumen
                                 akademik Anda secara real-time.
                             </p>
@@ -119,29 +119,29 @@
                     </div>
 
                     {{-- Divider --}}
-                    <div class="border-t border-dashed border-gray-200 my-5"></div>
+                    <div class="border-t border-dashed border-gray-400 my-5"></div>
 
                     {{-- Info --}}
-                    <div class="space-y-4">
+                    <div class="space-y-3">
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2 text-[13px] text-gray-600">
-                                <span class="material-symbols-outlined !text-[18px] text-blue-700">
-                                    upload
+                            <div class="flex items-center gap-2 text-[12.5px] font-medium text-gray-700">
+                                <span class="material-symbols-outlined !text-[19px] text-blue-700">
+                                    upload_file
                                 </span>
                                 Upload Dokumen
                             </div>
-                            <span class="text-sm font-semibold text-gray-600">
+                            <span class="text-sm font-semibold text-gray-800">
                                 {{ $stats['my_documents'] ?? 0 }}
                             </span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2 text-[13px] text-gray-600">
-                                <span class="material-symbols-outlined !text-[18px] text-green-700">
+                            <div class="flex items-center gap-2 text-[12.5px] font-medium text-gray-700">
+                                <span class="material-symbols-outlined !text-[19px] text-green-700">
                                     verified
                                 </span>
                                 Dokumen Disetujui
                             </div>
-                            <span class="text-sm font-semibold text-gray-600">
+                            <span class="text-sm font-semibold text-gray-800">
                                 {{ $stats['approved'] ?? 0 }}
                             </span>
                         </div>
@@ -152,88 +152,147 @@
 
             {{-- Quick Actions --}}
             <div class="mt-8 lg:mt-9">
-                <div class="flex items-center gap-2 mb-4">
-                    <span class="material-symbols-outlined text-orange-600">
-                        left_click
+                {{-- Header --}}
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center border border-amber-200">
+                            <span class="material-symbols-outlined text-[20px]">
+                                bolt
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-950 tracking-wide">
+                                Quick Actions
+                            </h3>
+                            <p class="text-xs font-medium text-gray-700">
+                                Akses fitur utama dengan cepat.
+                            </p>
+                        </div>
+                    </div>
+                    <span
+                        class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] font-medium text-gray-700">
+                        4 Actions
                     </span>
-                    <h3 class="text-[13px] font-semibold text-gray-900 uppercase tracking-wide">
-                        Quick Actions
-                    </h3>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-
+                {{-- Main content --}}
+                <div class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
                     {{-- Upload --}}
                     <a href="{{ route('mahasiswa.documents.create') }}"
-                        class="group bg-white border border-gray-200 hover:border-amber-300 rounded-xl p-6 shadow-sm hover:shadow-md transition duration-300">
-                        <div
-                            class="w-12 h-12 rounded-full bg-blue-50 text-blue-700 border border-blue-100 flex items-center justify-center mb-4 
-                            group-hover:scale-105 transition">
-                            <span class="material-symbols-outlined">
-                                upload_file
-                            </span>
+                        class="group relative overflow-hidden rounded-xl border border-blue-300 bg-white p-6 transition-all duration-300 
+                        hover:-translate-y-1 hover:border-gray-300 hover:shadow-[0_12px_40px_rgba(0,0,0,.06)]">
+
+                        <div class="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-blue-300 bg-blue-50 text-blue-600
+                            group-hover:bg-blue-100 group-hover:text-blue-700 transition">
+                            <span class="material-symbols-outlined text-[23px]">upload_file</span>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">
+
+                        <h3 class="text-base font-semibold text-gray-900">
                             Upload Dokumen
-                        </h4>
-                        <p class="text-xs text-gray-500 mt-2">
-                            Tambahkan dokumen akademik baru ke repository.
+                        </h3>
+
+                        <p class="mt-2 text-[13px] leading-1 font-medium text-gray-600">
+                            Tambahkan dokumen baru ke repository akademik.
                         </p>
+
+                        <div class="mt-6 flex items-center justify-between">
+                            <span class="text-xs font-medium text-gray-400">
+                                Create
+                            </span>
+                            <span class="material-symbols-outlined text-gray-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-black">
+                                arrow_forward
+                            </span>
+                        </div>
                     </a>
 
-                    {{-- Cari Repository --}}
+                    {{-- Repository --}}
                     <a href="{{ route('mahasiswa.katalog.global') }}"
-                        class="group bg-white border border-gray-200 hover:border-amber-300 rounded-xl p-6 shadow-sm hover:shadow-md transition duration-300">
-                        <div
-                            class="w-12 h-12 rounded-full bg-purple-50 text-purple-700 border border-purple-100 flex items-center justify-center mb-4 
-                            group-hover:scale-105 transition">
-                            <span class="material-symbols-outlined">
-                                search
-                            </span>
+                        class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 
+                        hover:-translate-y-1 hover:border-gray-300 hover:shadow-[0_12px_40px_rgba(0,0,0,.06)]">
+
+                        <div class="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-gray-300 bg-gray-50 text-gray-600
+                            group-hover:bg-gray-100 group-hover:text-gray-700 transition">
+                            <span class="material-symbols-outlined text-[23px]">search</span>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">
+
+                        <h3 class="text-base font-semibold text-gray-900">
                             Cari Repository
-                        </h4>
-                        <p class="text-xs text-gray-500 mt-2">
-                            Temukan dokumen akademik mahasiswa dan dosen.
-                        </p>
-                    </a>
+                        </h3>
 
-                    {{-- Dokumen Saya --}}
-                    <a href="{{ route('mahasiswa.documents.index') }}"
-                        class="group bg-white border border-gray-200 hover:border-amber-300 rounded-xl p-6 shadow-sm hover:shadow-md transition duration-300">
-                        <div
-                            class="w-12 h-12 rounded-full bg-green-50 text-green-700 border border-green-100 flex items-center justify-center mb-4 
-                            group-hover:scale-105 transition">
-                            <span class="material-symbols-outlined">
-                                folder_managed
+                        <p class="mt-2 text-[13px] leading-1 font-medium text-gray-600">
+                            Temukan dokumen mahasiswa maupun dosen.
+                        </p>
+
+                        <div class="mt-6 flex items-center justify-between">
+                            <span class="text-xs font-medium text-gray-400">
+                                Browse
+                            </span>
+                            <span
+                                class="material-symbols-outlined text-gray-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-black">
+                                arrow_forward
                             </span>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">
+                    </a>
+
+                    {{-- Documents --}}
+                    <a href="{{ route('mahasiswa.documents.index') }}"
+                        class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 
+                        hover:-translate-y-1 hover:border-gray-300 hover:shadow-[0_12px_40px_rgba(0,0,0,.06)]">
+
+                        <div class="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-green-300 bg-green-50 text-green-600
+                            group-hover:bg-green-100 group-hover:text-green-700 transition">
+                            <span class="material-symbols-outlined text-[23px]">folder_managed</span>
+                        </div>
+
+                        <h3 class="text-base font-semibold text-gray-900">
                             Dokumen Saya
-                        </h4>
-                        <p class="text-xs text-gray-500 mt-2">
-                            Kelola seluruh dokumen yang telah Anda upload.
-                        </p>
-                    </a>
+                        </h3>
 
-                    {{-- Status --}}
-                    <a href="{{ route('mahasiswa.documents.index') }}"
-                        class="group bg-white border border-gray-200 hover:border-amber-300 rounded-xl p-6 shadow-sm hover:shadow-md transition duration-300">
-                        <div
-                            class="w-12 h-12 rounded-full bg-yellow-50 text-yellow-700 border border-yellow-100 flex items-center justify-center mb-4 
-                            group-hover:scale-105 transition">
-                            <span class="material-symbols-outlined">
-                                pending_actions
+                        <p class="mt-2 text-[13px] leading-1 font-medium text-gray-600">
+                            Kelola seluruh dokumen yang pernah diunggah.
+                        </p>
+
+                        <div class="mt-6 flex items-center justify-between">
+                            <span class="text-xs font-medium text-gray-400">
+                                Manage
+                            </span>
+                            <span
+                                class="material-symbols-outlined text-gray-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-black">
+                                arrow_forward
                             </span>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">
-                            Status Validasi
-                        </h4>
-                        <p class="text-xs text-gray-500 mt-2">
-                            Pantau proses validasi dokumen oleh admin.
-                        </p>
                     </a>
+
+                    {{-- Validation --}}
+                    <a href="{{ route('mahasiswa.documents.index') }}"
+                        class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 
+                        hover:-translate-y-1 hover:border-gray-300 hover:shadow-[0_12px_40px_rgba(0,0,0,.06)]">
+
+                        <div class="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-amber-300 bg-yellow-50 text-yellow-600
+                            group-hover:bg-yellow-100 group-hover:text-yellow-700 transition">
+                            <span class="material-symbols-outlined text-[23px]">pending_actions</span>
+                        </div>
+
+                        <h3 class="text-base font-semibold text-gray-900">
+                            Status Validasi
+                        </h3>
+
+                        <p class="mt-2 text-[13px] leading-1 font-medium text-gray-600">
+                            Pantau proses persetujuan dokumen Anda.
+                        </p>
+
+                        <div class="mt-6 flex items-center justify-between">
+                            <span class="text-xs font-medium text-gray-400">
+                                Monitor
+                            </span>
+                            <span
+                                class="material-symbols-outlined text-gray-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-black">
+                                arrow_forward
+                            </span>
+                        </div>
+                    </a>
+
                 </div>
             </div>
         </div>
@@ -260,13 +319,13 @@
                             </h2>
                         </div>
                         <div
-                            class="w-12 h-12 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center border border-blue-200">
+                            class="w-12 h-12 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center border border-blue-300">
                             <span class="material-symbols-outlined !text-[24px]">
                                 description
                             </span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <div class="flex items-center gap-2 font-medium text-xs text-gray-500">
                         <span class="w-2 h-2 rounded-full bg-blue-400"></span>
                         Dokumen akademik tersimpan
                     </div>
@@ -289,13 +348,13 @@
                             </h2>
                         </div>
                         <div
-                            class="w-12 h-12 rounded-full bg-green-50 text-green-700 flex items-center justify-center border border-green-200">
+                            class="w-12 h-12 rounded-full bg-green-100 text-green-700 flex items-center justify-center border border-green-300">
                             <span class="material-symbols-outlined !text-[24px]">
                                 verified
                             </span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <div class="flex items-center gap-2 font-medium text-xs text-gray-500">
                         <span class="w-2 h-2 rounded-full bg-green-400"></span>
                         Dokumen berhasil diverifikasi
                     </div>
@@ -319,14 +378,14 @@
                         </div>
 
                         <div
-                            class="w-12 h-12 rounded-full bg-yellow-50 text-yellow-700 flex items-center justify-center border border-yellow-200">
+                            class="w-12 h-12 rounded-full bg-yellow-100 text-yellow-700 flex items-center justify-center border border-yellow-300">
                             <span class="material-symbols-outlined !text-[24px]">
                                 schedule
                             </span>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <div class="flex items-center gap-2 font-medium text-xs text-gray-500">
                         <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
                         Menunggu validasi admin
                     </div>
@@ -336,7 +395,7 @@
             {{-- Rejected --}}
             <div
                 class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition duration-300">
-                <div class="absolute top-0 right-0 w-28 h-28 bg-red-100 rounded-full blur-3xl opacity-60"></div>
+                <div class="absolute top-0 right-0 w-28 h-28 bg-red-200 rounded-full blur-3xl opacity-60"></div>
 
                 <div class="relative">
                     <div class="flex items-start justify-between mb-6">
@@ -349,13 +408,13 @@
                             </h2>
                         </div>
                         <div
-                            class="w-12 h-12 rounded-full bg-red-50 text-red-700 flex items-center justify-center border border-red-200">
+                            class="w-12 h-12 rounded-full bg-red-100 text-red-700 flex items-center justify-center border border-red-300">
                             <span class="material-symbols-outlined !text-[24px]">
                                 cancel
                             </span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <div class="flex items-center gap-2 font-medium text-xs text-gray-500">
                         <span class="w-2 h-2 rounded-full bg-red-400"></span>
                         Dokumen ditolak admin
                     </div>
@@ -379,7 +438,7 @@
                             <h3 class="text-lg font-semibold text-gray-800">
                                 Aktivitas Upload
                             </h3>
-                            <p class="text-[13px] text-gray-500 mt-0.5 leading-relaxed">
+                            <p class="text-[12px] text-gray-500 font-medium leading-relaxed">
                                 Statistik upload dokumen repository tahun {{ now()->year }}
                             </p>
                         </div>
@@ -409,7 +468,7 @@
                             <h3 class="text-lg font-semibold text-gray-800">
                                 Status Dokumen
                             </h3>
-                            <p class="text-[13px] text-gray-500 mt-0.5 leading-relaxed">
+                            <p class="text-[12px] text-gray-500 font-medium leading-relaxed">
                                 Distribusi validasi dokumen repository.
                             </p>
                         </div>
@@ -438,14 +497,14 @@
                 class="px-5 sm:px-6 py-4 sm:py-5 border-b border-gray-100 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <div class="flex items-center gap-1">
-                        <span class="material-symbols-outlined !text-[18px] text-gray-500">
+                        <span class="material-symbols-outlined !text-[22px] text-gray-600">
                             history
                         </span>
-                        <h2 class="text-[15px] font-semibold text-gray-900">
+                        <h2 class="text-lg font-semibold text-gray-800">
                             Aktivitas Terbaru
                         </h2>
                     </div>
-                    <p class="text-[13px] text-blue-500 mt-0.5">
+                    <p class="text-[12px] font-medium leading-relaxed text-blue-500">
                         Riwayat aktivitas upload dan download dokumen repository.
                     </p>
                 </div>
@@ -453,7 +512,7 @@
                 {{-- Action --}}
                 <a href="{{ route('mahasiswa.documents.index') }}"
                     class="inline-flex items-center gap-1 px-4 py-2 rounded-lg border border-gray-200 bg-white
-                    text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+                    text-[13px] font-medium text-gray-700 hover:bg-gray-50 transition">
                     Lihat Semua
                     <span class="material-symbols-outlined !text-[16px]">
                         arrow_right_alt
@@ -578,10 +637,10 @@
 @push('scripts')
     <script>
         /*
-                |--------------------------------------------------------------------------
-                | Upload Chart
-                |--------------------------------------------------------------------------
-                */
+                        |--------------------------------------------------------------------------
+                        | Upload Chart
+                        |--------------------------------------------------------------------------
+                        */
         const uploadCtx = document.getElementById('uploadChart');
 
         new Chart(uploadCtx, {

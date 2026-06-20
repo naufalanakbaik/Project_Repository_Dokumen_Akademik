@@ -8,27 +8,26 @@
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-2">
             <div>
                 <h1 class="text-xl font-semibold text-gray-800 leading-tight">
-                    Perbarui Data Dokumen 
+                    Perbarui Data Dokumen
                 </h1>
                 <p class="text-sm text-gray-500 mt-1">
                     Perbarui informasi dokumen Anda dengan detail yang benar
                 </p>
             </div>
- 
+
             <a href="{{ route('mahasiswa.documents.index') }}"
-                class="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-700 bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition sm:border-none sm:bg-transparent sm:px-0 sm:py-0">
+                class="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-700 transition">
                 <span class="material-symbols-outlined !text-[18px]">low_priority</span>
                 Back
             </a>
         </div>
 
         {{-- Status badge --}}
-        <div
-            class=" border rounded-lg shadow-sm p-4 text-sm
-                {{ $document->status === 'rejected'
-                    ? 'bg-red-50 border-red-200 text-red-600'
-                    : 'bg-yellow-50 border-yellow-200 text-yellow-600' }}">
- 
+        <div class=" border rounded-lg shadow-sm p-4 text-sm
+            {{ $document->status === 'rejected'
+            ? 'bg-red-50 border-red-200 text-red-600'
+            : 'bg-yellow-50 border-yellow-200 text-yellow-600' }}">
+
             <div class="flex items-start gap-3">
                 <span class="material-symbols-outlined !text-[22px] flex-shrink-0">
                     {{ $document->status === 'rejected' ? 'cancel' : 'schedule' }}
@@ -147,22 +146,17 @@
                     @enderror
                 </div>
 
-                {{-- Input file / upload file--}}
+                {{-- Input file / upload file --}}
                 <div class="space-y-1">
                     {{-- Label --}}
                     <label class="text-[13px] font-medium text-gray-600">
                         File Dokumen
                     </label>
 
-                    <x-upload-dropzone 
-                    name="file" 
-                    label="Upload Dokumen Baru" 
-                    hint="Seret file atau klik untuk memilih"
-                    note="*Kosongkan jika tidak ingin mengganti file" 
-                    accept=".pdf,.doc,.docx" 
-                    :currentFile="$document->file" />
+                    <x-upload-dropzone name="file" label="Upload Dokumen Baru" hint="Seret file atau klik untuk memilih"
+                        note="*Kosongkan jika tidak ingin mengganti file" accept=".pdf,.doc,.docx" :currentFile="$document->file" />
                 </div>
-                
+
                 {{-- Checkbox confirm --}}
                 <div class="flex items-start gap-3">
                     <div class="flex items-center h-5">
@@ -176,12 +170,13 @@
                 </div>
 
                 {{-- Action buttons --}}
-                <div class="flex flex-col-reverse sm:flex-row items-center sm:justify-between gap-3 px-2 py-2 pt-5 border-t border-gray-200">
-                    <a href="{{ route('mahasiswa.documents.index') }}" 
+                <div
+                    class="flex flex-col-reverse sm:flex-row items-center sm:justify-between gap-3 px-2 py-2 pt-5 border-t border-gray-200">
+                    <a href="{{ route('mahasiswa.documents.index') }}"
                         class="h-10 flex items-center justify-center w-full sm:w-auto text-sm text-gray-500 hover:text-gray-700 border border-gray-200 sm:border-none rounded-lg sm:rounded-none transition">
                         Batal
                     </a>
- 
+
                     <button type="submit"
                         class="h-10 inline-flex items-center justify-center gap-1 px-5 py-2 text-[13px] text-blue-700 font-medium bg-blue-100 border 
                         border-blue-400 rounded-lg hover:bg-blue-200 transition w-full sm:w-auto shadow-sm">

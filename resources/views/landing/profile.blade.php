@@ -4,8 +4,7 @@
 @section('content')
 
     {{-- Hero Section --}}
-    <section
-        class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100">
+    <section class="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-white border-b border-yellow-100">
 
         {{-- Soft Decoration --}}
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
@@ -16,9 +15,8 @@
             <div class="max-w-3xl">
 
                 {{-- Badge --}}
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm 
-                    text-yellow-700 text-sm font-medium shadow-sm mb-6">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm 
+                    text-yellow-700 text-sm font-semibold shadow-sm mb-6">
                     <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                         help
                     </span>
@@ -28,13 +26,13 @@
                 {{-- Heading --}}
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-gray-900">
                     Repository Dokumen Akademik
-                    <span class="text-yellow-600">
+                    <span class="block mt-1 bg-gradient-to-r from-yellow-600 via-amber-500 to-orange-600 bg-clip-text text-transparent">
                         Prodi Manajemen Informatika
                     </span>
                 </h1>
 
                 {{-- Description --}}
-                <p class="mt-6 text-sm leading-relaxed text-gray-600 max-w-2xl">
+                <p class="mt-6 text-[15px] leading-relaxed text-gray-800 font-medium max-w-2xl">
                     Sistem repository digital Program Studi Manajemen Informatika
                     Fakultas Ilmu Komputer Universitas Sriwijaya yang digunakan
                     untuk menyimpan, mengelola, dan mendistribusikan dokumen
@@ -94,7 +92,7 @@
                 <div class="space-y-6">
                     <div
                         class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-200
-                        bg-amber-50 text-amber-700 text-[13px] font-medium mb-2">
+                        bg-amber-50 text-amber-700 text-[13px] font-semibold mb-2">
                         <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                         Profil Sistem
                     </div>
@@ -130,8 +128,7 @@
                     <div class="relative space-y-5">
                         {{-- Item --}}
                         <div class="flex gap-4 p-5 rounded-2xl border border-gray-200 bg-white shadow-sm">
-                            <div
-                                class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center
+                            <div class="w-14 h-14 rounded-xl bg-yellow-100 border border-yellow-200 flex items-center justify-center
                                 text-yellow-700 shrink-0">
                                 <span class="material-symbols-outlined !text-[28px]">
                                     security
@@ -141,7 +138,7 @@
                                 <h3 class="font-semibold text-gray-900">
                                     Keamanan Data
                                 </h3>
-                                <p class="mt-1 text-sm text-gray-600 leading-relaxed">
+                                <p class="mt-1 text-[13px] font-medium text-gray-600 leading-relaxed">
                                     Dokumen tersimpan secara aman dengan sistem
                                     validasi dan pengelolaan akses pengguna.
                                 </p>
@@ -161,7 +158,7 @@
                                 <h3 class="font-semibold text-gray-900">
                                     Pencarian Cepat
                                 </h3>
-                                <p class="mt-1 text-sm text-gray-600 leading-relaxed">
+                                <p class="mt-1 text-[13px] font-medium text-gray-600 leading-relaxed">
                                     Mempermudah pengguna menemukan dokumen
                                     akademik secara lebih efisien.
                                 </p>
@@ -184,7 +181,7 @@
                                 <h3 class="font-semibold text-gray-900">
                                     Akses Terpusat
                                 </h3>
-                                <p class="mt-1 text-sm text-gray-600 leading-relaxed">
+                                <p class="mt-1 text-[13px] font-medium text-gray-600 leading-relaxed">
                                     Semua dokumen akademik berada dalam satu
                                     platform digital modern.
                                 </p>
@@ -203,7 +200,7 @@
 
     {{-- Vision Mission --}}
     <section
-        class="relative overflow-hidden border-y border-yellow-10 bg-gradient-to-br from-yellow-50 via-amber-50 to-white">
+        class="relative overflow-hidden border-y border-yellow-200 bg-gradient-to-br from-yellow-50 via-amber-50 to-white">
 
         {{-- Soft Decoration --}}
         <div class="absolute left-0 top-0 w-80 h-80 bg-yellow-200/30 rounded-full blur-3xl"></div>
@@ -211,7 +208,7 @@
         <div class="max-w-[78rem] mx-auto px-6 py-20">
             <div class="text-center max-w-3xl mx-auto">
                 <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-200 bg-white/80 shadow-sm text-sm font-medium
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-200 bg-white/80 shadow-sm text-sm font-semibold
                     text-yellow-700 mb-5">
                     <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                     Visi & Misi
@@ -237,7 +234,7 @@
                         Visi
                     </h3>
 
-                    <p class="mt-4 text-[15px] leading-relaxed text-gray-600">
+                    <p class="mt-4 text-[14px] font-medium leading-relaxed text-gray-600">
                         Menjadi sistem repository akademik modern yang mampu
                         mendukung pengelolaan dan distribusi dokumen secara
                         efektif, aman, dan terintegrasi.
@@ -258,17 +255,17 @@
                         Misi
                     </h3>
 
-                    <ul class="mt-4 space-y-4 text-[15px] leading-relaxed text-gray-600">
+                    <ul class="mt-4 space-y-2 text-[14px] font-medium leading-relaxed text-gray-600">
                         <li class="flex gap-3">
-                            <span class="text-yellow-600 mt-1">•</span>
+                            <span class="text-yellow-600">•</span>
                             Meningkatkan efisiensi pengelolaan dokumen akademik.
                         </li>
                         <li class="flex gap-3">
-                            <span class="text-yellow-600 mt-1">•</span>
+                            <span class="text-yellow-600">•</span>
                             Menyediakan akses informasi akademik yang cepat.
                         </li>
                         <li class="flex gap-3">
-                            <span class="text-yellow-600 mt-1">•</span>
+                            <span class="text-yellow-600">•</span>
                             Mendukung digitalisasi administrasi akademik modern.
                         </li>
                     </ul>

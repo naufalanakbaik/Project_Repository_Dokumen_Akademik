@@ -157,13 +157,13 @@
                     {{-- Desktop Auth Buttons --}}
                     <div class="hidden md:flex items-center gap-0.5">
                         <a href="{{ route('register') }}"
-                            class="px-4 py-2 text-[13px] font-medium text-gray-500 hover:text-gray-600 transition">
+                            class="px-4 py-2 text-[13px] font-medium text-gray-600 hover:text-gray-600 transition">
                         Register
                         </a>
                         <a href="{{ route('login') }}"
-                            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white text-gray-500 border border-amber-300 text-[12px] 
+                            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white text-gray-600 ring-1 ring-amber-300 text-[12px] 
                             font-medium shadow-sm transition hover:bg-amber-50 hover:shadow-md">
-                            <span class="material-symbols-outlined text-amber-400 !text-[16px]">
+                            <span class="material-symbols-outlined text-yellow-500 !text-[16px]">
                                 login
                             </span>
                             Login Sistem

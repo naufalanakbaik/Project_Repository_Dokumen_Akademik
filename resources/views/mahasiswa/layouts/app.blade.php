@@ -321,8 +321,7 @@
         {{-- Message succes --}}
         @if (session('success'))
             <div class="max-w-[77rem] mx-auto mt-2.5 mb-1">
-                <div
-                    class="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50/80 px-4 py-3 text-emerald-700 shadow-sm">
+                <div class="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50/80 px-4 py-3 text-emerald-700 shadow-sm">
                     {{-- Icon --}}
                     <span class="material-symbols-outlined !text-[19px] text-emerald-600 shrink-0">
                         check_circle
