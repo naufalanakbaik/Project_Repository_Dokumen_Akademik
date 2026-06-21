@@ -8,8 +8,8 @@
         style="background-image: url('{{ asset('img/fiks.webp') }}');">
 
         {{-- Soft Decoration --}}
-        <div class="absolute inset-0 bg-gradient-to-r from-white/50 via-white/30 to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-br from-yellow-200 via-amber-50/20 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-yellow-100/70 via-white/50 to-white/10"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-yellow-300/70 via-transparent to-transparent"></div>
 
         {{-- Content --}}
         <div class="relative w-full max-w-[77rem] mx-auto px-4 sm:px-6 py-10 lg:py-16">
@@ -19,11 +19,9 @@
                 <div class="w-full max-w-3xl pt-2">
                     {{-- Badge --}}
                     <div
-                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-300 bg-white/80 backdrop-blur-sm 
-                        text-yellow-700 text-sm font-medium shadow-sm mb-6">
-                        <span class="material-symbols-outlined !text-[18px] text-yellow-600">
-                            auto_stories
-                        </span>
+                        class="inline-flex items-center gap-2 rounded-full border border-yellow-300 bg-white/90 backdrop-blur-md px-5 py-2 
+                        text-sm font-semibold text-yellow-700 shadow-[0_8px_30px_rgba(0,0,0,0.08)] mb-7">
+                        <span class="material-symbols-outlined text-yellow-600 !text-[18px]">auto_stories</span>
                         Repository Akademik Digital
                     </div>
 
@@ -44,13 +42,13 @@
                         @endphp
 
                         {{ $greeting }}
-                        <span class="text-amber-700">
+                        <span class="text-amber-600">
                             {{ auth()->user()->name }}
                         </span>
                     </h1>
 
                     {{-- Description --}}
-                    <p class="mt-4 text-xs lg:text-sm leading-relaxed text-gray-900 max-w-2xl">
+                    <p class="mt-4 text-sm lg:text-sm leading-relaxed text-gray-900 font-medium max-w-2xl">
                         Kelola, upload, dan pantau aktivitas dokumen akademik Anda
                         melalui dashboard repository Program Studi Manajemen Informatika
                         Fakultas Ilmu Komputer Universitas Sriwijaya.
@@ -61,18 +59,19 @@
                         <a href="{{ route('dosen.documents.create') }}"
                             class="flex items-center gap-1.5 hover:translate-x-2 transition-all duration-300">
                             <div
-                                class="w-11 h-11 rounded-full bg-white border border-blue-100 shadow-sm flex items-center justify-center text-blue-700">
+                                class="w-11 h-11 rounded-full bg-white border border-blue-200 shadow-sm flex items-center justify-center text-blue-700">
                                 <span class="material-symbols-outlined !text-[20px]">
                                     upload_file
                                 </span>
                             </div>
 
                             <div>
-                                <p class="text-[11px] text-gray-800">
+                                <p class="text-[11px] font-medium text-gray-800">
                                     ->
                                 </p>
-                                <p class="text-xs text-gray-800">
+                                <p class="text-xs font-medium text-gray-800">
                                     Unggah
+                                </p>
                             </div>
                         </a>
 
@@ -86,11 +85,12 @@
                             </div>
 
                             <div>
-                                <p class="text-[11px] text-gray-800">
+                                <p class="text-[11px] font-medium text-gray-800">
                                     ->
                                 </p>
-                                <p class="text-xs text-gray-800">
+                                <p class="text-xs font-medium text-gray-800">
                                     Search
+                                </p>
                             </div>
                         </a>
 
@@ -104,11 +104,12 @@
                             </div>
 
                             <div>
-                                <p class="text-[11px] text-gray-800 ">
+                                <p class="text-[11px] font-medium text-gray-800">
                                     ->
                                 </p>
-                                <p class="text-xs text-gray-800">
+                                <p class="text-xs font-medium text-gray-800">
                                     Dokumen
+                                </p>
                             </div>
                         </a>
 
@@ -117,22 +118,22 @@
 
                 {{-- Right Info Card --}}
                 <div
-                    class="relative w-full lg:max-w-sm bg-white/90 backdrop-blur-sm rounded-xl border border-amber-200 shadow-md p-6">
+                    class="relative w-full lg:max-w-sm bg-white backdrop-blur-sm rounded-xl border border-yellow-300 shadow-md p-8">
                     <div class="flex items-start gap-4">
                         <div
-                            class="w-12 h-12 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                            class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 border border-amber-200 flex items-center justify-center shrink-0">
                             <span class="material-symbols-outlined !text-[22px]">
                                 timeline
                             </span>
                         </div>
                         <div>
-                            <p class="text-[10px] font-semibold uppercase tracking-wider text-gray-500">
-                                Aktivitas Repository Saya
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-gray-600">
+                                Aktivitas Saya
                             </p>
                             <h3 class="text-xl font-semibold text-gray-800">
-                                Dashboard Dosen
+                                Dashboard Mahasiswa
                             </h3>
-                            <p class="text-[12.5px] text-gray-600 leading-relaxed mt-1.5">
+                            <p class="text-[12px] text-gray-600 font-medium leading-relaxed mt-1.5">
                                 Pantau seluruh aktivitas upload dan download dokumen
                                 akademik Anda secara real-time.
                             </p>
@@ -140,29 +141,29 @@
                     </div>
 
                     {{-- Divider --}}
-                    <div class="border-t border-dashed border-gray-200 my-5"></div>
+                    <div class="border-t border-dashed border-gray-400 my-5"></div>
 
                     {{-- Info --}}
-                    <div class="space-y-4">
+                    <div class="space-y-3">
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2 text-[13px] text-gray-600">
-                                <span class="material-symbols-outlined !text-[18px] text-blue-700">
-                                    upload
+                            <div class="flex items-center gap-2 text-[12.5px] font-medium text-gray-700">
+                                <span class="material-symbols-outlined !text-[19px] text-blue-700">
+                                    upload_file
                                 </span>
                                 Upload Dokumen
                             </div>
-                            <span class="text-sm font-semibold text-gray-600">
+                            <span class="text-sm font-semibold text-gray-800">
                                 {{ $stats['my_documents'] ?? 0 }}
                             </span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2 text-[13px] text-gray-600">
-                                <span class="material-symbols-outlined !text-[18px] text-green-700">
+                            <div class="flex items-center gap-2 text-[12.5px] font-medium text-gray-700">
+                                <span class="material-symbols-outlined !text-[19px] text-green-700">
                                     verified
                                 </span>
                                 Dokumen Disetujui
                             </div>
-                            <span class="text-sm font-semibold text-gray-600">
+                            <span class="text-sm font-semibold text-gray-800">
                                 {{ $stats['approved'] ?? 0 }}
                             </span>
                         </div>
@@ -195,13 +196,13 @@
                             </h2>
                         </div>
                         <div
-                            class="w-12 h-12 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center border border-blue-200">
+                            class="w-12 h-12 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center border border-blue-300">
                             <span class="material-symbols-outlined !text-[24px]">
                                 description
                             </span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <div class="flex items-center gap-2 font-medium text-xs text-gray-500">
                         <span class="w-2 h-2 rounded-full bg-blue-400"></span>
                         Dokumen akademik tersimpan
                     </div>
@@ -224,13 +225,13 @@
                             </h2>
                         </div>
                         <div
-                            class="w-12 h-12 rounded-full bg-green-50 text-green-700 flex items-center justify-center border border-green-200">
+                            class="w-12 h-12 rounded-full bg-green-100 text-green-700 flex items-center justify-center border border-green-300">
                             <span class="material-symbols-outlined !text-[24px]">
                                 verified
                             </span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <div class="flex items-center gap-2 font-medium text-xs text-gray-500">
                         <span class="w-2 h-2 rounded-full bg-green-400"></span>
                         Dokumen berhasil diverifikasi
                     </div>
@@ -254,14 +255,14 @@
                         </div>
 
                         <div
-                            class="w-12 h-12 rounded-full bg-yellow-50 text-yellow-700 flex items-center justify-center border border-yellow-200">
+                            class="w-12 h-12 rounded-full bg-yellow-100 text-yellow-700 flex items-center justify-center border border-yellow-300">
                             <span class="material-symbols-outlined !text-[24px]">
                                 schedule
                             </span>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <div class="flex items-center gap-2 font-medium text-xs text-gray-500">
                         <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
                         Menunggu validasi admin
                     </div>
@@ -269,9 +270,8 @@
             </div>
 
             {{-- Rejected --}}
-            <div
-                class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition duration-300">
-                <div class="absolute top-0 right-0 w-28 h-28 bg-red-100 rounded-full blur-3xl opacity-60"></div>
+            <div class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition duration-300">
+                <div class="absolute top-0 right-0 w-28 h-28 bg-red-200 rounded-full blur-3xl opacity-60"></div>
 
                 <div class="relative">
                     <div class="flex items-start justify-between mb-6">
@@ -284,13 +284,13 @@
                             </h2>
                         </div>
                         <div
-                            class="w-12 h-12 rounded-full bg-red-50 text-red-700 flex items-center justify-center border border-red-200">
+                            class="w-12 h-12 rounded-full bg-red-100 text-red-700 flex items-center justify-center border border-red-300">
                             <span class="material-symbols-outlined !text-[24px]">
                                 cancel
                             </span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <div class="flex items-center gap-2 font-medium text-xs text-gray-500">
                         <span class="w-2 h-2 rounded-full bg-red-400"></span>
                         Dokumen ditolak admin
                     </div>

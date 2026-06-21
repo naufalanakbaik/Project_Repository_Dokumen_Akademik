@@ -8,8 +8,7 @@
 
         {{-- Soft Decoration --}}
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none">
-        </div>
+        <div class="absolute bottom-0 right-0 w-[350px] h-[350px] bg-amber-200/50 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative w-full max-w-[77rem] mx-auto px-6 py-16 lg:py-16">
             <div class="max-w-3xl">
@@ -102,7 +101,7 @@
                         Dokumen Akademik Modern
                     </h2>
 
-                    <p class="mt-5 text-[15px] leading-relaxed text-gray-600">
+                    <p class="mt-5 text-[14px] font-medium leading-relaxed text-gray-500">
                         Repository ini dirancang untuk membantu mahasiswa,
                         dosen, dan program studi dalam mengelola dokumen
                         akademik secara lebih efektif dan efisien.
@@ -110,7 +109,7 @@
                         yang dapat diakses dengan cepat, aman, dan terstruktur.
                     </p>
 
-                    <p class="mt-4 text-[15px] leading-relaxed text-gray-600">
+                    <p class="mt-4 text-[14px] font-medium leading-relaxed text-gray-500">
                         Sistem mendukung pengelolaan laporan tugas akhir,
                         laporan kerja praktik, jurnal mahasiswa,
                         modul praktikum, serta berbagai dokumen akademik lainnya.
@@ -119,8 +118,8 @@
                 </div>
 
                 {{-- Right --}}
-                <div
-                    class="relative overflow-hidden rounded-3xl border border-yellow-100 bg-gradient-to-br from-yellow-50 via-white to-amber-50 p-8 shadow-sm">
+                <div class="relative overflow-hidden rounded-2xl border border-yellow-200 bg-gradient-to-br from-yellow-50 via-white to-amber-50 
+                    p-8 shadow-sm">
 
                     {{-- Glow --}}
                     <div class="absolute top-0 right-0 w-52 h-52 bg-yellow-300/30 rounded-full blur-3xl"> </div>

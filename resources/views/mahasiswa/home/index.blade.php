@@ -33,7 +33,7 @@
                 </h1>
 
                 {{-- Description --}}
-                <p class="mt-6 text-[15px] leading-relaxed text-gray-800 font-medium max-w-2xl">
+                <p class="mt-6 text-[15px] leading-relaxed text-gray-900 font-medium max-w-2xl">
                     Platform repository digital untuk menyimpan, mencari,
                     dan mengelola dokumen akademik secara terpusat dengan
                     tampilan yang modern, sederhana, dan mudah digunakan.
@@ -43,8 +43,8 @@
                 <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center gap-4">
                     {{-- Primary --}}
                     <a href="{{ route('mahasiswa.katalog.global') }}"
-                        class="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-6 sm:py-3 rounded-lg bg-black hover:bg-gray-900 
-                        text-white text-[14px] font-semibold shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
+                        class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-gray-950 hover:bg-gray-900 text-white 
+                        text-[13px] font-medium shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
@@ -53,8 +53,8 @@
 
                     {{-- Secondary --}}
                     <a href="{{ route('mahasiswa.documents.create') }}"
-                        class="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-5 sm:py-3 rounded-lg ring-1 ring-yellow-400 bg-white/90 hover:bg-amber-50
-                        text-gray-800 text-[14px] font-semibold shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
+                        class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg ring-1 ring-yellow-400 bg-white/90 hover:bg-amber-50
+                        text-gray-800 text-[13px] font-semibold shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px] text-yellow-600">
                             upload_file
                         </span>
@@ -87,9 +87,8 @@
     <section class="w-full max-w-[78rem] mx-auto px-6 -mt-10 relative z-10">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-7">
             {{-- Card total dokumen --}}
-            <div
-                class="group h-full min-h-[210px] bg-white backdrop-blur-sm border border-red-200 rounded-xl p-8 flex flex-col 
-                justify-between transition-all duration-300 hover:border-red-300 hover:shadow-red-300">
+            <div class="group h-full min-h-[210px] bg-white backdrop-blur-sm border border-red-200 rounded-xl p-8 flex flex-col justify-between
+                transition-all duration-300 hover:border-red-300 hover:shadow-red-300">
 
                 {{-- Top --}}
                 <div class="flex items-center justify-between">
@@ -177,10 +176,8 @@
 
     {{-- Documents Section --}}
     <section class="w-full max-w-[77rem] mx-auto px-6 py-20">
-
         {{-- Header --}}
         <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 sm:gap-8 mb-8 sm:mb-6">
-
             {{-- Left --}}
             <div class="max-w-2xl">
                 {{-- Badge --}}
@@ -207,7 +204,7 @@
             {{-- Right --}}
             <div class="flex items-center sm:items-end">
                 <a href="{{ route('mahasiswa.katalog.global') }}"
-                    class="group inline-flex items-center gap-1.5 text-[12px] font-medium text-gray-600 transition-all duration-300">
+                    class="group inline-flex items-center gap-1.5 text-[12.5px] font-medium text-gray-600 transition-all duration-300">
                     <span>
                         Lihat Semua
                     </span>
@@ -217,7 +214,6 @@
                     </span>
                 </a>
             </div>
-
         </div>
 
         {{-- Cards --}}
@@ -486,8 +482,7 @@
             {{-- Content --}}
             <div class="relative max-w-3xl">
                 {{-- Badge --}}
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full  bg-white/80 backdrop-blur-sm border border-yellow-200
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-yellow-200
                     text-yellow-700 text-sm font-semibold shadow-sm mb-5">
                     <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
                     Unggah Repository Akademik

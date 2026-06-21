@@ -48,7 +48,7 @@
                     </h1>
 
                     {{-- Description --}}
-                    <p class="mt-4 text-sm lg:text-sm leading-relaxed text-gray-800 font-medium max-w-2xl">
+                    <p class="mt-4 text-sm lg:text-sm leading-relaxed text-gray-900 font-medium max-w-2xl">
                         Kelola, upload, dan pantau aktivitas dokumen akademik Anda
                         melalui dashboard repository Program Studi Manajemen Informatika
                         Fakultas Ilmu Komputer Universitas Sriwijaya.

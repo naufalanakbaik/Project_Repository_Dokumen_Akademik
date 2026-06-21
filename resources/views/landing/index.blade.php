@@ -49,8 +49,8 @@
                 <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center gap-4">
                     {{-- Primary --}}
                     <a href="{{ route('repository') }}"
-                        class="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-6 sm:py-3 rounded-lg bg-black hover:bg-gray-900 
-                        text-white text-[14px] font-semibold shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
+                        class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-gray-950 hover:bg-gray-900 text-white 
+                        text-[13px] font-medium shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
                         <span class="material-symbols-outlined !text-[18px]">
                             folder_open
                         </span>
@@ -59,9 +59,9 @@
 
                     {{-- Secondary --}}
                     <a href="{{ route('login') }}"
-                        class="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-5 sm:py-3 rounded-lg ring-1 ring-yellow-400 bg-white/90 hover:bg-amber-50
-                        text-gray-800 hover:text-gray-900 text-[14px] font-semibold shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
-                        <span class="material-symbols-outlined !text-[18px] text-yellow-600">
+                        class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg ring-1 ring-yellow-400 bg-white/90 hover:bg-amber-50
+                        text-gray-800 text-[13px] font-semibold shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
+                        <span class="material-symbols-outlined !text-[18px] text-yellow-600">                             
                             login
                         </span>
                         Login ke Sistem
